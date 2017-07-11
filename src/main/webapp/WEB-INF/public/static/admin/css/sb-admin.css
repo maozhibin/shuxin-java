@@ -1,0 +1,330 @@
+/*!
+ * Start Bootstrap - SB Admin Bootstrap Admin Template (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+/* Global Styles */
+body {
+    margin-top: 100px;
+    background-color: #EFEFEF;
+    font-family: "微软雅黑";
+}
+@media (min-width: 768px) {
+    body {
+        margin-top: 90px;
+    }
+}
+
+#wrapper {
+    padding-left: 0;
+}
+
+#page-wrapper {
+    width: 100%;
+    padding: 0;
+    background-color: #EFEFEF;
+}
+
+.huge {
+    font-size: 50px;
+    line-height: normal;
+}
+
+@media (min-width: 768px) {
+    #wrapper {
+        padding-left: 236px;
+    }
+
+    #page-wrapper {
+        padding: 10px;
+    }
+}
+
+/*更改bootstrap 20170703*/
+.panel-default{
+    width:335px;
+    height: 280px;
+    margin:0 auto;
+}
+.form-group{
+    margin-top: 25px;
+}
+@media (min-width: 768px) {
+    .modal-dialog {
+        width: 400px;
+        height: 300px;
+        border-radius: 8px;
+    }
+}
+.modal-header,.modal-footer{
+    border:none;
+}
+.modal-body,.modal-footer{
+    text-align: center;
+}
+.modal-body{
+    height: 130px;
+    line-height: 130px;
+    font-weight: bold;
+    color:#1a97f4;
+}
+.modal-footer .btn{
+    background: #fff;
+    border: 1px solid #1a97f4;
+    color: #1a97f4;
+}
+.navbar-inverse .navbar-collapse{
+    background:#ffffff;
+    box-shadow:0 1px 0 0 #d8d8d8;
+    width:1920px;
+    height:90px!important;
+}
+.navbar-header{
+    line-height: 90px;
+    padding-left: 25px;
+}
+.navbar-inverse .navbar-nav>li>a{
+    color: #fff;
+}
+.navbar-nav>li>a {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    line-height: 20px;
+    font-size: 16px;
+}
+@media (min-width: 768px){
+    .navbar-nav>li>a {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+}
+.nav>li {
+    border-top: 1px solid #42444C;
+}
+.navbar{
+    margin-bottom: 0;
+    background: #fff;
+    border: none;
+}
+.collapse.in a{
+    /*color: ;*/
+}
+.container-fluid{
+    /*margin:30px;*/
+    background: #fff;
+    border:1px solid #ccc;
+    padding:15px;
+}
+.btn{
+    padding:8px 18px;
+    background: #1a97f4;
+    border: 1px solid #1a97f4;
+    color: #fff;
+}
+thead{
+    background: #DFF0D8;
+}
+td a{
+    color: #999;
+}
+.pages{
+    text-align: right;
+}
+.form-inline .form-control{
+    background:#ffffff;
+    border:1px solid #999999;
+    border-radius:3px;
+    width:198px;
+    height:34px;
+}
+/* Top Navigation */
+.cnt-header{
+    height: 60px;
+    line-height: 60px;
+    font-size: 16px;
+    font-weight: bold;
+    padding-left: 30px;
+}
+.top-nav {
+    padding: 0 15px;
+    font-size:20px;
+}
+
+.top-nav > li {
+    display: inline-block;
+    float: left;
+}
+
+.top-nav > li > a {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    line-height: 50px;
+    color: #999;
+}
+
+.top-nav > li > a:hover,
+.top-nav > li > a:focus,
+.top-nav > .open > a,
+.top-nav > .open > a:hover,
+.top-nav > .open > a:focus {
+    color: #fff;
+    background-color: #000;
+}
+
+.top-nav > .open > .dropdown-menu {
+    float: left;
+    position: absolute;
+    margin-top: 0;
+    border: 1px solid rgba(0, 0, 0, .15);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    background-color: #fff;
+    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+}
+
+.top-nav > .open > .dropdown-menu > li > a {
+    white-space: normal;
+}
+
+ul.message-dropdown {
+    padding: 0;
+    max-height: 250px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+li.message-preview {
+    width: 275px;
+    border-bottom: 1px solid rgba(0, 0, 0, .15);
+}
+
+li.message-preview > a {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+li.message-footer {
+    margin: 5px 0;
+}
+
+ul.alert-dropdown {
+    width: 200px;
+}
+
+/* Side Navigation */
+
+@media (min-width: 768px) {
+    .side-nav {
+        position: fixed;
+        top: 91px;
+        left: 236px;
+        width: 236px;
+        margin-left: -236px;
+        border: none;
+        border-radius: 0;
+        overflow-y: auto;
+        background-color: #222;
+        bottom: 0;
+        overflow-x: hidden;
+        padding-bottom: 40px;
+    }
+
+    .side-nav > li > a {
+        width: 236px;
+    }
+
+    .side-nav li a:hover,
+    .side-nav li a:focus {
+        outline: none;
+        background-color: #000 !important;
+    }
+}
+
+.side-nav > li > ul {
+    padding: 0;
+}
+
+.side-nav > li > ul > li > a {
+    display: block;
+    padding: 10px 15px 10px 38px;
+    text-decoration: none;
+    color: #fff;
+}
+
+.side-nav > li > ul > li > a:hover {
+    color: #fff;
+}
+
+/* Flot Chart Containers */
+
+.flot-chart {
+    display: block;
+    height: 400px;
+}
+
+.flot-chart-content {
+    width: 100%;
+    height: 100%;
+}
+
+/* Custom Colored Panels */
+
+.huge {
+    font-size: 40px;
+}
+
+.panel-green {
+    border-color: #5cb85c;
+}
+
+.panel-green > .panel-heading {
+    border-color: #5cb85c;
+    color: #fff;
+    background-color: #5cb85c;
+}
+
+.panel-green > a {
+    color: #5cb85c;
+}
+
+.panel-green > a:hover {
+    color: #3d8b3d;
+}
+
+.panel-red {
+    border-color: #d9534f;
+}
+
+.panel-red > .panel-heading {
+    border-color: #d9534f;
+    color: #fff;
+    background-color: #d9534f;
+}
+
+.panel-red > a {
+    color: #d9534f;
+}
+
+.panel-red > a:hover {
+    color: #b52b27;
+}
+
+.panel-yellow {
+    border-color: #f0ad4e;
+}
+
+.panel-yellow > .panel-heading {
+    border-color: #f0ad4e;
+    color: #fff;
+    background-color: #f0ad4e;
+}
+
+.panel-yellow > a {
+    color: #f0ad4e;
+}
+
+.panel-yellow > a:hover {
+    color: #df8a13;
+}
