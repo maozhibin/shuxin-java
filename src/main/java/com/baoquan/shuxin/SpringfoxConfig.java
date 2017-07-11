@@ -1,4 +1,4 @@
-package com.baoquan.shuxin.util;
+package com.baoquan.shuxin;
 
 /*
  * Copyright (c) 2015. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
