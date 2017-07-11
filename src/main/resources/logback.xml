@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds">
+    <!-- 设置日志输出根目录 -->
+    <property name="log.dir" value="${catalina.base}/logs"/>
+    <property name="encoding" value="UTF-8"/>
+    <property name="normal-pattern" value="%d{yyyy-MM-dd.HH:mm:ss} %-5level [%thread] %logger.%M:%L  %msg%n"/>
+    <property name="plain-pattern" value="%d{yyyy-MM-dd.HH:mm:ss} %msg%n"/>
+    <property name="common-pattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %p [%c{50}#%M:%L] [%X{traceId}] %m%n"/>
+
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder charset="UTF-8">
+            <pattern>${common-pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <!--
+        <appender name="mainlog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+                <level>DEBUG</level>
+            </filter>
+            <file>${log.dir}/main.log</file>
+            <prudent>false</prudent>
+            <encoder charset="UTF-8">
+                <pattern>${common-pattern}</pattern>
+            </encoder>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <fileNamePattern>${log.dir}/main.%d{yyyy-MM-dd-HH}.log.gz
+                </fileNamePattern>
+            </rollingPolicy>
+        </appender>
+
+        <appender name="errorlog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+                <level>ERROR</level>
+            </filter>
+            <file>${log.dir}/errors.log</file>
+            <prudent>false</prudent>
+            <encoder charset="UTF-8">
+                <pattern>${common-pattern}</pattern>
+            </encoder>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <fileNamePattern>${log.dir}/error.%d{yyyy-MM-dd-HH}.log.gz
+                </fileNamePattern>
+            </rollingPolicy>
+        </appender>
+
+        &lt;!&ndash; 为了清除过多的debug日志 &ndash;&gt;
+        <logger name="org.apache.http.wire" level="info" additivity="false">
+            &lt;!&ndash;<appender-ref ref="http_wire_appender"/>&ndash;&gt;
+        </logger>
+    -->
+
+    <!--<root level="${pom.log.level}">-->
+    <root level="INFO">
+        <!--<appender-ref ref="mainlog"/>-->
+        <!--<appender-ref ref="errorlog"/>-->
+        <appender-ref ref="stdout"/>
+    </root>
+</configuration>

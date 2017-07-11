@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+    <identity_hit_dishonest description="身份证号命中法院失信名单">
+        <innerIfType must="true" ignore="true" value="T10101">接口类型</innerIfType>
+        <cid must="false">手机号码</cid>
+        <idNumber must="true">身份证号</idNumber>
+        <realName must="true">姓名</realName>
+    </identity_hit_dishonest>
+
+    <identity_hit_execution description="身份证号命中法院执行名单">
+        <innerIfType must="true" ignore="true" value="T10102">接口类型</innerIfType>
+        <cid must="false">手机号码</cid>
+        <idNumber must="true">身份证号</idNumber>
+        <realName must="true">姓名</realName>
+    </identity_hit_execution>
+
+    <identity_hit_after_loan_management description="身份证号命中委托贷后管理名单">
+        <innerIfType must="true" ignore="true" value="T10103">接口类型</innerIfType>
+        <cid must="false">手机号码</cid>
+        <idNumber must="true">身份证号</idNumber>
+        <realName must="true">姓名</realName>
+    </identity_hit_after_loan_management>
+
+    <identity_hit_blacklist description="身份证号命中互联网灰名单">
+        <innerIfType must="true" ignore="true" value="T10104">接口类型</innerIfType>
+        <cid must="false">手机号码</cid>
+        <idNumber must="true">身份证号</idNumber>
+        <realName must="true">姓名</realName>
+    </identity_hit_blacklist>
+
+    <identity_hit_drag_or_fugitive description="身份证号命中吸毒/在逃关注名单">
+        <innerIfType must="true" ignore="true" value="T10105">接口类型</innerIfType>
+        <cid must="false">手机号码</cid>
+        <idNumber must="true">身份证号</idNumber>
+        <realName must="true">姓名</realName>
+    </identity_hit_drag_or_fugitive>
+
+    <identity_hit_fraud description="身份证号命中恶意欺诈关注名单">
+        <innerIfType must="true" ignore="true" value="T10106">接口类型</innerIfType>
+        <cid must="false">手机号码</cid>
+        <idNumber must="true">身份证号</idNumber>
+        <realName must="true">姓名</realName>
+    </identity_hit_fraud>
+
+    <identity_hit_bank description="身份证号命中银行关注名单">
+        <innerIfType must="true" ignore="true" value="T10107">接口类型</innerIfType>
+        <cid must="false">手机号码</cid>
+        <idNumber must="true">身份证号</idNumber>
+        <realName must="true">姓名</realName>
+    </identity_hit_bank>
+
+    <identity_hit_insurance_fraud description="身份证号命中保险欺诈关注名单">
+        <innerIfType must="true" ignore="true" value="T10108">接口类型</innerIfType>
+        <cid must="false">手机号码</cid>
+        <idNumber must="true">身份证号</idNumber>
+        <realName must="true">姓名</realName>
+    </identity_hit_insurance_fraud>
+
+    <identity_hit_p2p description="身份证号命中p2p关注名单">
+        <innerIfType must="true" ignore="true" value="T10109">接口类型</innerIfType>
+        <cid must="false">手机号码</cid>
+        <idNumber must="true">身份证号</idNumber>
+        <realName must="true">姓名</realName>
+    </identity_hit_p2p>
+
+    <identity_hit_overdue description="身份证号命中金融逾期/拒绝关注名单">
+        <innerIfType must="true" ignore="true" value="T10110">接口类型</innerIfType>
+        <cid must="false">手机号码</cid>
+        <idNumber must="true">身份证号</idNumber>
+        <realName must="true">姓名</realName>
+    </identity_hit_overdue>
+
+    <cellphone_hit_dishonest description="手机号命中法院失信名单">
+        <innerIfType must="true" ignore="true" value="T10201">接口类型</innerIfType>
+        <cid must="true">手机号码</cid>
+        <idNumber must="true">身份证号</idNumber>
+        <realName must="true">姓名</realName>
+    </cellphone_hit_dishonest>
+
+    <cellphone_hit_execution description="手机号命中法院执行名单">
+        <innerIfType must="true" ignore="true" value="T10202">接口类型</innerIfType>
+        <cid must="true">手机号码</cid>
+        <idNumber must="true">身份证号</idNumber>
+        <realName must="true">姓名</realName>
+    </cellphone_hit_execution>
+
+    <cellphone_hit_blacklist description="手机号命中互联网灰名单">
+        <innerIfType must="true" ignore="true" value="T10204">接口类型</innerIfType>
+        <cid must="true">手机号码</cid>
+        <idNumber must="true">身份证号</idNumber>
+        <realName must="true">姓名</realName>
+    </cellphone_hit_blacklist>
+
+    <cellphone_hit_drag_or_fugitive description="手机号命中吸毒/在逃关注名单">
+        <innerIfType must="true" ignore="true" value="T10205">接口类型</innerIfType>
+        <cid must="true">手机号码</cid>
+        <idNumber must="true">身份证号</idNumber>
+        <realName must="true">姓名</realName>
+    </cellphone_hit_drag_or_fugitive>
+
+    <cellphone_hit_fraud description="手机号命中恶意欺诈关注名单">
+        <innerIfType must="true" ignore="true" value="T10206">接口类型</innerIfType>
+        <cid must="true">手机号码</cid>
+        <idNumber must="true">身份证号</idNumber>
+        <realName must="true">姓名</realName>
+    </cellphone_hit_fraud>
+
+    <cellphone_hit_bank description="手机号命中银行关注名单">
+        <innerIfType must="true" ignore="true" value="T10207">接口类型</innerIfType>
+        <cid must="true">手机号码</cid>
+        <idNumber must="true">身份证号</idNumber>
+        <realName must="true">姓名</realName>
+    </cellphone_hit_bank>
+
+    <cellphone_hit_insurance_fraud description="手机号命中保险欺诈关注名单">
+        <innerIfType must="true" ignore="true" value="T10208">接口类型</innerIfType>
+        <cid must="true">手机号码</cid>
+        <idNumber must="true">身份证号</idNumber>
+        <realName must="true">姓名</realName>
+    </cellphone_hit_insurance_fraud>
+
+    <cellphone_hit_p2p description="手机号命中p2p关注名单">
+        <innerIfType must="true" ignore="true" value="T10209">接口类型</innerIfType>
+        <cid must="true">手机号码</cid>
+        <idNumber must="true">身份证号</idNumber>
+        <realName must="true">姓名</realName>
+    </cellphone_hit_p2p>
+
+    <cellphone_hit_overdue description="手机号命中金融逾期/拒绝关注名单">
+        <innerIfType must="true" ignore="true" value="T10210">接口类型</innerIfType>
+        <cid must="true">手机号码</cid>
+        <idNumber must="true">身份证号</idNumber>
+        <realName must="true">姓名</realName>
+    </cellphone_hit_overdue>
+
+    <cellphone_hit_intermediary description="手机号命中换联网贷款中介">
+        <innerIfType must="true" ignore="true" value="T10211">接口类型</innerIfType>
+        <cid must="true">手机号码</cid>
+        <idNumber must="true">身份证号</idNumber>
+        <realName must="true">姓名</realName>
+    </cellphone_hit_intermediary>
+
+    <overdue_query description="逾期信息查询">
+        <innerIfType must="true" ignore="true" value="T2">接口类型</innerIfType>
+        <cid must="true">手机号码</cid>
+        <idNumber must="true">身份证号</idNumber>
+        <cycle must="true">周期</cycle>
+        <realName must="true">姓名</realName>
+    </overdue_query>
+
+    <indentity_3_day_apply description="身份证3天申请机构数量查询">
+        <innerIfType must="true" ignore="true" value="T40101">接口类型</innerIfType>
+        <cid must="false">手机号码</cid>
+        <idNumber must="true">身份证号</idNumber>
+        <realName must="true">姓名</realName>
+    </indentity_3_day_apply>
+
+    <indentity_7_day_apply description="身份证7天申请机构数量查询">
+        <innerIfType must="true" ignore="true" value="T40102">接口类型</innerIfType>
+        <cid must="false">手机号码</cid>
+        <idNumber must="true">身份证号</idNumber>
+        <realName must="true">姓名</realName>
+    </indentity_7_day_apply>
+
+    <indentity_1_month_apply description="身份证1个月内申请机构数量查询">
+        <innerIfType must="true" ignore="true" value="T40103">接口类型</innerIfType>
+        <cid must="false">手机号码</cid>
+        <idNumber must="true">身份证号</idNumber>
+        <realName must="true">姓名</realName>
+    </indentity_1_month_apply>
+
+    <indentity_3_month_apply description="身份证3个月内申请机构数量查询">
+        <innerIfType must="true" ignore="true" value="T40104">接口类型</innerIfType>
+        <cid must="false">手机号码</cid>
+        <idNumber must="true">身份证号</idNumber>
+        <realName must="true">姓名</realName>
+    </indentity_3_month_apply>
+
+    <cellphone_3_day_apply description="手机号3天申请机构数量查询">
+        <innerIfType must="true" ignore="true" value="T40201">接口类型</innerIfType>
+        <cid must="true">手机号码</cid>
+        <idNumber must="true">身份证号</idNumber>
+        <realName must="true">姓名</realName>
+    </cellphone_3_day_apply>
+
+    <cellphone_7_day_apply description="手机号7天申请机构数量查询">
+        <innerIfType must="true" ignore="true" value="T40202">接口类型</innerIfType>
+        <cid must="true">手机号码</cid>
+        <idNumber must="true">身份证号</idNumber>
+        <realName must="true">姓名</realName>
+    </cellphone_7_day_apply>
+
+    <cellphone_1_month_apply description="手机号1个月内申请机构数量查询">
+        <innerIfType must="true" ignore="true" value="T40303">接口类型</innerIfType>
+        <cid must="true">手机号码</cid>
+        <idNumber must="true">身份证号</idNumber>
+        <realName must="true">姓名</realName>
+    </cellphone_1_month_apply>
+
+    <cellphone_3_month_apply description="手机号3个月内申请机构数量查询">
+        <innerIfType must="true" ignore="true" value="T40404">接口类型</innerIfType>
+        <cid must="true">手机号码</cid>
+        <idNumber must="true">身份证号</idNumber>
+        <realName must="true">姓名</realName>
+    </cellphone_3_month_apply>
+</interface>
