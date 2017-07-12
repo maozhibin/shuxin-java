@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baoquan.shuxin.dao.user.UserMoneyLogDao" >
+  <resultMap id="BaseResultMap" type="com.baoquan.shuxin.model.UserMoneyLog" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="CHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="item_info" property="itemInfo" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="BIT" />
+    <result column="request_no" property="requestNo" jdbcType="VARCHAR" />
+    <result column="dateline" property="dateline" jdbcType="INTEGER" />
+    <result column="reverse" property="reverse" jdbcType="BIT" />
+    <result column="reverse_time" property="reverseTime" jdbcType="INTEGER" />
+    <result column="fee" property="fee" jdbcType="DECIMAL" />
+    <result column="expense" property="expense" jdbcType="CHAR" />
+    <result column="user_remark" property="userRemark" jdbcType="VARCHAR" />
+    <result column="fee_relative" property="feeRelative" jdbcType="VARCHAR" />
+    <result column="extra_cost" property="extraCost" jdbcType="DECIMAL" />
+    <result column="extra_expense" property="extraExpense" jdbcType="CHAR" />
+    <result column="extra_request" property="extraRequest" jdbcType="VARCHAR" />
+    <result column="status_desc" property="statusDesc" jdbcType="VARCHAR" />
+    <result column="finish_time" property="finishTime" jdbcType="INTEGER" />
+  </resultMap>
+ 
+</mapper>

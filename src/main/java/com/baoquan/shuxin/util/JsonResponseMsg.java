@@ -1,0 +1,60 @@
+package com.baoquan.shuxin.util;
+
+import java.io.Serializable;
+import java.util.Map;
+
+/**
+ * 接口响应实体
+ */
+public class JsonResponseMsg implements Serializable {
+
+	private static final long serialVersionUID = -6067549589990462156L;
+	public static final int CODE_SUCCESS = 0;
+	public static final String MSG_SUCCESS = "success";
+
+	public static final int CODE_LOGIN_INVALID = -1;
+	public static final String MSG_LOGIN_INVALID = "未登陆或登陆状态失效,请重新登陆";
+
+	public static final int CODE_FAIL = 1;
+	public static final String MSG_FAIL = "fail";
+
+	private int code;// 响应代码
+	private String msg;// 响应代码对应信息
+	private Map<String, Object> object;// 响应对象数据
+
+	public int getCode() {
+		return code;
+	}
+
+	public void setCode(int code) {
+		this.code = code;
+	}
+
+	public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+
+	public Map<String, Object> getObject() {
+		return object;
+	}
+
+	public void setObject(Map<String, Object> object) {
+		this.object = object;
+	}
+
+	public JsonResponseMsg fill(int code, String msg) {
+		this.setCode(code);
+		this.setMsg(msg);
+		return this;
+	}
+
+	public JsonResponseMsg fill(int code, String msg, Map<String, Object> object) {
+		this.fill(code, msg);
+		this.setObject(object);
+		return this;
+	}
+}

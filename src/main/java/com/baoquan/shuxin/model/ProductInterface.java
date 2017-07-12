@@ -16,4 +16,28 @@ public class ProductInterface implements Serializable {
     private Long productId;
     private Integer free;
     private String reflectMethod;
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public Long getProductId() {
+		return productId;
+	}
+	public void setProductId(Long productId) {
+		this.productId = productId;
+	}
+	public Integer getFree() {
+		return free;
+	}
+	public void setFree(Integer free) {
+		this.free = free;
+	}
+	public String getReflectMethod() {
+		return reflectMethod;
+	}
+	public void setReflectMethod(String reflectMethod) {
+		this.reflectMethod = reflectMethod;
+	}
 }

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baoquan.shuxin.dao.user.UserDao" >
+    <resultMap id="BaseResultMap" type="com.baoquan.shuxin.model.user.User" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="username" property="username" jdbcType="VARCHAR" />
+        <result column="money_balance" property="moneyBalance" jdbcType="DECIMAL" />
+        <result column="money_freeze" property="moneyFreeze" jdbcType="DECIMAL" />
+        <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+        <result column="email" property="email" jdbcType="VARCHAR" />
+        <result column="password" property="password" jdbcType="VARCHAR" />
+        <result column="last_login_time" property="lastLoginTime" jdbcType="INTEGER" />
+        <result column="last_login_ip" property="lastLoginIp" jdbcType="VARCHAR" />
+        <result column="type_id" property="typeId" jdbcType="CHAR" />
+        <result column="real_name" property="realName" jdbcType="VARCHAR" />
+        <result column="bank_status" property="bankStatus" jdbcType="CHAR" />
+        <result column="org_code" property="orgCode" jdbcType="VARCHAR" />
+        <result column="pay_password" property="payPassword" jdbcType="VARCHAR" />
+        <result column="isValid" property="isValid" jdbcType="INTEGER" />
+    </resultMap>
+	<select id="findValidUser" resultType="java.lang.Integer">
+		SELECT
+			COUNT(1)
+		FROM
+			`user` where 1 = 1
+		<include refid="taskQuery" />
+	</select>
+	
+	<select id="findUserInfo" resultMap="BaseResultMap">
+  			SELECT 	id,username, mobile FROM`user` where 1 = 1 <include refid="taskQuery" />
+	        <if test="page != null">
+	              	limit ${page.startIndex},${page.pageSize};
+	         </if>      
+	</select>
+	
+	<sql id="taskQuery">
+			and isValid = 1
+		<if test="id != null">
+	        and id=#{id}
+	    </if>	            
+	    <if test="name != null">
+	        and name = #{name} 
+	    </if>
+	    <if test="mobile != null ">
+	        and mobile=#{mobile}   
+	    </if>
+	    <if test="typeId != null">
+	        and type_id=#{typeId}
+	    </if>
+	</sql>
+	
+	
+    <update id="deleteUser" parameterType="java.lang.Long" >
+        update user set isValid=0 where id=#{id}
+    </update>
+    
+    <select id="findByIdUserInfo" resultMap="BaseResultMap">
+  			SELECT*FROM `user` WHERE id=#{id} AND isValid=1      
+	</select>
+</mapper>
