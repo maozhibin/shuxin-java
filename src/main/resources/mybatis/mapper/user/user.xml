@@ -63,10 +63,10 @@
         from user
         where id = #{id}
     </select>
-    <select id="deductUserBalance" resultType="int">
+    <update id="deductUserBalance">
         UPDATE user
         SET money_balance = money_balance - #{price}
         WHERE id = #{id} and money_balance >= #{price}
-    </select>
+    </update>
 
 </mapper>

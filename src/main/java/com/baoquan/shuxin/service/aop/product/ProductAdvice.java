@@ -6,17 +6,20 @@ import javax.inject.Inject;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.aop.AfterReturningAdvice;
 import org.springframework.aop.MethodBeforeAdvice;
-import org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint;
 
 import com.alibaba.fastjson.JSON;
+import com.baoquan.shuxin.context.AppContext;
 
 /**
  * Desc:
  * Created by yongj on 7/12/2017,
  */
 public class ProductAdvice implements MethodBeforeAdvice, AfterReturningAdvice {
+    private final static Logger logger = LoggerFactory.getLogger(ProductAdvice.class);
 
     @Override
     public void afterReturning(Object returnValue, Method method, Object[] args, Object target) throws Throwable {
@@ -36,14 +39,17 @@ public class ProductAdvice implements MethodBeforeAdvice, AfterReturningAdvice {
      * @param joinPoint
      */
     private void doBefore(JoinPoint joinPoint) {
-        System.out.println("-----doBefore().invoke-----");
-        System.out.println(" 此处意在执行核心业务逻辑前，做一些安全性的判断等等");
-        System.out.println(" 可通过joinPoint来获取所需要的内容");
-        System.out.println("-----End of doBefore()------");
-        System.out.println(JSON.toJSONString(joinPoint.getThis()));
-        System.out.println(JSON.toJSONString(joinPoint.getTarget()));
-        System.out.println(JSON.toJSONString(joinPoint.getArgs()));
-        throw new RuntimeException("abort");
+        //System.out.println("-----doBefore().invoke-----");
+        //System.out.println(" 此处意在执行核心业务逻辑前，做一些安全性的判断等等");
+        //System.out.println(" 可通过joinPoint来获取所需要的内容");
+        //System.out.println("-----End of doBefore()------");
+        logger.info("method:{},args:{}", joinPoint.getSignature().toShortString(),
+                JSON.toJSONString(joinPoint.getArgs()));
+        Long userId = AppContext.get().getUserId();
+        Long productId = AppContext.get().getProductId();
+        Integer type = AppContext.get().getType();
+        //productChargingService.charge(userId, productId, type);
+        productChargingService.charge(1L, 17L, 0);
     }
 
     /**
@@ -56,14 +62,14 @@ public class ProductAdvice implements MethodBeforeAdvice, AfterReturningAdvice {
      * @throws Throwable
      */
     private Object doAround(ProceedingJoinPoint pjp) throws Throwable {
-        System.out.println("-----doAround().invoke-----");
-        System.out.println(" 此处可以做类似于Before Advice的事情");
+        //System.out.println("-----doAround().invoke-----");
+        //System.out.println(" 此处可以做类似于Before Advice的事情");
 
         //调用核心逻辑
         Object retVal = pjp.proceed();
 
-        System.out.println(" 此处可以做类似于After Advice的事情");
-        System.out.println("-----End of doAround()------");
+        //System.out.println(" 此处可以做类似于After Advice的事情");
+        //System.out.println("-----End of doAround()------");
         return retVal;
     }
 
@@ -72,21 +78,22 @@ public class ProductAdvice implements MethodBeforeAdvice, AfterReturningAdvice {
      * @param joinPoint
      */
     private void doAfter(JoinPoint joinPoint) {
-        System.out.println("-----doAfter().invoke-----");
-        System.out.println(" 此处意在执行核心业务逻辑之后，做一些日志记录操作等等");
-        System.out.println(" 可通过joinPoint来获取所需要的内容");
-        System.out.println("-----End of doAfter()------");
+        //System.out.println("-----doAfter().invoke-----");
+        //System.out.println(" 此处意在执行核心业务逻辑之后，做一些日志记录操作等等");
+        //System.out.println(" 可通过joinPoint来获取所需要的内容");
+        //System.out.println("-----End of doAfter()------");
     }
 
     /**
      * 核心业务逻辑调用正常退出后，不管是否有返回值，正常退出后，均执行此Advice
      * @param joinPoint
      */
-    private void doReturn(JoinPoint joinPoint) {
-        System.out.println("-----doReturn().invoke-----");
-        System.out.println(" 此处可以对返回值做进一步处理");
-        System.out.println(" 可通过joinPoint来获取所需要的内容");
-        System.out.println("-----End of doReturn()------");
+    private void doReturn(JoinPoint joinPoint, Object ret) {
+        //System.out.println("-----doReturn().invoke-----");
+        //System.out.println(" 此处可以对返回值做进一步处理");
+        //System.out.println(" 可通过joinPoint来获取所需要的内容");
+        //System.out.println("-----End of doReturn()------");
+        logger.info("result:{}", ret instanceof String ? ret.toString() : JSON.toJSONString(ret));
     }
 
     /**
@@ -95,10 +102,10 @@ public class ProductAdvice implements MethodBeforeAdvice, AfterReturningAdvice {
      * @param ex
      */
     private void doThrowing(JoinPoint joinPoint, Throwable ex) {
-        System.out.println("-----doThrowing().invoke-----");
-        System.out.println(" 错误信息：" + ex.getMessage());
-        System.out.println(" 此处意在执行核心业务逻辑出错时，捕获异常，并可做一些日志记录操作等等");
-        System.out.println(" 可通过joinPoint来获取所需要的内容");
-        System.out.println("-----End of doThrowing()------");
+        //System.out.println("-----doThrowing().invoke-----");
+        //System.out.println(" 错误信息：" + ex.getMessage());
+        //System.out.println(" 此处意在执行核心业务逻辑出错时，捕获异常，并可做一些日志记录操作等等");
+        //System.out.println(" 可通过joinPoint来获取所需要的内容");
+        //System.out.println("-----End of doThrowing()------");
     }
 }

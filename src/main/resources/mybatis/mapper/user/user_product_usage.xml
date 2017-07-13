@@ -118,21 +118,21 @@
         where user_id = #{userId,jdbcType=BIGINT}
         and product_id = #{productId,jdbcType=BIGINT}
     </select>
-    <select id="increaseTotal" resultType="int">
+    <update id="increaseTotal">
         UPDATE user_product_usage
         SET total = total + 1
         WHERE id = #{id}
-    </select>
-    <select id="decreaseRemain" resultType="int">
+    </update>
+    <update id="decreaseRemain">
         UPDATE user_product_usage
         SET total  = total + 1,
             remain = remain - 1
         WHERE id = #{id} AND remain > 0
-    </select>
-    <select id="increaseExtra" resultType="int">
+    </update>
+    <update id="increaseExtra">
         UPDATE user_product_usage
         SET total = total + 1,
             extra = extra + 1
         WHERE id = #{id}
-    </select>
+    </update>
 </mapper>

@@ -7,6 +7,9 @@ package com.baoquan.shuxin.context;
 public class ContextInfo {
 
     private Long userId;
+    private Long productId;
+    private Integer type;//0普通调用，1在线查询
+
     private String className;
     private String methodName;
 
@@ -16,6 +19,22 @@ public class ContextInfo {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 
     public String getClassName() {

@@ -12,7 +12,7 @@
             <aop:before method="doBefore" pointcut-ref="productUse"/>
             <aop:after method="doAfter" pointcut-ref="productUse"/>
             <aop:around method="doAround" pointcut-ref="productUse"/>
-            <aop:after-returning method="doReturn" pointcut-ref="productUse"/>
+            <aop:after-returning method="doReturn" returning="ret" pointcut-ref="productUse"/>
             <aop:after-throwing method="doThrowing" throwing="ex" pointcut-ref="productUse"/>
 
         </aop:aspect>
