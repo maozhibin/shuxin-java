@@ -58,7 +58,7 @@
   			SELECT*FROM `user` WHERE id=#{id} AND isValid=1
 	</select>
 
-    <select id="queryUserBalance" resultType="com.baoquan.shuxin.model.User">
+    <select id="queryUserBalance" resultType="User">
         select id, money_balance
         from user
         where id = #{id}

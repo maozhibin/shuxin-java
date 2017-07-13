@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.baoquan.shuxin.dao.UserProductUseDao">
-    <select id="queryByUserProductIds" resultType="com.baoquan.shuxin.model.UserProductUse">
-        select id,user_product_id,product_billing_id,start,end,total,used
-        from user_product_use
-        where user_product_id in
-        <foreach collection="userProductIds" item="userProductId" open="(" separator="," close=")">
-            #{userProductId}
-        </foreach>
-    </select>
+<mapper namespace="com.baoquan.shuxin.dao.user.UserProductUseDao">
+    <!--<select id="queryByUserProductIds" resultType="com.baoquan.shuxin.model.user.UserProductUse">-->
+        <!--select id,user_product_id,product_billing_id,start,end,total,used-->
+        <!--from user_product_use-->
+        <!--where user_product_id in-->
+        <!--<foreach collection="userProductIds" item="userProductId" open="(" separator="," close=")">-->
+            <!--#{userProductId}-->
+        <!--</foreach>-->
+    <!--</select>-->
 
-    <update id="increaseUsed">
-        UPDATE user_product_use
-        SET used = used + 1
-        WHERE total > used
-    </update>
+    <!--<update id="increaseUsed">-->
+        <!--UPDATE user_product_use-->
+        <!--SET used = used + 1-->
+        <!--WHERE total > used-->
+    <!--</update>-->
 </mapper>
