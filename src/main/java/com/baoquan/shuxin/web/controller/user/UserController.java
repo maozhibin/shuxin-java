@@ -1,4 +1,4 @@
-package com.baoquan.shuxin.web.controller.userController;
+package com.baoquan.shuxin.web.controller.user;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -65,8 +65,8 @@ public class UserController {
 	 * 根据id查询用户信息
 	 */
 	@ResponseBody
-	@RequestMapping("ByIdUserInfo")
-	public JsonResponseMsg findByIdUserInfo(String id) {
+	@RequestMapping("detail")
+	public JsonResponseMsg detail(String id) {
 		JsonResponseMsg result = new JsonResponseMsg();
 		if (!NumberUtils.isNumber(id)) {
 			return result.fill(JsonResponseMsg.CODE_FAIL, "参数错误");
@@ -103,8 +103,8 @@ public class UserController {
 	 * 用户资金变动记录
 	 */
 	@ResponseBody
-	@RequestMapping("userMoneyChange")
-	public JsonResponseMsg userMoneyChange(String userId, String startTime, String endTime, String pageNo,
+	@RequestMapping("moneyChange")
+	public JsonResponseMsg moneyChange(String userId, String startTime, String endTime, String pageNo,
 			String pageSize) {
 		JsonResponseMsg result = new JsonResponseMsg();
 		if (!NumberUtils.isNumber(userId)) {

@@ -1,4 +1,4 @@
-package com.baoquan.shuxin.web.controller.productController;
+package com.baoquan.shuxin.web.controller.product;
 
 import javax.inject.Inject;
 

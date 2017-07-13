@@ -1,4 +1,4 @@
-package com.baoquan.shuxin.web.controller.ipLockController;
+package com.baoquan.shuxin.web.controller.tool;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,9 +24,9 @@ public class IpLockController{
 	/**
 	 * ip锁定列表列表
 	 */
-	@RequestMapping("ipLockList")
+	@RequestMapping("List")
 	@ResponseBody
-	public JsonResponseMsg ipLockList(String pageNo, String pageSize){
+	public JsonResponseMsg List(String pageNo, String pageSize){
 		JsonResponseMsg result = new JsonResponseMsg();
 		Page<IpLock> page = new Page<>();
 		Integer pageSizeValue = null;

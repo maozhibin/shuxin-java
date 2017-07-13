@@ -1,4 +1,4 @@
-package com.baoquan.shuxin.web.controller.configController;
+package com.baoquan.shuxin.web.controller.config;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,7 +27,7 @@ public class ConfigController {
 	/**
 	 * 配置参数列表
 	 */
-	@RequestMapping("configList")
+	@RequestMapping("list")
 	@ResponseBody
 	public JsonResponseMsg configList(String pageNo, String pageSize){
 		JsonResponseMsg result = new JsonResponseMsg();
