@@ -16,5 +16,5 @@ import com.baoquan.shuxin.model.product.ProductBilling;
 public interface ProductBillingDao {
     List<ProductBilling> queryByIds(@Param("ids") Collection<Long> ids);
 
-    ProductBilling queryByMethod(Long productId, String billingMethod);
+    ProductBilling queryByMethod(@Param("productId") Long productId, @Param("billingMethod") String billingMethod);
 }

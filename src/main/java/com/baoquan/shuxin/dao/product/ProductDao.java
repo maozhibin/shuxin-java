@@ -16,5 +16,5 @@ import com.baoquan.shuxin.model.product.Product;
 public interface ProductDao {
     List<Product> queryByReflectClass(@Param("reflectClass") String reflectClass);
 
-    Long filterIdByReflectClass(String reflectClass, Collection<Long> ids);
+    Long filterIdByReflectClass(@Param("reflectClass") String reflectClass, @Param("ids") Collection<Long> ids);
 }
