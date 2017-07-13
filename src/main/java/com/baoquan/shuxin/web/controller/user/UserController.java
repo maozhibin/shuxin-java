@@ -64,20 +64,23 @@ public class UserController {
 	/**
 	 * 根据id查询用户信息
 	 */
-	@ResponseBody
 	@RequestMapping("detail")
-	public JsonResponseMsg detail(String id) {
-		JsonResponseMsg result = new JsonResponseMsg();
+	public ModelAndView detail(String id) {
+		ModelAndView mv = new ModelAndView("admin/user/detail");
 		if (!NumberUtils.isNumber(id)) {
-			return result.fill(JsonResponseMsg.CODE_FAIL, "参数错误");
+			return null;
 		}
 		User user = userService.findByIdUserInfo(NumberUtils.toLong(id));
 		if (user == null) {
-			return result.fill(JsonResponseMsg.CODE_FAIL, "查询的用户信息不存在");
+			return null;
 		}
 		Map<String, Object> map = new HashMap<>();
 		map.put("user", user);
-		return result.fill(JsonResponseMsg.CODE_SUCCESS, "查询成功", map);
+		Long time = user.getLastLoginTime()*1000;
+		String lastTime=DateUtil.stampToDate(time.toString());
+		mv.addObject(user);
+		mv.addObject(lastTime);
+		return mv;
 
 	}
 
@@ -102,13 +105,12 @@ public class UserController {
 	/**
 	 * 用户资金变动记录
 	 */
-	@ResponseBody
 	@RequestMapping("moneyChange")
-	public JsonResponseMsg moneyChange(String userId, String startTime, String endTime, String pageNo,
+	public ModelAndView moneyChange(String userId, String startTime, String endTime, String pageNo,
 			String pageSize) {
-		JsonResponseMsg result = new JsonResponseMsg();
+		ModelAndView mv = new ModelAndView("admin/user/money");
 		if (!NumberUtils.isNumber(userId)) {
-			return result.fill(JsonResponseMsg.CODE_FAIL, "参数错误");
+			return null;
 		}
 		Long startTimeValue = null;
 		if (!StringUtils.isEmpty(startTime)) {
@@ -133,8 +135,7 @@ public class UserController {
 		}
 		page = userMoneyLogService.byIdFinduserMoneyChange(page, endTimeValue, startTimeValue,
 				NumberUtils.toLong(userId));
-		Map<String, Object> map = new HashMap<>();
-		map.put("page",page);
-		return result.fill(JsonResponseMsg.CODE_SUCCESS, "查询成功", map);
+		mv.addObject(page);
+		return mv;
 	}
 }

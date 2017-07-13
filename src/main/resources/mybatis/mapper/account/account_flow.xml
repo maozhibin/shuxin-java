@@ -3,7 +3,7 @@
 <mapper namespace="com.baoquan.shuxin.dao.account.AccountFlowDao" >
 
   <select id="querAccountFlowInfo" resultType="com.baoquan.shuxin.model.account.AccountFlow">
-    SELECT 	id,user_id, type,finish_time FROM user_money_log   um
+    SELECT 	id,user_id, type,finish_time FROM user_money_log
 
     <where>
       <if test="user_id !=null">
