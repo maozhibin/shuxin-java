@@ -1,7 +1,7 @@
 package com.baoquan.shuxin.service.spi.user;
 
 import com.baoquan.shuxin.bean.Page;
-import com.baoquan.shuxin.model.UserMoneyLog;
+import com.baoquan.shuxin.model.user.UserMoneyLog;
 
 public interface UserMoneyLogService {
 

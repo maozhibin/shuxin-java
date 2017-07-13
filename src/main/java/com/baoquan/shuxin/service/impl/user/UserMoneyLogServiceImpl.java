@@ -9,7 +9,7 @@ import javax.inject.Named;
 
 import com.baoquan.shuxin.bean.Page;
 import com.baoquan.shuxin.dao.user.UserMoneyLogDao;
-import com.baoquan.shuxin.model.UserMoneyLog;
+import com.baoquan.shuxin.model.user.UserMoneyLog;
 import com.baoquan.shuxin.service.spi.user.UserMoneyLogService;
 
 @Named

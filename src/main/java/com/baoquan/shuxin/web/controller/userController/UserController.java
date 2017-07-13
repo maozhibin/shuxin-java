@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.baoquan.shuxin.bean.Page;
-import com.baoquan.shuxin.model.UserMoneyLog;
+import com.baoquan.shuxin.model.user.UserMoneyLog;
 import com.baoquan.shuxin.model.user.User;
 import com.baoquan.shuxin.service.spi.user.UserMoneyLogService;
 import com.baoquan.shuxin.service.spi.user.UserService;
