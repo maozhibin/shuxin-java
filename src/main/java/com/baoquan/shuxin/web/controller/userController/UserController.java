@@ -43,7 +43,7 @@ public class UserController {
 	 */
 	@RequestMapping("list")
 	public ModelAndView UserList(String name, String mobile, String typeId, String pageNo, String pageSize) {
-		ModelAndView mv = new ModelAndView("admin/user/list");
+		ModelAndView mv = new ModelAndView("");
 		Page<User> page = new Page<User>();
 		Integer pageSizeValue = null;
 		if (NumberUtils.isNumber(pageSize)) {
