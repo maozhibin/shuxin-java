@@ -198,7 +198,7 @@
                         </li>
                     </ul>
                 </li>
-                <li>
+                <%--<li>
                     <a href="javascript:;" data-toggle="collapse" data-target="#enterprise"><i
                             class="fa fa-university"></i> 机构管理 <i
                             class="fa fa-fw fa-caret-down"></i></a>
@@ -208,7 +208,7 @@
                         </li>
                     </ul>
                 </li>
-                <!-- <li>
+                 <li>
                      <a href="javascript:;" data-toggle="collapse" data-target="#buy_require"> 数据买方需求 <i
                              class="fa fa-fw fa-caret-down"></i></a>
                      <ul id="buy_require" class="collapse">
@@ -216,8 +216,8 @@
                              <a href="admin/data_buy_require/buy_require">买方需求列表</a>
                          </li>
                      </ul>
-                 </li>-->
-                <!-- <li>
+                 </li>
+                 <li>
                      <a href="javascript:;" data-toggle="collapse" data-target="#data_sale_need"> 数据卖方需求 <i
                              class="fa fa-fw fa-caret-down"></i></a>
                      <ul id="data_sale_need" class="collapse">
@@ -225,14 +225,66 @@
                              <a href="admin/recharge">卖方需求列表</a>
                          </li>
                      </ul>
-                 </li>-->
+                 </li>--%>
                 <li>
                     <a href="javascript:;" data-toggle="collapse" data-target="#member"><i
-                            class="fa fa-fw  fa-id-card-o"></i> 已开通会员 <i
+                            class="fa fa-fw  fa-id-card-o"></i> 用户管理 <i
                             class="fa fa-fw fa-caret-down"></i></a>
                     <ul id="member" class="collapse">
                         <li>
-                            <a href="<%=basePath%>admin/user/list">会员列表</a>
+                            <a href="<%=basePath%>admin/user/list">用户基本信息</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;" data-toggle="collapse" data-target="#order_form"><i
+                            class="fa fa-fw fa-indent"></i> 订单管理<i
+                            class="fa fa-fw fa-caret-down"></i></a>
+                    <ul id="order_form" class="collapse">
+                        <li>
+                            <a href="<%=basePath%>admin/order/completed">已完成订单</a>
+                        </li>
+                        <li>
+                            <a href="<%=basePath%>admin/order/uncompleted">未完成订单</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;" data-toggle="collapse" data-target="#product"><i
+                            class="fa fa-fw fa-database"></i> 产品管理 <i
+                            class="fa fa-fw fa-caret-down"></i></a>
+                    <ul id="product" class="collapse">
+                        <li>
+                            <a href="<%=basePath%>admin/product/list">产品列表</a>
+                        </li>
+                        <li>
+                            <a href="<%=basePath%>admin/product/issue">产品发布</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;" data-toggle="collapse" data-target="#news"><i
+                            class="fa fa-fw fa-file-text-o"></i> 新闻管理<i
+                            class="fa fa-fw fa-caret-down"></i></a>
+                    <ul id="news" class="collapse">
+                        <li>
+                            <a href="<%=basePath%>admin/news/list">文章管理</a>
+                        </li>
+                        <li>
+                            <a href="<%=basePath%>admin/news/issue">内容发布</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;" data-toggle="collapse" data-target="#account"><i
+                            class="fa fa-fw fa-google-wallet"></i> 财务管理 <i
+                            class="fa fa-fw fa-caret-down"></i></a>
+                    <ul id="account" class="collapse">
+                        <li>
+                            <a href="<%=basePath%>admin/account/recharge">账户充值</a>
+                        </li>
+                        <li>
+                            <a href="<%=basePath%>admin/account/flow">账户流水</a>
                         </li>
                     </ul>
                 </li>
@@ -242,21 +294,11 @@
                             class="fa fa-fw fa-caret-down"></i></a>
                     <ul id="config" class="collapse">
                         <li>
-                            <a href="<%=basePath%>admin/config/configList">配置参数</a>
+                            <a href="<%=basePath%>admin/config/list">配置参数</a>
                         </li>
                         <!--<li>-->
                         <!-- <a href="admin/recharge">定时调度</a>-->
                         <!--</li>-->
-                    </ul>
-                </li>
-                <li>
-                    <a href="javascript:;" data-toggle="collapse" data-target="#product"><i
-                            class="fa fa-fw fa-database"></i> 产品发布 <i
-                            class="fa fa-fw fa-caret-down"></i></a>
-                    <ul id="product" class="collapse">
-                        <li>
-                            <a href="<%=basePath%>admin/data">产品发布编辑</a>
-                        </li>
                     </ul>
                 </li>
                 <li>
@@ -265,40 +307,17 @@
                             class="fa fa-fw fa-caret-down"></i></a>
                     <ul id="tools" class="collapse">
                         <li>
-                            <a href="<%=basePath%>admin/tools/ip_index">IP解锁</a>
+                            <a href="<%=basePath%>admin/tools/ip/list">IP管理</a>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <a href="javascript:;" data-toggle="collapse" data-target="#account"><i
-                            class="fa fa-fw fa-google-wallet"></i> 账户 <i
+                    <a href="javascript:;" data-toggle="collapse" data-target="#super"><i
+                            class="fa fa-fw fa-wrench"></i> 超级管理员 <i
                             class="fa fa-fw fa-caret-down"></i></a>
-                    <ul id="account" class="collapse">
+                    <ul id="super" class="collapse">
                         <li>
-                            <a href="<%=basePath%>admin/account/account_money_record">账户流水</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="javascript:;" data-toggle="collapse" data-target="#order_form"><i
-                            class="fa fa-fw fa-indent"></i> 订单<i
-                            class="fa fa-fw fa-caret-down"></i></a>
-                    <ul id="order_form" class="collapse">
-                        <li>
-                            <a href="<%=basePath%>admin/order/user_order">会员订单</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="javascript:;" data-toggle="collapse" data-target="#news"><i
-                            class="fa fa-fw fa-file-text-o"></i> 新闻发布<i
-                            class="fa fa-fw fa-caret-down"></i></a>
-                    <ul id="news" class="collapse">
-                        <li>
-                            <a href="<%=basePath%>admin/news/news_list">新闻列表查看</a>
-                        </li>
-                        <li>
-                            <a href="<%=basePath%>admin/news/news_add">新闻发布</a>
+                            <a href="<%=basePath%>admin/super/auth/list">权限管理</a>
                         </li>
                     </ul>
                 </li>
