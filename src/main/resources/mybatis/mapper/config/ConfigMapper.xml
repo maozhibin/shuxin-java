@@ -8,5 +8,30 @@
     <result column="rules" property="rules" jdbcType="VARCHAR" />
   </resultMap>
  	
+  <select id="configTotal" resultType="java.lang.Integer">
+  		SELECT
+			COUNT(1)
+		FROM
+			config
+  </select>
   
+   <select id="configList" resultMap="BaseResultMap">
+  		SELECT
+			*
+		FROM
+			config
+		<if test="page != null">
+	        limit ${page.startIndex},${page.pageSize};
+	    </if>	
+  </select>
+  
+  <update id="updateConfig" parameterType="Config" >
+        update config set varname=#{varname},value=#{value},memo=#{memo} where id=#{id}
+  </update>
+  
+	<insert id="insertConfig" parameterType="Config" 
+        useGeneratedKeys="true" keyProperty="id"> 
+        insert into config(varname,value,memo)  
+             values(#{varname},#{value},#{memo})  
+    </insert>
 </mapper>
