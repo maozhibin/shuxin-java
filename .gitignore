@@ -13,3 +13,10 @@ hs_err_pid*
 .idea/
 lib/
 target/
+
+
+#ide
+.settings/
+.classpath
+.project
+*.iml
