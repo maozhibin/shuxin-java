@@ -4,6 +4,8 @@
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path
             + "/";
+    String requestUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path
+            + request.getAttribute("javax.servlet.forward.request_uri").toString();
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +30,7 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script>
-        var base_url = '<%=basePath%>';
+        var base_url = '${requestScope['javax.servlet.forward.request_uri']}';
     </script>
     <script src='<%=basePath%>static/admin/js/jquery.js?1499845987'></script>
     <script src='<%=basePath%>static/admin/js/bootstrap.min.js?1499845987'></script>
@@ -360,3 +362,7 @@
 </script>
 </body>
 </html>
+<script type="text/javascript">
+    <%--todo 做成前缀匹配--%>
+    $("[href='<%=requestUrl%>']").parents("ul").removeClass("collapse");
+</script>
