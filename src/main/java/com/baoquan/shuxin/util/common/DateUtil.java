@@ -21,6 +21,20 @@ public class DateUtil {
 		return ts;
 	}
 
+	public static long dateToStamp(Long time) {
+		Long ts = null;
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date;
+		try {
+			date = simpleDateFormat.parse(String.valueOf(time));
+			ts = date.getTime();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return ts;
+	}
+
+
 	public static void main(String[] args) {
 		System.out.println(dateToStamp("2017-7-10") / 1000);
 	}
