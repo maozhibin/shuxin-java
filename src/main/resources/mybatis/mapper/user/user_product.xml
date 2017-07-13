@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.baoquan.shuxin.dao.UserProductDao">
-    <select id="queryByUserProductStatus" resultType="com.baoquan.shuxin.model.UserProduct">
+<mapper namespace="com.baoquan.shuxin.dao.user.UserProductDao">
+    <select id="queryByUserProductStatus" resultType="com.baoquan.shuxin.model.user.UserProduct">
         select id,user_id,product_id,status
         from user_product
         where user_id = #{userId} and product_id = #{productId} and status = #{status}

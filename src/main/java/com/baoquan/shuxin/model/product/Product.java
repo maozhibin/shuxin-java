@@ -1,4 +1,4 @@
-package com.baoquan.shuxin.model;
+package com.baoquan.shuxin.model.product;
 
 import java.io.Serializable;
 

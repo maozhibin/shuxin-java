@@ -45,7 +45,7 @@ public class ShengDaServiceImpl implements ShengDaService {
 
     public String idcard_two_apply(String identityNo, String trueName) {
         //测试环境
-        String url = URL + "/idcard_two_apply";
+        String url = URL + "idcard_two_apply";
         String merchantNo = MERCHANT_NO;
         Map<String, String> body = new HashMap<String, String>();
 
@@ -64,7 +64,7 @@ public class ShengDaServiceImpl implements ShengDaService {
 
     public String mobile_items_apply(String identityNo, String trueName, String mobile) {
         //测试环境
-        String url = URL + "/mobile_items_apply";
+        String url = URL + "mobile_items_apply";
         //测试key
         String merchantNo = MERCHANT_NO;
         Map<String, String> body = new LinkedHashMap<String, String>();
@@ -85,7 +85,7 @@ public class ShengDaServiceImpl implements ShengDaService {
 
     public String three_items_apply(String identityNo, String trueName, String cardNo, String mobile) {
         //测试环境
-        String url = URL + "/three_items_apply";
+        String url = URL + "three_items_apply";
         //测试key
         String merchantNo = MERCHANT_NO;
         Map<String, String> body = new LinkedHashMap<String, String>();
@@ -107,7 +107,7 @@ public class ShengDaServiceImpl implements ShengDaService {
 
     public String four_items_apply(String identityNo, String trueName, String mobile, String cardNo) {
         //测试环境
-        String url = URL + "/four_items_apply";
+        String url = URL + "four_items_apply";
         //测试key
         String merchantNo = MERCHANT_NO;
         Map<String, String> body = new LinkedHashMap<String, String>();
@@ -128,7 +128,7 @@ public class ShengDaServiceImpl implements ShengDaService {
 
     public String idcard_badinfo_apply(String identityNo, String trueName) {
         //测试环境
-        String url = URL + "/idcard_badinfo_apply";
+        String url = URL + "idcard_badinfo_apply";
         //测试key
         String merchantNo = MERCHANT_NO;
         Map<String, String> body = new LinkedHashMap<String, String>();
@@ -148,7 +148,7 @@ public class ShengDaServiceImpl implements ShengDaService {
 
     public String education_items_apply(String identityNo, String trueName) {
         //测试环境
-        String url = URL + "/education_items_apply";
+        String url = URL + "education_items_apply";
         //测试key
         String merchantNo = MERCHANT_NO;
         Map<String, String> body = new LinkedHashMap<String, String>();
@@ -168,7 +168,7 @@ public class ShengDaServiceImpl implements ShengDaService {
 
     public String photo_comp_apply(String identityNo, String trueName, String photo) {
         //测试环境
-        String url = URL + "/photo_comp_apply";
+        String url = URL + "photo_comp_apply";
         //测试key
         String merchantNo = MERCHANT_NO;
         Map<String, String> body = new LinkedHashMap<String, String>();
@@ -188,7 +188,7 @@ public class ShengDaServiceImpl implements ShengDaService {
 
     public String mobile_status_apply(String mobile) {
         //测试环境
-        String url = URL + "/mobile_status_apply";
+        String url = URL + "mobile_status_apply";
         String merchantNo = MERCHANT_NO;
         Map<String, String> body = new LinkedHashMap<String, String>();
         String key = KEY;
@@ -206,7 +206,7 @@ public class ShengDaServiceImpl implements ShengDaService {
     public String mobile_time_apply(String mobile) {
 
         //测试环境
-        String url = URL + "/mobile_time_apply";
+        String url = URL + "mobile_time_apply";
         //测试key
         String merchantNo = MERCHANT_NO;
         Map<String, String> body = new LinkedHashMap<String, String>();
@@ -214,7 +214,7 @@ public class ShengDaServiceImpl implements ShengDaService {
         body.put("signType", SIGN_TYPE);
         body.put("requestTime",
                 String.valueOf(new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime())));
-        body.put("signType", "RSA");
+        //body.put("signType", "RSA");
         body.put("merchantNo", merchantNo);
         body.put("charset", CHARSET);
         body.put("merchantOrderNo", "T" + System.currentTimeMillis());
@@ -224,7 +224,7 @@ public class ShengDaServiceImpl implements ShengDaService {
 
     public String mutidebit_items_apply(String identityNo, String trueName, String mobile) {
         //测试环境
-        String url = URL + "/mutidebit_items_apply";
+        String url = URL + "mutidebit_items_apply";
         //测试key
         String merchantNo = MERCHANT_NO;
         Map<String, String> body = new LinkedHashMap<String, String>();
@@ -243,7 +243,7 @@ public class ShengDaServiceImpl implements ShengDaService {
 
     public String black_items_apply(String identityNo, String trueName, String mobile) {
         //测试环境
-        String url = URL + "/black_items_apply";
+        String url = URL + "black_items_apply";
         //测试key
         String merchantNo = MERCHANT_NO;
         Map<String, String> body = new LinkedHashMap<String, String>();
@@ -263,7 +263,7 @@ public class ShengDaServiceImpl implements ShengDaService {
 
     public String interview_items_apply(String identityNo, String trueName, String mobile) {
         //测试环境
-        String url = URL + "/interview_items_apply";
+        String url = URL + "interview_items_apply";
         //测试key
         String merchantNo = MERCHANT_NO;
         Map<String, String> body = new LinkedHashMap<String, String>();
@@ -283,7 +283,7 @@ public class ShengDaServiceImpl implements ShengDaService {
 
     public String personflight_items_apply(String identityNo, String trueName, String month) {
         //测试环境
-        String url = URL + "/personflight_items_apply";
+        String url = URL + "personflight_items_apply";
         //测试key
         String merchantNo = MERCHANT_NO;
         Map<String, String> body = new LinkedHashMap<String, String>();
@@ -302,7 +302,7 @@ public class ShengDaServiceImpl implements ShengDaService {
 
     public String residence_items_apply(String identityNo, String trueName) {
         // 测试环境
-        String url = URL + "/residence_items_apply";
+        String url = URL + "residence_items_apply";
         //测试key
         String merchantNo = MERCHANT_NO;
         Map<String, String> body = new LinkedHashMap<String, String>();
@@ -321,7 +321,7 @@ public class ShengDaServiceImpl implements ShengDaService {
 
     public String banktrade_items_apply(String identityNo, String trueName, String cardNo, String mobile) {
         // 测试环境
-        String url = URL + "/banktrade_items_apply";
+        String url = URL + "banktrade_items_apply";
         //测试key
         String merchantNo = MERCHANT_NO;
         Map<String, String> body = new LinkedHashMap<String, String>();
@@ -342,7 +342,7 @@ public class ShengDaServiceImpl implements ShengDaService {
 
     public String personinvest_items_apply(String identityNo, String trueName) {
         // 测试环境
-        String url = URL + "/personinvest_items_apply";
+        String url = URL + "personinvest_items_apply";
         //测试key
         String merchantNo = MERCHANT_NO;
         Map<String, String> body = new LinkedHashMap<String, String>();
@@ -361,7 +361,7 @@ public class ShengDaServiceImpl implements ShengDaService {
 
     public String badinfo_detail_apply(String identityNo, String trueName) {
         // 测试环境
-        String url = URL + "/badinfo_detail_apply";
+        String url = URL + "badinfo_detail_apply";
         //测试key
         String merchantNo = MERCHANT_NO;
         Map<String, String> body = new LinkedHashMap<String, String>();
@@ -380,7 +380,7 @@ public class ShengDaServiceImpl implements ShengDaService {
 
     public String person_face_apply(String photo, String image) {
         // 测试环境
-        String url = URL + "/person_face_apply";
+        String url = URL + "person_face_apply";
         //测试key
         String merchantNo = MERCHANT_NO;
         Map<String, String> body = new LinkedHashMap<String, String>();
@@ -401,7 +401,7 @@ public class ShengDaServiceImpl implements ShengDaService {
     public String drive_five_items_apply(String identityNo, String trueName, String archiveNo, String firstRecDate,
             String permitModel) {
         //测试环境
-        String url = URL + "/drive_five_items_apply";
+        String url = URL + "drive_five_items_apply";
         //测试key
         String merchantNo = MERCHANT_NO;
         Map<String, String> body = new LinkedHashMap<String, String>();

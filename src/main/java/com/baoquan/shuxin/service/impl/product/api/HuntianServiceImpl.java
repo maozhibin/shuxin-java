@@ -29,189 +29,200 @@ import com.baoquan.shuxin.util.product.api.huntian.SHA256;
  */
 @Named
 public class HuntianServiceImpl implements HuntianService {
-	@Inject
-	private HuntianConfig huntianConfig;
+    @Inject
+    private HuntianConfig huntianConfig;
 
-	private String UUID;
+    private String UUID;
 
-	private String SecretKey;
+    private String SecretKey;
 
-	private String scheme;
+    private String scheme;
 
-	private String host;
+    private String host;
 
-	private String path;
+    private String path;
 
-	@PostConstruct
-	public void init() {
-		this.UUID = huntianConfig.getHuntianUuid();
-		this.SecretKey = huntianConfig.getHuntianAppSecret();
-		this.scheme = huntianConfig.getHuntianScheme();
-		this.host = huntianConfig.getHuntianHost();
-		this.path = huntianConfig.getHuntianPath();
-	}
+    @PostConstruct
+    public void init() {
+        this.UUID = huntianConfig.getHuntianUuid();
+        this.SecretKey = huntianConfig.getHuntianAppSecret();
+        this.scheme = huntianConfig.getHuntianScheme();
+        this.host = huntianConfig.getHuntianHost();
+        this.path = huntianConfig.getHuntianPath();
+    }
 
-	public String antiFraud(String scene, String phone, String ip, String imei, String imsi, String idcard, String name,
-			String bankcard, String qq, String wechat, String email, String tel, String address, String url,
-			String context) {
-		try {
-			URI uri;
+    public String antiFraud(String scene, String phone, String ip, String imei, String imsi, String idcard, String name,
+            String bankcard, String qq, String wechat, String email, String tel, String address, String url,
+            String context) {
+        try {
+            URI uri;
 
-			URIBuilder uriBuilder = new URIBuilder().setScheme(scheme).setHost(host).setPath(path);
+            URIBuilder uriBuilder = new URIBuilder()
+                    .setScheme(scheme)
+                    .setHost(host)
+                    .setPath(path);
 
-			TreeMap<String, String> params = new TreeMap<String, String>();
-			params.put("timestamp", String.valueOf(System.currentTimeMillis()));
-			params.put("uuid", UUID);
-			params.put("action", "fraud");
-			params.put("scene", scene);
-			params.put("phone", phone);
+            TreeMap<String, String> params = new TreeMap<String, String>();
+            params.put("timestamp", String.valueOf(System.currentTimeMillis()));
+            params.put("uuid", UUID);
+            params.put("action", "fraud");
+            params.put("scene", scene);
+            params.put("phone", phone);
 
-			pushMap(params, "imsi", imsi);
-			pushMap(params, "imei", imei);
-			pushMap(params, "idcard", idcard);
-			pushMap(params, "name", name);
-			pushMap(params, "bankcard", bankcard);
-			pushMap(params, "qq", qq);
-			pushMap(params, "wechat", wechat);
-			pushMap(params, "email", email);
-			pushMap(params, "tel", tel);
-			pushMap(params, "address", address);
-			pushMap(params, "url", url);
-			pushMap(params, "context", context);
+            pushMap(params, "imsi", imsi);
+            pushMap(params, "imei", imei);
+            pushMap(params, "idcard", idcard);
+            pushMap(params, "name", name);
+            pushMap(params, "bankcard", bankcard);
+            pushMap(params, "qq", qq);
+            pushMap(params, "wechat", wechat);
+            pushMap(params, "email", email);
+            pushMap(params, "tel", tel);
+            pushMap(params, "address", address);
+            pushMap(params, "url", url);
+            pushMap(params, "context", context);
 
-			System.out.println(params);
+            System.out.println(params);
 
-			SHA256 sha256 = new SHA256();
-			String token = sha256.sign(params, SecretKey);
+            SHA256 sha256 = new SHA256();
+            String token = sha256.sign(params, SecretKey);
 
-			params.put("token", token.toLowerCase());
+            params.put("token", token.toLowerCase());
 
-			for (String key : params.keySet()) {
-				uriBuilder = uriBuilder.setParameter(key, params.get(key));
-			}
-			uri = uriBuilder.build();
+            for (String key : params.keySet()) {
+                uriBuilder = uriBuilder.setParameter(key, params.get(key));
+            }
+            uri = uriBuilder.build();
 
-			SSLContext sslContext = SSLContexts.custom().useProtocol("TLS")
-					.loadTrustMaterial(null, new TrustStrategy() {
-						public boolean isTrusted(X509Certificate[] x509Certificates, String s)
-								throws CertificateException {
-							// 默认都信任
-							return true;
-						}
-					}).build();
+            SSLContext sslContext = SSLContexts.custom().useProtocol("TLS").loadTrustMaterial(null,
+                    new TrustStrategy() {
+                        public boolean isTrusted(X509Certificate[] x509Certificates, String s)
+                                throws CertificateException {
+                            //默认都信任
+                            return true;
+                        }
+                    }).build();
 
-			SSLConnectionSocketFactory sslConnectionSocketFactory = new SSLConnectionSocketFactory(sslContext);
+            SSLConnectionSocketFactory sslConnectionSocketFactory = new SSLConnectionSocketFactory(sslContext);
 
-			CloseableHttpClient httpClient = HttpClients.custom().setSSLSocketFactory(sslConnectionSocketFactory)
-					.build();
+            CloseableHttpClient httpClient = HttpClients.custom().setSSLSocketFactory(
+                    sslConnectionSocketFactory).build();
 
-			FaHaiHttpClient faHaiHttpClient = new FaHaiHttpClient();
-			return faHaiHttpClient.Get(httpClient, uri);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
 
-	private static void pushMap(TreeMap<String, String> params, String key, String value) {
-		if (value != null) {
-			try {
-				params.put(key, URLEncoder.encode(value, "UTF-8"));
-			} catch (UnsupportedEncodingException e) {
-				System.out.println("Unsupported encoding");
-			}
+            FaHaiHttpClient faHaiHttpClient = new FaHaiHttpClient();
+            return faHaiHttpClient.Get(httpClient, uri);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
-		}
-	}
+    private static void pushMap(TreeMap<String, String> params, String key, String value) {
+        if (value != null) {
+            try {
+                params.put(key, URLEncoder.encode(value, "UTF-8"));
+            } catch (UnsupportedEncodingException e) {
+                System.out.println("Unsupported encoding");
+            }
 
-	public String identityVerify(String name, String identityNo, String validityBegin, String validityEnd) {
-		try {
-			URI uri;
+        }
+    }
 
-			URIBuilder uriBuilder = new URIBuilder().setScheme(scheme).setHost(host).setPath(path);
+    public String identityVerify(String name, String identityNo, String validityBegin, String validityEnd) {
+        try {
+            URI uri;
 
-			TreeMap<String, String> params = new TreeMap<String, String>();
-			params.put("timestamp", String.valueOf(System.currentTimeMillis()));
-			params.put("uuid", UUID);
-			params.put("action", "identity_verify");
-			params.put("name", URLEncoder.encode(name, "UTF-8"));
-			params.put("id_no", identityNo);
+            URIBuilder uriBuilder = new URIBuilder()
+                    .setScheme(scheme)
+                    .setHost(host)
+                    .setPath(path);
 
-			pushMap(params, "validity_begin", validityBegin);
-			pushMap(params, "validity_end", validityEnd);
+            TreeMap<String, String> params = new TreeMap<String, String>();
+            params.put("timestamp", String.valueOf(System.currentTimeMillis()));
+            params.put("uuid", UUID);
+            params.put("action", "identity_verify");
+            params.put("name", URLEncoder.encode(name, "UTF-8"));
+            params.put("id_no", identityNo);
 
-			SHA256 sha256 = new SHA256();
-			String token = sha256.sign(params, SecretKey);
+            pushMap(params, "validity_begin", validityBegin);
+            pushMap(params, "validity_end", validityEnd);
 
-			params.put("token", token.toLowerCase());
+            SHA256 sha256 = new SHA256();
+            String token = sha256.sign(params, SecretKey);
 
-			for (String key : params.keySet()) {
-				uriBuilder = uriBuilder.setParameter(key, params.get(key));
-			}
-			uri = uriBuilder.build();
+            params.put("token", token.toLowerCase());
 
-			SSLContext sslContext = SSLContexts.custom().useProtocol("TLS")
-					.loadTrustMaterial(null, new TrustStrategy() {
-						public boolean isTrusted(X509Certificate[] x509Certificates, String s)
-								throws CertificateException {
-							// 默认都信任
-							return true;
-						}
-					}).build();
+            for (String key : params.keySet()) {
+                uriBuilder = uriBuilder.setParameter(key, params.get(key));
+            }
+            uri = uriBuilder.build();
 
-			SSLConnectionSocketFactory sslConnectionSocketFactory = new SSLConnectionSocketFactory(sslContext);
+            SSLContext sslContext = SSLContexts.custom().useProtocol("TLS").loadTrustMaterial(null,
+                    new TrustStrategy() {
+                        public boolean isTrusted(X509Certificate[] x509Certificates, String s)
+                                throws CertificateException {
+                            //默认都信任
+                            return true;
+                        }
+                    }).build();
 
-			CloseableHttpClient httpClient = HttpClients.custom().setSSLSocketFactory(sslConnectionSocketFactory)
-					.build();
+            SSLConnectionSocketFactory sslConnectionSocketFactory = new SSLConnectionSocketFactory(sslContext);
 
-			FaHaiHttpClient faHaiHttpClient = new FaHaiHttpClient();
-			return faHaiHttpClient.Get(httpClient, uri);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
+            CloseableHttpClient httpClient = HttpClients.custom().setSSLSocketFactory(
+                    sslConnectionSocketFactory).build();
 
-	public String statistics() {
-		try {
-			URI uri;
 
-			URIBuilder uriBuilder = new URIBuilder().setScheme(scheme).setHost(host).setPath(path);
+            FaHaiHttpClient faHaiHttpClient = new FaHaiHttpClient();
+            return faHaiHttpClient.Get(httpClient, uri);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
-			TreeMap<String, String> params = new TreeMap<String, String>();
-			params.put("timestamp", String.valueOf(System.currentTimeMillis()));
-			params.put("uuid", UUID);
-			params.put("action", "statistics");
+    public String statistics() {
+        try {
+            URI uri;
 
-			SHA256 sha256 = new SHA256();
-			String token = sha256.sign(params, SecretKey);
+            URIBuilder uriBuilder = new URIBuilder()
+                    .setScheme(scheme)
+                    .setHost(host)
+                    .setPath(path);
 
-			params.put("token", token.toLowerCase());
+            TreeMap<String, String> params = new TreeMap<String, String>();
+            params.put("timestamp", String.valueOf(System.currentTimeMillis()));
+            params.put("uuid", UUID);
+            params.put("action", "statistics");
 
-			for (String key : params.keySet()) {
-				uriBuilder = uriBuilder.setParameter(key, params.get(key));
-			}
-			uri = uriBuilder.build();
+            SHA256 sha256 = new SHA256();
+            String token = sha256.sign(params, SecretKey);
 
-			SSLContext sslContext = SSLContexts.custom().useProtocol("TLS")
-					.loadTrustMaterial(null, new TrustStrategy() {
-						public boolean isTrusted(X509Certificate[] x509Certificates, String s)
-								throws CertificateException {
-							// 默认都信任
-							return true;
-						}
-					}).build();
+            params.put("token", token.toLowerCase());
 
-			SSLConnectionSocketFactory sslConnectionSocketFactory = new SSLConnectionSocketFactory(sslContext);
+            for (String key : params.keySet()) {
+                uriBuilder = uriBuilder.setParameter(key, params.get(key));
+            }
+            uri = uriBuilder.build();
 
-			CloseableHttpClient httpClient = HttpClients.custom().setSSLSocketFactory(sslConnectionSocketFactory)
-					.build();
+            SSLContext sslContext = SSLContexts.custom().useProtocol("TLS").loadTrustMaterial(null,
+                    new TrustStrategy() {
+                        public boolean isTrusted(X509Certificate[] x509Certificates, String s)
+                                throws CertificateException {
+                            //默认都信任
+                            return true;
+                        }
+                    }).build();
 
-			FaHaiHttpClient faHaiHttpClient = new FaHaiHttpClient();
-			return faHaiHttpClient.Get(httpClient, uri);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
+            SSLConnectionSocketFactory sslConnectionSocketFactory = new SSLConnectionSocketFactory(sslContext);
+
+            CloseableHttpClient httpClient = HttpClients.custom().setSSLSocketFactory(
+                    sslConnectionSocketFactory).build();
+
+            FaHaiHttpClient faHaiHttpClient = new FaHaiHttpClient();
+            return faHaiHttpClient.Get(httpClient, uri);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

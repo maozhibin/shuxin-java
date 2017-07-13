@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baoquan.shuxin.dao.user.UserMoneyLogDao">
+    <resultMap id="BaseResultMap" type="com.baoquan.shuxin.model.user.UserMoneyLog">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="type" property="type" jdbcType="CHAR"/>
+        <result column="user_id" property="userId" jdbcType="BIGINT"/>
+        <result column="amount" property="amount" jdbcType="DECIMAL"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <result column="item_info" property="itemInfo" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="request_no" property="requestNo" jdbcType="VARCHAR"/>
+        <result column="dateline" property="dateline" jdbcType="BIGINT"/>
+        <result column="reverse" property="reverse" jdbcType="INTEGER"/>
+        <result column="reverse_time" property="reverseTime" jdbcType="BIGINT"/>
+        <result column="fee" property="fee" jdbcType="DECIMAL"/>
+        <result column="expense" property="expense" jdbcType="CHAR"/>
+        <result column="user_remark" property="userRemark" jdbcType="VARCHAR"/>
+        <result column="fee_relative" property="feeRelative" jdbcType="VARCHAR"/>
+        <result column="extra_cost" property="extraCost" jdbcType="DECIMAL"/>
+        <result column="extra_expense" property="extraExpense" jdbcType="CHAR"/>
+        <result column="extra_request" property="extraRequest" jdbcType="VARCHAR"/>
+        <result column="status_desc" property="statusDesc" jdbcType="VARCHAR"/>
+        <result column="finish_time" property="finishTime" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <select id="byIdFindUserMoneyLongTotal" resultType="java.lang.Integer">
+        SELECT
+        COUNT(1)
+        FROM
+        user_money_log
+        where 1 = 1
+        <include refid="taskQuery"/>
+    </select>
+
+    <sql id="taskQuery">
+        <if test="id != null">
+            and user_id=#{userId}
+        </if>
+        <if test="endTimeValue != null">
+            and finish_time <![CDATA[<=]]>#{endTimeValue}
+        </if>
+        <if test="mobile != null ">
+            and finish_time<![CDATA[>=]]>#{startTimeValue}
+        </if>
+    </sql>
+
+    <select id="byIdFindUserMoneyLongList" resultMap="BaseResultMap">
+        SELECT
+        *
+        FROM
+        user_money_log
+        where 1 = 1
+        <include refid="taskQuery"/>
+    </select>
+
+    <insert id="insertSelective" parameterType="com.baoquan.shuxin.model.user.UserMoneyLog">
+        insert into user_money_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="amount != null">
+                amount,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="itemInfo != null">
+                item_info,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="requestNo != null">
+                request_no,
+            </if>
+            <if test="dateline != null">
+                dateline,
+            </if>
+            <if test="reverse != null">
+                reverse,
+            </if>
+            <if test="reverseTime != null">
+                reverse_time,
+            </if>
+            <if test="fee != null">
+                fee,
+            </if>
+            <if test="expense != null">
+                expense,
+            </if>
+            <if test="userRemark != null">
+                user_remark,
+            </if>
+            <if test="feeRelative != null">
+                fee_relative,
+            </if>
+            <if test="extraCost != null">
+                extra_cost,
+            </if>
+            <if test="extraExpense != null">
+                extra_expense,
+            </if>
+            <if test="extraRequest != null">
+                extra_request,
+            </if>
+            <if test="statusDesc != null">
+                status_desc,
+            </if>
+            <if test="finishTime != null">
+                finish_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=CHAR},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="amount != null">
+                #{amount,jdbcType=DECIMAL},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="itemInfo != null">
+                #{itemInfo,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="requestNo != null">
+                #{requestNo,jdbcType=VARCHAR},
+            </if>
+            <if test="dateline != null">
+                #{dateline,jdbcType=BIGINT},
+            </if>
+            <if test="reverse != null">
+                #{reverse,jdbcType=INTEGER},
+            </if>
+            <if test="reverseTime != null">
+                #{reverseTime,jdbcType=BIGINT},
+            </if>
+            <if test="fee != null">
+                #{fee,jdbcType=DECIMAL},
+            </if>
+            <if test="expense != null">
+                #{expense,jdbcType=CHAR},
+            </if>
+            <if test="userRemark != null">
+                #{userRemark,jdbcType=VARCHAR},
+            </if>
+            <if test="feeRelative != null">
+                #{feeRelative,jdbcType=VARCHAR},
+            </if>
+            <if test="extraCost != null">
+                #{extraCost,jdbcType=DECIMAL},
+            </if>
+            <if test="extraExpense != null">
+                #{extraExpense,jdbcType=CHAR},
+            </if>
+            <if test="extraRequest != null">
+                #{extraRequest,jdbcType=VARCHAR},
+            </if>
+            <if test="statusDesc != null">
+                #{statusDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="finishTime != null">
+                #{finishTime,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+
+</mapper>

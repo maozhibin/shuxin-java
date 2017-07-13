@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean class="com.baoquan.shuxin.service.aop.product.ProductAdvice" id="productAdvice"/>
+
+    <aop:config>
+        <aop:aspect id="aspect" ref="productAdvice">
+            <aop:pointcut id="productUse" expression="execution(* com.baoquan.shuxin.service.spi.product..*.*(..))"/>
+
+            <aop:before method="doBefore" pointcut-ref="productUse"/>
+            <aop:after method="doAfter" pointcut-ref="productUse"/>
+            <aop:around method="doAround" pointcut-ref="productUse"/>
+            <aop:after-returning method="doReturn" pointcut-ref="productUse"/>
+            <aop:after-throwing method="doThrowing" throwing="ex" pointcut-ref="productUse"/>
+
+        </aop:aspect>
+    </aop:config>
+</beans>

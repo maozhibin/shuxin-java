@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baoquan.shuxin.dao.product.ProductDao">
+    <select id="queryByReflectClass" resultType="com.baoquan.shuxin.model.product.Product">
+        SELECT
+            id,
+            reflect_class
+        FROM product
+        WHERE reflect_class = #{reflectClass}
+    </select>
+
+    <select id="filterIdByReflectClass" resultType="Long">
+        select id
+        from product
+        where reflect_class = #{reflectClass} and id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        limit 1
+    </select>
+
+</mapper>

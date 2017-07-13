@@ -10,6 +10,7 @@ import java.util.Map;
 public enum BillingMethodEnum {
 
     YEAR("y", "包年"),
+    COMBO("combo", "包次数"),
     COUNT("t_normal", "按次");
 
     String code;

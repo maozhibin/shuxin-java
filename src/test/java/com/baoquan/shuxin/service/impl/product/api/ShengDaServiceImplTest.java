@@ -5,6 +5,8 @@ import javax.inject.Inject;
 import org.junit.Test;
 
 import com.baoquan.shuxin.TestBase;
+import com.baoquan.shuxin.context.AppContext;
+import com.baoquan.shuxin.context.ContextInfo;
 import com.baoquan.shuxin.service.spi.product.api.ShengDaService;
 
 /**
@@ -18,6 +20,11 @@ public class ShengDaServiceImplTest extends TestBase {
 
     @Test
     public void mobile_time_apply() throws Exception {
+        ContextInfo contextInfo = new ContextInfo();
+        contextInfo.setUserId(1L);
+        contextInfo.setClassName("shengda");
+        contextInfo.setMethodName("mobile_time_apply");
+        AppContext.set(contextInfo);
         System.out.println(shengDaService.mobile_time_apply("18659809803"));
     }
 

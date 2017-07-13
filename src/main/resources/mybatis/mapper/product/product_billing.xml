@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baoquan.shuxin.dao.product.ProductBillingDao">
+    <select id="queryByIds" resultType="com.baoquan.shuxin.model.product.ProductBilling">
+        select *
+        from product_billing
+        where id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+    <select id="queryByMethod" resultType="com.baoquan.shuxin.model.product.ProductBilling">
+        select *
+        from product_billing
+        where product_id = #{productId} and billing_method = #{billingMethod}
+    </select>
+</mapper>

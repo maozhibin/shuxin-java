@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baoquan.shuxin.dao.user.UserProductUsageDao">
+    <resultMap id="BaseResultMap" type="com.baoquan.shuxin.model.user.UserProductUsage">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="user_id" property="userId" jdbcType="BIGINT"/>
+        <result column="product_id" property="productId" jdbcType="BIGINT"/>
+        <result column="start" property="start" jdbcType="BIGINT"/>
+        <result column="end" property="end" jdbcType="BIGINT"/>
+        <result column="remain" property="remain" jdbcType="BIGINT"/>
+        <result column="total" property="total" jdbcType="BIGINT"/>
+        <result column="extra" property="extra" jdbcType="BIGINT"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, user_id, product_id, start, end, remain, total, extra
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from user_product_usage
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <insert id="insertIgnore" parameterType="com.baoquan.shuxin.model.user.UserProductUsage">
+        INSERT IGNORE INTO user_product_usage (id, user_id, product_id,
+                                               start, end, remain, total,
+                                               extra)
+        VALUES (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{productId,jdbcType=BIGINT},
+                #{start,jdbcType=BIGINT}, #{end,jdbcType=BIGINT}, #{remain,jdbcType=BIGINT}, #{total,jdbcType=BIGINT},
+                #{extra,jdbcType=BIGINT})
+    </insert>
+    <insert id="insertSelective" parameterType="com.baoquan.shuxin.model.user.UserProductUsage">
+        insert into user_product_usage
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="productId != null">
+                product_id,
+            </if>
+            <if test="start != null">
+                start,
+            </if>
+            <if test="end != null">
+                end,
+            </if>
+            <if test="remain != null">
+                remain,
+            </if>
+            <if test="total != null">
+                total,
+            </if>
+            <if test="extra != null">
+                extra,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="productId != null">
+                #{productId,jdbcType=BIGINT},
+            </if>
+            <if test="start != null">
+                #{start,jdbcType=BIGINT},
+            </if>
+            <if test="end != null">
+                #{end,jdbcType=BIGINT},
+            </if>
+            <if test="remain != null">
+                #{remain,jdbcType=BIGINT},
+            </if>
+            <if test="total != null">
+                #{total,jdbcType=BIGINT},
+            </if>
+            <if test="extra != null">
+                #{extra,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.baoquan.shuxin.model.user.UserProductUsage">
+        update user_product_usage
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="productId != null">
+                product_id = #{productId,jdbcType=BIGINT},
+            </if>
+            <if test="start != null">
+                start = #{start,jdbcType=BIGINT},
+            </if>
+            <if test="end != null">
+                end = #{end,jdbcType=BIGINT},
+            </if>
+            <if test="remain != null">
+                remain = #{remain,jdbcType=BIGINT},
+            </if>
+            <if test="total != null">
+                total = #{total,jdbcType=BIGINT},
+            </if>
+            <if test="extra != null">
+                extra = #{extra,jdbcType=BIGINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <select id="selectByUserProduct" resultType="com.baoquan.shuxin.model.user.UserProductUsage">
+        select
+        <include refid="Base_Column_List"/>
+        from user_product_usage
+        where user_id = #{userId,jdbcType=BIGINT}
+        and product_id = #{productId,jdbcType=BIGINT}
+    </select>
+    <select id="increaseTotal" resultType="int">
+        UPDATE user_product_usage
+        SET total = total + 1
+        WHERE id = #{id}
+    </select>
+    <select id="decreaseRemain" resultType="int">
+        UPDATE user_product_usage
+        SET total  = total + 1,
+            remain = remain - 1
+        WHERE id = #{id} AND remain > 0
+    </select>
+    <select id="increaseExtra" resultType="int">
+        UPDATE user_product_usage
+        SET total = total + 1,
+            extra = extra + 1
+        WHERE id = #{id}
+    </select>
+</mapper>

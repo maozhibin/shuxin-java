@@ -1,4 +1,4 @@
-package com.baoquan.shuxin.model;
+package com.baoquan.shuxin.model.user;
 
 /**
  * Created by Administrator on 2017/6/8.
@@ -10,7 +10,7 @@ public class UserProduct {
 
     private Long ProductId;
 
-    private Short Status;
+    private Integer Status;
 
     public Long getId() {
         return Id;
@@ -36,11 +36,11 @@ public class UserProduct {
         ProductId = productId;
     }
 
-    public Short getStatus() {
+    public Integer getStatus() {
         return Status;
     }
 
-    public void setStatus(Short status) {
+    public void setStatus(Integer status) {
         Status = status;
     }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.baoquan.shuxin.dao.ProductInterfaceDao">
-    <select id="queryByReflectMethod" resultType="com.baoquan.shuxin.model.ProductInterface">
+<mapper namespace="com.baoquan.shuxin.dao.product.ProductInterfaceDao">
+    <select id="queryByReflectMethod" resultType="com.baoquan.shuxin.model.product.ProductInterface">
         SELECT
             id,
             product_id,
@@ -9,6 +9,5 @@
             reflect_method
         FROM product_interface
         WHERE reflect_method = #{reflectMethod}
-        LIMIT 1
     </select>
 </mapper>
