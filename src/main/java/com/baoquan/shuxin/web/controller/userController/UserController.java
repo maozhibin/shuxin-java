@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.baoquan.shuxin.bean.Page;
+import com.baoquan.shuxin.model.UserMoneyLog;
 import com.baoquan.shuxin.model.user.User;
 import com.baoquan.shuxin.service.spi.user.UserMoneyLogService;
 import com.baoquan.shuxin.service.spi.user.UserService;
@@ -103,23 +104,23 @@ public class UserController {
 	 */
 	@ResponseBody
 	@RequestMapping("userMoneyChange")
-	public JsonResponseMsg userMoneyChange(String id, String startTime, String endTime, String pageNo,
+	public JsonResponseMsg userMoneyChange(String userId, String startTime, String endTime, String pageNo,
 			String pageSize) {
 		JsonResponseMsg result = new JsonResponseMsg();
-		if (!NumberUtils.isNumber(id)) {
+		if (!NumberUtils.isNumber(userId)) {
 			return result.fill(JsonResponseMsg.CODE_FAIL, "参数错误");
 		}
 		Long startTimeValue = null;
-		if (!StringUtils.isEmpty(endTime)) {
+		if (!StringUtils.isEmpty(startTime)) {
 			startTimeValue = DateUtil.dateToStamp(startTime) / 1000;
 		}
 
 		Long endTimeValue = null;
 		if (!StringUtils.isEmpty(endTime)) {
-			endTimeValue = DateUtil.dateToStamp(startTime) / 1000;
+			endTimeValue = DateUtil.dateToStamp(endTime) / 1000;
 		}
 
-		Page<User> page = new Page<User>();
+		Page<UserMoneyLog> page = new Page<UserMoneyLog>();
 		Integer pageSizeValue = null;
 		if (NumberUtils.isNumber(pageSize)) {
 			pageSizeValue = NumberUtils.toInt(pageSize);
@@ -130,9 +131,10 @@ public class UserController {
 			pageNoValue = NumberUtils.toInt(pageNo);
 			page.setPageNo(pageNoValue);
 		}
-		page = userMoneyLogService.byIdFinduserMoneyChange(page, endTimeValue, startTimeValue, NumberUtils.toLong(id));
-		return null;
-
+		page = userMoneyLogService.byIdFinduserMoneyChange(page, endTimeValue, startTimeValue,
+				NumberUtils.toLong(userId));
+		Map<String, Object> map = new HashMap<>();
+		map.put("page",page);
+		return result.fill(JsonResponseMsg.CODE_SUCCESS, "查询成功", map);
 	}
-
 }

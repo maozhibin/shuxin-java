@@ -24,4 +24,34 @@
     <result column="finish_time" property="finishTime" jdbcType="INTEGER" />
   </resultMap>
  
+ <select id="byIdFindUserMoneyLongTotal" resultType="java.lang.Integer">
+ 		SELECT
+			COUNT(1)
+		FROM
+			user_money_log
+		where 1 = 1
+		<include refid="taskQuery" />
+ </select>
+ 
+ 	<sql id="taskQuery">
+		<if test="id != null">
+	        and user_id=#{userId}
+	    </if>	            
+	    <if test="endTimeValue != null">
+	        and finish_time <![CDATA[<=]]>#{endTimeValue} 
+	    </if>
+	    <if test="mobile != null ">
+	        and finish_time<![CDATA[>=]]>#{startTimeValue}   
+	    </if>
+	</sql>
+
+    <select id="byIdFindUserMoneyLongList" resultMap="BaseResultMap">
+        SELECT
+           *
+        FROM
+            user_money_log
+        where 1 = 1
+        <include refid="taskQuery" />
+    </select>
+
 </mapper>

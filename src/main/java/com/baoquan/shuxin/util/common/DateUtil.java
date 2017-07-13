@@ -8,12 +8,12 @@ public class DateUtil {
 	/*
 	 * 将时间转换为时间戳
 	 */
-	public static long dateToStamp(String s) {
+	public static long dateToStamp(String time) {
 		Long ts = null;
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date;
 		try {
-			date = simpleDateFormat.parse(s);
+			date = simpleDateFormat.parse(time);
 			ts = date.getTime();
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -21,4 +21,7 @@ public class DateUtil {
 		return ts;
 	}
 
+	public static void main(String[] args) {
+		System.out.println(dateToStamp("2017-7-10") / 1000);
+	}
 }

@@ -48,6 +48,7 @@ public class UserServiceImpl<T> implements UserService {
 		return page;
 	}
 
+	// 删除用户
 	@Override
 	public Boolean deleteUser(Long id) {
 		if (id == null) {
@@ -57,6 +58,7 @@ public class UserServiceImpl<T> implements UserService {
 		return true;
 	}
 
+	// 根据id获取用户的信息
 	@Override
 	public User findByIdUserInfo(Long id) {
 		if (id == null) {
