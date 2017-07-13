@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baoquan.shuxin.dao.news.NewsDao" >
+  <resultMap id="BaseResultMap" type="com.baoquan.shuxin.model.news.News" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="dateline" property="dateline" jdbcType="INTEGER" />
+    <result column="source" property="source" jdbcType="VARCHAR" />
+    <result column="author" property="author" jdbcType="VARCHAR" />
+    <result column="top" property="top" jdbcType="BIT" />
+    <result column="color" property="color" jdbcType="VARCHAR" />
+    <result column="bold" property="bold" jdbcType="BIT" />
+    <result column="view_count" property="viewCount" jdbcType="INTEGER" />
+    <result column="keywords" property="keywords" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="image" property="image" jdbcType="VARCHAR" />
+    <result column="is_display" property="isDisplay" jdbcType="BIT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.baoquan.shuxin.model.news.News" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+
+  <select id="queryNewsInfo" resultType="com.baoquan.shuxin.model.news.News">
+    SELECT 	id,user_id, type,finish_time FROM news   n
+
+    <where>
+      <if test="user_id !=null">
+        AND um.user_id = #{userId}
+      </if>
+      <if test="type != null">
+        AND um.type = #{type}
+      </if>
+      <if test="dateline != null and finish_time != null" >
+        AND um.finish_time =#{finishTime}
+        BETWEEN um.dateline =#{dateline} AND  um.finish_time=#{finishTime}
+      </if>
+    </where>
+
+  </select>
+  
+
+
+</mapper>

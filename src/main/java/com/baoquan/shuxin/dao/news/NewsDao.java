@@ -1,5 +1,11 @@
 package com.baoquan.shuxin.dao.news;
 
+import java.util.List;
+import java.util.Map;
+
+import com.baoquan.shuxin.model.news.News;
+import com.baoquan.shuxin.model.user.User;
+
 /**
  * Author:Zhoumc
  * Description:新闻查看
@@ -8,8 +14,9 @@ package com.baoquan.shuxin.dao.news;
 public interface NewsDao {
 
     //查询
-
+    List<News> queryNewsInfo(Map<String, Object> parms);
     //删除
+    void deleteNews(Long id);
     //修改
 
 }
