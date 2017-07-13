@@ -2,9 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.baoquan.shuxin.dao.account.AccountFlowDao" >
 
-  <select id="querAccountFlowInfo" resultMap="com.baoquan.shuxin.model.account.AccountFlow">
-    SELECT 	id,user_id, type,finish_time FROM user_money_log  WHERE  user_id = #{userId} and type = #{type} and finish_time =#{}
-    BETWEEN dateline =#{dateline} AND  finish_time=#{finishTime}
+
+
+  <select id="querAccountFlowInfo" resultType="com.baoquan.shuxin.model.account.AccountFlow">
+    SELECT 	id,user_id, type,finish_time FROM user_money_log   um
+
+    <where>
+      <if test="user_id !=null">
+        AND um.user_id = #{userId}
+      </if>
+      <if test="type != null">
+        AND um.type = #{type}
+      </if>
+      <if test="dateline != null and finish_time != null" >
+        AND um.finish_time =#{finishTime}
+        BETWEEN um.dateline =#{dateline} AND  um.finish_time=#{finishTime}
+      </if>
+
+    </where>
+
   </select>
 
 
