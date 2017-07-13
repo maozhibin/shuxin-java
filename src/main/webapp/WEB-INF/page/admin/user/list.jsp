@@ -63,13 +63,13 @@
                                 <td>${user.username}</td>
                                 <td>
                                     <a class="" title='查看'
-                                       href="admin/user/user_detail/"><i
+                                       href="detail?id=${user.id}"><i
                                             class="fa fa-eye"></i> </a>&nbsp;&nbsp;
-                                    <a class="" title='编辑'
-                                       href="admin/user/user_detail/"><i
-                                            class="fa fa-pencil"></i> </a>&nbsp;&nbsp;
+                                    <!--  <a class="" title='编辑'
+                                       href="user/detail/"><i
+                                            class="fa fa-pencil"></i> </a>&nbsp;&nbsp;-->
                                     <a class="delete_button" title='删除'
-                                       url="admin/user/user_delete/"><i
+                                       href="admin/user/user_delete/"><i
                                             class="fa fa-trash"></i> </a>
                                 </td>
                             </tr>
