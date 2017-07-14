@@ -24,7 +24,7 @@ public class IpLockController{
 	/**
 	 * ip锁定列表列表
 	 */
-	@RequestMapping("List")
+	@RequestMapping("list")
 	@ResponseBody
 	public JsonResponseMsg List(String pageNo, String pageSize){
 		JsonResponseMsg result = new JsonResponseMsg();

@@ -38,6 +38,14 @@
     </where>
 
   </select>
+  <delete id="deleteNews" parameterType="java.lang.Long" >
+    DELETE FROM news where id=#{id}
+  </delete>
+
+  
+  <select id="queryNewsDetails" resultMap="BaseResultMap">
+    SELECT * FROM  news WHERE id=#{id}
+  </select>
   
 
 

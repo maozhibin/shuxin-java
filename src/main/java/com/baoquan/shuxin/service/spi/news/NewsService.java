@@ -1,5 +1,7 @@
 package com.baoquan.shuxin.service.spi.news;
 
+import java.util.Map;
+
 import com.baoquan.shuxin.bean.Page;
 import com.baoquan.shuxin.model.news.News;
 import com.baoquan.shuxin.model.user.User;
@@ -11,11 +13,15 @@ import com.baoquan.shuxin.model.user.User;
  */
 public interface NewsService {
 
+
     //查询
-    Page<News> queryNewInfo(String typeId, Page<News> page);
+    Page<News> queryNewInfo(String newsClassType, Page<News> page);
     //删除
     Boolean delNews(Long id);
     //修改
+
+    //新闻详情
+    News queryNewsDetails(Long id);
 
 
 }
