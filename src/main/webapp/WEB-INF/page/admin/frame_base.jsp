@@ -239,15 +239,19 @@
                 </li>
                 <li>
                     <a href="javascript:;" data-toggle="collapse" data-target="#order_form"><i
-                            class="fa fa-fw fa-indent"></i> 订单管理<i
+                            class="fa fa-fw fa-indent"></i> 订单<i
                             class="fa fa-fw fa-caret-down"></i></a>
                     <ul id="order_form" class="collapse" href="/admin/order">
                         <li>
+                            <a href="<%=basePath%>admin/order/completed">会员订单</a>
+                        </li>
+                       <%-- <li>
                             <a href="<%=basePath%>admin/order/completed">已完成订单</a>
                         </li>
                         <li>
                             <a href="<%=basePath%>admin/order/uncompleted">未完成订单</a>
                         </li>
+                        --%>
                     </ul>
                 </li>
                 <li>

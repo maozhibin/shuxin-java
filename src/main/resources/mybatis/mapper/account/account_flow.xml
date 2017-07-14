@@ -17,10 +17,29 @@
         BETWEEN um.dateline =#{dateline} AND  um.finish_time=#{finishTime}
       </if>
     </where>
-
   </select>
+    <select id="PageCount" resultType="com.baoquan.shuxin.model.account.AccountFlow">
+        SELECT
+        COUNT(1)
+        FROM
+        user_money_log um
+        <where>
+            <if test="user_id !=null">
+                AND um.user_id = #{userId}
+            </if>
+            <if test="type != null">
+                AND um.type = #{type}
+            </if>
+            <if test="dateline != null and finish_time != null" >
+                AND um.finish_time =#{finishTime}
+                BETWEEN um.dateline =#{dateline} AND  um.finish_time=#{finishTime}
+            </if>
+        </where>
 
-
+    </select>
+    <select id="querByIdAccountInfo" resultType="com.baoquan.shuxin.model.account.AccountFlow">
+        SELECT*FROM user_money_log WHERE id=#{id}
+    </select>
 
 
 </mapper>

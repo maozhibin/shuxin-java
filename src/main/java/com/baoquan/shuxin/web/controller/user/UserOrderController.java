@@ -25,11 +25,11 @@ public class UserOrderController {
     @Inject
     private UserOrderService orderService;
 
-    @RequestMapping("/list")
+    @RequestMapping("/completed")
     @ResponseBody
     public ModelAndView userOrderInfo(Long userId, Integer status,Long buyTime ,String pageNo,
             String pageSize ){
-        ModelAndView mv = new ModelAndView("admin/order/list");
+        ModelAndView mv = new ModelAndView("admin/order/order_index");
         Page<UserOrder> page = new Page<UserOrder>();
 
         Integer pageSizeValue = null;

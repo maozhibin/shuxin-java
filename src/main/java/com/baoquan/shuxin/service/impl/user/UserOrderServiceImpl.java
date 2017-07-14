@@ -34,7 +34,9 @@ public class UserOrderServiceImpl<T> implements UserOrderService {
         parms.put("page", page);
         List<UserOrder> listInfo = userOrderDao.querUserOrderInfo(parms);
         Integer total = userOrderDao.PageCount(parms);
-        page.setTotalRecordCount(total);
+        if (total != null) {
+            page.setTotalRecordCount(total);
+        }
         page.setResult(listInfo);
         return page;
     }
