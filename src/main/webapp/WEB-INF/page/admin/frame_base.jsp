@@ -158,7 +158,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a href="<%=basePath%>admin"><img src="<%=basePath%>static/admin/images/logo.png"
-                                              alt="" width="470" height="40"></a>
+                                              alt="" width="302" height="38"></a>
         </div>
         <!-- Top Menu Items -->
         <ul class="nav navbar-right top-nav">
@@ -265,7 +265,7 @@
                 </li>
                 <li>
                     <a href="javascript:;" data-toggle="collapse" data-target="#news"><i
-                            class="fa fa-fw fa-file-text-o"></i> 新闻管理<i
+                            class="fa fa-fw fa-file-text"></i> 新闻管理<i
                             class="fa fa-fw fa-caret-down"></i></a>
                     <ul id="news" class="collapse" href="/admin/news">
                         <li>
@@ -314,7 +314,7 @@
                 </li>
                 <li>
                     <a href="javascript:;" data-toggle="collapse" data-target="#super"><i
-                            class="fa fa-fw fa-wrench"></i> 超级管理员 <i
+                            class="fa fa-fw fa-diamond"></i> 超级管理员 <i
                             class="fa fa-fw fa-caret-down"></i></a>
                     <ul id="super" class="collapse" href="/admin/super">
                         <li>
@@ -364,7 +364,7 @@
     var d = $("ul[href]");
     for (i = 0; i < d.length; i++) {
         if (requestUri.startsWith($(d[i]).attr("href"))) {
-            $(d[i]).removeClass("collapse");
+            $(d[i]).addClass("in");
             break;
         }
     }
