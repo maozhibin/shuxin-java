@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baoquan.shuxin.dao.admin.AdminUserDao">
+    <select id="queryUserPass" resultType="com.baoquan.shuxin.model.admin.AdminUser">
+        SELECT *
+        FROM admin_user
+        WHERE username = #{username} AND password = #{password} AND status = 1
+    </select>
+    <update id="modifyPassword">
+        UPDATE admin_user
+        SET password = #{newPass}
+        WHERE id = #{userId} AND password = #{oldPass}
+    </update>
+</mapper>

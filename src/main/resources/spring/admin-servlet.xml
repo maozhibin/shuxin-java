@@ -78,4 +78,19 @@
         <property name="maxInMemorySize" value="40960"/>
     </bean>
 
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.baoquan.shuxin.interceptor.TraceInterceptor"/>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/loginPage"/>
+            <mvc:exclude-mapping path="/login"/>
+            <mvc:exclude-mapping path="/logout"/>
+            <bean class="com.baoquan.shuxin.web.admin.interceptor.AuthInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <bean class="com.baoquan.shuxin.interceptor.CustomHandlerExceptionResolver"/>
 </beans>

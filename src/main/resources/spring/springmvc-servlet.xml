@@ -90,7 +90,7 @@
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
-            <bean class="com.baoquan.shuxin.facade.interceptor.TraceInterceptor"/>
+            <bean class="com.baoquan.shuxin.interceptor.TraceInterceptor"/>
         </mvc:interceptor>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
@@ -99,5 +99,5 @@
         </mvc:interceptor>
     </mvc:interceptors>
 
-    <bean class="com.baoquan.shuxin.facade.interceptor.CustomHandlerExceptionResolver"/>
+    <bean class="com.baoquan.shuxin.interceptor.CustomHandlerExceptionResolver"/>
 </beans>
