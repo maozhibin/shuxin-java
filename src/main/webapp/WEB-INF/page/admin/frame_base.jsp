@@ -4,8 +4,6 @@
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path
             + "/";
-    String requestUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path
-            + request.getAttribute("javax.servlet.forward.request_uri").toString();
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,7 +28,8 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script>
-        var base_url = '${requestScope['javax.servlet.forward.request_uri']}';
+        var base_url = "<%=basePath%>";
+        var requestUri = '${requestScope['javax.servlet.forward.request_uri']}';
     </script>
     <script src='<%=basePath%>static/admin/js/jquery.js?1499845987'></script>
     <script src='<%=basePath%>static/admin/js/bootstrap.min.js?1499845987'></script>
@@ -188,7 +187,7 @@
                     <a href="javascript:;" data-toggle="collapse" data-target="#control_panel"><i
                             class="fa fa-fw fa-desktop"></i> 控制台 <i
                             class="fa fa-fw fa-caret-down"></i></a>
-                    <ul id="control_panel" class="collapse">
+                    <ul id="control_panel" class="collapse" href="/admin/ControlPanel">
                         <li>
                             <a href="<%=basePath%>admin/ControlPanel/index">平台概况</a>
                         </li>
@@ -232,7 +231,7 @@
                     <a href="javascript:;" data-toggle="collapse" data-target="#member"><i
                             class="fa fa-fw  fa-id-card-o"></i> 用户管理 <i
                             class="fa fa-fw fa-caret-down"></i></a>
-                    <ul id="member" class="collapse">
+                    <ul id="member" class="collapse" href="/admin/user">
                         <li>
                             <a href="<%=basePath%>admin/user/list">用户基本信息</a>
                         </li>
@@ -242,7 +241,7 @@
                     <a href="javascript:;" data-toggle="collapse" data-target="#order_form"><i
                             class="fa fa-fw fa-indent"></i> 订单管理<i
                             class="fa fa-fw fa-caret-down"></i></a>
-                    <ul id="order_form" class="collapse">
+                    <ul id="order_form" class="collapse" href="/admin/order">
                         <li>
                             <a href="<%=basePath%>admin/order/completed">已完成订单</a>
                         </li>
@@ -255,7 +254,7 @@
                     <a href="javascript:;" data-toggle="collapse" data-target="#product"><i
                             class="fa fa-fw fa-database"></i> 产品管理 <i
                             class="fa fa-fw fa-caret-down"></i></a>
-                    <ul id="product" class="collapse">
+                    <ul id="product" class="collapse" href="/admin/product">
                         <li>
                             <a href="<%=basePath%>admin/product/list">产品列表</a>
                         </li>
@@ -268,7 +267,7 @@
                     <a href="javascript:;" data-toggle="collapse" data-target="#news"><i
                             class="fa fa-fw fa-file-text-o"></i> 新闻管理<i
                             class="fa fa-fw fa-caret-down"></i></a>
-                    <ul id="news" class="collapse">
+                    <ul id="news" class="collapse" href="/admin/news">
                         <li>
                             <a href="<%=basePath%>admin/news/list">文章管理</a>
                         </li>
@@ -281,7 +280,7 @@
                     <a href="javascript:;" data-toggle="collapse" data-target="#account"><i
                             class="fa fa-fw fa-google-wallet"></i> 财务管理 <i
                             class="fa fa-fw fa-caret-down"></i></a>
-                    <ul id="account" class="collapse">
+                    <ul id="account" class="collapse" href="/admin/account">
                         <li>
                             <a href="<%=basePath%>admin/account/recharge">账户充值</a>
                         </li>
@@ -294,7 +293,7 @@
                     <a href="javascript:;" data-toggle="collapse" data-target="#config"><i
                             class="fa fa-fw fa-cogs"></i> 参数配置 <i
                             class="fa fa-fw fa-caret-down"></i></a>
-                    <ul id="config" class="collapse">
+                    <ul id="config" class="collapse" href="/admin/config">
                         <li>
                             <a href="<%=basePath%>admin/config/list">配置参数</a>
                         </li>
@@ -307,7 +306,7 @@
                     <a href="javascript:;" data-toggle="collapse" data-target="#tools"><i
                             class="fa fa-fw fa-wrench"></i> 工具 <i
                             class="fa fa-fw fa-caret-down"></i></a>
-                    <ul id="tools" class="collapse">
+                    <ul id="tools" class="collapse" href="/admin/tools">
                         <li>
                             <a href="<%=basePath%>admin/tools/ip/list">IP管理</a>
                         </li>
@@ -317,7 +316,7 @@
                     <a href="javascript:;" data-toggle="collapse" data-target="#super"><i
                             class="fa fa-fw fa-wrench"></i> 超级管理员 <i
                             class="fa fa-fw fa-caret-down"></i></a>
-                    <ul id="super" class="collapse">
+                    <ul id="super" class="collapse" href="/admin/super">
                         <li>
                             <a href="<%=basePath%>admin/super/auth/list">权限管理</a>
                         </li>
@@ -360,9 +359,15 @@
      $($(nav_active).find('li')[nav_child_index]).addClass("nav_active");
      */
 </script>
+<script type="text/javascript">
+    <%--$("[href='<%=requestUrl%>']").parents("ul").removeClass("collapse");--%>
+    var d = $("ul[href]");
+    for (i = 0; i < d.length; i++) {
+        if (requestUri.startsWith($(d[i]).attr("href"))) {
+            $(d[i]).removeClass("collapse");
+            break;
+        }
+    }
+</script>
 </body>
 </html>
-<script type="text/javascript">
-    <%--todo 做成前缀匹配--%>
-    $("[href='<%=requestUrl%>']").parents("ul").removeClass("collapse");
-</script>
