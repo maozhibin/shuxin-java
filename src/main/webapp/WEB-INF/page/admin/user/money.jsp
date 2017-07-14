@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: yongj
@@ -7,6 +8,13 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path
+            + "/";
+    String requestUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path
+            + request.getAttribute("javax.servlet.forward.request_uri").toString();
+%>
 <html>
 <head>
     <title>用户资金流动</title>
@@ -22,6 +30,8 @@
         margin:5px 8px;
     }
 </style>
+    <script src='<%=basePath%>static/admin/plugins/datepicker/bootstrap-datepicker.js'></script>
+    <link href='<%=basePath%>static/admin/plugins/datepicker/datepicker3.css' rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <h3 class="header">资金变动记录</h3>
@@ -33,21 +43,21 @@
                 <td> 资金类型：</td>
                 <td>
                     <select name="type">
-                        <option value="">全部</option>
+                        <option>全部</option>
                     </select>
                 </td>
                 <td> 起始时间：</td>
                 <td>
-                    <input class="form-control datepicker" data-date-format="yyyy-mm-dd" type="text" name="start_time"
-                           value=""/>
+                    <input class="form-control datepicker" data-date-format="yyyy-mm-dd" type="text" name="startTime"
+                           value="${startTime}"/>
                 </td>
                 <td> -</td>
                 <td>
-                    <input class="form-control datepicker" data-date-format="yyyy-mm-dd" type="text" name="end_time"
-                           value=""/>
+                    <input class="form-control datepicker" data-date-format="yyyy-mm-dd" type="text" name="endTime"
+                           value="${endTime}"/>
                 </td>
                 <td>
-                    <button type="" class="btn"><i class="fa fa-search"></i> 搜索</button>
+                    <button type="submit" class="btn"><i class="fa fa-search"></i> 搜索</button>
                 </td>
             </tr>
         </table>
@@ -70,11 +80,15 @@
                     </thead>
                     <tbody>
                     <c:if test="${page != null && page.result != null}">
-                        <c:forEach items="${page.result}" var="user">
+                        <c:forEach items="${page.result}" var="UserMoneyLog">
                             <tr>
                                 <td>${UserMoneyLog.type}</td>
                                 <td>${UserMoneyLog.amount}</td>
-                                <td>${UserMoneyLog.finishTime}</td>
+                                <td>
+                               		<jsp:useBean id="dateValue" class="java.util.Date"/>
+									<jsp:setProperty name="dateValue" property="time" value="${UserMoneyLog.finishTime*1000}"/>
+									<fmt:formatDate value="${dateValue}" pattern="yyyy-MM-dd"/>
+                                </td>
                                 <td>${UserMoneyLog.remark}</td>
                             </tr>
                         </c:forEach>
@@ -90,4 +104,12 @@
     </div>
 </div>
 </body>
+	<script type="text/javascript">
+	    $().ready(function () {
+	        $('.datepicker').datepicker({
+	            language: 'cn',
+	            todayHighlight: true
+	        });
+	    });
+	</script>
 </html>

@@ -39,4 +39,9 @@ public class ConfigServiceImpl implements ConfigService{
 		configDao.insertConfig(config);
 	}
 
+	@Override
+	public Config findByIdConfig(Integer id) {
+		return configDao.findByIdConfig(id);
+	}
+
 }

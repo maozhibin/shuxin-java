@@ -39,7 +39,7 @@
 	        and id=#{id}
 	    </if>
 	    <if test="name != null">
-	        and name = #{name}
+	        and username = #{name}
 	    </if>
 	    <if test="mobile != null ">
 	        and mobile=#{mobile}

@@ -13,6 +13,8 @@ public interface ConfigService {
 
 	void insertConfig(Config config);
 
+	Config findByIdConfig(Integer id);
+
 
 
 }

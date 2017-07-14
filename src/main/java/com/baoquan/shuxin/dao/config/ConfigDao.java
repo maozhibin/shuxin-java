@@ -18,6 +18,5 @@ public interface ConfigDao {
 
 	void insertConfig(Config config);
 
-
-
+	Config findByIdConfig(Integer id);
 }

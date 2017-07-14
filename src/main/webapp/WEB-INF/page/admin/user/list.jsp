@@ -68,9 +68,8 @@
                                     <!--  <a class="" title='编辑'
                                        href="user/detail/"><i
                                             class="fa fa-pencil"></i> </a>&nbsp;&nbsp;-->
-                                    <a class="delete_button" title='删除'
-                                       href="admin/user/user_delete/"><i
-                                            class="fa fa-trash"></i> </a>
+                                    <a class="delete_button" title='删除' url="delete?id=${user.id}"><i
+                                            class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
                         </c:forEach>

@@ -42,7 +42,7 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping("list")
-	public ModelAndView UserList(String name, String mobile, String typeId, String pageNo, String pageSize) {
+	public ModelAndView userList(String name, String mobile, String typeId, String pageNo, String pageSize) {
 		ModelAndView mv = new ModelAndView("admin/user/list");
 		Page<User> page = new Page<User>();
 		Integer pageSizeValue = null;
@@ -87,19 +87,17 @@ public class UserController {
 	/**
 	 * 删除用户
 	 */
-	@ResponseBody
 	@RequestMapping("delete")
-	public JsonResponseMsg delete(String id) {
-		JsonResponseMsg result = new JsonResponseMsg();
+	public String delete(String id) {
 		if (!NumberUtils.isNumber(id)) {
-			return result.fill(JsonResponseMsg.CODE_FAIL, "参数错误");
+			return null;
 		}
 		Long idValue = NumberUtils.toLong(id);
 		Boolean isSuccess = userService.deleteUser(idValue);
-		if (isSuccess) {
-			return result.fill(JsonResponseMsg.CODE_SUCCESS, "删除成功");
+		if (!isSuccess) {
+			return null;
 		}
-		return result.fill(JsonResponseMsg.CODE_FAIL, "删除失败");
+		return "redirect:list";
 	}
 
 	/**
@@ -109,9 +107,6 @@ public class UserController {
 	public ModelAndView moneyChange(String userId, String startTime, String endTime, String pageNo,
 			String pageSize) {
 		ModelAndView mv = new ModelAndView("admin/user/money");
-		if (!NumberUtils.isNumber(userId)) {
-			return null;
-		}
 		Long startTimeValue = null;
 		if (!StringUtils.isEmpty(startTime)) {
 			startTimeValue = DateUtil.dateToStamp(startTime) / 1000;

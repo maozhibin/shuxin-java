@@ -34,4 +34,12 @@
         insert into config(varname,value,memo)  
              values(#{varname},#{value},#{memo})  
     </insert>
+    
+    <select id="findByIdConfig"  resultMap="BaseResultMap">
+  		SELECT
+			*
+		FROM
+			config
+		where id=#{id}
+  </select>
 </mapper>

@@ -46,6 +46,6 @@ public class DateUtil {
     }
 
 	public static void main(String[] args) {
-		System.out.println(dateToStamp("2017-7-10") / 1000);
+		System.out.println(dateToStamp("2017-07-13"));
 	}
 }
