@@ -9,6 +9,8 @@ public class News {
 
     private Integer id;
 
+    private String newsClassType;
+
     private String title;
 
     private Integer dateline;
@@ -31,7 +33,7 @@ public class News {
 
     private String image;
 
-    private Integer isDisplay;
+    private Boolean isDisplay;
 
     private String content;
 
@@ -41,6 +43,14 @@ public class News {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getNewsClassType() {
+        return newsClassType;
+    }
+
+    public void setNewsClassType(String newsClassType) {
+        this.newsClassType = newsClassType;
     }
 
     public String getTitle() {
@@ -131,12 +141,12 @@ public class News {
         this.image = image;
     }
 
-    public Integer getIsDisplay() {
+    public Boolean getDisplay() {
         return isDisplay;
     }
 
-    public void setIsDisplay(Integer isDisplay) {
-        this.isDisplay = isDisplay;
+    public void setDisplay(Boolean display) {
+        isDisplay = display;
     }
 
     public String getContent() {

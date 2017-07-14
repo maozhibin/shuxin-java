@@ -12,6 +12,7 @@ import com.baoquan.shuxin.service.spi.news.NewsService;
 public class NewsServiceImpl implements NewsService {
 
 
+
     @Override
     public Page<News> queryNewInfo(String name, String mobile, String typeId, Page<News> page) {
         return null;

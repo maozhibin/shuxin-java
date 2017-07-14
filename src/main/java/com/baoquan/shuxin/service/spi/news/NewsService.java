@@ -12,7 +12,7 @@ import com.baoquan.shuxin.model.user.User;
 public interface NewsService {
 
     //查询
-    Page<News> queryNewInfo(String name, String mobile, String typeId, Page<News> page);
+    Page<News> queryNewInfo(String typeId, Page<News> page);
     //删除
     Boolean delNews(Long id);
     //修改
