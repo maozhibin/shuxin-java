@@ -15,4 +15,6 @@ public interface AdminUserDao {
 
     int modifyPassword(@Param("userId") Long userId, @Param("oldPass") String oldPass,
             @Param("newPass") String newPass);
+
+    int refreshLoginInfoById(@Param("id") Long id, @Param("ip") String ip, @Param("timestamp") Long timestamp);
 }

@@ -11,4 +11,10 @@
         SET password = #{newPass}
         WHERE id = #{userId} AND password = #{oldPass}
     </update>
+    <update id="refreshLoginInfoById">
+        UPDATE admin_user
+        SET last_ip   = #{ip},
+            last_time = #{timestamp}
+        WHERE id = #{id}
+    </update>
 </mapper>

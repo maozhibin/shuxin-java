@@ -8,5 +8,8 @@ import com.baoquan.shuxin.model.admin.AdminUser;
  */
 public interface AdminUserService {
     AdminUser queryUserPass(String username, String password);
+
     int modifyPassword(Long userId, String oldPass, String newPass);
+
+    int refreshLoginInfoById(Long id, String ip, Long timestamp);
 }

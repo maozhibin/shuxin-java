@@ -25,4 +25,9 @@ public class AdminUserServiceImpl implements AdminUserService {
     public int modifyPassword(Long userId, String oldPass, String newPass) {
         return adminUserDao.modifyPassword(userId, oldPass, newPass);
     }
+
+    @Override
+    public int refreshLoginInfoById(Long id, String ip, Long timestamp) {
+        return adminUserDao.refreshLoginInfoById(id, ip, timestamp);
+    }
 }

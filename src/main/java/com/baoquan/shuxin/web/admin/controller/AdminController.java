@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.baoquan.shuxin.bean.JsonBean;
 import com.baoquan.shuxin.model.admin.AdminUser;
 import com.baoquan.shuxin.service.spi.admin.AdminUserService;
+import com.baoquan.shuxin.util.IPUtils;
 
 /**
  * Desc:
@@ -43,6 +44,9 @@ public class AdminController {
             jsonBean.setData("请重试!");
             return jsonBean;
         }
+        String ip = IPUtils.getIp(request);
+        Long timestamp = System.currentTimeMillis();
+        adminUserService.refreshLoginInfoById(adminUser.getId(), ip, timestamp);
         request.getSession(true).setAttribute("userId", adminUser.getId());
         request.getSession(true).setMaxInactiveInterval(1800);
         jsonBean.setCode(0);
