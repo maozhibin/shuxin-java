@@ -22,7 +22,27 @@
       and status=#{status}
     </if>
   </sql>
+  <select id="PageCount" resultType="com.baoquan.shuxin.model.user.UserOrder">
+    SELECT
+    COUNT(1)
+    FROM
+    user_product up
+    <where>
+      <if test="id != null">
+        and id=#{id}
+      </if>
+      <if test="user_id != null">
+        and user_id = #{userId}
+      </if>
+      <if test="buy_time != null ">
+        and buy_time=#{buyTime}
+      </if>
+      <if test="status != null">
+        and status=#{status}
+      </if>
+    </where>
 
+  </select>
 
 
 

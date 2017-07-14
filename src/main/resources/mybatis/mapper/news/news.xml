@@ -3,6 +3,7 @@
 <mapper namespace="com.baoquan.shuxin.dao.news.NewsDao" >
   <resultMap id="BaseResultMap" type="com.baoquan.shuxin.model.news.News" >
     <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="news_class_type" property="newsClassType" jdbcType="VARCHAR" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="dateline" property="dateline" jdbcType="INTEGER" />
     <result column="source" property="source" jdbcType="VARCHAR" />
@@ -36,6 +37,14 @@
       </if>
     </where>
 
+  </select>
+  <delete id="deleteNews" parameterType="java.lang.Long" >
+    DELETE FROM news where id=#{id}
+  </delete>
+
+  
+  <select id="queryNewsDetails" resultMap="BaseResultMap">
+    SELECT * FROM  news WHERE id=#{id}
   </select>
   
 

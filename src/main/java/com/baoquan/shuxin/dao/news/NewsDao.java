@@ -13,10 +13,14 @@ import com.baoquan.shuxin.model.user.User;
  */
 public interface NewsDao {
 
+    Integer PageCount(Map<String, Object> parms);
     //查询
     List<News> queryNewsInfo(Map<String, Object> parms);
     //删除
     void deleteNews(Long id);
     //修改
+
+    //查询新闻详情
+    News queryNewsDetails(Long id);
 
 }

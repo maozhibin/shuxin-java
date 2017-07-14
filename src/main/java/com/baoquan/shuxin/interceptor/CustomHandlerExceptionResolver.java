@@ -1,4 +1,4 @@
-package com.baoquan.shuxin.facade.interceptor;
+package com.baoquan.shuxin.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

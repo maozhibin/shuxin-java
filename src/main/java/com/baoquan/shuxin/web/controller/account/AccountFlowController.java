@@ -27,13 +27,12 @@ public class AccountFlowController {
 
 
 
-    @RequestMapping("/list")
+    @RequestMapping("/flow")
     @ResponseBody
     public ModelAndView accountFlowInfo(Long userId, String type, Long dateline, Long finishTime,String pageNo,
             String pageSize ){
-        ModelAndView mv = new ModelAndView("admin/account/list");
+        ModelAndView mv = new ModelAndView("admin/account/account_index");
         Page<AccountFlow> page = new Page<AccountFlow>();
-
         Integer pageSizeValue = null;
         if (NumberUtils.isNumber(pageSize)) {
             pageSizeValue = NumberUtils.toInt(pageSize);

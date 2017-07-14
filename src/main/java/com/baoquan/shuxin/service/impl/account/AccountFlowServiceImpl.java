@@ -42,7 +42,9 @@ public class AccountFlowServiceImpl<T> implements AccountFlowService {
         parms.put("page", page);
         List<AccountFlow> listInfo = accountFlowDao.querAccountFlowInfo(parms);
         Integer total = accountFlowDao.PageCount(parms);
-        page.setTotalRecordCount(total);
+        if (total != null) {
+            page.setTotalRecordCount(total);
+        }
         page.setResult(listInfo);
         return page;
     }
