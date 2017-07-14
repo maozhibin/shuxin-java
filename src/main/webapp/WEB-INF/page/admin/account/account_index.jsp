@@ -132,18 +132,18 @@
                     </tr>
                     </thead>
                     <c:if test="${page != null && page.result != null}">
-                        <c:forEach items="page.result" var="accountFlow">
+                        <c:forEach items="${page.result}" var="accountFlow">
 
                             <tr>
-                                <td>${AccountFlow.userId}</td>
-                                <td>${AccountFlow.type}</td>
-                                <td>${AccountFlow.amount}</td>
-                                <td>${AccountFlow.status}</td>
-                                <td>${AccountFlow.request_no}</td>
-                                <td>${AccountFlow.fee}</td>
-                                <td>${AccountFlow.status_desc}</td>
-                                <td>${AccountFlow.dateline}</td>
-                                <td>${AccountFlow.finish_time}</td>
+                                <td>${accountFlow.userId}</td>
+                                <td>${accountFlow.type}</td>
+                                <td>${accountFlow.amount}</td>
+                                <td>${accountFlow.status}</td>
+                                <td>${accountFlow.requestNo}</td>
+                                <td>${accountFlow.fee}</td>
+                                <td>${accountFlow.statusDesc}</td>
+                                <td>${accountFlow.dateline}</td>
+                                <td>${accountFlow.finishTime}</td>
                             </tr>
                         </c:forEach>
                     </c:if>

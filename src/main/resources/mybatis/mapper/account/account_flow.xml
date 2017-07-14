@@ -3,7 +3,7 @@
 <mapper namespace="com.baoquan.shuxin.dao.account.AccountFlowDao" >
 
   <select id="querAccountFlowInfo" resultType="com.baoquan.shuxin.model.account.AccountFlow">
-    SELECT 	id,user_id, type,finish_time FROM user_money_log
+    SELECT 	* FROM user_money_log um
 
     <where>
       <if test="user_id !=null">
@@ -18,7 +18,7 @@
       </if>
     </where>
   </select>
-    <select id="PageCount" resultType="com.baoquan.shuxin.model.account.AccountFlow">
+    <select id="PageCount" resultType="Integer">
         SELECT
         COUNT(1)
         FROM

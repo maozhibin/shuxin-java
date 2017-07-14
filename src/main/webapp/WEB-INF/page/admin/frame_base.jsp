@@ -233,20 +233,20 @@
                             class="fa fa-fw fa-caret-down"></i></a>
                     <ul id="member" class="collapse" href="/admin/user">
                         <li>
-                            <a href="<%=basePath%>admin/user/list">注册用户</a>
+                            <a href="<%=basePath%>admin/user/list?typeId=USER">注册用户</a>
                         </li>
                         <li>
-                            <a href="<%=basePath%>admin/user/list">机构用户</a>
+                            <a href="<%=basePath%>admin/user/list?typeId=ORG">机构用户</a>
                         </li>
                     </ul>
                 </li>
                 <li>
                     <a href="javascript:;" data-toggle="collapse" data-target="#order_form"><i
-                            class="fa fa-fw fa-indent"></i> 订单<i
+                            class="fa fa-fw fa-indent"></i> 订单管理<i
                             class="fa fa-fw fa-caret-down"></i></a>
                     <ul id="order_form" class="collapse" href="/admin/order">
                         <li>
-                            <a href="<%=basePath%>admin/order/completed">会员订单</a>
+                            <a href="<%=basePath%>admin/order/list">订单列表</a>
                         </li>
                        <%-- <li>
                             <a href="<%=basePath%>admin/order/completed">已完成订单</a>
