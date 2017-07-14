@@ -170,11 +170,11 @@
                         class="fa fa-user"></i> ${admin_username} <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a href="<%=basePath%>admin/login/login_out"><i
+                        <a href="<%=basePath%>admin/logout"><i
                                 class="fa fa-fw fa-power-off"></i>退出</a>
                     </li>
                     <li>
-                        <a href="<%=basePath%>admin/login/reset_password"><i
+                        <a href="<%=basePath%>admin/password"><i
                                 class="fa fa-fw fa-lock"></i>修改密码</a>
                     </li>
                 </ul>
@@ -233,7 +233,10 @@
                             class="fa fa-fw fa-caret-down"></i></a>
                     <ul id="member" class="collapse" href="/admin/user">
                         <li>
-                            <a href="<%=basePath%>admin/user/list">用户基本信息</a>
+                            <a href="<%=basePath%>admin/user/list">注册用户</a>
+                        </li>
+                        <li>
+                            <a href="<%=basePath%>admin/user/list">机构用户</a>
                         </li>
                     </ul>
                 </li>
@@ -285,9 +288,6 @@
                             class="fa fa-fw fa-google-wallet"></i> 财务管理 <i
                             class="fa fa-fw fa-caret-down"></i></a>
                     <ul id="account" class="collapse" href="/admin/account">
-                        <li>
-                            <a href="<%=basePath%>admin/account/recharge">账户充值</a>
-                        </li>
                         <li>
                             <a href="<%=basePath%>admin/account/flow">账户流水</a>
                         </li>
