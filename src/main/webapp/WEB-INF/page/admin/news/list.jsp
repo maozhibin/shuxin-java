@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Administrator
-  Date: 2017/7/14
-  Time: 16:34
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -59,35 +53,32 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <?php if (!empty($list)) {
-                        foreach ($list as $item) {
-                            ?>
-                    <tr>
-                        <td><?= $item['id'] ?></td>
-                        <td><?= $type_list[$item['news_class_type']] ?></td>
-                        <td><?= $item['title'] ?></td>
-                        <td><?= date("Y-m-d H:i:s", $item['dateline']) ?></td>
-                        <td>
-                            <a class="" title='查看'
-                               href=<?= site_url("admin/news/news_detail/" . $item['id']) ?>><i
-                                class="fa fa-eye"></i> </a>&nbsp;&nbsp;
-                            <a class="<?= site_url('admin/news/news_add/' . $item['id']); ?>" title='编辑'
-                               href=<?= site_url("admin/user/user_detail/" . $item['id']) ?>><i
-                                class="fa fa-pencil"></i> </a>&nbsp;&nbsp;
-                            <a class="delete_button" title='删除'
-                               url=<?= site_url("admin/news/news_delete/" . $item['id']) ?>><i
-                                class="fa fa-trash"></i> </a>
-                        </td>
-                    </tr>
-                    <?php } ?>
-                    <?php } ?>
-
+                    <c:if test="${page != null && page.result != null}">
+                        <c:forEach items="${page.result}" var="news">
+                            <tr>
+                                <td>${News.id}</td>
+                                <td>${News.newsClassType}</td>
+                                <td>${News.title}</td>
+                                <td>${News.dateline}</td>
+                                <td>
+                                    <a class="" title='查看'
+                                       href="detail?id=${News.id}"><i
+                                            class="fa fa-eye"></i> </a>&nbsp;&nbsp;
+                                      <a class="" title='编辑'
+                                       href="news/detail/"><i
+                                            class="fa fa-pencil"></i> </a>&nbsp;&nbsp;
+                                    <a class="delete_button" title='删除' url="delete?id=${News.id}"><i
+                                            class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </c:if>
                     </tbody>
                 </table>
                 <div class="col-sm-12" style="text-align: center">
                     <hr>
-                    <span class="float-left" style="    line-height: 40px;"><?= '共' . $count . '条，每页' . '5' . '条' ?></span>
-                    <?php echo $pages; ?>
+                    <span class="float-left" style="line-height: 40px;">共${page.totalRecordCount}条，每页15条</span>
+
                 </div>
             </div>
         </div>
