@@ -3,6 +3,8 @@ package com.baoquan.shuxin.dao.news;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Repository;
+
 import com.baoquan.shuxin.model.news.News;
 import com.baoquan.shuxin.model.user.User;
 
@@ -11,6 +13,7 @@ import com.baoquan.shuxin.model.user.User;
  * Description:新闻查看
  * DATA:17:11 ${DATA}
  */
+@Repository
 public interface NewsDao {
 
     Integer PageCount(Map<String, Object> parms);

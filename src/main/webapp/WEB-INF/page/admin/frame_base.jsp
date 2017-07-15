@@ -187,15 +187,15 @@
                     <a href="javascript:;" data-toggle="collapse" data-target="#control_panel"><i
                             class="fa fa-fw fa-desktop"></i> 控制台 <i
                             class="fa fa-fw fa-caret-down"></i></a>
-                    <ul id="control_panel" class="collapse" href="/admin/ControlPanel">
+                    <ul id="control_panel" class="collapse" href="/admin/overview">
                         <li>
-                            <a href="<%=basePath%>admin/ControlPanel/index">平台概况</a>
+                            <a href="<%=basePath%>admin/overview/platform">平台概况</a>
                         </li>
                         <li>
-                            <a href="<%=basePath%>admin/ControlPanel/org_deal">机构交易概况</a>
+                            <a href="<%=basePath%>admin/overview/organization">机构交易概况</a>
                         </li>
                         <li>
-                            <a href="<%=basePath%>admin/ControlPanel/platform_deal">平台交易概况</a>
+                            <a href="<%=basePath%>admin/overview/product">产品交易概况</a>
                         </li>
                     </ul>
                 </li>
@@ -248,13 +248,13 @@
                         <li>
                             <a href="<%=basePath%>admin/order/list">订单列表</a>
                         </li>
-                       <%-- <li>
-                            <a href="<%=basePath%>admin/order/completed">已完成订单</a>
-                        </li>
-                        <li>
-                            <a href="<%=basePath%>admin/order/uncompleted">未完成订单</a>
-                        </li>
-                        --%>
+                        <%-- <li>
+                             <a href="<%=basePath%>admin/order/completed">已完成订单</a>
+                         </li>
+                         <li>
+                             <a href="<%=basePath%>admin/order/uncompleted">未完成订单</a>
+                         </li>
+                         --%>
                     </ul>
                 </li>
                 <li>

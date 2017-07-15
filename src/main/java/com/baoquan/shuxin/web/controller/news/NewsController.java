@@ -97,5 +97,9 @@ public class NewsController {
 
     }
 
+    @RequestMapping("issue")
+    public Object issue() {
+        return "admin/news/add";
+    }
 
 }

@@ -3,7 +3,7 @@
 <mapper namespace="com.baoquan.shuxin.dao.user.UserOrderDao" >
 
   <select id="querUserOrderInfo" resultType="com.baoquan.shuxin.model.user.UserOrder">
-    SELECT 	id,user_id,buy_time,status FROM`user_product` where 1 = 1 <include refid="taskQuery" />
+    SELECT * FROM`user_product` where 1 = 1 <include refid="taskQuery" />
     <if test="page != null">
       limit ${page.startIndex},${page.pageSize};
     </if>
@@ -22,7 +22,7 @@
       and status=#{status}
     </if>
   </sql>
-  <select id="PageCount" resultType="com.baoquan.shuxin.model.user.UserOrder">
+  <select id="PageCount" resultType="Integer">
     SELECT
     COUNT(1)
     FROM

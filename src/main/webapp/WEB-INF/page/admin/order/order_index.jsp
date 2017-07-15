@@ -129,13 +129,13 @@
                     <c:if test="${page != null && page.result != null}">
                         <c:forEach items="${page.result}" var="order">
                             <tr>
-                                <td>${UserOrder.userId}</td>
-                                <td>${UserOrder.productId}</td>
-                                <td>${UserOrder.buyAmount}</td>
-                                <td>${UserOrder.payAmount}</td>
-                                <td>${UserOrder.status}</td>
-                                <td>${UserOrder.requestNo}</td>
-                                <td>${UserOrder.buyTime}</td>
+                                <td>${order.userId}</td>
+                                <td>${order.productId}</td>
+                                <td>${order.buyAmount}</td>
+                                <td>${order.payAmount}</td>
+                                <td>${order.status}</td>
+                                <td>${order.requestNo}</td>
+                                <td>${order.buyTime}</td>
                             </tr>
                         </c:forEach>
                     </c:if>

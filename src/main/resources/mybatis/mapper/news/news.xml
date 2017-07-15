@@ -22,7 +22,7 @@
   </resultMap>
 
   <select id="queryNewsInfo" resultType="com.baoquan.shuxin.model.news.News">
-    SELECT 	id,user_id, type,finish_time FROM news   n
+    SELECT 	* FROM news   n
 
     <where>
       <if test="user_id !=null">
@@ -38,6 +38,24 @@
     </where>
 
   </select>
+  <select id="PageCount" resultType="Integer">
+    SELECT 	count(*) FROM news   n
+
+    <where>
+      <if test="user_id !=null">
+        AND um.user_id = #{userId}
+      </if>
+      <if test="type != null">
+        AND um.type = #{type}
+      </if>
+      <if test="dateline != null and finish_time != null" >
+        AND um.finish_time =#{finishTime}
+        BETWEEN um.dateline =#{dateline} AND  um.finish_time=#{finishTime}
+      </if>
+    </where>
+
+  </select>
+
   <delete id="deleteNews" parameterType="java.lang.Long" >
     DELETE FROM news where id=#{id}
   </delete>
@@ -46,7 +64,7 @@
   <select id="queryNewsDetails" resultMap="BaseResultMap">
     SELECT * FROM  news WHERE id=#{id}
   </select>
-  
+
 
 
 </mapper>
