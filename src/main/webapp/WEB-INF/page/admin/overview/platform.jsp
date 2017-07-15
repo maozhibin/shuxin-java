@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: yongj
@@ -15,23 +16,27 @@
 <head>
     <title>平台概况</title>
     <style>
-        .container-fluid{
+        .container-fluid {
             background: transparent;
-            border:none;
-            padding:0;
+            border: none;
+            padding: 0;
         }
-        .tab-header{
-            margin:30px 0 15px 10px;
+
+        .tab-header {
+            margin: 30px 0 15px 10px;
         }
-        #survey{
+
+        #survey {
             margin-left: 100px;
         }
-        #survey th,#survey tr,#survey td{
-            border:none;
+
+        #survey th, #survey tr, #survey td {
+            border: none;
         }
-        .tab-header span{
+
+        .tab-header span {
             display: inline-block;
-            width:90px;
+            width: 90px;
             line-height: 35px;
             height: 35px;
             text-align: center;
@@ -41,23 +46,28 @@
             border-right: 1px solid #d8d8d8;
             cursor: pointer;
         }
-        span.active{
+
+        span.active {
             background: #1a97f4;
             color: #fff;
         }
-        .cnt-data,.ctn-charts,.ctn-tables{
+
+        .cnt-data, .ctn-charts, .ctn-tables {
             background: #fff;
-            border:1px solid #ccc;
-            padding:10px;
+            border: 1px solid #ccc;
+            padding: 10px;
         }
-        .ctn-tables{
+
+        .ctn-tables {
             margin-top: 30px;
         }
-        .left-charts,.right-charts,.tables-left,.tables-right{
-            width:49%;
+
+        .left-charts, .right-charts, .tables-left, .tables-right {
+            width: 49%;
             height: 550px;
         }
-        .right-charts,.tables-right{
+
+        .right-charts, .tables-right {
             margin-left: 2%;
         }
     </style>
@@ -76,7 +86,7 @@
     <div class="container-fluid">
         <!-- 内容区域 -->
         <div class="cnt-data row">
-            <h4 class="header">亚欧平台概况</h4>
+            <h4 class="header">平台概况</h4>
             <hr>
             <table id="survey" class="table text-overflow">
                 <tr>
@@ -87,30 +97,32 @@
                     <th>授权总量</th>
                 </tr>
                 <tr class="blue-bold text-overflow">
-                    <td><?php echo $todayAmount ?></td>
-                    <td><?php echo $todayOrdersum ?></td>
+                    <td>${todayAmount}</td>
+                    <td>${todayOrdersum}</td>
                     <td>0</td>
-                    <td><?php echo $todaytradingRate ?></td>
+                    <td>${todaytradingRate}</td>
                     <td>0</td>
                 </tr>
                 <tr>
-                    <td>昨日 <?php echo $yesterdayAmount ?></td>
-                    <td>昨日 <?php echo $yesterdayOrdersum ?></td>
+                    <td>昨日 ${yesterdayAmount}</td>
+                    <td>昨日 ${yesterdayOrdersum}</td>
                     <td>昨日 0</td>
-                    <td>昨日 <?php echo $yesterdaytradingRate ?></td>
+                    <td>昨日 ${yesterdaytradingRate}</td>
                     <td>昨日 0</td>
                 </tr>
                 <tr>
-                    <td>预计明日  <i class="fa fa-fw fa-long-arrow-down"></i></td>
-                    <td>预计明日  <i class="fa fa-fw fa-long-arrow-down"></i></td>
-                    <td>预计明日 0 </td>
-                    <td>预计明日  <i class="fa fa-fw fa-long-arrow-down"></i></td>
-                    <td>预计明日 0 </td>
+                    <td>预计明日 <i class="fa fa-fw fa-long-arrow-down"></i></td>
+                    <td>预计明日 <i class="fa fa-fw fa-long-arrow-down"></i></td>
+                    <td>预计明日 0</td>
+                    <td>预计明日 <i class="fa fa-fw fa-long-arrow-down"></i></td>
+                    <td>预计明日 0</td>
                 </tr>
             </table>
         </div>
         <div class="tab-header row">
-            <span class="tab active" id="today">今日</span><span class="tab" id="yesterday">昨日</span><span class="tab" id="week">最近7天</span><span class="tab" id="month">最近30天</span>
+            <span class="tab active" id="today">今日</span><span class="tab" id="yesterday">昨日</span><span class="tab"
+                                                                                                         id="week">最近7天</span><span
+                class="tab" id="month">最近30天</span>
         </div>
         <div class="row">
             <div class="float-left left-charts ctn-charts">
@@ -134,22 +146,19 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <?php foreach ($toplist as $item =>$value):?>
-                    <tr>
-                        <td>
-                            <?php if ($item <= 2): ?>
-                            <i class="fa fa-fw fa-fire"></i>
-                            <?php endif; ?>
-                            <?php echo $value['name'];?>
-                        </td>
-                        <td>
-                            <?php echo $value['ordernum'] ?>
-                        </td>
-                        <td>
-                            <?php echo $value['percent']?>
-                        </td>
-                    </tr>
-                    <?php endforeach;?>
+                    <c:forEach items="${toplist}" var="item">
+                        <tr>
+                            <td>
+                                    ${item.name}
+                            </td>
+                            <td>
+                                    ${item.ordernum}
+                            </td>
+                            <td>
+                                    ${item.percent}
+                            </td>
+                        </tr>
+                    </c:forEach>
                     </tbody>
                 </table>
             </div>
@@ -165,22 +174,22 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <?php foreach ($orgAmountlist as $item =>$value):?>
-                    <tr>
-                        <td>
-                            <?php echo $value['username'] ?>
-                        </td>
-                        <td>
-                            <?php echo $item+1 ?>
-                        </td>
-                        <td>
-                            <?php echo $value['amount'] ?>
-                        </td>
-                        <td>
-                            <?php echo $value['num'] ?>
-                        </td>
-                    </tr>
-                    <?php endforeach;?>
+                    <c:forEach items="${orgAmountlist}" var="item">
+                        <tr>
+                            <td>
+                                    ${item.username}
+                            </td>
+                            <td>
+                                    ${item.rank}
+                            </td>
+                            <td>
+                                    ${item.amount}
+                            </td>
+                            <td>
+                                    ${item.num}
+                            </td>
+                        </tr>
+                    </c:forEach>
                     </tbody>
                 </table>
             </div>
