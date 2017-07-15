@@ -33,7 +33,7 @@ body {
 
 @media (min-width: 768px) {
     #wrapper {
-        padding-left: 236px;
+        padding-left: 236px!important;
     }
 
     #page-wrapper {
@@ -224,7 +224,7 @@ ul.alert-dropdown {
         margin-left: -236px;
         border: none;
         border-radius: 0;
-        overflow-y: auto;
+        overflow-y: scroll;
         background-color: #222;
         bottom: 0;
         overflow-x: hidden;
@@ -327,4 +327,14 @@ ul.alert-dropdown {
 
 .panel-yellow > a:hover {
     color: #df8a13;
+}
+.time-frame{
+    position: relative;
+}
+.timePoint{
+    border: 1px solid #999999;
+    border-radius: 3px;
+    width: 198px;
+    height: 34px;
+    background: #fff url(../../images/uc-icon-cal.png) no-repeat 175px 50%;
 }
