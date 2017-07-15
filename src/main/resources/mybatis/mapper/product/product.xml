@@ -17,4 +17,40 @@
     <result column="detail" property="detail" jdbcType="VARCHAR" />
   </resultMap>
 
+  <select id="countByName" resultType="java.lang.Integer">
+       SELECT
+			COUNT(1)
+		FROM
+			product p
+		LEFT JOIN `user` u ON p.user_id = u.id
+     	where 1 = 1
+		<if test="name != null">
+	         and p.`name`=#{name}
+	         and u.username=#{name}
+	    </if>
+  </select>
+
+  <select id="productList" resultType="java.util.Map">
+		SELECT
+			p.dateline,
+			p.`name`,
+			'API' type,
+			p.`status`,
+			p.price,
+			a.`name` areaName,
+			u.username seller
+		FROM
+			product p
+		LEFT JOIN `user` u ON p.user_id = u.id
+		LEFT JOIN area a ON p.area_id = a.id
+		<if test="name != null">
+	         and p.`name`=#{name}
+	         and u.username=#{name}
+	    </if>
+	    <if test="page != null">
+	              	limit ${page.startIndex},${page.pageSize};
+	     </if>
+  </select>
+
+
 </mapper>
