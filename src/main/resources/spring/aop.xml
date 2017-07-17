@@ -7,7 +7,7 @@
 
     <aop:config>
         <aop:aspect id="aspect" ref="productAdvice">
-            <aop:pointcut id="productUse" expression="execution(* com.baoquan.shuxin.service.spi.product..*.*(..))"/>
+            <aop:pointcut id="productUse" expression="execution(* com.baoquan.shuxin.service.spi.product.api..*.*(..))"/>
 
             <aop:before method="doBefore" pointcut-ref="productUse"/>
             <aop:after method="doAfter" pointcut-ref="productUse"/>
