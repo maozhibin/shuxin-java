@@ -1,0 +1,188 @@
+
+body {
+    margin-top: 90px;
+}
+
+/*数据发布*/
+.release-tabs {
+    position: relative;
+    padding: 25px 25px 25px 250px;
+    border: 1px solid #e5e5e5;
+    min-height: 300px;
+}
+.release-tabs .tabs {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background: #f2f2f2;
+    width: 208px;
+    border-right: 1px solid #e5e5e5;
+}
+.release-tabs .tabs .tab {
+    position: relative;
+    display: block;
+    padding-left: 66px;
+    height: 70px;
+    line-height: 70px;
+    font-size: 16px;
+    color: #333;
+}
+.release-tabs .tabs .tab.active {
+    color: #489af0;
+    background: #fff;
+}
+.inline-form, .form {
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+}
+.inline-form .addon, .form .addon {
+    white-space: nowrap;
+    width: 1%;
+}
+.release-tabs .inline-form .addon {
+    padding-right: 15px;
+    vertical-align: top;
+    line-height: 38px;
+    color: #666;
+}
+.inline-form .cell, .inline-form .addon, .form .cell, .form .addon {
+    display: table-cell;
+    vertical-align: middle;
+}
+.inline-form .cell, .inline-form .addon, .form .cell, .form .addon {
+    display: table-cell;
+    vertical-align: middle;
+}
+.input-ctrl {
+    border: 1px solid #ccc;
+    background-color: #fff;
+    height: 46px;
+    line-height: 44px;
+    padding: 0 18px;
+    outline: none;
+    -webkit-transition: all ease-in-out 0.15s;
+    -moz-transition: all ease-in-out 0.15s;
+    -ms-transition: all ease-in-out 0.15s;
+    -o-transition: all ease-in-out 0.15s;
+    transition: all ease-in-out 0.15s;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+select.input-ctrl {
+    height: 40px;
+    padding-left: 15px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+}
+.release-tabs .input-ctrl {
+    height: 38px;
+    line-height: 36px;
+}
+.release-tabs .base .input-ctrl, .release-tabs .api .input-ctrl, .release-tabs .price .input-ctrl, .release-tabs .dp .input-ctrl {
+    width: 216px;
+}
+.mb15 {
+    margin-bottom: 15px;
+}
+.release-tabs .inline-form textarea.input-ctrl {
+    width: 100%;
+    height: 190px;
+    line-height: 1.5;
+    resize: none;
+}
+.release-tabs .upload {
+    display: block;
+    width: 216px;
+    height: 38px;
+    line-height: 36px;
+    text-align: center;
+    border: 1px solid #e5e5e5;
+    background: #f2f2f2;
+}
+.inline-form .hide {
+    display: none;
+}
+#close {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+.gray9 {
+    color: #999;
+}
+/* / 基础设置*/
+.mb10 {
+    margin-bottom: 10px;
+}
+.mb50 {
+    margin-bottom: 50px;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+.release-tabs table {
+    width: 100%;
+    border: 1px solid #e5e5e5;
+}
+.release-tabs table td, .release-tabs table th {
+    height: 38px;
+    border: 1px solid #e5e5e5;
+}
+.release-tabs table thead td, .release-tabs table thead th {
+    text-align: center;
+    background: #eee;
+    font-size: 14px;
+    font-weight: normal;
+    color: #666;
+}
+.release-tabs table tbody td {
+    text-align: center;
+}
+.release-tabs .input {
+    width: 100%;
+    height: 38px;
+    line-height: 38px;
+    text-align: center;
+    border: none;
+    background: #fff;
+}
+input[type="checkbox"], input[type="radio"] {
+    box-sizing: border-box;
+    /* padding: 0; */
+    position: relative;
+    top: 2px;
+}
+.release-tabs textarea.input-ctrl.mb30 {
+    width: 100%;
+    height: 190px;
+    line-height: 1.5;
+    resize: none;
+}
+.api .tab-content {
+    padding-top: 0;
+}
+/*/接口设置*/
+.ml60 {
+    margin-left: 60px;
+}
+.pl10 {
+    padding-left: 10px;
+}
+.release-tabs table .inline .cell {
+    display: table-cell;
+}
+.release-tabs table .inline input {
+    width: 48px;
+    border: none;
+    border-bottom: 1px solid #b5b5b5;
+}
+a.blue, a.color-blue {
+    color: #1a60f4;
+}
+/* /数据发布 END */

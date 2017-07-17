@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -13,18 +12,24 @@
     <style>
         td {
             word-break: break-all;
-            word-wrap:break-word;
-            padding:10px;
+            word-wrap: break-word;
+            padding: 10px;
         }
     </style>
 
-    <link href='<%=basePath%>static/admin/plugins/daterangepicker/daterangepicker.css?1.0' rel="stylesheet" type="text/css"/>
+    <link href='<%=basePath%>static/admin/plugins/daterangepicker/daterangepicker.css?1.0' rel="stylesheet"
+          type="text/css"/>
     <link href='<%=basePath%>static/admin/plugins/datepicker/datepicker3.css?1.0' rel="stylesheet" type="text/css"/>
-    <link href='<%=basePath%>static/admin/plugins/colorpicker/bootstrap-colorpicker.min.css?1.0' rel="stylesheet" type="text/css"/>
-    <link href='<%=basePath%>static/admin/plugins/timepicker/bootstrap-timepicker.min.css?1.0' rel="stylesheet" type="text/css"/>
-    <link href='<%=basePath%>static/admin/plugins/timepicker/bootstrap-timepicker.min.css?1.0' rel="stylesheet" type="text/css"/>
-    <link href='<%=basePath%>static/admin/plugins/fullcalendar/fullcalendar.min.css?1.0' rel="stylesheet" type="text/css"/>
-    <link href='<%=basePath%>static/admin/plugins/datatables/dataTables.bootstrap.css?1.0' rel="stylesheet" type="text/css"/>
+    <link href='<%=basePath%>static/admin/plugins/colorpicker/bootstrap-colorpicker.min.css?1.0' rel="stylesheet"
+          type="text/css"/>
+    <link href='<%=basePath%>static/admin/plugins/timepicker/bootstrap-timepicker.min.css?1.0' rel="stylesheet"
+          type="text/css"/>
+    <link href='<%=basePath%>static/admin/plugins/timepicker/bootstrap-timepicker.min.css?1.0' rel="stylesheet"
+          type="text/css"/>
+    <link href='<%=basePath%>static/admin/plugins/fullcalendar/fullcalendar.min.css?1.0' rel="stylesheet"
+          type="text/css"/>
+    <link href='<%=basePath%>static/admin/plugins/datatables/dataTables.bootstrap.css?1.0' rel="stylesheet"
+          type="text/css"/>
     <link href='<%=basePath%>static/admin/plugins/ad_yzt.css?1.0' rel="stylesheet" type="text/css"/>
     <link href='<%=basePath%>static/admin/plugins/select2/select2.min.css?1.0' rel="stylesheet" type="text/css"/>
 
@@ -70,7 +75,7 @@
             }
 
             $("#search-btn").click(function () {
-                var id=$("#user_id").val()?$("#user_id").val():-1;
+                var id = $("#user_id").val() ? $("#user_id").val() : -1;
 //                var url = "<?php echo base_url("admin/order/user_order");?>" + "/1/choosetime/"+ $("#domain").val()+"/"+id+ "/" + g_start_time_str + "/" + g_end_time_str + ".html";
                 var url = "<%=basePath%>admin/order/list";
                 doFilter(url);
@@ -88,7 +93,8 @@
     <div class="row">
         <form action="" class="form-inline" method="post" accept-charset="utf-8">
             <table style="margin-left: 30px">
-                <tbody><tr>
+                <tbody>
+                <tr>
                     <td> 类型：</td>
                     <td>
                         <select name="search-type" class="form-control" id="domain">
@@ -98,17 +104,19 @@
                     </td>
                     <td> ID：</td>
                     <td>
-                        <input type="text" class="form-control pull-right" id="user_id" placeholder="用户ID">
+                        <input type="text" class="form-control pull-right" id="user_id" placeholder="用户ID"
+                               name="user_id">
                     </td>
                     <td> 日期：</td>
                     <td>
-                        <input type="text" class="form-control pull-right" id="date_range">
+                        <input type="text" class="form-control pull-right" id="date_range" name="date_range">
                     </td>
                     <td>
                         <button type="submit" class="btn"><i class="fa fa-search"></i> 筛选</button>
                     </td>
                 </tr>
-                </tbody></table>
+                </tbody>
+            </table>
         </form>
     </div>
 </section>
