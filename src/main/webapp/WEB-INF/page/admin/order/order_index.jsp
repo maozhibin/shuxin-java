@@ -40,39 +40,42 @@
 
     <script type="text/javascript">
 
-        var g_start_time_str = "";
-        var g_end_time_str = "";
-        var g_start = moment('<?php echo date("Y-m-d",$start_time);?>');
-        var g_end = moment('<?php echo date("Y-m-d",$end_time);?>');
+        $(document).ready(function () {
+            var g_start_time_str = "";
+            var g_end_time_str = "";
+            var g_start = moment('<?php echo date("Y-m-d",$start_time);?>');
+            var g_end = moment('<?php echo date("Y-m-d",$end_time);?>');
 
-        function cb(start, end) {
-            g_start_time_str = start.format('YYYY-MM-DD');
-            g_end_time_str = end.format('YYYY-MM-DD');
-        }
-
-        $('#date_range').daterangepicker({
-            startDate: g_start,
-            endDate: g_end,
-            ranges: {
-                '今天': [moment(), moment()],
-                '昨天': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                '最近七天': [moment().subtract(6, 'days'), moment()],
-                '最近30天': [moment().subtract(29, 'days'), moment()],
-                '本月': [moment().startOf('month'), moment().endOf('month')],
-                '上一月': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            function cb(start, end) {
+                g_start_time_str = start.format('YYYY-MM-DD');
+                g_end_time_str = end.format('YYYY-MM-DD');
             }
-        }, cb);
-        cb(g_start, g_end);
 
-        function doFilter(url) {
-            document.location.href = url;
-        }
+            $('#date_range').daterangepicker({
+                startDate: g_start,
+                endDate: g_end,
+                ranges: {
+                    '今天': [moment(), moment()],
+                    '昨天': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    '最近七天': [moment().subtract(6, 'days'), moment()],
+                    '最近30天': [moment().subtract(29, 'days'), moment()],
+                    '本月': [moment().startOf('month'), moment().endOf('month')],
+                    '上一月': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                }
+            }, cb);
+            cb(g_start, g_end);
 
-        $("#search-btn").click(function () {
-            var id=$("#user_id").val()?$("#user_id").val():-1;
-            var url = "<?php echo base_url("admin/order/user_order");?>" + "/1/choosetime/"+ $("#domain").val()+"/"+id+ "/" + g_start_time_str + "/" + g_end_time_str + ".html";
-            doFilter(url);
-            return false;
+            function doFilter(url) {
+                document.location.href = url;
+            }
+
+            $("#search-btn").click(function () {
+                var id=$("#user_id").val()?$("#user_id").val():-1;
+//                var url = "<?php echo base_url("admin/order/user_order");?>" + "/1/choosetime/"+ $("#domain").val()+"/"+id+ "/" + g_start_time_str + "/" + g_end_time_str + ".html";
+                var url = "<%=basePath%>admin/order/list";
+                doFilter(url);
+                return false;
+            });
         });
 
     </script>
