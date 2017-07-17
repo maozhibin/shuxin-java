@@ -97,19 +97,16 @@
 <body>
 <h3 class="header">
     <a href="<?= site_url('admin/news/news_list'); ?>">新闻列表</a> —
-    <?php echo isset($id) ? '新闻修改' : '新闻发布' ?>
+   <!-- <?php echo isset($id) ? '新闻修改' : '新闻发布' ?>-->
 </h3>
 <hr>
-        <?php echo form_open('admin/news/news_add' . (isset($id) ? '/' . $id : '')); ?>
-        <?php echo form_open('admin/data/news_add', array('class' => 'form-inline')); ?>
+       <!-- <?php echo form_open('admin/news/news_add' . (isset($id) ? '/' . $id : '')); ?>
+        <?php echo form_open('admin/data/news_add', array('class' => 'form-inline')); ?> -->
         <div class="row form-group">
             <label class="col-sm-1 control-label no-padding-right">选择类型:</label>
             <div class="col-sm-11">
                 <select name="type" class="form-control">
-                    <?php foreach ($type_list as $key => $item): ?>
-                    <option
-                            value="<?php echo $key ?>" <?php echo (isset($info['type']) && $key == $info['type']) ? 'selected' : '' ?>><?php echo $item ?></option>
-                    <?php endforeach; ?>
+
                 </select>
             </div>
         </div>
@@ -117,24 +114,24 @@
             <label class="col-sm-1 control-label no-padding-right">标题:</label>
             <div class="col-sm-11">
                 <input class="form-control" name="title"
-                       value="<?php echo isset($info['title']) ? $info['title'] : '' ?>"/>
-                <?php echo form_error('title') ?>
+                       value=""/>
+
             </div>
         </div>
         <div class="row form-group">
             <label class="col-sm-1 control-label no-padding-right">来源:</label>
             <div class="col-sm-11">
                 <input class="form-control" name="source"
-                       value="<?php echo isset($info['source']) ? $info['source'] : '' ?>"/>
-                <?php echo form_error('source') ?>
+                       value=""/>
+
             </div>
         </div>
         <div class="row form-group">
             <label class="col-sm-1 control-label no-padding-right">作者:</label>
             <div class="col-sm-11">
                 <input class="form-control" name="author"
-                       value="<?php echo isset($info['author']) ? $info['author'] : '' ?>"/>
-                <?php echo form_error('author') ?>
+                       value=""/>
+
             </div>
         </div>
         <div class="row form-group">
@@ -173,7 +170,7 @@
             <label class="col-sm-1 control-label no-padding-right">网页关键词:</label>
             <div class="col-sm-11">
                 <input class="form-control" name="keywords"
-                       value="<?php echo isset($info['keywords']) ? $info['keywords'] : '' ?>"/>
+                       value=""/>
                 <?php echo form_error('keywords') ?>
             </div>
         </div>
