@@ -100,7 +100,7 @@
    <!-- <?php echo isset($id) ? '新闻修改' : '新闻发布' ?>-->
 </h3>
 <hr>
-       <!-- <?php echo form_open('admin/news/news_add' . (isset($id) ? '/' . $id : '')); ?> 
+       <!-- <?php echo form_open('admin/news/news_add' . (isset($id) ? '/' . $id : '')); ?>
         <?php echo form_open('admin/data/news_add', array('class' => 'form-inline')); ?> -->
         <div class="row form-group">
             <label class="col-sm-1 control-label no-padding-right">选择类型:</label>
@@ -138,40 +138,39 @@
             <label class="col-sm-1 control-label no-padding-right">是否置顶:</label>
             <div class="col-sm-11">
                 <label><input name="top" type="radio"
-                              value="1" <?php echo (isset($info['top']) && $info['top'] == 1) ? 'checked="true"' : '' ?>/>是
+                              value="1" />是
                 </label>&nbsp;&nbsp;
                 <label><input name="top" type="radio"
-                              value="0" <?php echo (isset($info['top']) && $info['top'] == 0) ? 'checked="true"' : '' ?>/>否
+                              value="0" />否
                 </label>&nbsp;&nbsp;
-                <?php echo form_error('top') ?>
+
             </div>
         </div>
         <div class="row form-group">
             <label class="col-sm-1 control-label no-padding-right">是否显示发布:</label>
             <div class="col-sm-11">
                 <label><input name="is_display" type="radio"
-                              value="1" <?php echo (isset($info['isdisplay']) && $info['isdisplay'] == 1) ? 'checked="true"' : '' ?>/>是
+                              value="1"/>是
                 </label>&nbsp;&nbsp;
                 <label><input name="is_display" type="radio"
-                              value="0" <?php echo (isset($info['isdisplay']) && $info['isdisplay'] == 0) ? 'checked="true"' : '' ?>/>否
+                              value="0" />否
                 </label>&nbsp;&nbsp;
-                <?php echo form_error('is_display') ?>
+
             </div>
         </div>
         <div class="row form-group">
             <label class="col-sm-1 control-label no-padding-right">网页关键词:</label>
             <div class="col-sm-11">
                 <input class="form-control" name="keywords"
-                       value="<?php echo isset($info['keywords']) ? $info['keywords'] : '' ?>"/>
-                <?php echo form_error('keywords') ?>
+                       value="${News.keywords}"/>
+
             </div>
         </div>
         <div class="row form-group">
             <label class="col-sm-1 control-label no-padding-right">网页关键词:</label>
             <div class="col-sm-11">
-                <input class="form-control" name="keywords"
-                       value=""/>
-                <?php echo form_error('keywords') ?>
+                <input class="form-control" name="keywords" value=""/>
+
             </div>
         </div>
         <div class="row form-group">
@@ -184,26 +183,24 @@
                 <input type="file" id="inputfile"
                        style="height:0;width:0;z-index: -1; position: absolute;left: 10px;top: 5px;"><br/>
                 <input type="hidden" name="image" id="icon"
-                       value="<?php echo isset($info['image']) ? $info['image'] : '' ?>"/>
-                <img src="<?php echo isset($info['image']) ? base_url($info['image']) : '' ?>" id="uf" width=188
+                       value=""/>
+                <img src="" id="uf" width=188
                      height=96 margin-bottom=20px overflow=hidden;/>
-                <?php echo form_error('image') ?>
+
             </div>
         </div>
         <div class="row form-group">
             <label class="col-sm-1 control-label no-padding-right">网页关键词:</label>
             <div class="col-sm-11">
-                <input class="form-control" name="keywords"
-                       value="<?php echo isset($info['keywords']) ? $info['keywords'] : '' ?>"/>
-                <?php echo form_error('keywords') ?>
+                <input class="form-control" name="keywords" value=""/>
+
             </div>
         </div>
         <div class="row form-group">
             <label class="col-sm-1 control-label no-padding-right">新闻内容:</label>
             <div class="col-sm-11">
-                        <textarea id="editor" name="content"
-                                  autofocus><?php echo isset($info['content']) ? $info['content'] : '' ?></textarea>
-                <?php echo form_error('content') ?>
+                        <textarea id="editor" name="content" autofocus></textarea>
+
             </div>
         </div>
         <div class="row">

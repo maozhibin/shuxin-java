@@ -6,7 +6,6 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.apache.commons.lang.math.NumberUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,11 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.baoquan.shuxin.bean.Page;
 import com.baoquan.shuxin.model.news.News;
-import com.baoquan.shuxin.model.user.User;
-import com.baoquan.shuxin.model.user.UserMoneyLog;
 import com.baoquan.shuxin.service.spi.news.NewsService;
 import com.baoquan.shuxin.util.JsonResponseMsg;
-import com.baoquan.shuxin.util.common.DateUtil;
 
 /**
  * Author:Zhoumc
@@ -60,27 +56,29 @@ public class NewsController {
     }
 
     /**
-     * 删除新闻
-     */
+    * @Description:  删除用户
+    * @param
+    * @return
+    * @throws
+    */
     @ResponseBody
     @RequestMapping("delete")
-    public JsonResponseMsg del(String id) {
-        JsonResponseMsg result = new JsonResponseMsg();
+    public String del(String id) {
         if (!NumberUtils.isNumber(id)) {
-            return result.fill(JsonResponseMsg.CODE_FAIL, "参数错误");
+            return null;
         }
         Long idN = NumberUtils.toLong(id);
         Boolean isSuccess = newsService.delNews(idN);
         if (isSuccess) {
-            return result.fill(JsonResponseMsg.CODE_SUCCESS, "删除成功");
+            return null;
         }
-        return result.fill(JsonResponseMsg.CODE_FAIL, "删除失败");
+        return "redirect:list";
     }
 
     /**
      * 新闻详情
      */
-    @RequestMapping("newsdetail")
+    @RequestMapping("detail")
     public ModelAndView newDetail(String id) {
         ModelAndView mv = new ModelAndView("admin/news/detail");
         if (!NumberUtils.isNumber(id)) {

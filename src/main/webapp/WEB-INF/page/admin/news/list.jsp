@@ -4,6 +4,7 @@
 <html>
 <head>
     <title>新闻查看</title>
+
     <style>
         td {
             padding: 10px;
@@ -19,11 +20,13 @@
             <tr>
                 <td> 类型：</td>
                 <td>
+
                     <select name="type" class="form-control">
-                        <?php foreach ($type_list as $key => $item): ?>
-                        <option
-                                value="<?php echo $key ?>" <?php echo (isset($type) && $key == $type) ? 'selected' : '' ?>><?php echo $item ?></option>
-                        <?php endforeach; ?>
+                        <c:forEach items="${page.result}" var="news">
+                            <option value="${News.type}">
+                            </option>
+                        </c:forEach>
+
                     </select>
                 </td>
                 <td>
@@ -53,21 +56,21 @@
                     </tr>
                     </thead>
                     <tbody>
+
                     <c:if test="${page != null && page.result != null}">
                         <c:forEach items="${page.result}" var="news">
                             <tr>
-                                <td>${News.id}</td>
-                                <td>${News.newsClassType}</td>
-                                <td>${News.title}</td>
-                                <td>${News.dateline}</td>
+                                <td>${news.id}</td>
+                                <td>${news.newsClassType}</td>
+                                <td>${news.title}</td>
+                                <td>${news.dateline}</td>
                                 <td>
                                     <a class="" title='查看'
-                                       href="detail?id=${News.id}"><i
-                                            class="fa fa-eye"></i> </a>&nbsp;&nbsp;
+                                       href="detail?id=${news.id}"><i class="fa fa-eye"></i> </a>&nbsp;&nbsp;
                                       <a class="" title='编辑'
-                                       href="news/detail/"><i
+                                       href="news/newsdetail/"><i
                                             class="fa fa-pencil"></i> </a>&nbsp;&nbsp;
-                                    <a class="delete_button" title='删除' url="delete?id=${News.id}"><i
+                                    <a class="delete_button" title='删除' url="delete?id=${news.id}"><i
                                             class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
