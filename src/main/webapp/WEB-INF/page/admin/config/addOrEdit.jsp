@@ -17,16 +17,19 @@
     </style>
 	<script type="text/javascript">
 		function myfunction(){//js表单验证方法
+			  document.getElementById("nameSpan").innerText = "";
+			  document.getElementById("valueSpan").innerText = "";
 			  var valueSpanValue=$("#valueName").val()
 			  var nameSpanValue=$("#varname").val()
-			   if(valueSpanValue.length<=0){//当上面获取的值为空时
-				   document.getElementById("valueSpan").innerText = "要求含有 变量值 字段。";
-			     return false;//返回false（不提交表单）
-			   }
 			   if(nameSpanValue.length<=0){//当上面获取的值为空时
 				   document.getElementById("nameSpan").innerText = "要求含有 变量名 字段。";
 			     return false;//返回false（不提交表单）
 			   }
+			   if(valueSpanValue.length<=0){//当上面获取的值为空时
+				   document.getElementById("valueSpan").innerText = "要求含有 变量值 字段。";
+			     return false;//返回false（不提交表单）
+			   }
+		
           	  document.getElementById("formid").submit();
 		}
 	</script>
@@ -56,9 +59,9 @@
 			              	 	 <input name="varname" value=""
 				                           class="col-xs-10 col-sm-5" placeholder="变量名必须填写！" id="varname"/>
 			              	  </c:if>
+			              	 &nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-warning" id= "nameSpan"></span>
 			                </div>
 			               <br/>
-			               <span class="label label-warning" id= "nameSpan"></span>
 	            </div>
 	            
 	             <div class="form-group">
@@ -77,13 +80,14 @@
 		                              class="col-xs-10 col-sm-5"
 		                              placeholder="变量值必须填写！" id="valueName"></textarea>
 			              	  </c:if>
+			              	  <span class="label label-warning" id="valueSpan"></span>
 		                </div>
-		                <div class="col-md-1"></div>
-		                <div class="col-md-11">
-		                </div><br/>
-		                <span class="label label-warning" id="valueSpan"></span>
+		                  <br/>
 	            </div>
-	            
+	            <div class="form-group">
+	            	<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+	            </div>
+		                
 	            <div class="form-group">
 	                <div class="col-md-1">
 	                    <label class="control-label" >备注：</label>
