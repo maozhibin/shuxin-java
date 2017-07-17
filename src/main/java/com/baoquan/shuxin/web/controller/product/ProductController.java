@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.baoquan.shuxin.bean.Page;
-import com.baoquan.shuxin.model.product.Product;
-import com.baoquan.shuxin.model.user.User;
 import com.baoquan.shuxin.service.spi.product.ProductService;
 
 @Controller
@@ -23,7 +21,7 @@ public class ProductController {
     @RequestMapping("list")
     public ModelAndView list(String name,String pageNo, String pageSize) {
     	ModelAndView mv = new ModelAndView("admin/product/list");
-    	/*Page<Map<String, Object>> page = new Page<Map<String,Object>>();
+    	Page<Map<String, Object>> page = new Page<Map<String,Object>>();
 		Integer pageSizeValue = null;
 		if (NumberUtils.isNumber(pageSize)) {
 			pageSizeValue = NumberUtils.toInt(pageSize);
@@ -35,7 +33,7 @@ public class ProductController {
 			page.setPageNo(pageNoValue);
 		}
 		page = productService.findListProduct(page,name);
-		mv.addObject(page);*/
+		mv.addObject(page);
 		return mv;
     }
 

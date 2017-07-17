@@ -7,7 +7,7 @@ import org.junit.Test;
 import com.baoquan.shuxin.TestBase;
 import com.baoquan.shuxin.context.AppContext;
 import com.baoquan.shuxin.context.ContextInfo;
-import com.baoquan.shuxin.service.spi.product.api.ShengDaService;
+import com.baoquan.shuxin.third.service.spi.ShengDaService;
 
 /**
  * Desc:
