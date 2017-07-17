@@ -120,9 +120,10 @@
             </table>
         </div>
         <div class="tab-header row">
-            <span class="tab active" id="today">今日</span><span class="tab" id="yesterday">昨日</span><span class="tab"
-                                                                                                         id="week">最近7天</span><span
-                class="tab" id="month">最近30天</span>
+            <span class="tab active" id="today">今日</span>
+            <span class="tab" id="yesterday">昨日</span>
+            <span class="tab" id="week">最近7天</span>
+            <span class="tab" id="month">最近30天</span>
         </div>
         <div class="row">
             <div class="float-left left-charts ctn-charts">

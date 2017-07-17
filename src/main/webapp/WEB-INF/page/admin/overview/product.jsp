@@ -7,6 +7,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path
+            + "/";
+%>
 <html>
 <head>
     <title>产品交易概况</title>
@@ -27,6 +32,55 @@
             padding: 10px;
         }
     </style>
+
+    <link href='<%=basePath%>static/admin/plugins/daterangepicker/daterangepicker.css?1.0' rel="stylesheet" type="text/css"/>
+    <link href='<%=basePath%>static/admin/plugins/datepicker/datepicker3.css?1.0' rel="stylesheet" type="text/css"/>
+    <link href='<%=basePath%>static/admin/plugins/colorpicker/bootstrap-colorpicker.min.css?1.0' rel="stylesheet" type="text/css"/>
+    <link href='<%=basePath%>static/admin/plugins/timepicker/bootstrap-timepicker.min.css?1.0' rel="stylesheet" type="text/css"/>
+    <link href='<%=basePath%>static/admin/plugins/timepicker/bootstrap-timepicker.min.css?1.0' rel="stylesheet" type="text/css"/>
+    <link href='<%=basePath%>static/admin/plugins/fullcalendar/fullcalendar.min.css?1.0' rel="stylesheet" type="text/css"/>
+    <link href='<%=basePath%>static/admin/plugins/datatables/dataTables.bootstrap.css?1.0' rel="stylesheet" type="text/css"/>
+    <link href='<%=basePath%>static/admin/plugins/ad_yzt.css?1.0' rel="stylesheet" type="text/css"/>
+
+
+    <script src='<%=basePath%>static/admin/js/laydate/laydate.js?1.0'></script>
+    <script src='<%=basePath%>static/admin/plugins/select2/select2.full.min.js?1.0'></script>
+    <script src='<%=basePath%>static/admin/plugins/daterangepicker/moment.min.js?1.0'></script>
+    <script src='<%=basePath%>static/admin/plugins/daterangepicker/daterangepicker.js?1.0'></script>
+    <script src='<%=basePath%>static/admin/plugins/datepicker/bootstrap-datepicker.js?1.0'></script>
+    <script src='<%=basePath%>static/admin/plugins/fullcalendar/fullcalendar2.js?1.0'></script>
+    <script src='<%=basePath%>static/admin/plugins/fullcalendar/locale-all.js?1.0'></script>
+    <script src='<%=basePath%>static/admin/plugins/datatables/jquery.dataTables.min.js?1.0'></script>
+    <script src='<%=basePath%>static/admin/plugins/datatables/dataTables.bootstrap.min.js?1.0'></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var g_start_time_str = "";
+            var g_end_time_str = "";
+            var g_start = moment(${startTime});
+            var g_end = moment(${endTime});
+
+            function cb(start, end) {
+                g_start_time_str = start.format('YYYY-MM-DD');
+                g_end_time_str = end.format('YYYY-MM-DD');
+            }
+
+            $('#date_range').daterangepicker({
+                startDate: g_start,
+                endDate: g_end,
+                ranges: {
+                    '今天': [moment(), moment()],
+                    '昨天': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    '最近七天': [moment().subtract(6, 'days'), moment()],
+                    '最近30天': [moment().subtract(29, 'days'), moment()],
+                    '本月': [moment().startOf('month'), moment().endOf('month')],
+                    '上一月': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                }
+            }, cb);
+            cb(g_start, g_end);
+        });
+    </script>
+
 </head>
 <body>
 
@@ -92,22 +146,8 @@
                                    placeholder="请输入关键字搜索">
                         </td>
                         <td> 日期：</td>
-                        <td style="position: relative">
-                            <input type="text" class="timePoint">
-                            <div id='wrap' class="hidden">
-                                <form>
-                                    <i class="fa fa-window-close btn-close"></i>
-                                    <select class='custom-date' name='select'>
-                                        <option value=''>请选择时间</option>
-                                        <option value='7'>最近7天</option>
-                                        <option value='30'>最近一个月</option>
-                                        <option value='90'>最近三个月</option>
-                                        <option value='180'>最近半年</option>
-                                        <option selected='selected' value='1'>今天</option>
-                                        <option value='custom'>自由选择</option>
-                                    </select>
-                                </form>
-                            </div>
+                        <td>
+                            <input type="text" class="form-control pull-right" id="date_range">
                         </td>
                         <td>
                             <button type="submit" class="btn"><i class="fa fa-search"></i> 搜索</button>

@@ -45,6 +45,8 @@ public class AccountFlowController {
         }
         page = accountFlowService.querListAccountFlowInfo(userId, type, dateline,finishTime, page);
         mv.addObject(page);
+        mv.addObject("startTime", System.currentTimeMillis() - 1234567890);
+        mv.addObject("endTime", System.currentTimeMillis());
         return mv;
     }
 

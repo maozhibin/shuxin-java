@@ -21,7 +21,6 @@
           type="text/css"/>
     <link href='<%=basePath%>static/admin/css/baseui.css?1499845987' rel="stylesheet" type="text/css"/>
     <link href='<%=basePath%>static/admin/css/AdminLTE.min.css?1499845987' rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="<%=basePath%>static/plugins/datePlug/css/style.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -35,9 +34,7 @@
     <script src='<%=basePath%>static/admin/js/jquery.js?1499845987'></script>
     <script src='<%=basePath%>static/admin/js/bootstrap.min.js?1499845987'></script>
     <script src='<%=basePath%>static/admin/js/common.js?1499845987'></script>
-    <script src='<%=basePath%>static/admin/js/myDate.js?1499845987'></script>
     <script src='<%=basePath%>static/js/common/common.js?1499845987'></script>
-    <script src='<%=basePath%>static/plugins/datePlug/js/index.js?1499845987'></script>
     <sitemesh:write property='head'/>
 </head>
 <body>
