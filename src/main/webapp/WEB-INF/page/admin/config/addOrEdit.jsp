@@ -17,20 +17,18 @@
     </style>
 	<script type="text/javascript">
 		function myfunction(){//js表单验证方法
-				alert(adas)
-			   var valueSpanValue=document.getElementById("valueSpan").value;
-			   var nameSpanValue=document.getElementById("nameSpan").value;
-			   if(valueSpanValue==""){//当上面获取的值为空时
-				   
+			  var valueSpanValue=$("#valueName").val()
+			  var nameSpanValue=$("#varname").val()
+			   if(valueSpanValue.length<=0){//当上面获取的值为空时
 				   document.getElementById("valueSpan").innerText = "要求含有 变量值 字段。";
 			     return false;//返回false（不提交表单）
 			   }
-			   if(nameSpanValue==""){//当上面获取的值为空时
+			   if(nameSpanValue.length<=0){//当上面获取的值为空时
 				   document.getElementById("nameSpan").innerText = "要求含有 变量名 字段。";
 			     return false;//返回false（不提交表单）
 			   }
-			   return true;//提交表单
-			}
+          	  document.getElementById("formid").submit();
+		}
 	</script>
 </head>
 <body>
@@ -41,7 +39,7 @@
 		<h4 class="header"><a onclick="javascript:;history.back()">参数配置</a> — 新增</h4>
 	</c:if>
 	
-    <form action ="updateOrAdd" onsubmit="myfunction()">
+    <form action ="updateOrAdd" id="formid">
     	<input type="hidden" id="typeValue" value="${config.id}" name="id"/>
 		<div class="row">
      	   <div class="box-body">
@@ -52,11 +50,11 @@
 			                <div class="col-md-11">
 			              	  <c:if test="${not empty config.id}">
 			              	 	 <input name="varname" value="${config.varname }"
-				                           class="col-xs-10 col-sm-5" placeholder="变量名必须填写！" />
+				                           class="col-xs-10 col-sm-5" placeholder="变量名必须填写！" id="varname"/>
 			              	  </c:if>
 			                   <c:if test="${empty config.id}">
 			              	 	 <input name="varname" value=""
-				                           class="col-xs-10 col-sm-5" placeholder="变量名必须填写！" />
+				                           class="col-xs-10 col-sm-5" placeholder="变量名必须填写！" id="varname"/>
 			              	  </c:if>
 			                </div>
 			               <br/>
@@ -71,13 +69,13 @@
 		                	<c:if test="${not empty config.id}">
 			              	 	 <textarea name="valueName"  style="height: 200px"
 		                              class="col-xs-10 col-sm-5"
-		                              placeholder="变量值必须填写！"  >${config.value}</textarea>
+		                              placeholder="变量值必须填写！"  id="valueName">${config.value}</textarea>
 			              	  </c:if>
 			              	  
 			                   <c:if test="${empty config.id}">
 			              	 	 <textarea name="valueName" style="height: 200px"
 		                              class="col-xs-10 col-sm-5"
-		                              placeholder="变量值必须填写！"></textarea>
+		                              placeholder="变量值必须填写！" id="valueName"></textarea>
 			              	  </c:if>
 		                </div>
 		                <div class="col-md-1"></div>
@@ -102,7 +100,7 @@
 			             </c:if>
 	                </div>
 	            </div>
-	            	<input type="submit" value="保存" class="btn btn-primary" >
+	            	<input type="button" value="保存" class="btn btn-primary" onclick="myfunction()">
     	    </div>
    		 </div>		
 	</form>

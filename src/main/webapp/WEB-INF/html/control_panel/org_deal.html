@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="../../public/static/admin/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="../../public/static/admin/css/baseui.css">
     <link rel="stylesheet" href="../../public/static/admin/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="../../public/static/plugins/datePlug/css/style.css">
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -516,8 +517,22 @@
                                         <input type="text" class="form-control pull-right" id="user_id" placeholder="请输入关键字搜索">
                                     </td>
                                     <td> 日期：</td>
-                                    <td>
-                                        <input type="text" class="form-control pull-right" id="date_range">
+                                    <td style="position: relative">
+                                        <input type="text" class="timePoint">
+                                        <div id='wrap' class="hidden">
+                                            <form>
+                                                <i class="fa fa-window-close btn-close"></i>
+                                                <select class='custom-date' name='select'>
+                                                    <option value=''>请选择时间</option>
+                                                    <option value='7'>最近7天</option>
+                                                    <option value='30'>最近一个月</option>
+                                                    <option value='90'>最近三个月</option>
+                                                    <option value='180'>最近半年</option>
+                                                    <option selected='selected' value='1'>今天</option>
+                                                    <option value='custom'>自由选择</option>
+                                                </select>
+                                            </form>
+                                        </div>
                                     </td>
                                     <td>
                                         <button type="submit" class="btn"><i class="fa fa-search"></i> 搜索</button>
@@ -725,6 +740,8 @@
 <script src="../../public/static/admin/js/bootstrap.min.js"></script>
 <script src="../../public/static/admin/js/common.js"></script>
 <script src="../../public/static/admin/js/jquery.js"></script>
+<script src="../../public/static/plugins/datePlug/js/index.js"></script>
+<script src="../../public/static/admin/js/myDate.js"></script>
 
 </html>
 

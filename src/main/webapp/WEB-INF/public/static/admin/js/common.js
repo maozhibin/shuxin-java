@@ -41,3 +41,14 @@ function delete_confirm(object, url, value) {
         window.location.href = url;
     });
 }
+
+/*
+* 左侧导航一次只能展开一个
+* */
+$.ready(function () {
+    $(".side-nav>li>a").click(function () {
+        console.log($(this).text());
+        $(this).parent('li').siblings('li').removeClass('active').find('ul.collapse').removeClass('in').find('li').removeClass('nav-active');
+        $(this).parent('li').addClass('active').find('ul.collapse').addClass('in').find('li').addClass('nav-active');
+    });
+});
