@@ -84,120 +84,113 @@
 </head>
 <body>
 
-<div id="page-wrapper">
-    <div class="container-fluid">
-        <!-- 内容区域 -->
-        <div class="row tables-left ctn-tables">
-            <h4 class="header">TOP10 产品交易总额排名和明细</h4>
-            <table id="purchase" class="table table-bordered table-striped table-hover" style="table-layout:fixed">
-                <thead>
-                <tr>
-                    <th>产品名称</th>
-                    <th>产品类别</th>
-                    <th>排名</th>
-                    <th>交易总额</th>
-                    <th>总购买次数</th>
-                    <th>产品来源</th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:forEach items="${productList}" var="item">
-                    <tr>
-                        <td>
-                                ${item.productname}
-                        </td>
-                        <td>
-                                ${item.catename}
-                        </td>
-                        <td>
-                                ${item.rank}
-                        </td>
-                        <td>
-                                ${item.totalAmount}
-                        </td>
-                        <td>
-                                ${item.ordernum}
-                        </td>
-                        <td>
-                                ${item.username}
-                        </td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
-        </div>
-        <div class="row tables-right ctn-tables">
-            <form action="/admin//overview/product/search" class="form-inline" method="post"
-                  accept-charset="utf-8">
-                <table>
-                    <tbody>
-                    <tr>
-                        <td> 筛选：</td>
-                        <td>
-                            <select name="search-type" class="form-control" id="domain">
-                                <option>北京</option>
-                                <option>浙江</option>
-                            </select>
-                        </td>
-                        <td> 关键字：</td>
-                        <td>
-                            <input type="text" class="form-control pull-right" id="keywords" name="keywords"
-                                   value="${keywords}"
-                                   placeholder="请输入关键字搜索">
-                        </td>
-                        <td> 日期：</td>
-                        <td>
-                            <input type="text" class="form-control pull-right" id="date_range">
-                        </td>
-                        <td>
-                            <button type="submit" class="btn"><i class="fa fa-search"></i> 搜索</button>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </form>
-            <table id="deal" class="table table-bordered table-striped table-hover" style="table-layout:fixed">
-                <thead>
-                <tr>
-                    <th>产品名称</th>
-                    <th>产品类别</th>
-                    <th>排名</th>
-                    <th>交易总额</th>
-                    <th>总购买次数</th>
-                    <th>产品来源</th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:if test="${searchProductList != null}">
-                    <c:forEach items="${searchProductList}" var="item">
-                        <tr>
-                            <td>
-                                    ${item.productname}
-                            </td>
-                            <td>
-                                    ${item.catename}
-                            </td>
-                            <td>
-                                    ${item.rank}
-                            </td>
-                            <td>
-                                    ${item.totalAmount}
-                            </td>
-                            <td>
-                                    ${item.ordernum}
-                            </td>
-                            <td>
-                                    ${item.username}
-                            </td>
-                        </tr>
-                    </c:forEach>
-                </c:if>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <!-- /.container-fluid -->
+<div class="row tables-left ctn-tables">
+    <h4 class="header">TOP10 产品交易总额排名和明细</h4>
+    <table id="purchase" class="table table-bordered table-striped table-hover" style="table-layout:fixed">
+        <thead>
+        <tr>
+            <th>产品名称</th>
+            <th>产品类别</th>
+            <th>排名</th>
+            <th>交易总额</th>
+            <th>总购买次数</th>
+            <th>产品来源</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${productList}" var="item">
+            <tr>
+                <td>
+                        ${item.productname}
+                </td>
+                <td>
+                        ${item.catename}
+                </td>
+                <td>
+                        ${item.rank}
+                </td>
+                <td>
+                        ${item.totalAmount}
+                </td>
+                <td>
+                        ${item.ordernum}
+                </td>
+                <td>
+                        ${item.username}
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
 </div>
-
+<div class="row tables-right ctn-tables">
+    <form action="/admin//overview/product/search" class="form-inline" method="post"
+          accept-charset="utf-8">
+        <table>
+            <tbody>
+            <tr>
+                <td> 筛选：</td>
+                <td>
+                    <select name="search-type" class="form-control" id="domain">
+                        <option>北京</option>
+                        <option>浙江</option>
+                    </select>
+                </td>
+                <td> 关键字：</td>
+                <td>
+                    <input type="text" class="form-control pull-right" id="keywords" name="keywords"
+                           value="${keywords}"
+                           placeholder="请输入关键字搜索">
+                </td>
+                <td> 日期：</td>
+                <td>
+                    <input type="text" class="form-control pull-right" id="date_range">
+                </td>
+                <td>
+                    <button type="submit" class="btn"><i class="fa fa-search"></i> 搜索</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+    <table id="deal" class="table table-bordered table-striped table-hover" style="table-layout:fixed">
+        <thead>
+        <tr>
+            <th>产品名称</th>
+            <th>产品类别</th>
+            <th>排名</th>
+            <th>交易总额</th>
+            <th>总购买次数</th>
+            <th>产品来源</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:if test="${searchProductList != null}">
+            <c:forEach items="${searchProductList}" var="item">
+                <tr>
+                    <td>
+                            ${item.productname}
+                    </td>
+                    <td>
+                            ${item.catename}
+                    </td>
+                    <td>
+                            ${item.rank}
+                    </td>
+                    <td>
+                            ${item.totalAmount}
+                    </td>
+                    <td>
+                            ${item.ordernum}
+                    </td>
+                    <td>
+                            ${item.username}
+                    </td>
+                </tr>
+            </c:forEach>
+        </c:if>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

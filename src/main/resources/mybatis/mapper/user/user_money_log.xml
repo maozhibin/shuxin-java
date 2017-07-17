@@ -34,13 +34,13 @@
     </select>
 
     <sql id="taskQuery">
-        <if test="id != null">
+        <if test="userId != null">
             and user_id=#{userId}
         </if>
         <if test="endTimeValue != null">
             and finish_time <![CDATA[<=]]>#{endTimeValue}
         </if>
-        <if test="mobile != null ">
+        <if test="startTimeValue != null ">
             and finish_time<![CDATA[>=]]>#{startTimeValue}
         </if>
     </sql>
@@ -52,6 +52,9 @@
         user_money_log
         where 1 = 1
         <include refid="taskQuery"/>
+        <if test="page != null">
+	              	limit ${page.startIndex},${page.pageSize};
+	    </if>
     </select>
 
     <insert id="insertSelective" parameterType="com.baoquan.shuxin.model.user.UserMoneyLog">

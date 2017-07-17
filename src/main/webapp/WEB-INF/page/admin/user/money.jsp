@@ -47,6 +47,7 @@
 <section class="filter-box" style="border:none">
     <div class="row">
         <form class="form-inline">
+        	<input name="userId" value=<%=request.getParameter("userId") %> type="hidden"/>
             <table>
                 <tr>
                     <td> 资金类型：</td>

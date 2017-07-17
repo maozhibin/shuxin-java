@@ -20,6 +20,7 @@
 <section class="filter-box" style="border:none">
     <div class="row">
         <form class="form-inline">
+        	<input name="typeId" value=<%=request.getParameter("typeId") %> type="hidden"/>
             <table style="margin-left: 30px">
                 <tr>
                     <td> 客户名称：</td>
