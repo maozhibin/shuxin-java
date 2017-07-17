@@ -18,18 +18,27 @@
 <html>
 <head>
     <title>用户资金流动</title>
-<style>
-    td {
-        padding: 10px;
-    }
-    .row{
-        font-size:14px;
-        color:#999;
-        letter-spacing:0;
-        text-align:left;
-        margin:5px 8px;
-    }
-</style>
+    <style>
+        td {
+            padding: 10px;
+        }
+
+        .row {
+            font-size: 14px;
+            color: #999;
+            letter-spacing: 0;
+            text-align: left;
+            margin: 5px 8px;
+        }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.datepicker').datepicker({
+                language: 'cn',
+                todayHighlight: true
+            });
+        });
+    </script>
     <script src='<%=basePath%>static/admin/plugins/datepicker/bootstrap-datepicker.js'></script>
     <link href='<%=basePath%>static/admin/plugins/datepicker/datepicker3.css' rel="stylesheet" type="text/css"/>
 </head>
@@ -39,28 +48,28 @@
     <div class="row">
         <form class="form-inline">
             <table>
-            <tr>
-                <td> 资金类型：</td>
-                <td>
-                    <select name="type">
-                        <option>全部</option>
-                    </select>
-                </td>
-                <td> 起始时间：</td>
-                <td>
-                    <input class="form-control datepicker" data-date-format="yyyy-mm-dd" type="text" name="startTime"
-                           value="${startTime}"/>
-                </td>
-                <td> -</td>
-                <td>
-                    <input class="form-control datepicker" data-date-format="yyyy-mm-dd" type="text" name="endTime"
-                           value="${endTime}"/>
-                </td>
-                <td>
-                    <button type="submit" class="btn"><i class="fa fa-search"></i> 搜索</button>
-                </td>
-            </tr>
-        </table>
+                <tr>
+                    <td> 资金类型：</td>
+                    <td>
+                        <select name="type">
+                            <option>全部</option>
+                        </select>
+                    </td>
+                    <td> 起始时间：</td>
+                    <td>
+                        <input class="form-control datepicker" data-date-format="yyyy-mm-dd" type="text"
+                               name="startTime" value="${startTime}"/>
+                    </td>
+                    <td> -</td>
+                    <td>
+                        <input class="form-control datepicker" data-date-format="yyyy-mm-dd" type="text" name="endTime"
+                               value="${endTime}"/>
+                    </td>
+                    <td>
+                        <button type="submit" class="btn"><i class="fa fa-search"></i> 搜索</button>
+                    </td>
+                </tr>
+            </table>
         </form>
     </div>
 </section>
@@ -85,9 +94,10 @@
                                 <td>${UserMoneyLog.type}</td>
                                 <td>${UserMoneyLog.amount}</td>
                                 <td>
-                               		<jsp:useBean id="dateValue" class="java.util.Date"/>
-									<jsp:setProperty name="dateValue" property="time" value="${UserMoneyLog.finishTime*1000}"/>
-									<fmt:formatDate value="${dateValue}" pattern="yyyy-MM-dd"/>
+                                    <jsp:useBean id="dateValue" class="java.util.Date"/>
+                                    <jsp:setProperty name="dateValue" property="time"
+                                                     value="${UserMoneyLog.finishTime*1000}"/>
+                                    <fmt:formatDate value="${dateValue}" pattern="yyyy-MM-dd"/>
                                 </td>
                                 <td>${UserMoneyLog.remark}</td>
                             </tr>
@@ -104,12 +114,4 @@
     </div>
 </div>
 </body>
-	<script type="text/javascript">
-	    $().ready(function () {
-	        $('.datepicker').datepicker({
-	            language: 'cn',
-	            todayHighlight: true
-	        });
-	    });
-	</script>
 </html>
