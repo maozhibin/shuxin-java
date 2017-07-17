@@ -26,7 +26,7 @@
      	where 1 = 1
 		<if test="name != null">
 	         and p.`name`=#{name}
-	         and u.username=#{name}
+	         or u.username=#{name}
 	    </if>
   </select>
 
@@ -43,9 +43,10 @@
 			product p
 		LEFT JOIN `user` u ON p.user_id = u.id
 		LEFT JOIN area a ON p.area_id = a.id
+		where 1 = 1
 		<if test="name != null">
 	         and p.`name`=#{name}
-	         and u.username=#{name}
+	         or u.username=#{name}
 	    </if>
 	    <if test="page != null">
 	              	limit ${page.startIndex},${page.pageSize};
