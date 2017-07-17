@@ -16,14 +16,49 @@ import com.baoquan.shuxin.model.user.User;
 @Repository
 public interface NewsDao {
 
-    Integer PageCount(Map<String, Object> parms);
+    Integer pageCount(Map<String, Object> parms);
     //查询
     List<News> queryNewsInfo(Map<String, Object> parms);
-    //删除
-    void deleteNews(Long id);
-    //修改
 
-    //查询新闻详情
+    /**
+    * @Description:  根据id 查看新闻详情
+    * @param
+    * @return
+    * @throws
+    */
+    News querNewInfoById(Long id);
+
+    /**
+     * 根据 id 修改新闻
+     * @param id
+     * @return
+     */
+    News updateNews(Long id);
+
+    /**
+     *  根据 id 删除新闻
+     * @param id
+     */
+    void deleteNews(Long id);
+
+
+    /**
+     * 依据 id  查询新闻xiangq
+     * @param id
+     * @return
+     */
     News queryNewsDetails(Long id);
+
+    /**
+     * 修改新闻和添加新闻
+     * @param news
+     */
+    void updateAndAddNews(News news);
+
+    /**
+     * 添加新闻
+     * @param news
+     */
+    void insertNews(News news);
 
 }

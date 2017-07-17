@@ -23,7 +23,7 @@
 
                     <select name="type" class="form-control">
                         <c:forEach items="${page.result}" var="news">
-                            <option value="${News.type}">
+                            <option value="${news.newsClassType}">
                             </option>
                         </c:forEach>
 
@@ -31,8 +31,6 @@
                 </td>
                 <td>
                     <button type="submit" class="btn"><i class="fa fa-search"></i> 搜索</button>
-                    <!--                    <a class="btn btn-primary" href="--><?php //echo site_url("admin/news/news_add") ?><!--"><i-->
-                    <!--                            class="fa fa-plus"></i> 新闻发布</a>-->
                 </td>
             </tr>
         </table>
@@ -68,7 +66,7 @@
                                     <a class="" title='查看'
                                        href="detail?id=${news.id}"><i class="fa fa-eye"></i> </a>&nbsp;&nbsp;
                                       <a class="" title='编辑'
-                                       href="news/newsdetail/"><i
+                                       href="update?id=${news.id}"><i
                                             class="fa fa-pencil"></i> </a>&nbsp;&nbsp;
                                     <a class="delete_button" title='删除' url="delete?id=${news.id}"><i
                                             class="fa fa-trash"></i></a>

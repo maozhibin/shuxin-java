@@ -6,12 +6,14 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.apache.commons.lang.math.NumberUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.baoquan.shuxin.bean.Page;
+import com.baoquan.shuxin.model.config.Config;
 import com.baoquan.shuxin.model.news.News;
 import com.baoquan.shuxin.service.spi.news.NewsService;
 import com.baoquan.shuxin.util.JsonResponseMsg;
@@ -93,6 +95,61 @@ public class NewsController {
         mv.addObject(news);
         return mv;
 
+    }
+
+    /**
+     * 编辑
+     */
+    @RequestMapping("update")
+    public ModelAndView page(String id){
+        ModelAndView mv = new ModelAndView("admin/news/add");
+        if(NumberUtils.isNumber(id)){
+            News news =newsService.updateNews(NumberUtils.toLong(id));
+            mv.addObject(news);
+        }
+        return mv;
+    }
+
+
+    /**
+     * 修改新闻 添加新闻
+     * @param id
+     * @param newsClassType
+     * @param title
+     * @param source
+     * @param author
+     * @param top
+     * @param isDisplay
+     * @param keywords
+     * @param content
+     * @return
+     */
+    @RequestMapping("updateAndAdd")
+    public String updateAndAdd(String id,String newsClassType,String title,String source,String author,
+            Integer top,Integer isDisplay, String keywords,String content){
+        if(StringUtils.isEmpty(newsClassType)){
+            return null;
+        }
+        if(StringUtils.isEmpty(title)){
+            return null;
+        }
+        News news = new News();
+        news.setNewsClassType(newsClassType);
+        news.setTitle(title);
+        news.setSource(source);
+        news.setAuthor(author);
+        news.setTop(top);
+        news.setIsDisplay(isDisplay);
+        news.setKeywords(keywords);
+        news.setContent(content);
+
+        if(NumberUtils.isNumber(id)){
+            news.setId(NumberUtils.toInt(id));
+            newsService.updateAndAddNews(news);
+        }else{
+            newsService.insertNews(news);
+        }
+        return "redirect:list";
     }
 
     @RequestMapping("issue")

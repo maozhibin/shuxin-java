@@ -13,13 +13,13 @@ public class News {
 
     private String title;
 
-    private Integer dateline;
+    private Long dateline;
 
     private String source;
 
     private String author;
 
-    private Boolean top;
+    private Integer top;
 
     private String color;
 
@@ -33,7 +33,7 @@ public class News {
 
     private String image;
 
-    private Boolean isDisplay;
+    private Integer isDisplay;
 
     private String content;
 
@@ -61,11 +61,11 @@ public class News {
         this.title = title;
     }
 
-    public Integer getDateline() {
+    public Long getDateline() {
         return dateline;
     }
 
-    public void setDateline(Integer dateline) {
+    public void setDateline(Long dateline) {
         this.dateline = dateline;
     }
 
@@ -85,11 +85,12 @@ public class News {
         this.author = author;
     }
 
-    public Boolean getTop() {
+
+    public Integer getTop() {
         return top;
     }
 
-    public void setTop(Boolean top) {
+    public void setTop(Integer top) {
         this.top = top;
     }
 
@@ -141,12 +142,12 @@ public class News {
         this.image = image;
     }
 
-    public Boolean getDisplay() {
+    public Integer getIsDisplay() {
         return isDisplay;
     }
 
-    public void setDisplay(Boolean display) {
-        isDisplay = display;
+    public void setIsDisplay(Integer isDisplay) {
+        this.isDisplay = isDisplay;
     }
 
     public String getContent() {

@@ -36,7 +36,7 @@ public class NewsServiceImpl implements NewsService {
         parms.put("newsClassType",newsClassType);
         parms.put("page",page);
         List<News> list = newsDao.queryNewsInfo(parms);
-        Integer total = newsDao.PageCount(parms);
+        Integer total = newsDao.pageCount(parms);
         if (total != null){
             page.setTotalRecordCount(total);
         }
@@ -65,8 +65,36 @@ public class NewsServiceImpl implements NewsService {
      */
     @Override
     public News queryNewsDetails(Long id) {
+        if(id == null){
+            return  null;
+        }
+        return newsDao.querNewInfoById(id);
+    }
 
-        return null;
+
+
+    @Override
+    public void updateAndAddNews(News news) {
+
+    }
+
+    @Override
+    public void insertNews(News news) {
+
+    }
+
+
+    /**
+     * 根据id 修改 新闻
+     * @param id
+     * @return
+     */
+    @Override
+    public News updateNews(Long id) {
+        if (id == null){
+            return null;
+        }
+        return newsDao.updateNews(id);
     }
 
 
