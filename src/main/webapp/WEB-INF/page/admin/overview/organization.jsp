@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: yongj
@@ -10,18 +11,20 @@
 <head>
     <title>机构交易概况</title>
     <style>
-        .container-fluid{
+        .container-fluid {
             background: transparent;
-            border:none;
-            padding:0;
+            border: none;
+            padding: 0;
         }
-        td{
+
+        td {
             padding: 10px;
         }
-        .ctn-tables{
+
+        .ctn-tables {
             background: #fff;
-            border:1px solid #ccc;
-            padding:10px;
+            border: 1px solid #ccc;
+            padding: 10px;
         }
     </style>
 </head>
@@ -44,51 +47,68 @@
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($orgAmountlist as $item =>$value):?>
-                <tr>
-                    <td>
-                        <?php echo $value['username'] ?>
-                    </td>
-                    <td>
-                        <?php echo $item+1; ?>
-                    </td>
-                    <td>
-                        <?php echo $value['amount'] ?>
-                    </td>
-                    <td>
-                        <?php echo $value['ordernum'] ?>
-                    </td>
-                    <td>
-                        <?php echo $value['productname_num'][0]['name'].' | '; echo $value['productname_num'][0]['ordernum'];?>
-                    </td>
-                    <td>
+                <c:forEach items="${orgAmountlist}" var="item">
+                    <tr>
+                        <td>
+                                ${item.username}
+                        </td>
+                        <td>
+                                ${item.rank}
+                        </td>
+                        <td>
+                                ${item.amount}
+                        </td>
+                        <td>
+                                ${item.ordernum}
+                        </td>
+                        <td>
+                                ${item.product.name}|${item.product.ordernum}
+                        </td>
+                        <td>
 
-                    </td>
-                </tr>
-                <?php endforeach;?>
+                        </td>
+                    </tr>
+                </c:forEach>
                 </tbody>
             </table>
         </div>
         <div class="row tables-right ctn-tables">
-            <form action="<?php echo site_url('admin/ControlPanel/org_deal'); ?>" class="form-inline" method="post" accept-charset="utf-8">
+            <form action="/admin/overview/organization/search" class="form-inline" method="post"
+                  accept-charset="utf-8">
                 <table>
                     <tbody>
                     <tr>
-                        <!-- <td> 筛选：</td>
-                         <td>
-                             <select name="search-type" class="form-control" id="domain">
-                                 <option >北京</option>
-                                 <option >浙江</option>
-                             </select>
-                         </td>-->
+                        <td> 筛选：</td>
+                        <td>
+                            <select name="search-type" class="form-control" id="domain">
+                                <option>北京</option>
+                                <option>浙江</option>
+                            </select>
+                        </td>
                         <td> 关键字：</td>
                         <td>
-                            <input type="text" class="form-control pull-right" id="keywords" name="keywords" value="<?php if(isset($_POST['keywords'])){echo $_POST['keywords'];} ?>" placeholder="请输入关键字搜索">
+                            <input type="text" class="form-control pull-right" id="keywords" name="keywords"
+                                   value="${keywords}"
+                                   placeholder="请输入关键字搜索">
                         </td>
-                        <!--  <td> 日期：</td>
-                          <td>
-                              <input type="text" class="form-control pull-right" id="date_range">
-                          </td>-->
+                        <td> 日期：</td>
+                        <td style="position: relative">
+                            <input type="text" class="timePoint">
+                            <div id='wrap' class="hidden">
+                                <form>
+                                    <i class="fa fa-window-close btn-close"></i>
+                                    <select class='custom-date' name='select'>
+                                        <option value=''>请选择时间</option>
+                                        <option value='7'>最近7天</option>
+                                        <option value='30'>最近一个月</option>
+                                        <option value='90'>最近三个月</option>
+                                        <option value='180'>最近半年</option>
+                                        <option selected='selected' value='1'>今天</option>
+                                        <option value='custom'>自由选择</option>
+                                    </select>
+                                </form>
+                            </div>
+                        </td>
                         <td>
                             <button type="submit" class="btn"><i class="fa fa-search"></i> 搜索</button>
                         </td>
@@ -108,29 +128,30 @@
                 </tr>
                 </thead>
                 <tbody>
-                <?php if (isset($orgSearchAmoun)): ?>
-                <?php foreach ($orgSearchAmoun as $items =>$values):?>
-                <tr>
-                    <td>
-                        <?php echo $values['username'] ?>
-                    </td>
-                    <td>
-                        <?php echo $values['ranking'] ?>
-                    </td>
-                    <td>
-                        <?php echo $values['amount'] ?>
-                    </td>
-                    <td>
-                        <?php echo $values['ordernum'] ?>
-                    </td>
-                    <td>
-                        <?php echo $values['productname_num'][0]['name'].' | '; echo $values['productname_num'][0]['ordernum'];?>
-                    </td>
-                    <td>
-                    </td>
-                </tr>
-                <?php endforeach;?>
-                <?php endif; ?>
+                <c:if test="${orgSearchAmoun != null}">
+                    <c:forEach items="${orgSearchAmoun}" var="item">
+                        <tr>
+                            <td>
+                                    ${item.username}
+                            </td>
+                            <td>
+                                    ${item.rank}
+                            </td>
+                            <td>
+                                    ${item.amount}
+                            </td>
+                            <td>
+                                    ${item.ordernum}
+                            </td>
+                            <td>
+                                    ${item.product.name}|${item.product.ordernum}
+                            </td>
+                            <td>
+
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </c:if>
                 </tbody>
             </table>
         </div>
