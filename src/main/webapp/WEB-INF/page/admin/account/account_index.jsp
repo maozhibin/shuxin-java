@@ -49,8 +49,8 @@
         $(document).ready(function () {
             var g_start_time_str = "";
             var g_end_time_str = "";
-            var g_start = moment('<?php echo date("Y-m-d",$start_time);?>');
-            var g_end = moment('<?php echo date("Y-m-d",$end_time);?>');
+            var g_start = moment(${startTime});
+            var g_end = moment(${endTime});
 
             function cb(start, end) {
                 g_start_time_str = start.format('YYYY-MM-DD');
