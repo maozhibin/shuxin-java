@@ -100,7 +100,7 @@
    <!-- <?php echo isset($id) ? '新闻修改' : '新闻发布' ?>-->
 </h3>
 <hr>
-       <!-- <?php echo form_open('admin/news/news_add' . (isset($id) ? '/' . $id : '')); ?>
+       <!-- <?php echo form_open('admin/news/news_add' . (isset($id) ? '/' . $id : '')); ?> 
         <?php echo form_open('admin/data/news_add', array('class' => 'form-inline')); ?> -->
         <div class="row form-group">
             <label class="col-sm-1 control-label no-padding-right">选择类型:</label>
