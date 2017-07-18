@@ -104,7 +104,7 @@ public class NewsController {
     public ModelAndView page(String id){
         ModelAndView mv = new ModelAndView("admin/news/add");
         if(NumberUtils.isNumber(id)){
-            News news =newsService.updateNews(NumberUtils.toLong(id));
+            News news =newsService.updateNews(NumberUtils.toInt(id));
             mv.addObject(news);
         }
         return mv;

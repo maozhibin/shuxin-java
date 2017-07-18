@@ -33,7 +33,7 @@ public interface NewsDao {
      * @param id
      * @return
      */
-    News updateNews(Long id);
+    News updateNews(Integer id);
 
     /**
      *  根据 id 删除新闻

@@ -90,7 +90,7 @@ public class NewsServiceImpl implements NewsService {
      * @return
      */
     @Override
-    public News updateNews(Long id) {
+    public News updateNews(Integer id) {
         if (id == null){
             return null;
         }

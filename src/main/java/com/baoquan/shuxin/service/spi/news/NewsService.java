@@ -30,7 +30,7 @@ public interface NewsService {
     * @return
     * @throws
     */
-    News updateNews(Long id);
+    News updateNews(Integer id);
 
     /**
      * 修改新闻和添加新闻
