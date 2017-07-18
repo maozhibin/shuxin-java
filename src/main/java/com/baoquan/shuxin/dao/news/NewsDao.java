@@ -27,28 +27,23 @@ public interface NewsDao {
     * @throws
     */
     News querNewInfoById(Long id);
-
     /**
      * 根据 id 修改新闻
      * @param id
      * @return
      */
     News updateNews(Integer id);
-
     /**
      *  根据 id 删除新闻
      * @param id
      */
     void deleteNews(Long id);
-
-
     /**
      * 依据 id  查询新闻xiangq
      * @param id
      * @return
      */
     News queryNewsDetails(Long id);
-
     /**
      * 修改新闻和添加新闻
      * @param news

@@ -63,7 +63,6 @@ public class NewsController {
     * @return
     * @throws
     */
-    @ResponseBody
     @RequestMapping("delete")
     public String del(String id) {
         if (!NumberUtils.isNumber(id)) {
@@ -71,7 +70,7 @@ public class NewsController {
         }
         Long idN = NumberUtils.toLong(id);
         Boolean isSuccess = newsService.delNews(idN);
-        if (isSuccess) {
+        if (!isSuccess) {
             return null;
         }
         return "redirect:list";

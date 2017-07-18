@@ -42,7 +42,6 @@
     <div class="col-md-12">
         <div class="box-primary">
             <div class="box-body">
-                <!--                <div style="margin-bottom: 8px">--><?//= '总计' . $count . '条' ?><!--</div>-->
                 <table id="example2" class="table table-striped table-hover" style="table-layout:fixed">
                     <thead>
                     <tr>
