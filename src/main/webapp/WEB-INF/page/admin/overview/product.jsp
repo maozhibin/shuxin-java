@@ -1,5 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
 <%--
   Created by IntelliJ IDEA.
   User: yongj
@@ -99,7 +98,7 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${hashMapList}" var="item">
+        <c:forEach items="${hashMapList}" var="item" varStatus="status">
             <tr>
                 <td>
                         ${item.name}
@@ -108,7 +107,7 @@
                         ${item.className}
                 </td>
                 <td>
-                	<fmt:formatNumber value=" ${item.rownum}" maxFractionDigits="0" />
+                	${status.index+1}
                 </td>
                 <td>
                         ${item.total_amount}

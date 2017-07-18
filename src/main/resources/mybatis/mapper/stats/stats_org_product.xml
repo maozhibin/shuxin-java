@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baoquan.shuxin.dao.stats.StatsOrgProductDao" >
+  <resultMap id="BaseResultMap" type="com.baoquan.shuxin.model.stats.StatsOrgProduct" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="org_id" property="orgId" jdbcType="BIGINT" />
+    <result column="product_id" property="productId" jdbcType="BIGINT" />
+    <result column="purchase_num" property="purchaseNum" jdbcType="INTEGER" />
+    <result column="dateline" property="dateline" jdbcType="BIGINT" />
+  </resultMap>
+  
+  <select id="productList" resultType="java.util.Map">  
+		SELECT
+			org_id,
+			p.`name` productName,
+			product_id,
+			purchase_num num
+		FROM
+			stats_org_product a
+		LEFT JOIN product p ON p.id = a.product_id
+		WHERE
+			purchase_num = (
+				SELECT
+					max(b.purchase_num)
+				FROM
+					stats_org_product b
+				WHERE
+					a.org_id = b.org_id
+			)
+		AND org_id in
+        <foreach item="item" index="index" collection="list"  
+                 open="(" separator="," close=")">  
+            #{item}  
+        </foreach>  
+    </select>  
+</mapper>

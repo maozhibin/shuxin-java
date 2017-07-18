@@ -68,5 +68,17 @@
         SET money_balance = money_balance - #{price}
         WHERE id = #{id} and money_balance >= #{price}
     </update>
+    
+    <select id="orgName" resultMap="BaseResultMap">  
+		SELECT
+			*
+		FROM
+			`user`
+         where id in  
+        <foreach item="item" index="index" collection="list"  
+                 open="(" separator="," close=")">  
+            #{item}  
+        </foreach>  
+    </select>  
 
 </mapper>

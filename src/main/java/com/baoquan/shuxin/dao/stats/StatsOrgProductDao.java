@@ -6,7 +6,8 @@ import java.util.Map;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface StatsOrgDao{
+public interface StatsOrgProductDao {
 
-	List<Map<String, Object>> orgTop();
+	List<Map<String, Object>> productList(List<Long> idList);
+	
 }
