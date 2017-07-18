@@ -82,13 +82,9 @@
                 return false;
             });
         });
-
     </script>
-
-
 </head>
 <body>
-
 <section>
     <div class="row">
         <form action="" class="form-inline" method="post" accept-charset="utf-8">
@@ -99,6 +95,7 @@
                     <td>
                         <select name="search-type" class="form-control" id="domain">
                             <option value="">全部</option>
+
 
                         </select>
                     </td>

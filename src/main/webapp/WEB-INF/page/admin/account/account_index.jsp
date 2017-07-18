@@ -105,6 +105,11 @@
                     <td>
                         <select name="search-type" class="form-control" id="domain">
                             <option value="">全部</option>
+
+                            <c:forEach items="">
+
+                            </c:forEach>
+
                         </select>
                     </td>
                     <td> ID：</td>
