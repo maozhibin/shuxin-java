@@ -73,16 +73,7 @@
     SELECT  * FROM  news WHERE id = #{id}
   </select>
 
-  <update id="updateAndAddNews"  parameterMap="News">
 
-    UPDATE  news SET news_class_type = #{newsClassType} ,title = #{title},source = #{source},author = #{author},top = #{top},
-                    is_display = #{isDisplay},keywords = #{keywords} ,image = #{image} ,content = #{content}
-  </update>
-  <insert id="insertNews" parameterMap="News" useGeneratedKeys="true" keyProperty="id">
-    INSERT INTO news(news_class_type,title,source,author,top,is_display,keywords,image,content)
-           VALUE (#{newsClassType},#{title},#{source},#{author},#{top},#{isDisplay},#{keywords},#{image},#{content})
-
-  </insert>
 
 
 </mapper>
