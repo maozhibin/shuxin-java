@@ -115,7 +115,7 @@
                     <td> ID：</td>
                     <td>
                         <input type="text" class="form-control pull-right" id="user_id" placeholder="用户ID"
-                               name="user_id">
+                               name="user_id" value="">
                     </td>
                     <td> 日期：</td>
                     <td>

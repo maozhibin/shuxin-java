@@ -23,7 +23,7 @@ public interface AccountFlowDao {
      */
     List<AccountFlow> querAccountFlowInfo(Map<String, Object> parm);
 
-    Integer PageCount(Map<String, Object> parms);
+    Integer pageCount(Map<String, Object> parms);
 
     AccountFlow querByIdAccountInfo(Long id);
 
