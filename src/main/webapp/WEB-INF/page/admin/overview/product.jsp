@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
 <%--
   Created by IntelliJ IDEA.
   User: yongj
@@ -98,22 +99,22 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${productList}" var="item">
+        <c:forEach items="${hashMapList}" var="item">
             <tr>
                 <td>
-                        ${item.productname}
+                        ${item.name}
                 </td>
                 <td>
-                        ${item.catename}
+                        ${item.className}
                 </td>
                 <td>
-                        ${item.rank}
+                	<fmt:formatNumber value=" ${item.rownum}" maxFractionDigits="0" />
                 </td>
                 <td>
-                        ${item.totalAmount}
+                        ${item.total_amount}
                 </td>
                 <td>
-                        ${item.ordernum}
+                        ${item.purchase_num}
                 </td>
                 <td>
                         ${item.username}

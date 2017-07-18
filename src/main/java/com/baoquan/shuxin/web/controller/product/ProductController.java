@@ -20,7 +20,14 @@ import com.baoquan.shuxin.service.spi.product.ProductService;
 public class ProductController {
     @Inject
     private ProductService productService;
-
+    
+    /**
+     * 产品列表
+     * @param name
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
     @RequestMapping("list")
     public ModelAndView list(String name,String pageNo, String pageSize) {
     	ModelAndView mv = new ModelAndView("admin/product/list");

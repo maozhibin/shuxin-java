@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baoquan.shuxin.dao.stats.StatsOrgDao" >
+  <resultMap id="BaseResultMap" type="com.baoquan.shuxin.model.stats.StatsOrg" >
+    <id column="org_id" property="orgId" jdbcType="BIGINT" />
+    <result column="total_amount" property="totalAmount" jdbcType="DECIMAL" />
+    <result column="order_num" property="orderNum" jdbcType="BIGINT" />
+    <result column="receipt_num" property="receiptNum" jdbcType="BIGINT" />
+    <result column="dateline" property="dateline" jdbcType="BIGINT" />
+  </resultMap>
+	
+	<select id="orgTop" resultType="java.util.Map">
+		SELECT
+			@rownum :=@rownum + 1 orgRank,
+			s.username orgUsername,
+			s.total_amount orgTotalAmount,
+			s.order_num orgOrderNum,
+			s.receipt_num orgReceipt,
+			s.`name` orgProductName,
+			s.maxNum orgMaxNum
+		FROM
+			(
+				SELECT DISTINCT
+					@rownum := 0,
+					u.username,
+					org.total_amount,
+					org.order_num,
+					org.receipt_num,
+					p.`name`,
+					maxNum
+				FROM
+					`user` u
+				LEFT JOIN stats_org org ON org.org_id = u.id
+				AND u.isValid = 1
+				JOIN product p ON u.id = p.user_id
+				LEFT JOIN (
+					SELECT
+						p.id,
+						MAX(sp.purchase_num) maxNum
+					FROM
+						product p
+					LEFT JOIN stats_product sp ON p.id = sp.product_id
+					GROUP BY
+						p.id
+				) q ON q.id = p.id
+				ORDER BY
+					org.total_amount DESC
+			LIMIT 0,10
+			) s
+	</select>
+</mapper>
