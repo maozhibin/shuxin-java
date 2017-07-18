@@ -19,11 +19,8 @@ public interface NewsService {
     Page<News> queryNewInfo(String newsClassType, Page<News> page);
     //删除
     Boolean delNews(Long id);
-
-
     //新闻详情
     News queryNewsDetails(Long id);
-
     /**
     * @Description: 修改新闻
     * @param

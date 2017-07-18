@@ -16,6 +16,7 @@ import com.baoquan.shuxin.model.user.User;
 @Repository
 public interface NewsDao {
 
+
     Integer pageCount(Map<String, Object> parms);
     //查询
     List<News> queryNewsInfo(Map<String, Object> parms);
@@ -39,7 +40,7 @@ public interface NewsDao {
      */
     void deleteNews(Long id);
     /**
-     * 依据 id  查询新闻xiangq
+     * 依据 id  查询新闻详情
      * @param id
      * @return
      */
@@ -49,7 +50,6 @@ public interface NewsDao {
      * @param news
      */
     void updateAndAddNews(News news);
-
     /**
      * 添加新闻
      * @param news
