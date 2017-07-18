@@ -171,20 +171,20 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${hashMap.orgTop}" var="item">
+            <c:forEach items="${hashMap.orgTop}" var="item" varStatus="status">
                 <tr>
                     <td>
-                            ${item.orgUsername}
+                            ${item.username}
                     </td>
                     <td>
-                    		<fmt:formatNumber value=" ${item.orgRank}" maxFractionDigits="0" />
+                    		${status.index+1}
                           
                     </td>
                     <td>
-                            ${item.orgTotalAmount}
+                            ${item.total_amount}
                     </td>
                     <td>
-                            ${item.orgOrderNum}
+                            ${item.order_num}
                     </td>
                 </tr>
             </c:forEach>

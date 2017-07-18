@@ -26,5 +26,6 @@ public interface UserDao {
     User queryUserBalance(Long id);
 
     int deductUserBalance(@Param("id") Long id, @Param("price") BigDecimal price);
-
+    
+    List<User> orgName(List<Long> idList);
 }

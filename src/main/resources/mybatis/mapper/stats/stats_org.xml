@@ -11,41 +11,13 @@
 	
 	<select id="orgTop" resultType="java.util.Map">
 		SELECT
-			@rownum :=@rownum + 1 orgRank,
-			s.username orgUsername,
-			s.total_amount orgTotalAmount,
-			s.order_num orgOrderNum,
-			s.receipt_num orgReceipt,
-			s.`name` orgProductName,
-			s.maxNum orgMaxNum
+			*
 		FROM
-			(
-				SELECT DISTINCT
-					@rownum := 0,
-					u.username,
-					org.total_amount,
-					org.order_num,
-					org.receipt_num,
-					p.`name`,
-					maxNum
-				FROM
-					`user` u
-				LEFT JOIN stats_org org ON org.org_id = u.id
-				AND u.isValid = 1
-				JOIN product p ON u.id = p.user_id
-				LEFT JOIN (
-					SELECT
-						p.id,
-						MAX(sp.purchase_num) maxNum
-					FROM
-						product p
-					LEFT JOIN stats_product sp ON p.id = sp.product_id
-					GROUP BY
-						p.id
-				) q ON q.id = p.id
-				ORDER BY
-					org.total_amount DESC
-			LIMIT 0,10
-			) s
+			stats_org
+		ORDER BY
+			total_amount DESC
+		LIMIT 0,10
 	</select>
+	
+	
 </mapper>

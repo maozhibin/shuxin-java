@@ -11,47 +11,35 @@
   
   <select id="productTop" resultType="java.util.Map">
 	  SELECT
-		@rownum :=@rownum + 1 rownum,
-		t.name,
-		t.className,
-		t.total_amount,
-		t.order_num,
-		t.purchase_num,
-		t.username,
-		t.rate
+		p.`name`,
+		c.`name` className,
+		s.total_amount,
+		s.order_num,
+		s.purchase_num,
+		u.username,
+		concat(
+			FORMAT(
+				(
+					s.order_num / (
+						SELECT
+							COUNT(*)
+						FROM
+							user_product
+					)
+				) * 100,
+				2
+			),
+			'%'
+		) AS rate
 	FROM
-		(
-			SELECT
-				@rownum:=0,
-				p.`name`,
-				c.`name` className,
-				s.total_amount,
-				s.order_num,
-				s.purchase_num,
-				u.username,
-				concat(
-					FORMAT(
-						(
-							s.order_num / (
-								SELECT
-									COUNT(*)
-								FROM
-									user_product
-							)
-						) * 100,
-						2
-					),
-					'%'
-				) AS rate
-			FROM
-				product p
-			LEFT JOIN product_class c ON p.product_class_id = c.id
-			LEFT JOIN stats_product s ON s.product_id = p.id
-			LEFT JOIN `user` u ON u.id = p.user_id
-			ORDER BY
-				s.total_amount DESC
-		LIMIT 0,10
-		) t
+		product p
+	LEFT JOIN product_class c ON p.product_class_id = c.id
+	LEFT JOIN stats_product s ON s.product_id = p.id
+	LEFT JOIN `user` u ON u.id = p.user_id
+	ORDER BY
+		s.total_amount DESC
+	LIMIT 0,
+	 10
   </select>
   
 </mapper>
