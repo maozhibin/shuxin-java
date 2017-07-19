@@ -1,5 +1,7 @@
 package com.baoquan.shuxin.web.controller.account;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.commons.lang.math.NumberUtils;
@@ -10,8 +12,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.baoquan.shuxin.bean.Page;
 import com.baoquan.shuxin.model.account.AccountFlow;
+import com.baoquan.shuxin.model.news.Option;
 import com.baoquan.shuxin.model.user.User;
 import com.baoquan.shuxin.service.spi.account.AccountFlowService;
+import com.baoquan.shuxin.service.spi.news.OptionService;
 
 /**
  * Author:Zhoumc
@@ -26,6 +30,8 @@ public class AccountFlowController {
     private AccountFlowService accountFlowService;
 
 
+    @Inject
+    private OptionService optionService;
 
     @RequestMapping("/flow")
     @ResponseBody
@@ -43,8 +49,10 @@ public class AccountFlowController {
             pageNoValue = NumberUtils.toInt(pageNo);
             page.setPageNo(pageNoValue);
         }
+        List<Option> flow = optionService.queryFlowInfo();
         page = accountFlowService.querListAccountFlowInfo(userId, type, dateline,finishTime, page);
         mv.addObject(page);
+        mv.addObject("flow",flow);
         mv.addObject("startTime", System.currentTimeMillis() - 1234567890);
         mv.addObject("endTime", System.currentTimeMillis());
         return mv;

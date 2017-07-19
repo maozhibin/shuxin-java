@@ -93,10 +93,10 @@
                 <tr>
                     <td> 类型：</td>
                     <td>
-                        <select name="search-type" class="form-control" id="domain">
-                            <option value="">全部</option>
-                            <c:forEach items="">
-
+                        <select name="flow" class="form-control" id="domain">
+                            <c:forEach items="${flow}" var="option">
+                                <option value="${option.value}">${option.name}
+                                </option>
                             </c:forEach>
 
                         </select>

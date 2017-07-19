@@ -61,12 +61,11 @@ public class NewsController {
             page.setPageNo(pageNoValue);
         }
         List<Option> options = optionService.queryOptionInfo();
-        List<Option> flow = optionService.queryOptionInfo();
+
         page = newsService.queryNewInfo(newsClassType, page);
 
         mv.addObject(page);
         mv.addObject("options",options);
-        mv.addObject("flow",flow);
         return mv;
     }
 
