@@ -95,9 +95,10 @@
 
 </head>
 <body>
-<section>
+
+<section class="filter-box" style="border:none">
     <div class="row">
-        <form action="" class="form-inline" method="post" accept-charset="utf-8">
+        <form class="form-inline">
             <table style="margin-left: 30px">
                 <tbody>
                 <tr>
@@ -114,7 +115,7 @@
                     <td> ID：</td>
                     <td>
                         <input type="text" class="form-control pull-right" id="user_id" placeholder="用户ID"
-                               name="user_id" value="">
+                               name="userId" value="${userId}">
                     </td>
                     <td> 日期：</td>
                     <td>
@@ -129,6 +130,7 @@
         </form>
     </div>
 </section>
+
 <div class="row">
     <div class="col-md-12">
         <section class="tile color transparent-black">

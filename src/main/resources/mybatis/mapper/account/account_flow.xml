@@ -30,7 +30,7 @@
     SELECT 	* FROM user_money_log um
 
     <where>
-      <if test="user_id !=null">
+      <if test="userId !=null">
         AND um.user_id = #{userId}
       </if>
       <if test="type != null">
