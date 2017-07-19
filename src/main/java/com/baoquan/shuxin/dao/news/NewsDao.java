@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.stereotype.Repository;
 
 import com.baoquan.shuxin.model.news.News;
+import com.baoquan.shuxin.model.news.Option;
 import com.baoquan.shuxin.model.user.User;
 
 /**
@@ -55,5 +56,8 @@ public interface NewsDao {
      * @param news
      */
     void insertNews(News news);
+
+
+
 
 }

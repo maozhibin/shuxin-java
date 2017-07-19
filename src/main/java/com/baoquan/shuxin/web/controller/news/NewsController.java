@@ -1,6 +1,7 @@
 package com.baoquan.shuxin.web.controller.news;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -15,7 +16,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.baoquan.shuxin.bean.Page;
 import com.baoquan.shuxin.model.config.Config;
 import com.baoquan.shuxin.model.news.News;
+import com.baoquan.shuxin.model.news.Option;
 import com.baoquan.shuxin.service.spi.news.NewsService;
+import com.baoquan.shuxin.service.spi.news.OptionService;
 import com.baoquan.shuxin.util.JsonResponseMsg;
 
 /**
@@ -31,6 +34,9 @@ public class NewsController {
     @Inject
     private NewsService newsService;
 
+    @Inject
+    private OptionService optionService;
+
     /**
      * 分页查询新闻信息
      * @param newsClassType 类别
@@ -42,7 +48,9 @@ public class NewsController {
     public ModelAndView newsList(String newsClassType, String pageNo, String pageSize) {
         ModelAndView mv = new ModelAndView("admin/news/list");
         Page<News> page = new Page<News>();
+
         Integer pageSizeValue = null;
+
         if (NumberUtils.isNumber(pageSize)) {
             pageSizeValue = NumberUtils.toInt(pageSize);
             page.setPageSize(pageSizeValue);
@@ -52,8 +60,13 @@ public class NewsController {
             pageNoValue = NumberUtils.toInt(pageNo);
             page.setPageNo(pageNoValue);
         }
+        List<Option> options = optionService.queryOptionInfo();
+        List<Option> flow = optionService.queryOptionInfo();
         page = newsService.queryNewInfo(newsClassType, page);
+
         mv.addObject(page);
+        mv.addObject("options",options);
+        mv.addObject("flow",flow);
         return mv;
     }
 
@@ -150,6 +163,8 @@ public class NewsController {
         }
         return "redirect:list";
     }
+
+
 
     @RequestMapping("issue")
     public Object issue() {

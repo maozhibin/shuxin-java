@@ -77,10 +77,6 @@
             }, cb);
             cb(g_start, g_end);
 
-            function doFilter(url) {
-                document.location.href = url;
-            }
-
         });
 
     </script>
