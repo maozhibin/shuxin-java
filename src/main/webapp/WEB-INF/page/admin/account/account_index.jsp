@@ -81,13 +81,6 @@
                 document.location.href = url;
             }
 
-            $("#search-btn").click(function () {
-                var id = $("#user_id").val() ? $("#user_id").val() : -1;
-//                var url = "<?php echo base_url("admin/account/account_money_record");?>" + "/1/choosetime/"+ $("#domain").val()+"/"+id+ "/" + g_start_time_str + "/" + g_end_time_str + ".html";
-                var url = "<%=basePath%>admin/account/flow";
-                doFilter(url);
-                return false;
-            });
         });
 
     </script>
@@ -115,14 +108,14 @@
                     <td> ID：</td>
                     <td>
                         <input type="text" class="form-control pull-right" id="user_id" placeholder="用户ID"
-                               name="userId" value="${userId}">
+                               name="userId" value="">
                     </td>
                     <td> 日期：</td>
                     <td>
                         <input type="text" class="form-control pull-right" id="date_range" name="date_range">
                     </td>
                     <td>
-                        <button type="submit" class="btn" id="search-btn"><i class="fa fa-search"></i> 筛选</button>
+                        <button type="submit" class="btn" ><i class="fa fa-search"></i> 筛选</button>
                     </td>
                 </tr>
                 </tbody>
