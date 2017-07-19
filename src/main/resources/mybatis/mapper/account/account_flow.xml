@@ -2,6 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.baoquan.shuxin.dao.account.AccountFlowDao" >
 
+
+    <resultMap id="BaseResultMap" type="com.baoquan.shuxin.model.account.AccountFlow" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="type" property="type" jdbcType="CHAR" />
+        <result column="user_id" property="userId" jdbcType="INTEGER" />
+        <result column="amount" property="amount" jdbcType="DECIMAL" />
+        <result column="remark" property="remark" jdbcType="VARCHAR" />
+        <result column="item_info" property="itemInfo" jdbcType="VARCHAR" />
+        <result column="status" property="status" jdbcType="BIT" />
+        <result column="request_no" property="requestNo" jdbcType="VARCHAR" />
+        <result column="dateline" property="dateline" jdbcType="INTEGER" />
+        <result column="reverse" property="reverse" jdbcType="BIT" />
+        <result column="reverse_time" property="reverseTime" jdbcType="INTEGER" />
+        <result column="fee" property="fee" jdbcType="DECIMAL" />
+        <result column="expense" property="expense" jdbcType="CHAR" />
+        <result column="user_remark" property="userRemark" jdbcType="VARCHAR" />
+        <result column="fee_relative" property="feeRelative" jdbcType="VARCHAR" />
+        <result column="extra_cost" property="extraCost" jdbcType="DECIMAL" />
+        <result column="extra_expense" property="extraExpense" jdbcType="CHAR" />
+        <result column="extra_request" property="extraRequest" jdbcType="VARCHAR" />
+        <result column="status_desc" property="statusDesc" jdbcType="VARCHAR" />
+        <result column="finish_time" property="finishTime" jdbcType="INTEGER" />
+    </resultMap>
+
   <select id="querAccountFlowInfo" resultType="com.baoquan.shuxin.model.account.AccountFlow">
     SELECT 	* FROM user_money_log um
 
@@ -18,25 +42,32 @@
       </if>
     </where>
   </select>
+
+
+
     <select id="pageCount" resultType="Integer">
         SELECT
         COUNT(1)
         FROM
-        user_money_log um
-        <where>
-            <if test="user_id !=null">
-                AND um.user_id = #{userId}
-            </if>
-            <if test="type != null">
-                AND um.type = #{type}
-            </if>
-            <if test="dateline != null and finish_time != null" >
-                AND um.finish_time =#{finishTime}
-                BETWEEN um.dateline =#{dateline} AND  um.finish_time=#{finishTime}
-            </if>
-        </where>
+        user_money_log
+        WHERE 1=1
+        <include refid="taskQuery"></include>
 
     </select>
+
+    <sql id="taskQuery">
+        <if test="user_id !=null">
+            AND um.user_id = #{userId}
+        </if>
+        <if test="type != null">
+            AND um.type = #{type}
+        </if>
+        <if test="dateline != null and finish_time != null" >
+            AND um.finish_time =#{finishTime}
+            BETWEEN um.dateline =#{dateline} AND  um.finish_time=#{finishTime}
+        </if>
+    </sql>
+
     <select id="querByIdAccountInfo" resultType="com.baoquan.shuxin.model.account.AccountFlow">
         SELECT*FROM user_money_log WHERE id=#{id}
     </select>

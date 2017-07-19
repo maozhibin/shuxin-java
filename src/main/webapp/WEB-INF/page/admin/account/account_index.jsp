@@ -105,7 +105,6 @@
                     <td>
                         <select name="search-type" class="form-control" id="domain">
                             <option value="">全部</option>
-
                             <c:forEach items="">
 
                             </c:forEach>
@@ -122,7 +121,7 @@
                         <input type="text" class="form-control pull-right" id="date_range" name="date_range">
                     </td>
                     <td>
-                        <button type="submit" class="btn"><i class="fa fa-search"></i> 筛选</button>
+                        <button type="submit" class="btn" id="search-btn"><i class="fa fa-search"></i> 筛选</button>
                     </td>
                 </tr>
                 </tbody>
@@ -151,7 +150,6 @@
                     </thead>
                     <c:if test="${page != null && page.result != null}">
                         <c:forEach items="${page.result}" var="accountFlow">
-
                             <tr>
                                 <td>${accountFlow.userId}</td>
                                 <td>${accountFlow.type}</td>
@@ -167,19 +165,10 @@
                     </c:if>
                 </table>
             </div>
-            <!-- /BOX -->
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="pull-left">
-                    </div>
-                    <div class="pull-right">
-                        <div class="dataTables_paginate paging_bs_full" id="datatable1_paginate">
-                            <ul class="pagination">
 
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-sm-12" style="text-align: center">
+                    <span class="float-left"
+                          style="line-height: 40px;">共${page.totalRecordCount}条，每页15条</span>
             </div>
         </section>
     </div>

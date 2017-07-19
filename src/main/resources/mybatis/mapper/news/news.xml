@@ -38,23 +38,21 @@
     </where>
 
   </select>
-  <select id="pageCount" resultType="com.baoquan.shuxin.model.news.News">
-    SELECT 	count(*) FROM news   n
 
-    <where>
-      <if test="user_id !=null">
-        AND um.user_id = #{userId}
-      </if>
-      <if test="type != null">
-        AND um.type = #{type}
-      </if>
-      <if test="dateline != null and finish_time != null" >
-        AND um.finish_time =#{finishTime}
-        BETWEEN um.dateline =#{dateline} AND  um.finish_time=#{finishTime}
-      </if>
-    </where>
 
+  <select id="pageCount" resultType="Integer">
+    SELECT 	count(1) FROM news
+    <include refid="taskQuery"></include>
   </select>
+  <sql id="taskQuery">
+    <if test="type != null">
+      AND um.type = #{type}
+    </if>
+  </sql>
+
+
+
+
 
   <delete id="deleteNews" parameterType="java.lang.Long" >
     DELETE FROM news where id=#{id}
