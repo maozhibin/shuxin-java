@@ -80,6 +80,7 @@ public class ProductController {
     public Object area(@PathVariable(value = "pid", required = false) String pid) {
         Map<String, String> map = new HashMap<>();
         map.put("1", "11");
+        System.out.println(0b001 + 0b010 + 0b100);
         return map;
     }
 

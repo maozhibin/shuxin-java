@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baoquan.shuxin.dao.admin.AdminUserMenuPermDao">
+    <select id="listEffectiveByUser" resultType="com.baoquan.shuxin.model.admin.AdminUserMenuPerm">
+        SELECT *
+        FROM admin_user_menu_perm
+        <where>
+            status = 1 and user_id in
+            <foreach collection="userIds" item="userId" open="(" separator="," close=")">
+                #{userId}
+            </foreach>
+        </where>
+    </select>
+    <update id="removeAllPermByUser">
+        UPDATE admin_user_menu_perm
+        SET perm = 0
+        WHERE user_id = #{userId}
+    </update>
+    <insert id="insertOrUpdate" parameterType="com.baoquan.shuxin.model.admin.AdminUserMenuPerm">
+        INSERT INTO admin_user_menu_perm (user_id,menu_id,perm,status,dateline)
+        VALUES (#{userId},#{menuId},#{perm},#{status},#{dateline})
+        on duplicate key update perm = #{perm}, status = #{status}
+    </insert>
+    <select id="queryByUserMenuStatus" resultType="com.baoquan.shuxin.model.admin.AdminUserMenuPerm">
+        SELECT *
+        FROM admin_user_menu_perm
+        WHERE user_id = #{userId} and menu_id = #{menuId} and status = #{status}
+    </select>
+</mapper>

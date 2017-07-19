@@ -1,5 +1,7 @@
 package com.baoquan.shuxin.service.impl.admin;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -17,8 +19,8 @@ public class AdminUserServiceImpl implements AdminUserService {
     @Inject
     private AdminUserDao adminUserDao;
 
-    public AdminUser queryUserPass(String username, String password) {
-        return adminUserDao.queryUserPass(username, password);
+    public AdminUser queryByUserPass(String username, String password) {
+        return adminUserDao.queryByUserPass(username, password);
     }
 
     @Override
@@ -29,5 +31,20 @@ public class AdminUserServiceImpl implements AdminUserService {
     @Override
     public int refreshLoginInfoById(Long id, String ip, Long timestamp) {
         return adminUserDao.refreshLoginInfoById(id, ip, timestamp);
+    }
+
+    @Override
+    public List<AdminUser> listUserByName(String name, Integer start, Integer length) {
+        return adminUserDao.listUserByName(name, start, length);
+    }
+
+    @Override
+    public Long countUserByName(String name) {
+        return adminUserDao.countUserByName(name);
+    }
+
+    @Override
+    public AdminUser queryById(Long id) {
+        return adminUserDao.queryById(id);
     }
 }

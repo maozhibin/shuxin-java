@@ -104,7 +104,7 @@
         <a href="<%=basePath%>admin/product/fee" class="tab">计费设置</a>
     </div>
     <form action="<%=basePath%>admin/product/description/${product_id}">
-        <div class="container">
+        <div class="container desc">
             <p class="f16 gray6 mb10">产品介绍</p>
             <textarea rows="10" class="input-ctrl mb30" name="intro" id="intro">${intro}</textarea>
             <?php echo form_error('intro'); ?>

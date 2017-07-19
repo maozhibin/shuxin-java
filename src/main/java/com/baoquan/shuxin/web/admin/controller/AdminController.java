@@ -37,7 +37,7 @@ public class AdminController {
     @ResponseBody
     public Object login(String account, String password, HttpServletRequest request) {
         JsonBean jsonBean = new JsonBean();
-        AdminUser adminUser = adminUserService.queryUserPass(account, password);
+        AdminUser adminUser = adminUserService.queryByUserPass(account, password);
         if (adminUser == null) {
             jsonBean.setCode(-1);
             jsonBean.setMessage("登陆失败,请重试!");
