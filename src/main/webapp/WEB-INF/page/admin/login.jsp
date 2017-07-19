@@ -30,6 +30,11 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <%--密码加密--%>
+    <script src="<%=basePath%>static/js/CryptoJSv3.1.2/rollups/hmac-sha256.js"></script>
+    <script src="<%=basePath%>static/js/CryptoJSv3.1.2/components/enc-base64-min.js"></script>
+
 </head>
 
 <body class="bg-img">
@@ -117,9 +122,13 @@
             return;
         }
 
+        var hash = CryptoJS.HmacSHA256(password, email);
+        var hashInBase64 = CryptoJS.enc.Base64.stringify(hash);
+        console.log(hashInBase64);
+
         var data = {
             'account': email,
-            'password': password
+            'password': hashInBase64
         };
 
         $.post('<%=basePath%>admin/login', data, function (obj) {

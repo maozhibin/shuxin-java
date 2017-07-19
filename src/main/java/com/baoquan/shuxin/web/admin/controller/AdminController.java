@@ -77,7 +77,7 @@ public class AdminController {
             jsonBean.setMessage("修改成功!");
         } else {
             jsonBean.setCode(-1);
-            jsonBean.setMessage("原密码不正确,修改失败!");
+            jsonBean.setMessage("用户名或密码不正确,修改失败!");
         }
         return jsonBean;
     }
