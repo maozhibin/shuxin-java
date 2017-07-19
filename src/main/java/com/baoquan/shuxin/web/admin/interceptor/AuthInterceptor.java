@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.method.HandlerMethod;
@@ -47,19 +48,52 @@ public class AuthInterceptor implements HandlerInterceptor {
                 response.sendRedirect("/admin/loginPage");
                 return false;
             }
+            //对直接访问的路径鉴权
             String uri = request.getRequestURI();
-            //int index = StringUtils.indexOf(uri, "/admin");
-            //if (index > 0) {
-            //    uri = StringUtils.substring(uri, index);
-            //}
-            Matcher matcher = uriPattern.matcher(uri);
-            if (matcher.find()) {
-                uri = matcher.group();
+            if (!hasPerm(userId, uri)) {
+                return false;
             }
-            AdminMenu menu = adminMenuService.queryByUri(uri);
-            if (menu == null) {
-                return true;
+
+            //对请求来源页面间接鉴权
+            //Referer: http://localhost:8080//admin/super/auth/list
+            String referer = request.getHeader("Referer");
+            if (StringUtils.isNotBlank(referer)) {
+                String basePath = StringUtils.removeEnd(request.getRequestURL().toString(), request.getRequestURI());
+                referer = StringUtils.removeStartIgnoreCase(referer, basePath);
+                referer = StringUtils.substringBefore(referer, "?");
+                if (!hasPerm(userId, referer)) {
+                    return false;
+                }
             }
+
+        }
+        return true;
+    }
+
+    private boolean hasPerm(Long userId, String uri) {
+        Matcher matcher = uriPattern.matcher(uri);
+        if (matcher.find()) {
+            uri = matcher.group();
+        }
+        /*
+        不在配置中的uri
+        1.找最匹配上级，找到则以之为准
+        2.默认放过
+         */
+        AdminMenu menu = adminMenuService.queryByUri(uri);
+        if (menu == null) {
+            int length = 0;
+            List<AdminMenu> menus = adminMenuService.queryAllEffective();
+            for (AdminMenu adminMenu : menus) {
+                if (StringUtils.startsWithIgnoreCase(uri, adminMenu.getUri())) {
+                    if (StringUtils.length(adminMenu.getUri()) > length) {
+                        menu = adminMenu;
+                        length = StringUtils.length(adminMenu.getUri());
+                    }
+                }
+            }
+        }
+        if (menu != null) {
             AdminUserMenuPerm userMenuPerm = adminUserMenuPermService.queryByUserMenuStatus(userId, menu.getId(),
                     DualStatusEnum.EFFECTIVE.getCode());
             if (userMenuPerm == null || userMenuPerm.getPerm() == DualStatusEnum.INEFFECTIVE.getCode()) {
@@ -73,6 +107,9 @@ public class AuthInterceptor implements HandlerInterceptor {
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
             ModelAndView modelAndView) throws Exception {
         if (HandlerMethod.class.isInstance(handler)) {
+            if (modelAndView == null) {
+                return;
+            }
             Long userId = (Long) request.getSession(true).getAttribute("userId");
             if (userId == null) {
                 return;

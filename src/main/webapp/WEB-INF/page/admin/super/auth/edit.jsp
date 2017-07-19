@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: yongj
@@ -42,7 +43,7 @@
                     <c:if test="${user != null}">
                         <tr>
                             <td>${user.username}</td>
-                            <td>${user.lastLoginTime}</td>
+                            <td><fmt:formatDate value="${user.lastLoginTime}" pattern="yyyy-MM-dd hh:ss:mm"/></td>
                             <c:if test="${menus != null}">
                                 <c:forEach items="${menus.values()}" var="menu">
                                     <td>
