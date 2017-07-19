@@ -126,10 +126,7 @@ public class AuthManageController {
     }
 
     @RequestMapping("/update")
-    public Object update(Long userId, @RequestParam(value = "menuId", required = false) Long[] menuIds,
-            @RequestBody String content) {
-        System.out.println(content);
-        System.out.println(JSON.toJSONString(menuIds));
+    public Object update(Long userId, @RequestParam(value = "menuId", required = false) Long[] menuIds) {
         adminUserMenuPermService.resetUserMenuPerm(userId, menuIds);
         return "redirect:edit?userId=" + userId;
     }
