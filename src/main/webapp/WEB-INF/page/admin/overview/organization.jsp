@@ -166,8 +166,8 @@
         </tr>
         </thead>
         <tbody>
-        <c:if test="${hashMap.orgList != null}">
-            <c:forEach items="${hashMap.orgList}" var="item" varStatus="status">
+        <c:if test="${page != null && page.result != null}">
+            <c:forEach items="${page.result}" var="item" varStatus="status">
                  <tr>
 	                <td>
 	                        ${item.username}
@@ -192,6 +192,10 @@
         </c:if>
         </tbody>
     </table>
+    <div class="col-sm-12" style="text-align: center">
+          <span class="float-left"
+             style="line-height: 40px;">共${page.totalRecordCount}条，每页15条</span>
+    </div>
 </div>
 
 </body>
