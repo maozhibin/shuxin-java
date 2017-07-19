@@ -7,4 +7,6 @@ public interface StatsProductService {
 
 	List<Map<String, Object>> productTop();
 
+	List<Map<String, Object>> productList(Map<String, Object> map);
+
 }

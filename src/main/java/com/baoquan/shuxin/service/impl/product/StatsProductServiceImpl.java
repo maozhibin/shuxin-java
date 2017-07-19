@@ -17,4 +17,9 @@ public class StatsProductServiceImpl implements StatsProductService{
 	public List<Map<String, Object>> productTop() {
 		return statsProductDao.productTop();
 	}
+
+	@Override
+	public List<Map<String, Object>> productList(Map<String, Object> map) {
+		return statsProductDao.productList(map);
+	}
 }

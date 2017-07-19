@@ -81,4 +81,11 @@
         </foreach>  
     </select>  
 
+	<select id="findByUserName" resultMap="BaseResultMap">
+		SELECT
+			*
+		FROM
+		 `user`
+		WHERE username=#{orgName}
+	</select>
 </mapper>

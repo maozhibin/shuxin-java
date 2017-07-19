@@ -28,4 +28,6 @@ public interface UserDao {
     int deductUserBalance(@Param("id") Long id, @Param("price") BigDecimal price);
     
     List<User> orgName(List<Long> idList);
+
+	User findByUserName(String orgName);
 }

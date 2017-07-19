@@ -9,5 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface StatsOrgProductDao {
 
 	List<Map<String, Object>> productList(List<Long> idList);
+
+	Map<String, Object> productByorgId(Long orgId);
 	
 }

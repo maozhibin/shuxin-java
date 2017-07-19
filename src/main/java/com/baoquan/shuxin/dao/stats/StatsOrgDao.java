@@ -9,4 +9,9 @@ import org.springframework.stereotype.Repository;
 public interface StatsOrgDao{
 
 	List<Map<String, Object>> orgTop();
+
+	List<Map<String, Object>> orgAll();
+
+	Map<String, Object> findById(Long orgId);
+
 }

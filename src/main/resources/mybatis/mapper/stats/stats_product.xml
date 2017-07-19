@@ -42,4 +42,42 @@
 	 10
   </select>
   
+  
+  <select id="productList" resultType="java.util.Map">
+	  SELECT
+		p.`name`,
+		c.`name` className,
+		s.total_amount,
+		s.order_num,
+		s.purchase_num,
+		u.username,
+		concat(
+			FORMAT(
+				(
+					s.order_num / (
+						SELECT
+							COUNT(*)
+						FROM
+							user_product
+					)
+				) * 100,
+				2
+			),
+			'%'
+		) AS rate
+	FROM
+		product p
+	LEFT JOIN product_class c ON p.product_class_id = c.id
+	LEFT JOIN stats_product s ON s.product_id = p.id
+	LEFT JOIN `user` u ON u.id = p.user_id
+	where 1=1
+	<if test="productName!=null">
+		and  p.`name`=#{productName}
+		or u.username=#{productName}
+		or c.`name`=#{productName}
+	</if>
+	ORDER BY
+		s.total_amount DESC
+  </select>
+  
 </mapper>

@@ -33,4 +33,25 @@
             #{item}  
         </foreach>  
     </select>  
+    
+     <select id="productByorgId" resultType="java.util.Map">  
+		SELECT
+			org_id,
+			p.`name` productName,
+			product_id,
+			purchase_num num
+		FROM
+			stats_org_product a
+		LEFT JOIN product p ON p.id = a.product_id
+		WHERE
+			purchase_num = (
+				SELECT
+					max(b.purchase_num)
+				FROM
+					stats_org_product b
+				WHERE
+					a.org_id = b.org_id
+			)
+		AND org_id=#{orgId}
+    </select>  
 </mapper>

@@ -97,7 +97,7 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${hashMapList}" var="item" varStatus="status">
+        <c:forEach items="${hashMap.orgTop}" var="item" varStatus="status">
                   <tr>
 	                <td>
 	                        ${item.username}
@@ -123,28 +123,30 @@
     </table>
 </div>
 <div class="row tables-right ctn-tables">
-    <form action="/admin/overview/organization/search" class="form-inline" method="post"
+    <form action="/admin/overview/organization" class="form-inline" method="post"
           accept-charset="utf-8">
         <table>
             <tbody>
             <tr>
+            <!-- 
                 <td> 筛选：</td>
                 <td>
                     <select name="search-type" class="form-control" id="domain">
                         <option>北京</option>
                         <option>浙江</option>
                     </select>
-                </td>
+                </td> -->
                 <td> 关键字：</td>
                 <td>
-                    <input type="text" class="form-control pull-right" id="keywords" name="keywords"
-                           value="${keywords}"
-                           placeholder="请输入关键字搜索">
+                    <input type="text" class="form-control pull-right" id="keywords" name="orgName"
+                           value=""
+                           placeholder="请输入合作机构名称">
                 </td>
+                <!-- 
                 <td> 日期：</td>
                 <td>
                     <input type="text" class="form-control pull-right" id="date_range">
-                </td>
+                </td> -->
                 <td>
                     <button type="submit" class="btn"><i class="fa fa-search"></i> 搜索</button>
                 </td>
@@ -164,28 +166,28 @@
         </tr>
         </thead>
         <tbody>
-        <c:if test="${orgSearchAmoun != null}">
-            <c:forEach items="${orgSearchAmoun}" var="item">
-                <tr>
-                    <td>
-                            ${item.username}
-                    </td>
-                    <td>
-                            ${item.rank}
-                    </td>
-                    <td>
-                            ${item.amount}
-                    </td>
-                    <td>
-                            ${item.ordernum}
-                    </td>
-                    <td>
-                            ${item.product.name}|${item.product.ordernum}
-                    </td>
-                    <td>
-
-                    </td>
-                </tr>
+        <c:if test="${hashMap.orgList != null}">
+            <c:forEach items="${hashMap.orgList}" var="item" varStatus="status">
+                 <tr>
+	                <td>
+	                        ${item.username}
+	                </td>
+	                <td>
+	                		${status.index+1}
+	                </td>
+	                <td>
+	                        ${item.total_amount}
+	                </td>
+	                <td>
+	                        ${item.order_num}
+	                </td>
+	                <td>
+	                        ${item.productName}	|	${item.num}
+	                </td>
+	                <td>
+							${item.receipt_num}
+	                </td>
+	            </tr>          
             </c:forEach>
         </c:if>
         </tbody>

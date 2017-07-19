@@ -98,7 +98,7 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${hashMapList}" var="item" varStatus="status">
+        <c:forEach items="${hashMap.productTop}" var="item" varStatus="status">
             <tr>
                 <td>
                         ${item.name}
@@ -124,28 +124,29 @@
     </table>
 </div>
 <div class="row tables-right ctn-tables">
-    <form action="/admin//overview/product/search" class="form-inline" method="post"
+    <form action="/admin/overview/product" class="form-inline" 
           accept-charset="utf-8">
         <table>
             <tbody>
             <tr>
-                <td> 筛选：</td>
+              <!--     <td> 筛选：</td>
                 <td>
                     <select name="search-type" class="form-control" id="domain">
                         <option>北京</option>
                         <option>浙江</option>
                     </select>
-                </td>
+                </td>-->
                 <td> 关键字：</td>
                 <td>
-                    <input type="text" class="form-control pull-right" id="keywords" name="keywords"
-                           value="${keywords}"
+                    <input type="text" class="form-control pull-right" id="keywords" name="productName"
+                           value=""
                            placeholder="请输入关键字搜索">
                 </td>
-                <td> 日期：</td>
+               <!--   <td> 日期：</td>
                 <td>
                     <input type="text" class="form-control pull-right" id="date_range">
                 </td>
+               -->
                 <td>
                     <button type="submit" class="btn"><i class="fa fa-search"></i> 搜索</button>
                 </td>
@@ -165,27 +166,27 @@
         </tr>
         </thead>
         <tbody>
-        <c:if test="${searchProductList != null}">
-            <c:forEach items="${searchProductList}" var="item">
+        <c:if test="${hashMap.productList != null}">
+            <c:forEach items="${hashMap.productList}" var="item" varStatus="status">
                 <tr>
                     <td>
-                            ${item.productname}
-                    </td>
-                    <td>
-                            ${item.catename}
-                    </td>
-                    <td>
-                            ${item.rank}
-                    </td>
-                    <td>
-                            ${item.totalAmount}
-                    </td>
-                    <td>
-                            ${item.ordernum}
-                    </td>
-                    <td>
-                            ${item.username}
-                    </td>
+                        ${item.name}
+	                </td>
+	                <td>
+	                        ${item.className}
+	                </td>
+	                <td>
+	                	${status.index+1}
+	                </td>
+	                <td>
+	                        ${item.total_amount}
+	                </td>
+	                <td>
+	                        ${item.purchase_num}
+	                </td>
+	                <td>
+	                        ${item.username}
+	                </td>
                 </tr>
             </c:forEach>
         </c:if>

@@ -19,5 +19,21 @@
 		LIMIT 0,10
 	</select>
 	
+	<select id="orgAll" resultType="java.util.Map">
+		SELECT
+			*
+		FROM
+			stats_org
+		ORDER BY
+			total_amount DESC
+	</select>
+	
+	<select id="findById" resultType="java.util.Map">
+		SELECT
+			*
+		FROM
+			stats_org
+		where org_id=#{orgId}
+	</select>
 	
 </mapper>

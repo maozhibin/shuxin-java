@@ -5,7 +5,9 @@ import java.util.Map;
 
 public interface StatsOrgService {
 
-	List<Map<String, Object>> orgTop();
+	List<Map<String, Object>> orgTopOrAll(Integer type);
+
+	List<Map<String, Object>> orgListByOrgName(String orgName);
 
 
 }
