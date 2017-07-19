@@ -83,7 +83,9 @@ public class AuthManageController {
         AdminUserMenuPermVO vo = new AdminUserMenuPermVO();
         vo.setUserId(user.getId());
         vo.setUsername(user.getUsername());
-        vo.setLastLoginTime(new Date(user.getLastTime()));
+        if (user.getLastTime() != null) {
+            vo.setLastLoginTime(new Date(user.getLastTime()));
+        }
         return vo;
     }
 

@@ -79,6 +79,28 @@
             }, cb);
             cb(g_start, g_end);
         });
+        
+        
+        $("#waitWork").click(function(){  
+        	var productName=$('#keywords').val();
+            var url = "/admin/overview/freshen?productName="+productName;  
+            var data = {type:1};  
+            $.ajax({  
+                type : "get",  
+                async : false,  //同步请求  
+                url : url,  
+                data : data,  
+                timeout:1000,  
+                success:function(dates){  
+                    //alert(dates);  
+                    $("#deal").html(dates);//要刷新的div  
+                },  
+                error: function() {  
+                    alert("失败，请稍后再试！");  
+                }  
+            });  
+        });
+        
     </script>
 
 </head>
@@ -107,7 +129,7 @@
                         ${item.className}
                 </td>
                 <td>
-                	${status.index+1}
+                		${status.index+1}
                 </td>
                 <td>
                         ${item.total_amount}
@@ -124,7 +146,7 @@
     </table>
 </div>
 <div class="row tables-right ctn-tables">
-    <form action="/admin/overview/product" class="form-inline" 
+    <form action="/admin/overview/freshen" class="form-inline" 
           accept-charset="utf-8">
         <table>
             <tbody>
@@ -148,7 +170,7 @@
                 </td>
                -->
                 <td>
-                    <button type="submit" class="btn"><i class="fa fa-search"></i> 搜索</button>
+                    <button  type="submit" class="btn" id="waitWork"><i class="fa fa-search"></i> 搜索</button>
                 </td>
             </tr>
             </tbody>
@@ -166,17 +188,17 @@
         </tr>
         </thead>
         <tbody>
-        <c:if test="${hashMap.productList != null}">
-            <c:forEach items="${hashMap.productList}" var="item" varStatus="status">
+       	<c:if test="${page != null && page.result != null}">
+            <c:forEach items="${page.result}" var="item" varStatus="status">
                 <tr>
                     <td>
-                        ${item.name}
+                        	${item.name}
 	                </td>
 	                <td>
 	                        ${item.className}
 	                </td>
 	                <td>
-	                	${status.index+1}
+	                		${status.index+1}
 	                </td>
 	                <td>
 	                        ${item.total_amount}
@@ -185,13 +207,18 @@
 	                        ${item.purchase_num}
 	                </td>
 	                <td>
-	                        ${item.username}
+	                      	${item.username}
 	                </td>
                 </tr>
             </c:forEach>
         </c:if>
         </tbody>
     </table>
+    <div class="col-sm-12" style="text-align: center">
+          <span class="float-left"
+             style="line-height: 40px;">共${page.totalRecordCount}条，每页15条</span>
+    </div>
 </div>
+	
 </body>
 </html>

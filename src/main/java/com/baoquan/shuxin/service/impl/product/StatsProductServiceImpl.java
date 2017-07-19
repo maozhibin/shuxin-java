@@ -22,4 +22,5 @@ public class StatsProductServiceImpl implements StatsProductService{
 	public List<Map<String, Object>> productList(Map<String, Object> map) {
 		return statsProductDao.productList(map);
 	}
+
 }
