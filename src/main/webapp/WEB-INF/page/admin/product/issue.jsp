@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
 <%--
   Created by IntelliJ IDEA.
   User: yongj
@@ -152,7 +154,10 @@
                 <div class="cell">
                     <div class="mb15">
                         <select class="input-ctrl" name="product_class" id="product_class">
-                            <option value=""></option>
+                        <c:forEach items="${productClassList}" var="item">
+			               <option value="${item.id}">${item.name}</option>
+			            </c:forEach>
+                            
                         </select>
                     </div>
 
@@ -415,5 +420,29 @@
     </form>
 </div>
 
+<script type="text/javascript">
+	$('#product_class').click(function(){
+		var classValue=$('#product_class').val();
+	    $.ajax({
+	        type: "GET",
+	        url: "/admin/product/base?id="+classValue,
+	        data: {username:$("#id").val(), content:$("#name").val()},
+	        dataType: "json",
+	        success: function(data){
+	        		//console.log(data);
+	        		//console.log(data.length);
+	        		$("#product_base").html('');
+	        		console.log($("#product_base").html());
+	        		for(var i=0;i<data.length;i++){
+	        			var option="";
+	        			option+="<option value='"+data[i].id+"'>"+data[i].name+"</option>";
+	        			console.log(option);
+	        		}
+	        		$("#product_base").append(option);
+	         }
+	        
+	    });
+	});
+</script>
 </body>
 </html>

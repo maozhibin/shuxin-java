@@ -8,5 +8,11 @@
     <result column="display_order" property="displayOrder" jdbcType="INTEGER" />
     <result column="dateline" property="dateline" jdbcType="INTEGER" />
   </resultMap>
+  <select id="findAllClassList" resultMap="BaseResultMap">
+	  	SELECT
+			*
+		FROM
+			product_class
+  </select>
   
 </mapper>

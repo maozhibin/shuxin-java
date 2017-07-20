@@ -1,6 +1,7 @@
 package com.baoquan.shuxin.web.controller.product;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -16,7 +17,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.baoquan.shuxin.bean.Page;
+import com.baoquan.shuxin.model.product.ProductBase;
+import com.baoquan.shuxin.model.product.ProductClass;
+import com.baoquan.shuxin.service.spi.product.ProductBaseService;
+import com.baoquan.shuxin.service.spi.product.ProductClassService;
 import com.baoquan.shuxin.service.spi.product.ProductService;
+import com.baoquan.shuxin.util.JsonResponseMsg;
 
 @Controller
 @RequestMapping("product")
@@ -25,7 +31,10 @@ public class ProductController {
 
     @Inject
     private ProductService productService;
-    
+    @Inject
+    private ProductClassService productClassService;
+    @Inject
+    private ProductBaseService productBaseService;
     /**
      * 产品列表
      * @param name
@@ -56,8 +65,24 @@ public class ProductController {
     public ModelAndView issue(@RequestBody(required = false) String content) {
         logger.info(content);
         ModelAndView mv = new ModelAndView("admin/product/issue");
+        List<ProductClass> productClassList= productClassService.findAllClassList();
+        mv.addObject(productClassList);
         return mv;
     }
+    /**
+     * 查询子类性
+     */
+    @RequestMapping("base")
+    @ResponseBody
+    public Object ProductBase(String id){
+    	JsonResponseMsg result = new JsonResponseMsg();
+    	if(!NumberUtils.isNumber(id)){
+    		return result.fill(JsonResponseMsg.CODE_FAIL, "参数错误");
+    	}
+    	List<ProductBase> productBaseList=productBaseService.findByProductClassId(NumberUtils.toInt(id));
+		return productBaseList;
+    }
+    
 
     @RequestMapping("inter")
     public Object inter() {

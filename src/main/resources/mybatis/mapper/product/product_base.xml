@@ -10,4 +10,13 @@
     <result column="dateline" property="dateline" jdbcType="INTEGER" />
   </resultMap>
   
+  <select id="findByProductClassId" resultMap="BaseResultMap">
+  	SELECT
+		*
+	FROM
+		product_base
+	WHERE
+		product_class_id = #{id}
+  
+  </select>
 </mapper>

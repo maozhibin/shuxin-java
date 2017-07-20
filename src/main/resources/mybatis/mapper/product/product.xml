@@ -16,5 +16,42 @@
     <result column="status" property="status" jdbcType="INTEGER" />
     <result column="reflect_class" property="reflectClass" jdbcType="VARCHAR" />
   </resultMap>
+	
+	 <select id="countByName" resultType="java.lang.Integer">
+       SELECT
+			COUNT(1)
+		FROM
+			product p
+		LEFT JOIN `user` u ON p.user_id = u.id
+     	where 1 = 1
+		<if test="name != null">
+	         and p.`name`=#{name}
+	         or u.username=#{name}
+	    </if>
+  </select>
 
+  <select id="productList" resultType="java.util.Map">
+		SELECT
+			p.dateline,
+			p.`name`,
+			p.type,
+			p.`status`,
+			s.price,
+			a.`name` areaName,
+			u.username seller
+		FROM
+			product p
+		LEFT JOIN `user` u ON p.user_id = u.id
+		LEFT JOIN area a ON p.area_id = a.id
+		LEFT JOIN product_billings s ON s.product_id = p.id
+		WHERE
+			1 = 1
+		<if test="name != null">
+	         and p.`name`=#{name}
+	         or u.username=#{name}
+	    </if>
+	    <if test="page != null">
+	              	limit ${page.startIndex},${page.pageSize};
+	     </if>
+  </select>
 </mapper>
