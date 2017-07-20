@@ -2,42 +2,99 @@ package com.baoquan.shuxin.model.product;
 
 import java.io.Serializable;
 
-import lombok.Data;
+public class ProductInterface implements Serializable{
+	private static final long serialVersionUID = 1L;
 
-/**
- * Desc:
- * Created by yongj on 7/10/2017,
- */
-public class ProductInterface implements Serializable {
-    private static final long serialVersionUID = -5948878756640864787L;
+	private Integer id;
 
-    private Long id;
-    private Long productId;
-    private Integer free;
+    private Integer productId;
+
+    private String name;
+
+    private String url;
+
+    private String method;
+
+    private Boolean free;
+
+    private String character;
+
+    private Integer timeout;
+
+    private String responseFormat;
+
     private String reflectMethod;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Long getProductId() {
+    public Integer getProductId() {
         return productId;
     }
 
-    public void setProductId(Long productId) {
+    public void setProductId(Integer productId) {
         this.productId = productId;
     }
 
-    public Integer getFree() {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url == null ? null : url.trim();
+    }
+
+    public String getMethod() {
+        return method;
+    }
+
+    public void setMethod(String method) {
+        this.method = method == null ? null : method.trim();
+    }
+
+    public Boolean getFree() {
         return free;
     }
 
-    public void setFree(Integer free) {
+    public void setFree(Boolean free) {
         this.free = free;
+    }
+
+    public String getCharacter() {
+        return character;
+    }
+
+    public void setCharacter(String character) {
+        this.character = character == null ? null : character.trim();
+    }
+
+    public Integer getTimeout() {
+        return timeout;
+    }
+
+    public void setTimeout(Integer timeout) {
+        this.timeout = timeout;
+    }
+
+    public String getResponseFormat() {
+        return responseFormat;
+    }
+
+    public void setResponseFormat(String responseFormat) {
+        this.responseFormat = responseFormat == null ? null : responseFormat.trim();
     }
 
     public String getReflectMethod() {
@@ -45,6 +102,6 @@ public class ProductInterface implements Serializable {
     }
 
     public void setReflectMethod(String reflectMethod) {
-        this.reflectMethod = reflectMethod;
+        this.reflectMethod = reflectMethod == null ? null : reflectMethod.trim();
     }
 }

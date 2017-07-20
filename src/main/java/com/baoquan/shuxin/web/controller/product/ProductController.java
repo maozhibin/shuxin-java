@@ -53,9 +53,10 @@ public class ProductController {
     }
 
     @RequestMapping("issue")
-    public Object issue(@RequestBody(required = false) String content) {
+    public ModelAndView issue(@RequestBody(required = false) String content) {
         logger.info(content);
-        return "admin/product/issue";
+        ModelAndView mv = new ModelAndView("admin/product/issue");
+        return mv;
     }
 
     @RequestMapping("inter")
