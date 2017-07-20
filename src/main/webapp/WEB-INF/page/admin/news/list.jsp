@@ -21,7 +21,6 @@
                 <tr>
                     <td> 类型：</td>
                     <td>
-
                         <select name="newsClassType" class="form-control">
                             <option selected>请选择类型</option>
                             <c:forEach items="${options}" var="option">
