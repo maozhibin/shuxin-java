@@ -61,7 +61,6 @@ public class NewsController {
             page.setPageNo(pageNoValue);
         }
         List<Option> options = optionService.queryOptionInfo();
-
         page = newsService.queryNewInfo(newsClassType, page);
 
         mv.addObject(page);

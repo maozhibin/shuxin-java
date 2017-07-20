@@ -7,6 +7,7 @@
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path
@@ -93,7 +94,8 @@
                 <tr>
                     <td> 类型：</td>
                     <td>
-                        <select name="flow" class="form-control" id="domain">
+                        <select name="type" class="form-control" id="domain">
+                            <option value="">全部</option>
                             <c:forEach items="${flow}" var="option">
                                 <option value="${option.value}">${option.name}
                                 </option>
@@ -149,8 +151,16 @@
                                 <td>${accountFlow.requestNo}</td>
                                 <td>${accountFlow.fee}</td>
                                 <td>${accountFlow.statusDesc}</td>
-                                <td>${accountFlow.dateline}</td>
-                                <td>${accountFlow.finishTime}</td>
+                                <td>
+                                    <jsp:useBean id="dateValueline" class="java.util.Date"/>
+                                    <jsp:setProperty name="dateValueline" property="time" value="${accountFlow.dateline*1000}"/>
+                                    <fmt:formatDate value="${dateValueline}" pattern="yyyy-MM-dd "/>
+                                </td>
+                                <td>
+                                    <jsp:useBean id="dateValuefinish" class="java.util.Date"/>
+                                    <jsp:setProperty name="dateValuefinish" property="time" value="${accountFlow.finishTime*1000}"/>
+                                    <fmt:formatDate value="${dateValuefinish}" pattern="yyyy-MM-dd "/>
+                                </td>
                             </tr>
                         </c:forEach>
                     </c:if>

@@ -9,7 +9,8 @@ public enum OptionEnum {
 
     BILLING_METHOD(0,"billing_method"),
     NEWS_CLASS_TYPE(1,"news_class_type"),
-    ACCOUNT_FLOW(2,"account_flow");
+    ACCOUNT_FLOW(2,"account_flow"),
+    ORDER(3,"order");
 
 
     int code;

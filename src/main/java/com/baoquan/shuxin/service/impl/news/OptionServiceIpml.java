@@ -35,5 +35,12 @@ public class OptionServiceIpml implements OptionService {
         return list;
     }
 
+    @Override
+    public List<Option> queryOrderInfo() {
+        String type = OptionEnum.ORDER.getDesc();
+        List<Option> list = optionDao.queryOptionInfo(type);
+        return list;
+    }
+
 
 }

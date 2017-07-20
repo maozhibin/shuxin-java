@@ -13,10 +13,13 @@ public interface OptionService {
 
 
     /**
-     * 查询新闻类型
+     * 查询类型
      * @return
      */
     List<Option> queryOptionInfo();
     List<Option> queryFlowInfo();
+    List<Option> queryOrderInfo();
+
+
 
 }

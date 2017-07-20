@@ -17,7 +17,7 @@ import com.baoquan.shuxin.model.user.UserOrder;
 public interface UserOrderDao {
     List<UserOrder> querUserOrderInfo(Map<String, Object> parm);
 
-    Integer PageCount(Map<String, Object> parms);
+    Integer pageCount(Map<String, Object> parms);
 
     UserOrderDao querByIdUserOrderInfo(Long id);
 }

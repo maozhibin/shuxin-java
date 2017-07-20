@@ -36,9 +36,9 @@
       <if test="type != null">
         AND um.type = #{type}
       </if>
-      <if test="dateline != null and finish_time != null" >
-        AND um.finish_time =#{finishTime}
-        BETWEEN um.dateline =#{dateline} AND  um.finish_time=#{finishTime}
+      <if test="statTime != null and endTime != null" >
+        AND um.finish_time
+        BETWEEN #{statTime} AND  #{endTime}
       </if>
     </where>
   </select>
@@ -49,7 +49,7 @@
         SELECT
         COUNT(1)
         FROM
-        user_money_log
+        user_money_log um
         WHERE 1=1
         <include refid="taskQuery"></include>
 
@@ -62,9 +62,9 @@
         <if test="type != null">
             AND um.type = #{type}
         </if>
-        <if test="dateline != null and finish_time != null" >
-            AND um.finish_time =#{finishTime}
-            BETWEEN um.dateline =#{dateline} AND  um.finish_time=#{finishTime}
+        <if test="statTime != null and endTime != null" >
+            AND um.finish_time
+            BETWEEN #{statTime} AND  #{endTime}
         </if>
     </sql>
 

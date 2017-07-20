@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <%
     String path = request.getContextPath();
@@ -93,14 +94,18 @@
                 <tr>
                     <td> 类型：</td>
                     <td>
-                        <select name="search-type" class="form-control" id="domain">
+                        <select name="status" class="form-control" id="domain">
                             <option value="">全部</option>
+                            <c:forEach items="${order}" var="option">
+                                <option value="${option.value}">${option.name}
+                                </option>
+                            </c:forEach>
                         </select>
                     </td>
                     <td> ID：</td>
                     <td>
                         <input type="text" class="form-control pull-right" id="user_id" placeholder="用户ID"
-                               name="user_id">
+                               name="userId">
                     </td>
                     <td> 日期：</td>
                     <td>
@@ -141,7 +146,12 @@
                                 <td>${order.payAmount}</td>
                                 <td>${order.status}</td>
                                 <td>${order.requestNo}</td>
-                                <td>${order.buyTime}</td>
+                                <td>
+                                    <jsp:useBean id="dateValue" class="java.util.Date"/>
+                                    <jsp:setProperty name="dateValue" property="time" value="${order.buyTime*1000}"/>
+                                    <fmt:formatDate value="${dateValue}" pattern="yyyy-MM-dd hh:ss:mm"/>
+                                </td>
+
                             </tr>
                         </c:forEach>
                     </c:if>

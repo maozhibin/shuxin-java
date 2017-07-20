@@ -25,30 +25,29 @@
     SELECT 	* FROM news   n
 
     <where>
-      <if test="user_id !=null">
-        AND um.user_id = #{userId}
-      </if>
-      <if test="type != null">
-        AND um.type = #{type}
-      </if>
-      <if test="dateline != null and finish_time != null" >
-        AND um.finish_time =#{finishTime}
-        BETWEEN um.dateline =#{dateline} AND  um.finish_time=#{finishTime}
+      <if test="newsClassType != null">
+        AND n.news_class_type = #{newsClassType}
       </if>
     </where>
 
   </select>
 
 
-  <select id="pageCount" resultType="Integer">
-    SELECT 	count(1) FROM news
-    <include refid="taskQuery"></include>
+  <select id="pageCount" resultType="java.lang.Integer">
+    SELECT
+    COUNT(1)
+    FROM
+    `news` where 1 = 1
+    <include refid="taskQuery" />
   </select>
+
   <sql id="taskQuery">
-    <if test="type != null">
-      AND um.type = #{type}
+    <if test="newsClassType != null">
+      and news_class_type=#{newsClassType}
     </if>
   </sql>
+
+
 
 
 

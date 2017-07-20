@@ -1,6 +1,7 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
 <head>
     <title>新闻查看</title>
@@ -21,7 +22,7 @@
                     <td> 类型：</td>
                     <td>
 
-                        <select name="options" class="form-control">
+                        <select name="newsClassType" class="form-control">
                             <option selected>请选择类型</option>
                             <c:forEach items="${options}" var="option">
                                 <option value="${option.value}">${option.name}
@@ -63,7 +64,11 @@
                                 <td>${news.id}</td>
                                 <td>${news.newsClassType}</td>
                                 <td>${news.title}</td>
-                                <td>${news.dateline}</td>
+                                <td>
+                                    <jsp:useBean id="dateValueline" class="java.util.Date"/>
+                                    <jsp:setProperty name="dateValueline" property="time" value="${news.dateline*1000}"/>
+                                    <fmt:formatDate value="${dateValueline}" pattern="yyyy-MM-dd hh:ss:mm"/>
+                                </td>
                                 <td>
                                     <a class="" title='查看'
                                        href="detail?id=${news.id}"><i class="fa fa-eye"></i> </a>&nbsp;&nbsp;

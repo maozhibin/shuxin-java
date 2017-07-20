@@ -23,10 +23,8 @@ public interface AccountFlowService {
      * 根据条件分页查询账户
      * @param userId 用户id
      * @param type   类型
-     * @param dateline   生成时间
-     * @param finishTime 结束时间
      * @param page
      * @return
      */
-    Page<AccountFlow> querListAccountFlowInfo(Long userId,String type,Long dateline,Long finishTime,Page<AccountFlow> page);
+    Page<AccountFlow> querListAccountFlowInfo(Long userId,String type,Long statTime,Long endTime,Page<AccountFlow> page);
 }

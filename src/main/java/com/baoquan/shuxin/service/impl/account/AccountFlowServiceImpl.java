@@ -34,12 +34,14 @@ public class AccountFlowServiceImpl<T> implements AccountFlowService {
     }
 
     @Override
-    public Page<AccountFlow> querListAccountFlowInfo(Long userId, String type, Long dateline, Long finishTime,
+    public Page<AccountFlow> querListAccountFlowInfo(Long userId, String type, Long statTime,Long endTime,
             Page<AccountFlow> page) {
         Map<String, Object> parms = new HashMap<>();
         parms.put("userId",userId);
         parms.put("type",type);
         parms.put("page", page);
+        parms.put("statTime",statTime);
+        parms.put("endTime",endTime);
         List<AccountFlow> listInfo = accountFlowDao.querAccountFlowInfo(parms);
         Integer total = accountFlowDao.pageCount(parms);
         if (total != null) {

@@ -26,14 +26,15 @@ public class UserOrderServiceImpl<T> implements UserOrderService {
 
 
     @Override
-    public Page<UserOrder> querListUserOrderInfo(Long userId, Integer status, Long buyTime, Page<UserOrder> page) {
+    public Page<UserOrder> querListUserOrderInfo(Long userId, Integer status, Long starTime,Long endTime, Page<UserOrder> page) {
         Map<String, Object> parms = new HashMap<>();
         parms.put("userId",userId);
         parms.put("status",status);
-        parms.put("buyTime",buyTime);
+        parms.put("starTime",starTime);
+        parms.put("endTime",endTime);
         parms.put("page", page);
         List<UserOrder> listInfo = userOrderDao.querUserOrderInfo(parms);
-        Integer total = userOrderDao.PageCount(parms);
+        Integer total = userOrderDao.pageCount(parms);
         if (total != null) {
             page.setTotalRecordCount(total);
         }

@@ -2,6 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.baoquan.shuxin.dao.user.UserOrderDao" >
 
+  <resultMap id="BaseResultMap" type="com.baoquan.shuxin.model.user.UserOrder" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="buy_time" property="buyTime" jdbcType="INTEGER" />
+    <result column="buy_amount" property="buyAmount" jdbcType="DECIMAL" />
+    <result column="pay_amount" property="payAmount" jdbcType="DECIMAL" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="recycle" property="recycle" jdbcType="BIT" />
+    <result column="request_no" property="requestNo" jdbcType="CHAR" />
+    <result column="ip_address" property="ipAddress" jdbcType="VARCHAR" />
+    <result column="status_source" property="statusSource" jdbcType="CHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="app_code" property="appCode" jdbcType="VARCHAR" />
+    <result column="app_secret" property="appSecret" jdbcType="VARCHAR" />
+    <result column="app_key" property="appKey" jdbcType="VARCHAR" />
+    <result column="preservation_code" property="preservationCode" jdbcType="VARCHAR" />
+  </resultMap>
+
   <select id="querUserOrderInfo" resultType="com.baoquan.shuxin.model.user.UserOrder">
     SELECT * FROM`user_product` where 1 = 1 <include refid="taskQuery" />
     <if test="page != null">
@@ -12,17 +31,18 @@
     <if test="id != null">
       and id=#{id}
     </if>
-    <if test="user_id != null">
+    <if test="userId != null">
       and user_id = #{userId}
     </if>
-    <if test="buy_time != null ">
-      and buy_time=#{buyTime}
+    <if test="statTime != null  and endTime != null">
+      and buy_time
+      BETWEEN #{statTime}AND #{endTime}
     </if>
     <if test="status != null">
       and status=#{status}
     </if>
   </sql>
-  <select id="PageCount" resultType="Integer">
+  <select id="pageCount" resultType="Integer">
     SELECT
     COUNT(1)
     FROM
@@ -34,8 +54,9 @@
       <if test="user_id != null">
         and user_id = #{userId}
       </if>
-      <if test="buy_time != null ">
-        and buy_time=#{buyTime}
+      <if test="statTime != null  and endTime != null">
+        and buy_time
+        BETWEEN #{statTime}AND #{endTime}
       </if>
       <if test="status != null">
         and status=#{status}

@@ -17,5 +17,5 @@ public interface UserOrderService {
      * @param page
      * @return
      */
-    Page<UserOrder> querListUserOrderInfo(Long userId,Integer status,Long buyTime,Page<UserOrder> page);
+    Page<UserOrder> querListUserOrderInfo(Long userId,Integer status,Long starTime,Long endTime,Page<UserOrder> page);
 }
