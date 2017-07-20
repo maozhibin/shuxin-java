@@ -77,6 +77,9 @@ public class AuthInterceptor implements HandlerInterceptor {
             if (userId == null) {
                 return;
             }
+            if(modelAndView==null){
+            	return;
+            }
             List<AdminUserMenuPerm> menuPermList = adminUserMenuPermService.listEffectiveByUser(
                     Lists.newArrayList(userId));
             List<AdminMenu> menuList = new ArrayList<>();
