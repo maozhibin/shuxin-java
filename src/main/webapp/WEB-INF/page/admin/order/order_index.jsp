@@ -161,18 +161,10 @@
                 </table>
             </div>
             <!-- /BOX -->
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="pull-left">
-                    </div>
-                    <div class="pull-right">
-                        <div class="dataTables_paginate paging_bs_full" id="datatable1_paginate">
-                            <ul class="pagination">
+            <div class="col-sm-12" style="text-align: center">
+                <hr>
+                <span class="float-left" style="line-height: 40px;">共${page.totalRecordCount}条，每页15条</span>
 
-                            </ul>
-                        </div>
-                    </div>
-                </div>
             </div>
         </section>
     </div>
