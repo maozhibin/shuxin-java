@@ -9,7 +9,12 @@ import lombok.Data;
  * Created by Administrator on 2017/6/6.
  */
 public class ProductBilling implements Serializable {
-    private Long id;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Long id;
 
     private Long productId;
 

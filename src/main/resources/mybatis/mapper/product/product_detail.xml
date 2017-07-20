@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baoquan.shuxin.dao.product.ProductDetailDao" >
+  <resultMap id="BaseResultMap" type="com.baoquan.shuxin.model.product.ProductDetail" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="intro" property="intro" jdbcType="LONGVARCHAR" />
+    <result column="snapshot" property="snapshot" jdbcType="LONGVARCHAR" />
+    <result column="highlight" property="highlight" jdbcType="LONGVARCHAR" />
+    <result column="service" property="service" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+</mapper>

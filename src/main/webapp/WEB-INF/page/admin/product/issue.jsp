@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
 <%--
   Created by IntelliJ IDEA.
   User: yongj
@@ -123,7 +125,7 @@
     }
 </script>
 
-<div class="release-tabs">
+<div class="release-tabs" >
     <div class="tabs">
         <a onclick="goto('base')" class="tab base active">基础设置</a>
         <a onclick="goto('api')" class="tab api">接口设置</a>
@@ -136,8 +138,7 @@
                 <div class="addon">数据名称</div>
                 <div class="cell">
                     <input type="text" class="input-ctrl" name="product_name"
-                           value="${product_name}">
-                    <?php echo form_error('product_name'); ?>
+                           value="">
                 </div>
                 <div class="addon">更新频率</div>
                 <div class="cell">
@@ -146,7 +147,6 @@
                         <option value="">每日</option>
                         <option value="">每周</option>
                     </select>
-                    <?php echo form_error('frequent'); ?>
                 </div>
             </div>
             <div class="inline-form mb30">
@@ -154,16 +154,17 @@
                 <div class="cell">
                     <div class="mb15">
                         <select class="input-ctrl" name="product_class" id="product_class">
-                            <option value=""></option>
+                        <c:forEach items="${productClassList}" var="item">
+			               <option value="${item.id}">${item.name}</option>
+			            </c:forEach>
+                            
                         </select>
-                        <?php echo form_error('product_class'); ?>
                     </div>
 
                     <div class="">
                         <select class="input-ctrl" name="product_base" id="product_base">
                             <option value=""></option>
                         </select>
-                        <?php echo form_error('product_base'); ?>
                     </div>
 
                 </div>
@@ -172,8 +173,8 @@
                 <div class="cell vat">
                     <select class="input-ctrl" name="product_type" id="product_type">
                         <option value="">API</option>
+                        <option value="">普通文件</option>
                     </select>
-                    <?php echo form_error('product_type'); ?>
                 </div>
             </div>
             <div class="inline-form mb30">
@@ -181,14 +182,12 @@
                 <div class="cell">
                         <textarea rows="10" class="input-ctrl"
                                   name="product_description">${product_description}</textarea>
-                    <?php echo form_error('product_description'); ?>
                 </div>
             </div>
             <div class="inline-form mb30">
                 <div class="addon">标签设置</div>
                 <div class="cell">
                     <input type="text" name="product_tags" value="${product_tags}" class="input-ctrl"/>
-                    <?php echo form_error('product_tags'); ?>
                 </div>
                 <div class="cell gray9">多个标签请用逗号分隔，例如：标签,设置。</div>
             </div>
@@ -204,7 +203,6 @@
                 <i id="close" class="hide"></i>
                 <input type="text" class="hide" id="logo" name="logo">
                 <div class="cell gray9">请上传资料的照片或扫描件。图片格式仅限jpg、png、gif格式，大小不超过1M。</div>
-                <?php echo form_error("logo"); ?>
             </div>
             <div class="ml40 pad30">
                 <input type="button" class="btn btn-blue" value="下一步"
@@ -365,19 +363,15 @@
         <div hidden="hidden" class="container desc">
             <p class="f16 gray6 mb10">产品介绍</p>
             <textarea rows="10" class="input-ctrl mb30" name="intro" id="intro">${intro}</textarea>
-            <?php echo form_error('intro'); ?>
 
             <p class="f16 gray6 mb10 mt10">产品亮点</p>
             <textarea rows="10" class="input-ctrl mb30" name="highlight" id="highlight">${highlight}</textarea>
-            <?php echo form_error('highlight'); ?>
 
             <p class="f16 gray6 mb10 mt10">产品截图</p>
             <textarea rows="10" class="input-ctrl mb30" name="snapshot" id="snapshot">${snapshot}</textarea>
-            <?php echo form_error('snapshot'); ?>
 
             <p class="f16 gray6 mb10 mt10">售后服务</p>
             <textarea rows="10" class="input-ctrl mb30" name="service" id="service">${service}</textarea>
-            <?php echo form_error('service'); ?>
 
             <div class="pt30 pb30">
                 <input class="btn btn-red" type="button" value="下一步"
@@ -426,5 +420,29 @@
     </form>
 </div>
 
+<script type="text/javascript">
+	$('#product_class').click(function(){
+		var classValue=$('#product_class').val();
+	    $.ajax({
+	        type: "GET",
+	        url: "/admin/product/base?id="+classValue,
+	        data: {username:$("#id").val(), content:$("#name").val()},
+	        dataType: "json",
+	        success: function(data){
+	        		//console.log(data);
+	        		//console.log(data.length);
+	        		$("#product_base").html('');
+	        		console.log($("#product_base").html());
+	        		for(var i=0;i<data.length;i++){
+	        			var option="";
+	        			option+="<option value='"+data[i].id+"'>"+data[i].name+"</option>";
+	        			console.log(option);
+	        		}
+	        		$("#product_base").append(option);
+	         }
+	        
+	    });
+	});
+</script>
 </body>
 </html>

@@ -3,21 +3,21 @@
 <mapper namespace="com.baoquan.shuxin.dao.product.ProductDao" >
   <resultMap id="BaseResultMap" type="com.baoquan.shuxin.model.product.Product" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="icon" property="icon" jdbcType="VARCHAR" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="level" property="level" jdbcType="INTEGER" />
-    <result column="used" property="used" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
-    <result column="dateline" property="dateline" jdbcType="INTEGER" />
-    <result column="area_id" property="areaId" jdbcType="INTEGER" />
-    <result column="status" property="status" jdbcType="CHAR" />
-    <result column="reflect_class" property="reflectClass" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="frequent" property="frequent" jdbcType="TINYINT" />
+    <result column="type" property="type" jdbcType="TINYINT" />
     <result column="product_class_id" property="productClassId" jdbcType="INTEGER" />
-    <result column="price" property="price" jdbcType="INTEGER" />
-    <result column="detail" property="detail" jdbcType="VARCHAR" />
+    <result column="product_base_id" property="productBaseId" jdbcType="INTEGER" />
+    <result column="area_id" property="areaId" jdbcType="INTEGER" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="used" property="used" jdbcType="INTEGER" />
+    <result column="dateline" property="dateline" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="reflect_class" property="reflectClass" jdbcType="VARCHAR" />
   </resultMap>
-
-  <select id="countByName" resultType="java.lang.Integer">
+	
+	 <select id="countByName" resultType="java.lang.Integer">
        SELECT
 			COUNT(1)
 		FROM
@@ -34,16 +34,18 @@
 		SELECT
 			p.dateline,
 			p.`name`,
-			'API' type,
+			p.type,
 			p.`status`,
-			p.price,
+			s.price,
 			a.`name` areaName,
 			u.username seller
 		FROM
 			product p
 		LEFT JOIN `user` u ON p.user_id = u.id
 		LEFT JOIN area a ON p.area_id = a.id
-		where 1 = 1
+		LEFT JOIN product_billings s ON s.product_id = p.id
+		WHERE
+			1 = 1
 		<if test="name != null">
 	         and p.`name`=#{name}
 	         or u.username=#{name}
@@ -52,6 +54,4 @@
 	              	limit ${page.startIndex},${page.pageSize};
 	     </if>
   </select>
-
-
 </mapper>

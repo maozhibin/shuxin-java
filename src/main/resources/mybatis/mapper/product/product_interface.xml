@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.baoquan.shuxin.dao.product.ProductInterfaceDao">
-    <select id="queryByReflectMethod" resultType="com.baoquan.shuxin.model.product.ProductInterface">
-        SELECT
-            id,
-            product_id,
-            free,
-            reflect_method
-        FROM product_interface
-        WHERE reflect_method = #{reflectMethod}
-    </select>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baoquan.shuxin.dao.product.ProductInterfaceDao" >
+  <resultMap id="BaseResultMap" type="com.baoquan.shuxin.model.product.ProductInterface" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="method" property="method" jdbcType="CHAR" />
+    <result column="free" property="free" jdbcType="BIT" />
+    <result column="character" property="character" jdbcType="CHAR" />
+    <result column="timeout" property="timeout" jdbcType="INTEGER" />
+    <result column="response_format" property="responseFormat" jdbcType="CHAR" />
+    <result column="reflect_method" property="reflectMethod" jdbcType="VARCHAR" />
+  </resultMap>
+ 
 </mapper>

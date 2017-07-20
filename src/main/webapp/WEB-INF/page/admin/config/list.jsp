@@ -46,7 +46,7 @@
                 </table>
                 <div class="col-sm-12" style="text-align: center">
                     <span class="float-left"
-                          style="line-height: 40px;">共${page.totalRecordCount}条，每页15条</span>
+                          style="line-height: 40px;">共${page.totalRecordCount}条，每页10条</span>
                 </div>
             </div>
         </div>

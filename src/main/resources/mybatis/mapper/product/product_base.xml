@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baoquan.shuxin.dao.product.ProductBaseDao" >
+  <resultMap id="BaseResultMap" type="com.baoquan.shuxin.model.product.ProductBase" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="product_class_id" property="productClassId" jdbcType="INTEGER" />
+    <result column="is_display" property="isDisplay" jdbcType="BIT" />
+    <result column="display_order" property="displayOrder" jdbcType="INTEGER" />
+    <result column="dateline" property="dateline" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <select id="findByProductClassId" resultMap="BaseResultMap">
+  	SELECT
+		*
+	FROM
+		product_base
+	WHERE
+		product_class_id = #{id}
+  
+  </select>
+</mapper>

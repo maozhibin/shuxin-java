@@ -146,7 +146,7 @@
     </table>
 </div>
 <div class="row tables-right ctn-tables">
-    <form action="/admin/overview/freshen" class="form-inline" 
+    <form action="/admin/overview/product" class="form-inline" 
           accept-charset="utf-8">
         <table>
             <tbody>

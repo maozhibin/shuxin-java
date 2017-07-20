@@ -12,5 +12,5 @@ import com.baoquan.shuxin.model.product.ProductInterface;
  */
 @Repository
 public interface ProductInterfaceDao {
-    List<ProductInterface> queryByReflectMethod(String reflectMethod);
+	
 }
