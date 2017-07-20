@@ -70,9 +70,8 @@ public class OverviewController {
 			pageNoValue = NumberUtils.toInt(pageNo);
 			page.setPageNo(pageNoValue);
 		}
-		Long size = (long) orgList.size();
 		page.setResult(orgList);
-		page.setTotalRecordCount(size);
+		page.setTotalRecordCount(orgList == null ? 0 : orgList.size());
 		
     	Map<String, Object> params = Maps.newHashMap();
     	params.put("orgTop", orgTop);

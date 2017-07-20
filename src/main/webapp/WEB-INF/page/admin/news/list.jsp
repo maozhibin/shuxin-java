@@ -15,26 +15,29 @@
 
 <section class="filter-box" style="border:none">
     <div class="row">
-        <?= form_open('admin/news/news_list', 'class=form-inline') ?>
-        <table style="margin-left: 30px">
-            <tr>
-                <td> 类型：</td>
-                <td>
+        <form class="form-inline">
+            <table style="margin-left: 30px">
+                <tr>
+                    <td> 类型：</td>
+                    <td>
 
-                    <select name="type" class="form-control">
-                        <c:forEach items="${page.result}" var="news">
-                            <option value="${news.newsClassType}">
-                            </option>
-                        </c:forEach>
+                        <select name="options" class="form-control">
+                            <option selected>请选择类型</option>
+                            <c:forEach items="${options}" var="option">
+                                <option value="${option.value}">${option.name}
+                                </option>
+                            </c:forEach>
 
-                    </select>
-                </td>
-                <td>
-                    <button type="submit" class="btn"><i class="fa fa-search"></i> 搜索</button>
-                </td>
-            </tr>
-        </table>
-        <?= form_close() ?>
+                        </select>
+                    </td>
+                    <td>
+                        <button type="submit" class="btn"><i class="fa fa-search"></i> 搜索</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+
 
     </div>
 </section>

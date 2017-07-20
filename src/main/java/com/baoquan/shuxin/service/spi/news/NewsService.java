@@ -1,10 +1,12 @@
 package com.baoquan.shuxin.service.spi.news;
 
+import java.util.List;
 import java.util.Map;
 
 import com.baoquan.shuxin.bean.Page;
 import com.baoquan.shuxin.model.config.Config;
 import com.baoquan.shuxin.model.news.News;
+import com.baoquan.shuxin.model.news.Option;
 import com.baoquan.shuxin.model.user.User;
 
 /**
@@ -40,6 +42,5 @@ public interface NewsService {
      * @param news
      */
     void insertNews(News news);
-
 
 }

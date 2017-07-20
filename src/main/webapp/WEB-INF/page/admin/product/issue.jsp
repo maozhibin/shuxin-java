@@ -142,7 +142,9 @@
                 <div class="addon">更新频率</div>
                 <div class="cell">
                     <select class="input-ctrl" name="frequent">
-                        <option value=""></option>
+                        <option value="">实时</option>
+                        <option value="">每日</option>
+                        <option value="">每周</option>
                     </select>
                     <?php echo form_error('frequent'); ?>
                 </div>
@@ -169,7 +171,7 @@
                 <div class="addon">数据类型</div>
                 <div class="cell vat">
                     <select class="input-ctrl" name="product_type" id="product_type">
-                        <option value=""></option>
+                        <option value="">API</option>
                     </select>
                     <?php echo form_error('product_type'); ?>
                 </div>
@@ -188,7 +190,7 @@
                     <input type="text" name="product_tags" value="${product_tags}" class="input-ctrl"/>
                     <?php echo form_error('product_tags'); ?>
                 </div>
-                <i class="fa fa-plus"></i>
+                <div class="cell gray9">多个标签请用逗号分隔，例如：标签,设置。</div>
             </div>
 
             <div class="inline-form mb30">
@@ -211,28 +213,20 @@
         </div>
 
         <div hidden="hidden" class="container api">
-            <div class="inline-form mb30">
-                <div class="addon">数据名称</div>
-                <div class="cell"><input type="text" class="input-ctrl" name="interface_name"></div>
-                <?php echo form_error('interface_name'); ?>
-            </div>
-            <div class="inline-form mb30">
-                <div class="addon">数据简介</div>
-                <div class="cell"><input type="text" class="input-ctrl full" name="introduction"></div>
-                <?php echo form_error('introduction'); ?>
-            </div>
 
             <div class="inline-form mb30">
                 <div class="addon">请求方式</div>
                 <div class="cell">
                     <select class="input-ctrl" name="request_method">
-                        <option value=""></option>
+                        <option value="">POST</option>
+                        <option value="">GET</option>
                     </select>
                 </div>
                 <div class="addon">返回报文格式</div>
                 <div class="cell vat">
                     <select class="input-ctrl" name="response_format">
-                        <option value=""></option>
+                        <option value="">JSON</option>
+                        <option value="">XML</option>
                     </select>
                 </div>
             </div>
@@ -241,7 +235,7 @@
                 <div class="addon">传输字符</div>
                 <div class="cell">
                     <select class="input-ctrl" name="character">
-                        <option value=""></option>
+                        <option value="">UTF-8</option>
                     </select>
                 </div>
                 <div class="addon">请求超时时长</div>
@@ -333,20 +327,7 @@
             </table>
 
             <p class="f16 gray6 mb10">请求示例</p>
-            <div class="code-example mb30">
-                <div class="tab-head">
-                    <a href="" class="tab active">curl</a>
-                    <a href="" class="tab">Java</a>
-                    <a href="" class="tab">C#</a>
-                    <a href="" class="tab">PHP</a>
-                    <a href="" class="tab">Python</a>
-                    <a href="" class="tab">ObjectC</a>
-                </div>
-                <div class="container">
-
-                </div>
-            </div>
-
+            <textarea rows="10" class="input-ctrl mb30" name="request_sample"></textarea>
 
             <p class="f16 gray6 mb10">正常返回示例</p>
             <textarea rows="10" class="input-ctrl mb30" name="normal_sample"></textarea>
@@ -405,76 +386,30 @@
         </div>
 
         <div hidden="hidden" class="container price">
-            <div class="inline-form mb30">
-                <div class="addon">计费方式</div>
-                <div class="cell">
-                    <select class="input-ctrl" name="billing_method" id="billing_method">
-                        <option value=""></option>
-                    </select>
-                    <?php echo form_error('billing_method'); ?>
-                </div>
-                <div class="addon">结算方式</div>
-                <div class="cell">
-                    <select class="input-ctrl" name="settlement" id="settlement">
-                        <option value=""></option>
-                    </select>
-                    <?php echo form_error('settlement'); ?>
-                </div>
-            </div>
-
-            <div class="inline-form mb30">
-                <div class="addon">有效时间</div>
-                <div class="addon">
-                    <input type="text" class="input-ctrl" name="valid_time">
-                </div>
-                <div class="cell">月</div>
-            </div>
-
-            <div class="ml60 pl10" id="container-per">
+            <p class="f16 gray6 mb10 mt10">计费方式</p>
+            <div class="mb30" id="container-combo">
                 <table class="mb50">
                     <thead>
                     <tr>
-                        <th width="218">标准名称</th>
-                        <th>设置</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td><input type="text" class="input" value="" placeholder="点击输入" name="billing_name_per"></td>
-                        <td>
-                            <ul class="inline">
-                                <li class="cell"><input type="text" name="billing_time_per"></li>
-                                <li class="cell">次/</li>
-                                <li class="cell"><input type="text" name="billing_price_per"></li>
-                                <li class="cell">元</li>
-                            </ul>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="ml60 pl10 hide" id="container-combo">
-                <table class="mb50">
-                    <thead>
-                    <tr>
-                        <th width="218">标准名称</th>
-                        <th>设置</th>
-                        <th width="56"></th>
+                        <th>标准名称</th>
+                        <th>价格(元)</th>
                     </tr>
                     </thead>
                     <tbody id="request_billings">
                     <tr>
-                        <td><input type="text" class="input" value="" placeholder="点击输入" name="billing_name_input"></td>
-                        <td>
-                            <ul class="inline">
-                                <li class="cell"><input type="text" name="billing_time_input"></li>
-                                <li class="cell">次/</li>
-                                <li class="cell"><input type="text" name="billing_price_input"></li>
-                                <li class="cell">元</li>
-                            </ul>
-                        </td>
-                        <td><a href="javascript:void(0)" class="blue add-line add_billing">新增</a></td>
+                        <td><input type="text" class="input" value="单次" placeholder="点击输入" name="billing_name_input"
+                                   disabled="disabled"></td>
+                        <td><input class="input" type="text" placeholder="点击输入" name="billing_price_input"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" class="input" value="100次" placeholder="点击输入" name="billing_name_input"
+                                   disabled="disabled"></td>
+                        <td><input class="input" type="text" placeholder="点击输入" name="billing_price_input"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" class="input" value="包年" placeholder="点击输入" name="billing_name_input"
+                                   disabled="disabled"></td>
+                        <td><input class="input" type="text" placeholder="点击输入" name="billing_price_input"></td>
                     </tr>
                     </tbody>
                 </table>

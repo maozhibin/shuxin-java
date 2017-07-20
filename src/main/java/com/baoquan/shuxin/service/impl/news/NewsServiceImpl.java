@@ -10,6 +10,7 @@ import javax.inject.Named;
 import com.baoquan.shuxin.bean.Page;
 import com.baoquan.shuxin.dao.news.NewsDao;
 import com.baoquan.shuxin.model.news.News;
+import com.baoquan.shuxin.model.news.Option;
 import com.baoquan.shuxin.service.spi.news.NewsService;
 
 /**
@@ -82,6 +83,8 @@ public class NewsServiceImpl implements NewsService {
     public void insertNews(News news) {
         newsDao.insertNews(news);
     }
+
+
 
 
     /**

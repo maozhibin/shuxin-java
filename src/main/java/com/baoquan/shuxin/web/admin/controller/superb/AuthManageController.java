@@ -83,7 +83,9 @@ public class AuthManageController {
         AdminUserMenuPermVO vo = new AdminUserMenuPermVO();
         vo.setUserId(user.getId());
         vo.setUsername(user.getUsername());
-        vo.setLastLoginTime(new Date(user.getLastTime()));
+        if (user.getLastTime() != null) {
+            vo.setLastLoginTime(new Date(user.getLastTime()));
+        }
         return vo;
     }
 
@@ -124,10 +126,7 @@ public class AuthManageController {
     }
 
     @RequestMapping("/update")
-    public Object update(Long userId, @RequestParam(value = "menuId", required = false) Long[] menuIds,
-            @RequestBody String content) {
-        System.out.println(content);
-        System.out.println(JSON.toJSONString(menuIds));
+    public Object update(Long userId, @RequestParam(value = "menuId", required = false) Long[] menuIds) {
         adminUserMenuPermService.resetUserMenuPerm(userId, menuIds);
         return "redirect:edit?userId=" + userId;
     }

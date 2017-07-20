@@ -6,8 +6,11 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.math.NumberUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -18,6 +21,8 @@ import com.baoquan.shuxin.service.spi.product.ProductService;
 @Controller
 @RequestMapping("product")
 public class ProductController {
+    private final static Logger logger = LoggerFactory.getLogger(ProductController.class);
+
     @Inject
     private ProductService productService;
     
@@ -48,7 +53,8 @@ public class ProductController {
     }
 
     @RequestMapping("issue")
-    public Object issue() {
+    public Object issue(@RequestBody(required = false) String content) {
+        logger.info(content);
         return "admin/product/issue";
     }
 
