@@ -1,6 +1,7 @@
 package com.baoquan.shuxin.service.spi.account;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import com.baoquan.shuxin.bean.Page;
 import com.baoquan.shuxin.model.account.AccountFlow;
@@ -23,8 +24,12 @@ public interface AccountFlowService {
      * 根据条件分页查询账户
      * @param userId 用户id
      * @param type   类型
-     * @param page
      * @return
      */
-    Page<AccountFlow> querListAccountFlowInfo(Long userId,String type,Long statTime,Long endTime,Page<AccountFlow> page);
+    List<AccountFlow> querListAccountFlowInfo(Long userId,String type,Long statTime,Long endTime,Integer start, Integer length);
+
+
+    Integer countFlowInfo(Long userId,String type,Long statTime,Long endTime);
+
+
 }

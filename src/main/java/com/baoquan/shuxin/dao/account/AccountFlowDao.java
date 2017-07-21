@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.baoquan.shuxin.model.account.AccountFlow;
@@ -26,5 +27,8 @@ public interface AccountFlowDao {
     Integer pageCount(Map<String, Object> parms);
 
     AccountFlow querByIdAccountInfo(Long id);
+
+
+    Integer countFlowInfo(@Param("userId") Long userId, @Param("type") String type,@Param("statTime") Long statTime,@Param("endTime") Long endTime);
 
 }

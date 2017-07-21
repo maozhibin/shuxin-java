@@ -145,21 +145,17 @@
                         <c:forEach items="${page.result}" var="accountFlow">
                             <tr>
                                 <td>${accountFlow.userId}</td>
-                                <td>${accountFlow.type}</td>
+                                <td>${accountFlow.typeName}</td>
                                 <td>${accountFlow.amount}</td>
                                 <td>${accountFlow.status}</td>
                                 <td>${accountFlow.requestNo}</td>
                                 <td>${accountFlow.fee}</td>
                                 <td>${accountFlow.statusDesc}</td>
                                 <td>
-                                    <jsp:useBean id="dateValueline" class="java.util.Date"/>
-                                    <jsp:setProperty name="dateValueline" property="time" value="${accountFlow.dateline*1000}"/>
-                                    <fmt:formatDate value="${dateValueline}" pattern="yyyy-MM-dd "/>
+                                    <fmt:formatDate value="${accountFlow.dateline}" pattern="yyyy-MM-dd hh:ss:mm"/>
                                 </td>
                                 <td>
-                                    <jsp:useBean id="dateValuefinish" class="java.util.Date"/>
-                                    <jsp:setProperty name="dateValuefinish" property="time" value="${accountFlow.finishTime*1000}"/>
-                                    <fmt:formatDate value="${dateValuefinish}" pattern="yyyy-MM-dd "/>
+                                    <fmt:formatDate value="${accountFlow.finishTime}" pattern="yyyy-MM-dd hh:ss:mm"/>
                                 </td>
                             </tr>
                         </c:forEach>

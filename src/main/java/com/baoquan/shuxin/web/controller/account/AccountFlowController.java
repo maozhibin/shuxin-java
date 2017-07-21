@@ -2,8 +2,11 @@ package com.baoquan.shuxin.web.controller.account;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -16,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.baoquan.shuxin.bean.Page;
 import com.baoquan.shuxin.model.account.AccountFlow;
+import com.baoquan.shuxin.model.account.FlowVO;
 import com.baoquan.shuxin.model.news.Option;
 import com.baoquan.shuxin.service.spi.account.AccountFlowService;
 import com.baoquan.shuxin.service.spi.news.OptionService;
@@ -38,42 +42,84 @@ public class AccountFlowController {
 
     @RequestMapping("/flow")
     @ResponseBody
-    public ModelAndView accountFlowInfo(Long userId, String type, String date_range ,String pageNo,
-            String pageSize ){
+    public Object list(Long userId, String type, String date_range, Integer pageNo, Integer pageSize) {
         ModelAndView mv = new ModelAndView("admin/account/account_index");
-        Page<AccountFlow> page = new Page<AccountFlow>();
-        Integer pageSizeValue = null;
-        if (NumberUtils.isNumber(pageSize)) {
-            pageSizeValue = NumberUtils.toInt(pageSize);
-            page.setPageSize(pageSizeValue);
-        }
-        Integer pageNoValue = null;
-        if (NumberUtils.isNumber(pageNo)) {
-            pageNoValue = NumberUtils.toInt(pageNo);
-            page.setPageNo(pageNoValue);
-        }
-        String range = date_range;
-        Long statTime = null;
-        Long endTime = null;
-        if(StringUtils.isNotEmpty(range)){
-            String stat = range.substring(0,10);
-            String end = range.substring(12,range.length());
-            SimpleDateFormat  sdf = new SimpleDateFormat("yyyy-MM-dd");
-            try {
-                statTime = sdf.parse(stat).getTime();
-                endTime = sdf.parse(end).getTime();
-            } catch (ParseException e) {
-                e.printStackTrace();
+
+            if (pageNo == null || pageNo < 1)  pageNo = 1;
+            if (pageSize == null || pageSize > 15) pageSize = 15;
+
+            Page page = new Page();
+            page.setPageNo(pageNo);
+            page.setPageSize(pageSize);
+
+            //截取时间 转换为时间撮
+            String range = date_range;
+            Long statTime = null;
+            Long endTime = null;
+            if (StringUtils.isNotEmpty(range)) {
+                String stat = range.substring(0, 10);
+                String end = range.substring(12, range.length());
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    statTime = sdf.parse(stat).getTime() / 1000;
+                    endTime = sdf.parse(end).getTime() / 1000;
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
+
+            Integer flowCount = accountFlowService.countFlowInfo(userId, type, statTime, endTime);
+            page.setTotalRecordCount(flowCount);
+            if (flowCount > 0) {
+                List<AccountFlow> flowList = accountFlowService.querListAccountFlowInfo(userId, type, statTime, endTime,
+                        (pageNo - 1) * pageSize, pageSize);
+                List<FlowVO> flowVOList = new ArrayList<>(flowList.size());
+                for (AccountFlow flow : flowList) {
+                    flowVOList.add(buildFlowInfoVO(flow));
+                }
+                Map<String ,FlowVO> flowVOMap = new HashMap<>(flowList.size());
+                for(FlowVO flowVO : flowVOList){
+                    flowVOMap.put(flowVO.getTypeName(),flowVO);
+                }
+                List<Option> optionList = optionService.queryFlowInfo();
+                fillFlowVO(optionList,flowVOMap);
+
+                page.setResult(flowVOList);
+            }
+
+            mv.addObject(page);
+            mv.addObject("flow", optionService.queryFlowInfo());
+            mv.addObject("startTime", System.currentTimeMillis() - 1234567890);
+            mv.addObject("endTime", System.currentTimeMillis());
+            return mv;
         }
-        List<Option> flow = optionService.queryFlowInfo();
-        page = accountFlowService.querListAccountFlowInfo(userId, type,statTime,endTime, page);
-        mv.addObject(page);
-        mv.addObject("flow",flow);
-        mv.addObject("startTime", System.currentTimeMillis() - 1234567890);
-        mv.addObject("endTime", System.currentTimeMillis());
-        return mv;
+
+    private FlowVO buildFlowInfoVO(AccountFlow flow){
+        FlowVO vo = new FlowVO();
+        vo.setUserId(flow.getUserId());
+        vo.setAmount(flow.getAmount());
+        vo.setStatus(flow.getStatus());
+        vo.setRequestNo(flow.getRequestNo());
+        vo.setFee(flow.getFee());
+        vo.setStatusDesc(flow.getStatusDesc());
+        if(flow.getDateline() != null){
+            vo.setDateline(new Date(flow.getDateline()));
+        }
+        if(flow.getFinishTime() != null){
+            vo.setFinishTime(new Date(flow.getFinishTime()) );
+        }
+        return vo;
     }
+
+    private  void  fillFlowVO(List<Option> optionList ,Map<String,FlowVO> flowVOMap){
+        for (Option option : optionList){
+            FlowVO vo = flowVOMap.get(option.getName());
+        }
+
+
+    }
+
+
 
 
 }

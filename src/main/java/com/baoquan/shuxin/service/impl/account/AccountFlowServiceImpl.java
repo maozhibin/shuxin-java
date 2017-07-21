@@ -21,7 +21,7 @@ import com.baoquan.shuxin.service.spi.account.AccountFlowService;
  * DATA:10:18
  */
 @Named
-public class AccountFlowServiceImpl<T> implements AccountFlowService {
+public class AccountFlowServiceImpl implements AccountFlowService {
 
     @Inject
     private AccountFlowDao accountFlowDao;
@@ -34,20 +34,19 @@ public class AccountFlowServiceImpl<T> implements AccountFlowService {
     }
 
     @Override
-    public Page<AccountFlow> querListAccountFlowInfo(Long userId, String type, Long statTime,Long endTime,
-            Page<AccountFlow> page) {
+    public List<AccountFlow> querListAccountFlowInfo(Long userId, String type, Long statTime,Long endTime,Integer start, Integer length) {
         Map<String, Object> parms = new HashMap<>();
         parms.put("userId",userId);
         parms.put("type",type);
-        parms.put("page", page);
         parms.put("statTime",statTime);
         parms.put("endTime",endTime);
-        List<AccountFlow> listInfo = accountFlowDao.querAccountFlowInfo(parms);
-        Integer total = accountFlowDao.pageCount(parms);
-        if (total != null) {
-            page.setTotalRecordCount(total);
-        }
-        page.setResult(listInfo);
-        return page;
+        parms.put("start",start);
+        parms.put("length",length);
+        return accountFlowDao.querAccountFlowInfo(parms);
+    }
+
+    @Override
+    public Integer countFlowInfo(Long userId, String type, Long statTime, Long endTime) {
+        return accountFlowDao.countFlowInfo(userId,type,statTime,endTime);
     }
 }

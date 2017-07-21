@@ -61,7 +61,7 @@ public class UserOrderController {
            String end = buy.substring(12,buy.length());
            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
            try{
-               statTime = sdf.parse(star).getTime();
+               statTime = sdf.parse(star).getTime()/1000;
                endTime = sdf.parse(end).getTime();
            } catch (ParseException e) {
                e.printStackTrace();

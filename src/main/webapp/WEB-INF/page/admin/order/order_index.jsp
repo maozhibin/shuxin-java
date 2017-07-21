@@ -71,17 +71,7 @@
             }, cb);
             cb(g_start, g_end);
 
-            function doFilter(url) {
-                document.location.href = url;
-            }
 
-            $("#search-btn").click(function () {
-                var id = $("#user_id").val() ? $("#user_id").val() : -1;
-//                var url = "<?php echo base_url("admin/order/user_order");?>" + "/1/choosetime/"+ $("#domain").val()+"/"+id+ "/" + g_start_time_str + "/" + g_end_time_str + ".html";
-                var url = "<%=basePath%>admin/order/list";
-                doFilter(url);
-                return false;
-            });
         });
     </script>
 </head>

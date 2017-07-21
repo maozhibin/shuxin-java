@@ -28,7 +28,6 @@
 
   <select id="querAccountFlowInfo" resultType="com.baoquan.shuxin.model.account.AccountFlow">
     SELECT 	* FROM user_money_log um
-
     <where>
       <if test="userId !=null">
         AND um.user_id = #{userId}
@@ -41,13 +40,14 @@
         BETWEEN #{statTime} AND  #{endTime}
       </if>
     </where>
+
   </select>
 
 
 
-    <select id="pageCount" resultType="Integer">
+    <select id="countFlowInfo" resultType="Integer">
         SELECT
-        COUNT(1)
+        COUNT(*)
         FROM
         user_money_log um
         WHERE 1=1
@@ -56,7 +56,7 @@
     </select>
 
     <sql id="taskQuery">
-        <if test="user_id !=null">
+        <if test="userId !=null">
             AND um.user_id = #{userId}
         </if>
         <if test="type != null">

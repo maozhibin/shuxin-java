@@ -165,8 +165,11 @@ public class NewsController {
 
 
     @RequestMapping("issue")
-    public Object issue() {
-        return "admin/news/add";
+    public ModelAndView issue() {
+        ModelAndView mv = new ModelAndView("admin/news/add");
+        List<Option> options = optionService.queryOptionInfo();
+        mv.addObject("options",options);
+        return mv;
     }
 
 }
