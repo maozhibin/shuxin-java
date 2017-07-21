@@ -88,4 +88,11 @@
 		 `user`
 		WHERE username=#{orgName}
 	</select>
+	
+	<select id="userList" resultMap="BaseResultMap">
+		SELECT
+			*
+		FROM
+		 `user`
+	</select>
 </mapper>

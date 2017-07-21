@@ -1,5 +1,7 @@
 package com.baoquan.shuxin.service.spi.user;
 
+import java.util.List;
+
 import com.baoquan.shuxin.bean.Page;
 import com.baoquan.shuxin.model.user.User;
 
@@ -13,5 +15,7 @@ public interface UserService {
 	Boolean deleteUser(Long id);
 
 	User findByIdUserInfo(Long id);
+
+	List<User> userList();
 
 }

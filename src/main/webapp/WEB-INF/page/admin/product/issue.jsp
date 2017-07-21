@@ -132,20 +132,17 @@
         <a onclick="goto('desc')" class="tab desc">产品描述</a>
         <a onclick="goto('price')" class="tab price">计费设置</a>
     </div>
-    <form action="<%=basePath%>admin/product/issue" method="post">
         <div class="container base">
             <div class="inline-form mb30">
                 <div class="addon">数据名称</div>
                 <div class="cell">
-                    <input type="text" class="input-ctrl" name="product_name"
+                    <input type="text" class="input-ctrl" name="productName" id="product_name"
                            value="">
                 </div>
                 <div class="addon">更新频率</div>
                 <div class="cell">
-                    <select class="input-ctrl" name="frequent">
-                        <option value="">实时</option>
-                        <option value="">每日</option>
-                        <option value="">每周</option>
+                    <select class="input-ctrl" name="frequent" id="frequent">
+                        <option value="1">实时</option>
                     </select>
                 </div>
             </div>
@@ -153,16 +150,15 @@
                 <div class="addon">数据分类</div>
                 <div class="cell">
                     <div class="mb15">
-                        <select class="input-ctrl" name="product_class" id="product_class">
-                        <c:forEach items="${productClassList}" var="item">
+                        <select class="input-ctrl" name="productClass" id="product_class">
+                        <c:forEach items="${hashMap.productClassList}" var="item">
 			               <option value="${item.id}">${item.name}</option>
 			            </c:forEach>
-                            
                         </select>
                     </div>
 
-                    <div class="">
-                        <select class="input-ctrl" name="product_base" id="product_base">
+                    <div class="cell">
+                        <select class="input-ctrl" name="productBase" id="product_base">
                             <option value=""></option>
                         </select>
                     </div>
@@ -171,23 +167,53 @@
 
                 <div class="addon">数据类型</div>
                 <div class="cell vat">
-                    <select class="input-ctrl" name="product_type" id="product_type">
-                        <option value="">API</option>
-                        <option value="">普通文件</option>
+                    <select class="input-ctrl" name="productType" id="product_type">
+                        <option value="1">API</option>
+                        <option value="2">普通文件</option>
+                    </select>
+                </div>
+                
+                
+            </div>
+            <div class="inline-form mb30">
+                <div class="addon">区域范围</div>
+                <div class="cell">
+                    <div class="mb15">
+                        <select class="input-ctrl" name="province " id="province">
+                            <c:forEach items="${hashMap.provinceList }" var="item">
+                                <option value="${item.id}">${item.name}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+
+                    <div class="cell">
+                        <select class="input-ctrl" name="city" id="city">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="addon">发布人</div>
+                <div class="cell vat">
+                    <select class="input-ctrl" name="userName" id="user_name">
+                        <c:forEach items="${hashMap.userList }" var="item">
+                              <option value="${item.id}">${item.username}</option>
+                        </c:forEach>
                     </select>
                 </div>
             </div>
+            
             <div class="inline-form mb30">
                 <div class="addon">数据简介</div>
                 <div class="cell">
                         <textarea rows="10" class="input-ctrl"
-                                  name="product_description">${product_description}</textarea>
+                                  name="productDescription" id="product_description">${product_description}</textarea>
                 </div>
             </div>
             <div class="inline-form mb30">
                 <div class="addon">标签设置</div>
                 <div class="cell">
-                    <input type="text" name="product_tags" value="${product_tags}" class="input-ctrl"/>
+                    <input type="text" name="productTags" value="" class="input-ctrl" id="productTags"/>
                 </div>
                 <div class="cell gray9">多个标签请用逗号分隔，例如：标签,设置。</div>
             </div>
@@ -196,7 +222,7 @@
                 <div class="addon">数据logo</div>
                 <div class="cell">
                     <label for="upload" class="upload">上传图片</label>
-                    <input type="file" id="upload" class="hide" name="user_file"
+                    <input type="file" id="upload" class="hide" name="icon"
                            accept="image/png,image/gif,image/jpg,image/jpeg">
                 </div>
                 <img id="img"/>
@@ -211,20 +237,30 @@
         </div>
 
         <div hidden="hidden" class="container api">
-
+			<div class="inline-form mb30">
+            	<div class="addon">接口名称</div>
+                <div class="cell">
+                    <input type="text" class="input-ctrl" name="interfaceName" id="interface_name">
+                </div>
+               &nbsp;&nbsp;&nbsp;<div class="addon">服务地址</div>
+                <div class="cell">
+                    <input type="text" class="input-ctrl" name="urlAddress" id="url_address">
+                </div>
+            </div>
+            
             <div class="inline-form mb30">
                 <div class="addon">请求方式</div>
                 <div class="cell">
-                    <select class="input-ctrl" name="request_method">
-                        <option value="">POST</option>
-                        <option value="">GET</option>
+                    <select class="input-ctrl" name="requestMethod" id="request_method">
+                        <option value="post">POST</option>
+                        <option value="get">GET</option>
                     </select>
                 </div>
                 <div class="addon">返回报文格式</div>
                 <div class="cell vat">
-                    <select class="input-ctrl" name="response_format">
-                        <option value="">JSON</option>
-                        <option value="">XML</option>
+                    <select class="input-ctrl" name="responseFormat" id="response_format">
+                        <option value="JSON">JSON</option>
+                        <option value="XML">XML</option>
                     </select>
                 </div>
             </div>
@@ -232,19 +268,18 @@
             <div class="inline-form mb30">
                 <div class="addon">传输字符</div>
                 <div class="cell">
-                    <select class="input-ctrl" name="character">
-                        <option value="">UTF-8</option>
+                    <select class="input-ctrl" name="character" id="character">
+                        <option value="UTF-8">UTF-8</option>
                     </select>
                 </div>
                 <div class="addon">请求超时时长</div>
                 <div class="cell">
-                    <input type="text" class="input-ctrl" name="timeout">
+                    <input type="text" class="input-ctrl" name="timeout" id="time_out">
                 </div>
-                <?php echo form_error('timeout'); ?>
             </div>
-
+            
             <p class="f16 gray6 mb10">请求参数（Headers）</p>
-            <table class="mb50">
+            <table class="mb50" id="Headers">
                 <thead>
                 <tr>
                     <th width="145">名称</th>
@@ -256,16 +291,22 @@
                 </thead>
                 <tbody id="request_headers">
                 <tr>
-                    <td><input type="text" class="input" value="" placeholder="点击输入" name="header_name_input"></td>
-                    <td><input type="text" class="input" value="" placeholder="点击输入" name="header_type_input"></td>
+                    <td><input type="text" class="input" value="" placeholder="点击输入" name="headerName"></td>
                     <td>
-                        <select name="header_must_input" class="input-ctrl">
+                    	<select name="headerType" class="input-ctrl">
+                            <option value="String">String</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="headerMust" class="input-ctrl">
                             <option value="1">必须</option>
                             <option value="0">非必须</option>
                         </select>
                     </td>
-                    <td><input type="text" class="input" value="" placeholder="点击输入" name="header_desc_input"></td>
-                    <td><a href="javascript:void(0)" class="blue add-line add_header">新增</a></td>
+                    <td><input type="text" class="input" value="" placeholder="点击输入" name="headerDesc"></td>
+                    <td>
+                    	<button class="blue add-line add_header" onclick="btnAddRow()">新增</button>
+                    </td>
                 </tr>
                 </tbody>
             </table>
@@ -283,16 +324,20 @@
                 </thead>
                 <tbody id="request_querys">
                 <tr>
-                    <td><input type="text" class="input" value="" placeholder="点击输入" name="query_name_input"></td>
-                    <td><input type="text" class="input" value="" placeholder="点击输入" name="query_type_input"></td>
+                    <td><input type="text" class="input" value="" placeholder="点击输入" name="queryName"></td>
                     <td>
-                        <select name="query_must_input" class="input-ctrl">
+                    	<select name="queryType" class="input-ctrl">
+                            <option value="String">String</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="queryMust" class="input-ctrl">
                             <option value="1">必须</option>
                             <option value="0">非必须</option>
                         </select>
                     </td>
-                    <td><input type="text" class="input" value="" placeholder="点击输入" name="query_desc_input"></td>
-                    <td><a href="javascript:void(0)" class="blue add-line add_query">新增</a></td>
+                    <td><input type="text" class="input" value="" placeholder="点击输入" name="queryDesc"></td>
+                    <td><a href="javascript:void(0)" class="blue add-line add_query" >新增</a></td>
                 </tr>
                 </tbody>
             </table>
@@ -310,45 +355,49 @@
                 </thead>
                 <tbody id="request_bodys">
                 <tr>
-                    <td><input type="text" class="input" value="" placeholder="点击输入" name="body_name_input"></td>
-                    <td><input type="text" class="input" value="" placeholder="点击输入" name="body_type_input"></td>
+                    <td><input type="text" class="input" value="" placeholder="点击输入" name="bodyName"></td>
                     <td>
-                        <select name="body_must_input" class="input-ctrl">
+                    	<select name="bodyType" class="input-ctrl">
+                            <option value="String">String</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="bodyMust" class="input-ctrl">
                             <option value="1">必须</option>
                             <option value="0">非必须</option>
                         </select>
                     </td>
-                    <td><input type="text" class="input" value="" placeholder="点击输入" name="body_desc_input"></td>
+                    <td><input type="text" class="input" value="" placeholder="点击输入" name="bodyDesc"></td>
                     <td><a href="javascript:void(0)" class="blue add-line add_body">新增</a></td>
                 </tr>
                 </tbody>
             </table>
 
             <p class="f16 gray6 mb10">请求示例</p>
-            <textarea rows="10" class="input-ctrl mb30" name="request_sample"></textarea>
+            <textarea rows="10" class="input-ctrl mb30" name="requestSample" id="request_sample"></textarea>
 
             <p class="f16 gray6 mb10">正常返回示例</p>
-            <textarea rows="10" class="input-ctrl mb30" name="normal_sample"></textarea>
+            <textarea rows="10" class="input-ctrl mb30" name="normalSample" id="normal_sample"></textarea>
 
             <p class="f16 gray6 mb10">错误返回示例</p>
-            <textarea rows="10" class="input-ctrl mb30" name="error_sample"></textarea>
+            <textarea rows="10" class="input-ctrl mb30" name="errorSample" id="error_sample"></textarea>
 
 
             <p class="f16 gray6 mb10">错误码定义</p>
-            <table class="mb50">
+            <table class="mb50" id="codes">
                 <thead>
                 <tr>
                     <th width="218">错误码</th>
-                    <th width="218">错误信息</th>
+                    <th width="218">状态码名称</th>
                     <th>描述</th>
                     <th width="56"></th>
                 </tr>
                 </thead>
                 <tbody id="request_codes">
                 <tr>
-                    <td><input type="text" class="input" value="" placeholder="点击输入" name="code_name_input"></td>
-                    <td><input type="text" class="input" value="" placeholder="点击输入" name="code_info_input"></td>
-                    <td><input type="text" class="input" value="" placeholder="点击输入" name="code_desc_input"></td>
+                     <td><input type="text" class="input" value="" placeholder="点击输入" name="code"></td>
+		             <td><input type="text" class="input" value="" placeholder="点击输入" name="codeName"></td>
+		             <td><input type="text" class="input" value="" placeholder="点击输入" name="codeDesc"></td>
                     <td><a href="javascript:void(0)" class="blue add-line add_code">新增</a></td>
                 </tr>
                 </tbody>
@@ -379,70 +428,310 @@
             </div>
         </div>
 
-        <div hidden="hidden" class="container price">
-            <p class="f16 gray6 mb10 mt10">计费方式</p>
-            <div class="mb30" id="container-combo">
-                <table class="mb50">
-                    <thead>
-                    <tr>
-                        <th>标准名称</th>
-                        <th>价格(元)</th>
-                    </tr>
-                    </thead>
-                    <tbody id="request_billings">
-                    <tr>
-                        <td><input type="text" class="input" value="单次" placeholder="点击输入" name="billing_name_input"
-                                   disabled="disabled"></td>
-                        <td><input class="input" type="text" placeholder="点击输入" name="billing_price_input"></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="input" value="100次" placeholder="点击输入" name="billing_name_input"
-                                   disabled="disabled"></td>
-                        <td><input class="input" type="text" placeholder="点击输入" name="billing_price_input"></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="input" value="包年" placeholder="点击输入" name="billing_name_input"
-                                   disabled="disabled"></td>
-                        <td><input class="input" type="text" placeholder="点击输入" name="billing_price_input"></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+       <div hidden="hidden" class="container price">
+        
+            <div class="ml60 pl10" id="container-combo">
+                        <table class="mb50">
+                            <thead>
+                            <tr>
+                                <th width="218">标准名称</th>
+                                <th>设置</th>
+                            </tr>
+                            </thead>
+                            <tbody id="request_billings">
+                            <tr>
+                                <td>单次计费</td>
+                                <td>
+                                    <ul class="inline">
+                                        <li class="cell"><input type="text" name="priceOne" id="priceOne"></li>
+                                        <li class="cell">元/</li>
+                                        <li class="cell">1次</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="ml60 pl10" id="container-combo">
+                        <table class="mb50">
+                            <thead>
+                            <tr>
+                                <th width="218">标准名称</th>
+                                <th>设置</th>
+                            </tr>
+                            </thead>
+                            <tbody id="request_billings">
+                            <tr>
+                                <td>多次计费</td>
+                                <td>
+                                    <ul class="inline">
+                                        <li class="cell"><input type="text" name="priceHundred" id="priceHundred"></li>
+                                        <li class="cell">元/</li>
+                                        <li class="cell">100次</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="ml60 pl10" id="container-combo">
+                        <table class="mb50">
+                            <thead>
+                            <tr>
+                                <th width="218">标准名称</th>
+                                <th>设置</th>
+                            </tr>
+                            </thead>
+                            <tbody id="request_billings">
+                            <tr>
+                                <td>包年计费</td>
+                                <td>
+                                    <ul class="inline">
+                                        <li class="cell"><input type="text" name="priceYear" id="priceYear" style="width: "></li>
+                                        <li class="cell">元/</li>
+                                        <li class="cell">1年</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        
+                    
 
             <div class="pb30">
                 <p class="mb10"><label class="gray6"><input type="checkbox" class="agreement">
                     我已同意并阅读 <a href="" class="blue">《2226888协议》</a></label>
                 </p>
-                <button class="btn btn-red" id="submit_btn">提交发布</button>
-                <input type="submit" id="submit" class="hide">
+                <button class="btn btn-red" id="submit_btn" onclick="myfunction()">提交发布</button>
+            </div>
             </div>
         </div>
-    </form>
 </div>
 
 <script type="text/javascript">
-	$('#product_class').click(function(){
+    $(document).ready(function(){
+        var classValue=$('#product_class').val();
+        $.ajax({
+            type: "GET",
+            url: "/admin/product/base?id="+classValue,
+            dataType: "json",
+            success: function(data){
+                $("#product_base").html('');
+                var option="";
+                for(var i=0;i<data.length;i++){
+                    option+="<option value='"+data[i].id+"'>"+data[i].name+"</option>";
+                }
+                $("#product_base").append(option);
+            }
+
+        });
+    });
+	$('#product_class').change(function(){
 		var classValue=$('#product_class').val();
 	    $.ajax({
 	        type: "GET",
 	        url: "/admin/product/base?id="+classValue,
-	        data: {username:$("#id").val(), content:$("#name").val()},
 	        dataType: "json",
 	        success: function(data){
-	        		//console.log(data);
-	        		//console.log(data.length);
 	        		$("#product_base").html('');
-	        		console.log($("#product_base").html());
+                    var option="";
 	        		for(var i=0;i<data.length;i++){
-	        			var option="";
 	        			option+="<option value='"+data[i].id+"'>"+data[i].name+"</option>";
-	        			console.log(option);
 	        		}
 	        		$("#product_base").append(option);
 	         }
 	        
 	    });
 	});
+	
+	
+	 $(document).ready(function(){
+		 var pidValue=$('#province').val();
+		    $.ajax({
+		        type: "GET",
+		        url: "/admin/area/city?pid="+pidValue,
+		        dataType: "json",
+		        success: function(data){
+		        		$("#city").html('');
+	                    var option="";
+		        		for(var i=0;i<data.length;i++){
+		        			option+="<option value='"+data[i].id+"'>"+data[i].name+"</option>";
+		        		}
+		        		$("#city").append(option);
+		         }
+		        
+		    });
+	    });
+	
+	$('#province').change(function(){
+		var pidValue=$('#province').val();
+	    $.ajax({
+	        type: "GET",
+	        url: "/admin/area/city?pid="+pidValue,
+	        dataType: "json",
+	        success: function(data){
+	        		$("#city").html('');
+                    var option="";
+	        		for(var i=0;i<data.length;i++){
+	        			option+="<option value='"+data[i].id+"'>"+data[i].name+"</option>";
+	        		}
+	        		$("#city").append(option);
+	         }
+	        
+	    });
+	});
+	
+	function myfunction(){
+		var str = {};
+		var productName=$('#product_name').val();//产品名
+		var frequent=$('#frequent').val();//更新频率
+		var productClass=$('#product_class').val();//产品类型
+		var productBase=$('#product_base').val();//产品子类型
+		var productType=$('#product_type').val();//数据类型
+		var city=$('#city').val();//区域
+		var userName=$('#user_name').val();//发布人
+		var productDescription=$('#product_description').val();//数据简介
+		var interfaceName=$('#interface_name').val();//接口名称
+		var urlAddress=$('#url_address').val();//服务地址
+		var requestMethod=$('#request_method').val();//请求方式
+		var responseFormat=$('#response_format').val();//返回报文格式
+		var character=$('#character').val();//字符类型
+		var timeout=$('#time_out').val();//请求超时
+		var requestSample=$('#request_sample').val();//请求实例
+		var normalSample=$('#normal_sample').val();//正常返回
+		var errorSample=$('#error_sample').val();//错误提示
+		var intro=$('#intro').val();//产品介绍
+		var highlight=$('#highlight').val();//产品亮点
+		var service=$('#service').val();//售后服务
+		str.productName=productName;
+		str.frequent=frequent;
+		str.productClass=productClass;
+		str.productBase=productBase;
+		str.productType=productType;
+		str.city=city;
+		str.userName=userName;
+		str.productDescription=productDescription;
+		str.interfaceName=interfaceName;
+		str.urlAddress=urlAddress;
+		str.requestMethod=requestMethod;
+		str.responseFormat=responseFormat;
+		str.character=character;
+		str.timeout=timeout;
+		str.requestSample=requestSample;
+		str.normalSample=normalSample;
+		str.errorSample=errorSample;
+		str.intro=intro;
+		str.highlight=highlight;
+		str.service=service;
+		
+		//对请求参数的操作
+		var headersArray=new Array();
+		var headers=[];
+		var headerList = $("#request_headers").children("tr")
+			for (var i=0;i<headerList.length;i++) {
+			var tdArr = headerList.eq(i).find("td");
+			var headerName = tdArr.eq(0).find("input").val();//收入类别
+			var headerType = tdArr.eq(1).find("select").val();//收入金额
+			var headerMust = tdArr.eq(2).find("select").val();// 备注
+			var headerDesc = tdArr.eq(3).find("input").val();// 备注
+			headers.push(headerName)
+			headers.push(headerType)
+			headers.push(headerMust)
+			headers.push(headerDesc)
+			headersArray.push(headers);
+		}
+		str.headersArray=headersArray;
+		
+		var querysArray=new Array();;
+		var query = [];
+		var queryList = $("#request_querys").children("tr")
+			for (var i=0;i<queryList.length;i++) {
+			var tdArr = queryList.eq(i).find("td");
+			var queryName = tdArr.eq(0).find("input").val();//收入类别
+			var queryType = tdArr.eq(1).find("select").val();//收入金额
+			var queryMust = tdArr.eq(2).find("select").val();// 备注
+			var queryDesc = tdArr.eq(3).find("input").val();// 备注
+			query.push(queryName)
+			query.push(queryType)
+			query.push(queryMust)
+			query.push(queryDesc)
+			querysArray.push(query);
+		}
+		str.querysArray=querysArray;
+		
+		var bodysArrays=new Array();
+		var body = [];
+		var bodyList = $("#request_bodys").children("tr")
+			for (var i=0;i<bodyList.length;i++) {
+			var tdArr = bodyList.eq(i).find("td");
+			var bodyName = tdArr.eq(0).find("input").val();//收入类别
+			var bodyType = tdArr.eq(1).find("select").val();//收入金额
+			var bodyMust = tdArr.eq(2).find("select").val();// 备注
+			var bodyDesc = tdArr.eq(3).find("input").val();// 备注
+			body.push(bodyName)
+			body.push(bodyType)
+			body.push(bodyMust)
+			body.push(bodyDesc)
+			bodysArrays.push(body);
+		}
+		str.bodysArrays=bodysArrays;
+		console.log(bodysArrays);
+		
+		var codesArrays=new Array();
+		var codet = [];
+		var codeList = $("#request_codes").children("tr")
+			for (var i=0;i<codeList.length;i++) {
+			var tdArr = codeList.eq(i).find("td");
+			var code = tdArr.eq(0).find("input").val();
+			var codeName = tdArr.eq(1).find("input").val();
+			var codeDesc = tdArr.eq(2).find("input").val();
+			codet.push(code);
+			codet.push(codeName);
+			codet.push(codeDesc);
+			codesArrays.push(codet);
+		}
+		str.codesArrays=codesArrays;
+		
+		
+		var priceOne=$('#priceOne').val();//一次收费
+		var priceHundred=$('#priceHundred').val();//100次收费
+		var priceYear=$('#priceYear').val();//1年收费
+		str.priceOne=priceOne;
+		str.priceHundred=priceHundred;
+		str.priceYear=priceYear;
+		
+		var productTags=$('#productTags').val();//标签
+		var tags = new Array();
+		tag=productTags.split(","); //字符分割 
+		tags.push(tag);
+		str.tags = tags;
+		
+		var data = JSON.stringify(str);
+		$.ajax({
+	            type: "post",
+	            cache: false,
+	            datatype:"json",
+	            url: "/admin/product/updateOrAdd",
+	            data:{data:data}
+	       });
+	}
+	
+	
+	/*function btnAddRow()  
+	{  
+		
+		var  rownum =$("#Headers tr").length-1;  
+		console.log(rownum);
+		var  chk = "<td><input type='text' class='input' name= 'headerName' placeholder='点击输入'/></td>";  
+		var  selType = "<td><select name='headerType' >< option value ='String'>String</ option ></ select ></td>";
+		var  selMust = "<td><select name='headerMust' > < option   value = '1' > 必须 </ option > < option   value = '0' > 非必须 </ option > </ select ></td> ";
+		var  text = "<td><input type='text' class='input' name= 'headerDesc' placeholder='点击输入'/></td> "; 
+		var del = "<td><button class='blue add-line add_header' onclick='btnAddRow()'>删除</button></td>";
+		var  row = "<tr>" + chk + selType+ selMust + text+ del+"</ tr >";  
+		$("#Headers tbody").prepend(row);
+	}*/
+	
+
 </script>
 </body>
 </html>

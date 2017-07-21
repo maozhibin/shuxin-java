@@ -1,16 +1,13 @@
-package com.baoquan.shuxin.dao.product;
+package com.baoquan.shuxin.service.spi.product;
 
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
-
 import com.baoquan.shuxin.model.product.ProductInterfaceParam;
 
-@Repository
-public interface ProductInterfaceParamDao {
+public interface ProductInterfaceParamService {
 
 	void paramListInsert(List<ProductInterfaceParam> interfaceParamList);
 
 	void deleteParamLit(Integer productId);
-   
+
 }

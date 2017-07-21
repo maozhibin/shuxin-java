@@ -10,5 +10,20 @@
     <result column="num" property="num" jdbcType="VARCHAR" />
     <result column="dateline" property="dateline" jdbcType="INTEGER" />
   </resultMap>
+ 	
+ 	<delete id="delete" parameterType="int">
+        delete from product_billings where product_id=#{productId}
+    </delete>
  
+ 	<insert id="insertList" useGeneratedKeys="true" parameterType="java.util.List">  
+	    <selectKey resultType="long" keyProperty="id" order="AFTER">  
+	        SELECT  
+	        LAST_INSERT_ID()  
+	    </selectKey>  
+	    insert into product_billings (user_id,product_id,type,price,num,dateline)   
+	    values  
+	    <foreach collection="list" item="item" index="index" separator="," >  
+	        (#{item.userId},#{item.productId},#{item.type},#{item.price},#{item.num},#{item.dateline})  
+	    </foreach>  
+   </insert>
 </mapper>

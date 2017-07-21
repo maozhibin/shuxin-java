@@ -30,4 +30,6 @@ public interface UserDao {
     List<User> orgName(List<Long> idList);
 
 	User findByUserName(String orgName);
+
+	List<User> userList();
 }

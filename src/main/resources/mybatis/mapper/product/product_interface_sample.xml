@@ -8,4 +8,19 @@
     <result column="type" property="type" jdbcType="CHAR" />
   </resultMap>
   
+  <insert id="sampleList" useGeneratedKeys="true" parameterType="java.util.List">  
+	    <selectKey resultType="long" keyProperty="id" order="AFTER">  
+	        SELECT  
+	        LAST_INSERT_ID()  
+	    </selectKey>  
+	    insert into product_interface_sample (product_id,product_interface_id,value,type)   
+	    values  
+	    <foreach collection="list" item="item" index="index" separator="," >  
+	        (#{item.productId},#{item.productInterfaceId},#{item.value},#{item.type})  
+	    </foreach>  
+   </insert> 
+  
+   <delete id="delete" parameterType="int">
+        delete from product_interface_sample where product_id=#{productId}
+    </delete>
 </mapper>

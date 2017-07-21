@@ -10,18 +10,25 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.baoquan.shuxin.bean.Page;
+import com.baoquan.shuxin.model.area.Area;
 import com.baoquan.shuxin.model.product.ProductBase;
 import com.baoquan.shuxin.model.product.ProductClass;
+import com.baoquan.shuxin.model.user.User;
+import com.baoquan.shuxin.service.spi.area.AreaService;
 import com.baoquan.shuxin.service.spi.product.ProductBaseService;
 import com.baoquan.shuxin.service.spi.product.ProductClassService;
 import com.baoquan.shuxin.service.spi.product.ProductService;
+import com.baoquan.shuxin.service.spi.user.UserService;
 import com.baoquan.shuxin.util.JsonResponseMsg;
 
 @Controller
@@ -35,6 +42,10 @@ public class ProductController {
     private ProductClassService productClassService;
     @Inject
     private ProductBaseService productBaseService;
+    @Inject
+    private AreaService areaService;
+    @Inject
+    private UserService userService;
     /**
      * 产品列表
      * @param name
@@ -66,7 +77,13 @@ public class ProductController {
         logger.info(content);
         ModelAndView mv = new ModelAndView("admin/product/issue");
         List<ProductClass> productClassList= productClassService.findAllClassList();
-        mv.addObject(productClassList);
+        List<Area> provinceList = areaService.findProvince();
+        List<User> userList = userService.userList();
+        Map<String, Object> map = new HashMap<>();
+        map.put("provinceList", provinceList);
+        map.put("productClassList", productClassList);
+        map.put("userList", userList);
+        mv.addObject(map);
         return mv;
     }
     /**
@@ -82,7 +99,25 @@ public class ProductController {
     	List<ProductBase> productBaseList=productBaseService.findByProductClassId(NumberUtils.toInt(id));
 		return productBaseList;
     }
-    
+
+    /**
+     * 修改或者添加产品
+     * @return
+     */
+    @RequestMapping("updateOrAdd")
+    @Transactional
+    public ModelAndView ProductUpdateOrAdd(String id,String data){
+        ModelAndView mv = new ModelAndView("admin/product/list");
+        Integer idValue=null;
+        if(NumberUtils.isNumber(id)){
+            idValue=NumberUtils.toInt(id);
+        }
+//        Boolean updateOrAdd = productService.UpdateOrAdd(idValue,data);
+//        if(!updateOrAdd){
+//        	return null;
+//        }
+        return mv;
+    }
 
     @RequestMapping("inter")
     public Object inter() {
