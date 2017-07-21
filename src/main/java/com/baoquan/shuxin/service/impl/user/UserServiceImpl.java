@@ -66,4 +66,9 @@ public class UserServiceImpl<T> implements UserService {
 		}
 		return userDao.findByIdUserInfo(id);
 	}
+
+	@Override
+	public List<User> userList() {
+		return userDao.userList();
+	}
 }

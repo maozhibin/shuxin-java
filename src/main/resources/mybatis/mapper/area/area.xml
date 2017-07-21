@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baoquan.shuxin.dao.area.AreaDao" >
+  <resultMap id="BaseResultMap" type="com.baoquan.shuxin.model.area.Area" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="display_order" property="displayOrder" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="findProvince" resultMap="BaseResultMap">
+  		SELECT*FROM area WHERE pid=0
+  </select>
+  
+  <select id="findByPid" resultMap="BaseResultMap">
+  		SELECT*FROM area WHERE pid=#{id}
+  </select>
+</mapper>

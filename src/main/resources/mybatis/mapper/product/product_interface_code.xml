@@ -9,5 +9,19 @@
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="desc" property="desc" jdbcType="VARCHAR" />
   </resultMap>
- 
+ 	<delete id="delete" parameterType="int">
+        delete from product_interface_code where product_id=#{productId}
+    </delete>
+    
+    <insert id="insertList" useGeneratedKeys="true" parameterType="java.util.List">  
+	    <selectKey resultType="long" keyProperty="id" order="AFTER">  
+	        SELECT  
+	        LAST_INSERT_ID()  
+	    </selectKey>  
+	    insert into product_interface_code (product_id,product_interface_id,code,name,desc)   
+	    values  
+	    <foreach collection="list" item="item" index="index" separator="," >  
+	        (#{item.productId},#{item.productInterfaceId},#{item.code},#{item.name},#{item.desc})  
+	    </foreach>  
+   </insert>
 </mapper>

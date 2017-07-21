@@ -13,5 +13,14 @@
     <result column="response_format" property="responseFormat" jdbcType="CHAR" />
     <result column="reflect_method" property="reflectMethod" jdbcType="VARCHAR" />
   </resultMap>
- 
+  
+  	<delete id="deleteParamLit" parameterType="int">
+        delete from product_interface where product_id=#{productId}
+    </delete>
+ 	
+ 	<insert id="insertConfig" parameterType="Config" 
+        useGeneratedKeys="true" keyProperty="id"> 
+        insert into product_interface(product_id,name,url,method,character,timeout,response_format)  
+             values(#{productId},#{name},#{url},#{method},#{character},#{timeout},#{responseFormat})  
+    </insert>
 </mapper>

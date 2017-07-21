@@ -54,4 +54,19 @@
 	              	limit ${page.startIndex},${page.pageSize};
 	     </if>
   </select>
+  
+  
+  <insert id="insertProduct" parameterType="Product" 
+        useGeneratedKeys="true" keyProperty="id"> 
+        insert into product(user_id,name,frequent,type,product_class_id,product_base_id,area_id,description,icon,used,dateline,status)  
+             values(#{userId},#{name},#{frequent},#{type},#{productClassId},#{productBaseId},#{areaId},#{description},#{icon},#{used},#{dateline},#{status})  
+   </insert>
+   
+  <select id="findById" resultMap="BaseResultMap">
+  	SELECT
+		*
+	FROM
+		product
+	WHERE id=#{id}
+  </select>
 </mapper>

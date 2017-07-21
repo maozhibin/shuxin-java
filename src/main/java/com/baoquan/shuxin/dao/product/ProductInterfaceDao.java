@@ -12,5 +12,9 @@ import com.baoquan.shuxin.model.product.ProductInterface;
  */
 @Repository
 public interface ProductInterfaceDao {
+
+	void delete(Integer productId);
+
+	void update(ProductInterface productInterface);
 	
 }

@@ -22,4 +22,10 @@ public interface ProductDao {
     Integer countByName(Map<String, Object> map);
 
     List<Map<String,Object>> productList(Map<String, Object> map);
+
+	void updateProduct(Product product);
+
+	void insertProduct(Product product);
+
+	Product findById(Integer id);
 }

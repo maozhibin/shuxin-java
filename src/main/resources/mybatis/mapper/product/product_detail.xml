@@ -10,4 +10,13 @@
     <result column="service" property="service" jdbcType="LONGVARCHAR" />
   </resultMap>
   
+  <delete id="delete" parameterType="int">
+        delete from product_detail where product_id=#{productId}
+    </delete>
+    
+    <insert id="insert" parameterType="ProductDetail" 
+        useGeneratedKeys="true" keyProperty="id"> 
+        insert into product_detail(product_id,intro,highlight,service)  
+             values(#{productId},#{intro},#{highlight},#{service})  
+    </insert>
 </mapper>

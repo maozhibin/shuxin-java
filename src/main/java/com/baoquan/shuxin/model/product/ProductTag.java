@@ -2,7 +2,7 @@ package com.baoquan.shuxin.model.product;
 
 import java.io.Serializable;
 
-public class ProductTagKey implements Serializable{
+public class ProductTag implements Serializable{
    
 	private static final long serialVersionUID = 1L;
 
