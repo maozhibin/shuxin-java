@@ -7,15 +7,23 @@ public class UserProductUsage {
 
     private Long productId;
 
-    private Long start;
+    private Long timeStart;
 
-    private Long end;
+    private Long timeEnd;
 
-    private Long remain;
+    private Long timeUsed;
 
-    private Long total;
+    private Long countRemain;
+
+    private Long countUsed;
 
     private Long extra;
+
+    private String appCode;
+
+    private String appSecret;
+
+    private String appKey;
 
     public Long getId() {
         return id;
@@ -41,36 +49,44 @@ public class UserProductUsage {
         this.productId = productId;
     }
 
-    public Long getStart() {
-        return start;
+    public Long getTimeStart() {
+        return timeStart;
     }
 
-    public void setStart(Long start) {
-        this.start = start;
+    public void setTimeStart(Long timeStart) {
+        this.timeStart = timeStart;
     }
 
-    public Long getEnd() {
-        return end;
+    public Long getTimeEnd() {
+        return timeEnd;
     }
 
-    public void setEnd(Long end) {
-        this.end = end;
+    public void setTimeEnd(Long timeEnd) {
+        this.timeEnd = timeEnd;
     }
 
-    public Long getRemain() {
-        return remain;
+    public Long getTimeUsed() {
+        return timeUsed;
     }
 
-    public void setRemain(Long remain) {
-        this.remain = remain;
+    public void setTimeUsed(Long timeUsed) {
+        this.timeUsed = timeUsed;
     }
 
-    public Long getTotal() {
-        return total;
+    public Long getCountRemain() {
+        return countRemain;
     }
 
-    public void setTotal(Long total) {
-        this.total = total;
+    public void setCountRemain(Long countRemain) {
+        this.countRemain = countRemain;
+    }
+
+    public Long getCountUsed() {
+        return countUsed;
+    }
+
+    public void setCountUsed(Long countUsed) {
+        this.countUsed = countUsed;
     }
 
     public Long getExtra() {
@@ -79,5 +95,29 @@ public class UserProductUsage {
 
     public void setExtra(Long extra) {
         this.extra = extra;
+    }
+
+    public String getAppCode() {
+        return appCode;
+    }
+
+    public void setAppCode(String appCode) {
+        this.appCode = appCode;
+    }
+
+    public String getAppSecret() {
+        return appSecret;
+    }
+
+    public void setAppSecret(String appSecret) {
+        this.appSecret = appSecret;
+    }
+
+    public String getAppKey() {
+        return appKey;
+    }
+
+    public void setAppKey(String appKey) {
+        this.appKey = appKey;
     }
 }

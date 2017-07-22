@@ -1,6 +1,7 @@
 package com.baoquan.shuxin.service.aop;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -12,19 +13,22 @@ import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import com.baoquan.shuxin.dao.product.ProductBillingDao;
+import com.baoquan.shuxin.dao.product.ProductBillingsDao;
+import com.baoquan.shuxin.dao.product.ProductInterfaceDao;
 import com.baoquan.shuxin.dao.user.UserDao;
 import com.baoquan.shuxin.dao.user.UserDiscountDao;
 import com.baoquan.shuxin.dao.user.UserMoneyChangeDao;
 import com.baoquan.shuxin.dao.user.UserMoneyLogDao;
 import com.baoquan.shuxin.dao.user.UserProductUsageDao;
-import com.baoquan.shuxin.enums.BillingMethodEnum;
+import com.baoquan.shuxin.enums.BillingTypeEnum;
+import com.baoquan.shuxin.enums.FreeEnum;
 import com.baoquan.shuxin.enums.ProductUseTypeEnum;
 import com.baoquan.shuxin.enums.UserMoneyExchangeStatusEnum;
 import com.baoquan.shuxin.enums.UserMoneyExchangeTypeEnum;
 import com.baoquan.shuxin.exception.billing.InsufficientBalanceException;
 import com.baoquan.shuxin.exception.billing.InvalidPackageException;
-import com.baoquan.shuxin.model.product.ProductBilling;
+import com.baoquan.shuxin.model.product.ProductBillings;
+import com.baoquan.shuxin.model.product.ProductInterface;
 import com.baoquan.shuxin.model.user.User;
 import com.baoquan.shuxin.model.user.UserDiscount;
 import com.baoquan.shuxin.model.user.UserMoneyChange;
@@ -40,9 +44,11 @@ public class ProductChargingService {
     private final static Logger logger = LoggerFactory.getLogger(ProductChargingService.class);
 
     @Inject
+    private ProductInterfaceDao productInterfaceDao;
+    @Inject
     private UserProductUsageDao userProductUsageDao;
     @Inject
-    private ProductBillingDao productBillingDao;
+    private ProductBillingsDao productBillingsDao;
     @Inject
     private UserDao userDao;
     @Inject
@@ -54,17 +60,26 @@ public class ProductChargingService {
 
     @Transactional
     public void charge(Long userId, Long productId, Integer type) {
+
+        ProductInterface productInterface = productInterfaceDao.queryByProductId(productId);
+        //如果是免费的，做一下调用记录即可
+        if (Objects.equals(productInterface.getFree(), FreeEnum.YES.getCode())) {
+            logger.info("ProductInterface is free for use!");
+            //throw new UnsupportedOperationException("不支持免费产品！");
+            return;
+        }
+
         UserProductUsage userProductUsage = findUserProductUsage(userId, productId);
         //包年未到期
-        if (userProductUsage.getEnd() >= System.currentTimeMillis() / 1000) {
-            //increase total
-            int rows = userProductUsageDao.increaseTotal(userProductUsage.getId());
+        if (userProductUsage.getTimeEnd() >= System.currentTimeMillis() / 1000) {
+            //increase time_used
+            int rows = userProductUsageDao.increaseTimeUsed(userProductUsage.getId());
             if (rows > 0) return;
         }
         //有剩余次数
-        if (userProductUsage.getRemain() > 0) {
-            //decrease remain & increase total
-            int rows = userProductUsageDao.decreaseRemain(userProductUsage.getId());
+        if (userProductUsage.getCountRemain() > 0) {
+            //decrease count_remain & increase count_used
+            int rows = userProductUsageDao.decreaseCountRemain(userProductUsage.getId());
             if (rows > 0) return;
         }
         //普通调用类型，只进行余量扣减，不进行单次计费调用
@@ -77,19 +92,29 @@ public class ProductChargingService {
 
     private void singleCharge(Long userId, Long productId, Long userProductUsageId) {
         //单次调用计费
-        ProductBilling productBilling = productBillingDao.queryByMethod(productId, BillingMethodEnum.COUNT.getCode());
-        Assert.notNull(productBilling, "每个产品必须都有按次计费规则");
+        List<ProductBillings> productBillingsList = productBillingsDao.queryByType(productId,
+                BillingTypeEnum.COUNT.getCode());
+        ProductBillings productBillings = null;
+        if (productBillingsList != null) {
+            for (ProductBillings billings : productBillingsList) {
+                if (billings.getNum() == 1) {//找到单次的套餐
+                    productBillings = billings;
+                    break;
+                }
+            }
+        }
+        Assert.notNull(productBillings, "每个产品必须都有按次计费规则");
         User user = userDao.queryUserBalance(userId);
         UserDiscount userDiscount = userDiscountDao.selectByUserId(userId);
         BigDecimal discount = userDiscount != null ? userDiscount.getDiscount().divide(BigDecimal.valueOf(100), 2,
                 BigDecimal.ROUND_HALF_EVEN) : BigDecimal.ONE;
-        logger.info("user balance:{}, product price:{}, discount:{}", user.getMoneyBalance(), productBilling.getPrice(),
-                discount);
-        BigDecimal amount = productBilling.getPrice().multiply(discount);
+        logger.info("user balance:{}, product price:{}, discount:{}", user.getMoneyBalance(),
+                productBillings.getPrice(), discount);
+        BigDecimal amount = productBillings.getPrice().multiply(discount);
         if (user.getMoneyBalance().doubleValue() < amount.doubleValue()) {
             throw new InsufficientBalanceException();
         }
-        //increase extra & total, deduct user balance/money
+        //increase extra, deduct user balance/money
         int rows = userProductUsageDao.increaseExtra(userProductUsageId);
         Assert.isTrue(rows > 0, "增加套餐外调用次数失败");
         rows = userDao.deductUserBalance(userId, amount);
@@ -157,10 +182,11 @@ public class ProductChargingService {
         UserProductUsage userProductUsage = new UserProductUsage();
         userProductUsage.setUserId(userId);
         userProductUsage.setProductId(productId);
-        userProductUsage.setStart(0L);
-        userProductUsage.setEnd(0L);
-        userProductUsage.setRemain(0L);
-        userProductUsage.setTotal(0L);
+        userProductUsage.setTimeStart(0L);
+        userProductUsage.setTimeEnd(0L);
+        userProductUsage.setTimeUsed(0L);
+        userProductUsage.setCountRemain(0L);
+        userProductUsage.setCountUsed(0L);
         userProductUsage.setExtra(0L);
         return userProductUsageDao.insertIgnore(userProductUsage);
     }
