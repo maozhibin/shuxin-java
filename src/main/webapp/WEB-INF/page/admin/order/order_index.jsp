@@ -131,10 +131,10 @@
                         <c:forEach items="${page.result}" var="order">
                             <tr>
                                 <td>${order.userId}</td>
-                                <td>${order.productId}</td>
+                                <td>${order.name}</td>
                                 <td>${order.buyAmount}</td>
                                 <td>${order.payAmount}</td>
-                                <td>${order.status}</td>
+                                <td>${order.statuName}</td>
                                 <td>${order.requestNo}</td>
                                 <td>
                                     <jsp:useBean id="dateValue" class="java.util.Date"/>

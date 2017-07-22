@@ -10,6 +10,7 @@ import javax.inject.Named;
 import com.baoquan.shuxin.bean.Page;
 import com.baoquan.shuxin.dao.news.NewsDao;
 import com.baoquan.shuxin.model.news.News;
+import com.baoquan.shuxin.model.news.NewsVO;
 import com.baoquan.shuxin.model.news.Option;
 import com.baoquan.shuxin.service.spi.news.NewsService;
 
@@ -25,25 +26,27 @@ public class NewsServiceImpl implements NewsService {
     @Inject
     private NewsDao newsDao;
 
+    @Override
+    public Integer countNewsInfo(String newsClassType) {
+        return newsDao.countNewsInfo(newsClassType);
+    }
+
     /**
      * 查询分页
      * @param newsClassType 类型
-     * @param page
      * @return
      */
     @Override
-    public Page<News> queryNewInfo(String newsClassType, Page<News> page) {
+    public List<News> queryNewsInfoList(String newsClassType, Integer start, Integer length) {
         Map<String, Object> parms = new HashMap<>();
         parms.put("newsClassType",newsClassType);
-        parms.put("page",page);
+        parms.put("start",start);
+        parms.put("length",length);
         List<News> list = newsDao.queryNewsInfo(parms);
-        Integer total = newsDao.pageCount(parms);
-        if (total != null){
-            page.setTotalRecordCount(total);
-        }
-        page.setResult(list);
-        return page;
+        return newsDao.queryNewsInfo(parms);
     }
+
+
 
     /**
      * 删除

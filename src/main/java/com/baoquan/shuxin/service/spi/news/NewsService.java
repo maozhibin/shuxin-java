@@ -6,6 +6,7 @@ import java.util.Map;
 import com.baoquan.shuxin.bean.Page;
 import com.baoquan.shuxin.model.config.Config;
 import com.baoquan.shuxin.model.news.News;
+import com.baoquan.shuxin.model.news.NewsVO;
 import com.baoquan.shuxin.model.news.Option;
 import com.baoquan.shuxin.model.user.User;
 
@@ -18,7 +19,9 @@ public interface NewsService {
 
 
     //查询
-    Page<News> queryNewInfo(String newsClassType, Page<News> page);
+    Integer countNewsInfo(String newsClassType );
+
+    List<News> queryNewsInfoList(String newsClassType,Integer start, Integer length);
     //删除
     Boolean delNews(Long id);
     //新闻详情

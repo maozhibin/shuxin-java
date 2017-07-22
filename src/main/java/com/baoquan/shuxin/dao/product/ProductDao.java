@@ -28,4 +28,7 @@ public interface ProductDao {
 	void insertProduct(Product product);
 
 	Product findById(Integer id);
+
+
+
 }

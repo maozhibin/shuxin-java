@@ -18,7 +18,7 @@ import com.baoquan.shuxin.service.spi.user.UserOrderService;
  * DATA:16:11 ${DATA}
  */
 @Named
-public class UserOrderServiceImpl<T> implements UserOrderService {
+public class UserOrderServiceImpl implements UserOrderService {
 
 
     @Inject
@@ -26,19 +26,21 @@ public class UserOrderServiceImpl<T> implements UserOrderService {
 
 
     @Override
-    public Page<UserOrder> querListUserOrderInfo(Long userId, Integer status, Long starTime,Long endTime, Page<UserOrder> page) {
+    public List<UserOrder> querListUserOrderInfo(Long userId, Integer status, Long starTime,Long endTime,Integer start, Integer length) {
         Map<String, Object> parms = new HashMap<>();
         parms.put("userId",userId);
         parms.put("status",status);
         parms.put("starTime",starTime);
         parms.put("endTime",endTime);
-        parms.put("page", page);
-        List<UserOrder> listInfo = userOrderDao.querUserOrderInfo(parms);
-        Integer total = userOrderDao.pageCount(parms);
-        if (total != null) {
-            page.setTotalRecordCount(total);
-        }
-        page.setResult(listInfo);
-        return page;
+        parms.put("start",start);
+        parms.put("length",length);
+        return userOrderDao.querUserOrderInfo(parms);
     }
+
+    @Override
+    public Integer countOrderInfo(Long userId, Integer status, Long statTime, Long endTime) {
+        return userOrderDao.countFlowInfo(userId,status,statTime,endTime);
+    }
+
+
 }

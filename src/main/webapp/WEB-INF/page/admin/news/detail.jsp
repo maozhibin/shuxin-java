@@ -1,6 +1,7 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
 <head>
     <title>新闻详情</title>
@@ -37,7 +38,8 @@
     </div>
     <div class="row">
         <label class="col-md-2 text-overflow">时间：</label>
-        <div class="col-md-10">${news.dateline}</div>
+
+        <div class="col-md-10"><fmt:formatDate value="${news.dateline}" pattern="yyyy-MM-dd hh:ss:mm"/></div>
     </div>
     <div class="row">
         <label class="col-md-2 text-overflow">来源：</label>

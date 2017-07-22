@@ -2,11 +2,11 @@ package com.baoquan.shuxin.web.controller.user;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.baoquan.shuxin.bean.Page;
-import com.baoquan.shuxin.model.account.AccountFlow;
 import com.baoquan.shuxin.model.news.Option;
+import com.baoquan.shuxin.model.product.Product;
 import com.baoquan.shuxin.model.user.UserOrder;
+import com.baoquan.shuxin.model.user.UserOrderVO;
 import com.baoquan.shuxin.service.spi.news.OptionService;
+import com.baoquan.shuxin.service.spi.product.ProductService;
 import com.baoquan.shuxin.service.spi.user.UserOrderService;
 
 /**
@@ -35,23 +37,22 @@ public class UserOrderController {
     @Inject
     private OptionService optionService;
 
+    @Inject
+    private ProductService productService;
+
+
+
     @RequestMapping("/list")
     @ResponseBody
-    public ModelAndView list(Long userId, Integer status,String buyTime ,String pageNo,
-            String pageSize ){
+    public Object list(Long userId, Integer status,String buyTime ,Integer pageNo,
+            Integer pageSize ){
         ModelAndView mv = new ModelAndView("admin/order/order_index");
-        Page<UserOrder> page = new Page<UserOrder>();
+        if (pageNo == null || pageNo < 1)  pageNo = 1;
+        if (pageSize == null || pageSize > 15) pageSize = 15;
 
-        Integer pageSizeValue = null;
-        if (NumberUtils.isNumber(pageSize)) {
-            pageSizeValue = NumberUtils.toInt(pageSize);
-            page.setPageSize(pageSizeValue);
-        }
-        Integer pageNoValue = null;
-        if (NumberUtils.isNumber(pageNo)) {
-            pageNoValue = NumberUtils.toInt(pageNo);
-            page.setPageNo(pageNoValue);
-        }
+        Page page = new Page();
+        page.setPageNo(pageNo);
+        page.setPageSize(pageSize);
 
         String buy = buyTime;
         Long statTime = null;
@@ -67,15 +68,53 @@ public class UserOrderController {
                e.printStackTrace();
            }
        }
-        UserOrder userOrder = new UserOrder();
 
+        Integer orderCount = orderService.countOrderInfo(userId, status,statTime, endTime);
+        page.setTotalRecordCount(orderCount);
+        if (orderCount >0 ) {
+            List<UserOrder> userOrderList = orderService.querListUserOrderInfo(userId, status, statTime, endTime,
+                    (pageNo - 1) * pageSize, pageSize);
+            List<UserOrderVO> userOrderVOList = new ArrayList<>(userOrderList.size());
 
-        List<Option> order = optionService.queryOrderInfo();
-        page = orderService.querListUserOrderInfo(userId, status,statTime, endTime, page);
+            for (UserOrder userOrder : userOrderList) {
+                int id = userOrder.getProductId();
+                Product productIdList = productService.findById(id);
+                Integer statusName = userOrder.getStatus();
+                List<Option> optionList = optionService.queryOrderInfo();
+                Option op = null;
+                for (Option option : optionList) {
+                    if (option.getValue().equals(statusName)) {
+                        op = option;
+                        break;
+                    }
 
-        mv.addObject("order",order);
-        mv.addObject(page);
+                }
+                UserOrderVO userOrderVO = buildOrderInfoVO(userOrder, productIdList, op);
+                userOrderVOList.add(userOrderVO);
+                page.setResult(userOrderVOList);
+            }
+            mv.addObject("order", optionService.queryOrderInfo());
+            mv.addObject(page);
+
+        }
         return mv;
+    }
+
+    private UserOrderVO buildOrderInfoVO(UserOrder userOrder,Product pd,Option op){
+        UserOrderVO vo = new UserOrderVO();
+        vo.setUserId(userOrder.getUserId());
+        if(op.getName() != null){
+            vo.setStatuName(op.getName());
+        }
+        vo.setName(pd.getName());
+        vo.setBuyAmount(userOrder.getBuyAmount());
+        vo.setPayAmount(userOrder.getPayAmount());
+        if (userOrder.getRequestNo() !=null){
+            vo.setRequestNo(userOrder.getRequestNo());
+        }
+        vo.setBuyTime(userOrder.getBuyTime());
+
+        return vo;
     }
 
 

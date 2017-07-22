@@ -57,7 +57,10 @@ public class ProductServiceImpl implements ProductService{
 	private TagsDao tagsDao;
 	@Inject
 	private ProductTagDao productTagDao;
-	
+
+
+
+
 	@Override
 	public Page<Map<String,Object>> findListProduct(Page<Map<String, Object>> page, String name) {
 		Map<String,Object>  map= new HashMap<>();
@@ -341,4 +344,11 @@ public class ProductServiceImpl implements ProductService{
 		productBillingsDao.insertList(billingsList);
 		return true;
 	}
+
+	@Override
+	public Product findById(Integer id) {
+		return productDao.findById(id);
+	}
+
+
 }
