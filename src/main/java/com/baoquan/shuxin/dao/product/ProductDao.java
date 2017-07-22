@@ -1,10 +1,8 @@
 package com.baoquan.shuxin.dao.product;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.baoquan.shuxin.model.product.Product;
@@ -15,9 +13,6 @@ import com.baoquan.shuxin.model.product.Product;
  */
 @Repository
 public interface ProductDao {
-    List<Product> queryByReflectClass(@Param("reflectClass") String reflectClass);
-
-    Long filterIdByReflectClass(@Param("reflectClass") String reflectClass, @Param("ids") Collection<Long> ids);
 
     Integer countByName(Map<String, Object> map);
 

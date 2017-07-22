@@ -319,17 +319,17 @@ public class ProductServiceImpl implements ProductService{
 			if(i==0){
 				BigDecimal price=new BigDecimal(priceOnePrice); 
 				billings.setPrice(price);
-				billings.setNum("1");
+				billings.setNum(1);
 				billings.setType(1);
 			}else if(i==1){
 				BigDecimal price=new BigDecimal(priceHundredPrice); 
 				billings.setPrice(price);
-				billings.setNum("100");
+				billings.setNum(100);
 				billings.setType(1);
 			}else if(i==2){
 				BigDecimal price=new BigDecimal(priceYearPrice); 
 				billings.setPrice(price);
-				billings.setNum("12");
+				billings.setNum(12);
 				billings.setType(2);
 			}
 			billings.setUserId(userId);

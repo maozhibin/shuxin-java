@@ -49,7 +49,7 @@ public class ProductAdvice implements MethodBeforeAdvice, AfterReturningAdvice {
         Long productId = AppContext.get().getProductId();
         Integer type = AppContext.get().getType();
         //productChargingService.charge(userId, productId, type);
-        productChargingService.charge(1L, 17L, 0);
+        productChargingService.charge(1L, 17L, 1);
     }
 
     /**

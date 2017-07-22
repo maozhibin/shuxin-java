@@ -15,7 +15,7 @@ public class ProductInterface implements Serializable{
 
     private String method;
 
-    private Boolean free;
+    private Integer free;
 
     private String character;
 
@@ -65,11 +65,11 @@ public class ProductInterface implements Serializable{
         this.method = method == null ? null : method.trim();
     }
 
-    public Boolean getFree() {
+    public Integer getFree() {
         return free;
     }
 
-    public void setFree(Boolean free) {
+    public void setFree(Integer free) {
         this.free = free;
     }
 
