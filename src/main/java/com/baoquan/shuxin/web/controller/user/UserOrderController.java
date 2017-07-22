@@ -79,17 +79,17 @@ public class UserOrderController {
             for (UserOrder userOrder : userOrderList) {
                 int id = userOrder.getProductId();
                 Product productIdList = productService.findById(id);
-                Integer statusName = userOrder.getStatus();
+                String statusName = String.valueOf(userOrder.getStatus());
                 List<Option> optionList = optionService.queryOrderInfo();
                 Option op = null;
                 for (Option option : optionList) {
-                    if (option.getValue().equals(statusName)) {
+                    if (statusName.equals(option.getValue())) {
                         op = option;
                         break;
                     }
 
                 }
-                UserOrderVO userOrderVO = buildOrderInfoVO(userOrder, productIdList, op);
+                UserOrderVO userOrderVO = buildOrderInfoVO(userOrder, productIdList,op);
                 userOrderVOList.add(userOrderVO);
                 page.setResult(userOrderVOList);
             }
