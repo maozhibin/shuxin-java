@@ -3,6 +3,7 @@ package com.baoquan.shuxin.service.spi.news;
 import java.util.List;
 
 import com.baoquan.shuxin.model.news.Option;
+import com.baoquan.shuxin.model.product.Product;
 
 /**
  * Author:Zhoumc
@@ -19,7 +20,5 @@ public interface OptionService {
     List<Option> queryOptionInfo();
     List<Option> queryFlowInfo();
     List<Option> queryOrderInfo();
-
-
 
 }

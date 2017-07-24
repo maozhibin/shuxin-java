@@ -42,16 +42,13 @@
       and status=#{status}
     </if>
   </sql>
-  <select id="pageCount" resultType="Integer">
+  <select id="countFlowInfo" resultType="Integer">
     SELECT
-    COUNT(1)
+    COUNT(*)
     FROM
-    user_product up
+    user_product
     <where>
-      <if test="id != null">
-        and id=#{id}
-      </if>
-      <if test="user_id != null">
+      <if test="userId != null">
         and user_id = #{userId}
       </if>
       <if test="statTime != null  and endTime != null">

@@ -8,6 +8,7 @@ import javax.inject.Named;
 import com.baoquan.shuxin.dao.news.OptionDao;
 import com.baoquan.shuxin.enums.OptionEnum;
 import com.baoquan.shuxin.model.news.Option;
+import com.baoquan.shuxin.model.product.Product;
 import com.baoquan.shuxin.service.spi.news.OptionService;
 
 /**
@@ -41,6 +42,8 @@ public class OptionServiceIpml implements OptionService {
         List<Option> list = optionDao.queryOptionInfo(type);
         return list;
     }
+
+
 
 
 }

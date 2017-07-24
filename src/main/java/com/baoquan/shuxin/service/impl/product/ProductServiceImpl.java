@@ -59,7 +59,10 @@ public class ProductServiceImpl implements ProductService{
 	private TagsDao tagsDao;
 	@Inject
 	private ProductTagDao productTagDao;
-	
+
+
+
+
 	@Override
 	public Page<Map<String,Object>> findListProduct(Page<Map<String, Object>> page, String name) {
 		Map<String,Object>  map= new HashMap<>();
@@ -185,7 +188,7 @@ public class ProductServiceImpl implements ProductService{
 		productInterface.setResponseFormat(responseFormat);
 		productInterface.setTimeout(NumberUtils.toInt(timeout));
 		productInterface.setProductId(productId);
-		productInterface.setFree(true);
+		productInterface.setFree(1);
 		System.out.println(productInterface);
 		productInterfaceDao.delete(productId);
 		productInterfaceDao.insert(productInterface);
@@ -346,19 +349,19 @@ public class ProductServiceImpl implements ProductService{
 			if(i==0 && !StringUtils.isEmpty(priceOnePrice)){
 				BigDecimal price=new BigDecimal(priceOnePrice); 
 				billings.setPrice(price);
-				billings.setNum("1");
+				billings.setNum(1);
 				billings.setType(1);
 				billingsList.add(billings);
 			}else if(i==1 && !StringUtils.isEmpty(priceHundredPrice)){
 				BigDecimal price=new BigDecimal(priceHundredPrice); 
 				billings.setPrice(price);
-				billings.setNum("100");
+				billings.setNum(100);
 				billings.setType(1);
 				billingsList.add(billings);
 			}else if(i==2 && !StringUtils.isEmpty(priceYearPrice)){
 				BigDecimal price=new BigDecimal(priceYearPrice); 
 				billings.setPrice(price);
-				billings.setNum("12");
+				billings.setNum(12);
 				billings.setType(2);
 				billingsList.add(billings);
 			}
@@ -372,4 +375,11 @@ public class ProductServiceImpl implements ProductService{
 		
 		return true;
 	}
+
+	@Override
+	public Product findById(Integer id) {
+		return productDao.findById(id);
+	}
+
+
 }

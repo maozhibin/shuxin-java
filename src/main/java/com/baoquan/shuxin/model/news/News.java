@@ -1,5 +1,7 @@
 package com.baoquan.shuxin.model.news;
 
+import java.util.Date;
+
 /**
  * Author:Zhoumc
  * Description:新闻
@@ -60,6 +62,7 @@ public class News {
     public void setTitle(String title) {
         this.title = title;
     }
+
 
     public Long getDateline() {
         return dateline;

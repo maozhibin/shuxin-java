@@ -33,9 +33,9 @@
   </select>
 
 
-  <select id="pageCount" resultType="java.lang.Integer">
+  <select id="countNewsInfo" resultType="java.lang.Integer">
     SELECT
-    COUNT(1)
+    COUNT(*)
     FROM
     `news` where 1 = 1
     <include refid="taskQuery" />

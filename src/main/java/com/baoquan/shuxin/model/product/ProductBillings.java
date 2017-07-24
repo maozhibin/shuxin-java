@@ -16,7 +16,7 @@ public class ProductBillings implements Serializable{
 
     private BigDecimal price;
 
-    private String num;
+    private Integer num;
 
     private Integer dateline;
 
@@ -60,12 +60,12 @@ public class ProductBillings implements Serializable{
         this.price = price;
     }
 
-    public String getNum() {
+    public Integer getNum() {
         return num;
     }
 
-    public void setNum(String num) {
-        this.num = num == null ? null : num.trim();
+    public void setNum(Integer num) {
+        this.num = num ;
     }
 
     public Integer getDateline() {

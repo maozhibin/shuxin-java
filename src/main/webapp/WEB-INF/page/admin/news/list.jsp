@@ -64,9 +64,7 @@
                                 <td>${news.newsClassType}</td>
                                 <td>${news.title}</td>
                                 <td>
-                                    <jsp:useBean id="dateValueline" class="java.util.Date"/>
-                                    <jsp:setProperty name="dateValueline" property="time" value="${news.dateline*1000}"/>
-                                    <fmt:formatDate value="${dateValueline}" pattern="yyyy-MM-dd hh:ss:mm"/>
+                                    <fmt:formatDate value="${news.dateline}" pattern="yyyy-MM-dd hh:ss:mm"/>
                                 </td>
                                 <td>
                                     <a class="" title='查看'

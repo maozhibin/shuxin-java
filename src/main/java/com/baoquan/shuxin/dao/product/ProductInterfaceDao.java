@@ -1,7 +1,5 @@
 package com.baoquan.shuxin.dao.product;
 
-import java.util.List;
-
 import org.springframework.stereotype.Repository;
 
 import com.baoquan.shuxin.model.product.ProductInterface;
@@ -13,8 +11,12 @@ import com.baoquan.shuxin.model.product.ProductInterface;
 @Repository
 public interface ProductInterfaceDao {
 
+    ProductInterface queryByProductId(Long productId);
+
 	void delete(Integer productId);
 
 	void insert(ProductInterface productInterface);
 	
+	void update(ProductInterface productInterface);
+
 }

@@ -20,5 +20,16 @@
  	<insert id="insert"  parameterType="com.baoquan.shuxin.model.product.ProductInterface"
         useGeneratedKeys="true" keyProperty="id"> 
         INSERT INTO `product_interface`(product_id,`name`,url,method,free,`character`,timeout,response_format) VALUES (#{productId},#{name},#{url},#{method},#{free},#{character},#{timeout},#{responseFormat});
-    </insert>
+	</insert>
+	
+    <select id="queryByProductId" resultType="com.baoquan.shuxin.model.product.ProductInterface">
+        SELECT *
+        FROM product_interface
+        WHERE product_id = #{productId}
+    </select>
+    
+    <delete id="deleteParamLit" parameterType="int">
+        delete from product_interface where product_id=#{productId}
+    </delete>
+
 </mapper>

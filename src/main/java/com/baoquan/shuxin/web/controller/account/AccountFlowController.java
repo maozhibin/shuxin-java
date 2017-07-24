@@ -73,16 +73,24 @@ public class AccountFlowController {
             if (flowCount > 0) {
                 List<AccountFlow> flowList = accountFlowService.querListAccountFlowInfo(userId, type, statTime, endTime,
                         (pageNo - 1) * pageSize, pageSize);
-                List<FlowVO> flowVOList = new ArrayList<>(flowList.size());
-                for (AccountFlow flow : flowList) {
-                    flowVOList.add(buildFlowInfoVO(flow));
-                }
-                Map<String ,FlowVO> flowVOMap = new HashMap<>(flowList.size());
-                for(FlowVO flowVO : flowVOList){
-                    flowVOMap.put(flowVO.getTypeName(),flowVO);
-                }
+
+
                 List<Option> optionList = optionService.queryFlowInfo();
-                fillFlowVO(optionList,flowVOMap);
+
+                List<FlowVO> flowVOList = new ArrayList<>(flowList.size());
+
+                for (AccountFlow flow : flowList) {
+                    String typeName = flow.getType();
+                    Option op = null;
+                    for(Option option: optionList){
+                       if(typeName.equals(option.getValue())  ){
+                           op = option;
+                           break;
+                       }
+                    }
+                    FlowVO f = buildFlowInfoVO(flow,op);
+                    flowVOList.add(f);
+                }
 
                 page.setResult(flowVOList);
             }
@@ -94,7 +102,7 @@ public class AccountFlowController {
             return mv;
         }
 
-    private FlowVO buildFlowInfoVO(AccountFlow flow){
+    private FlowVO buildFlowInfoVO(AccountFlow flow,Option option){
         FlowVO vo = new FlowVO();
         vo.setUserId(flow.getUserId());
         vo.setAmount(flow.getAmount());
@@ -102,6 +110,7 @@ public class AccountFlowController {
         vo.setRequestNo(flow.getRequestNo());
         vo.setFee(flow.getFee());
         vo.setStatusDesc(flow.getStatusDesc());
+        vo.setTypeName(option.getName());
         if(flow.getDateline() != null){
             vo.setDateline(new Date(flow.getDateline()));
         }
@@ -111,13 +120,7 @@ public class AccountFlowController {
         return vo;
     }
 
-    private  void  fillFlowVO(List<Option> optionList ,Map<String,FlowVO> flowVOMap){
-        for (Option option : optionList){
-            FlowVO vo = flowVOMap.get(option.getName());
-        }
 
-
-    }
 
 
 

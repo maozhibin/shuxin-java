@@ -1,5 +1,7 @@
 package com.baoquan.shuxin.web.controller.news;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,10 +18,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.baoquan.shuxin.bean.Page;
 import com.baoquan.shuxin.model.config.Config;
 import com.baoquan.shuxin.model.news.News;
+import com.baoquan.shuxin.model.news.NewsVO;
 import com.baoquan.shuxin.model.news.Option;
 import com.baoquan.shuxin.service.spi.news.NewsService;
 import com.baoquan.shuxin.service.spi.news.OptionService;
 import com.baoquan.shuxin.util.JsonResponseMsg;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 
 /**
  * Author:Zhoumc
@@ -45,27 +49,59 @@ public class NewsController {
      * @return
      */
     @RequestMapping("list")
-    public ModelAndView newsList(String newsClassType, String pageNo, String pageSize) {
+    public  Object newsList(String newsClassType, Integer pageNo, Integer pageSize) {
         ModelAndView mv = new ModelAndView("admin/news/list");
-        Page<News> page = new Page<News>();
 
-        Integer pageSizeValue = null;
+        if (pageNo == null || pageNo < 1)  pageNo = 1;
+        if (pageSize == null || pageSize > 15) pageSize = 15;
 
-        if (NumberUtils.isNumber(pageSize)) {
-            pageSizeValue = NumberUtils.toInt(pageSize);
-            page.setPageSize(pageSizeValue);
+        Page page = new Page();
+        page.setPageNo(pageNo);
+        page.setPageSize(pageSize);
+
+        Integer newsCount = newsService.countNewsInfo(newsClassType);
+        page.setTotalRecordCount(newsCount);
+        if(newsCount > 0){
+            List<News> newsList = newsService.queryNewsInfoList(newsClassType,(pageNo-1)*pageSize,pageSize);
+            List<Option> optionList = optionService.queryOptionInfo();
+
+            List<NewsVO> newsVOList = new ArrayList<>(newsList.size());
+            for (News news : newsList){
+                String typeName  = news.getNewsClassType();
+                Option op = null;
+                for(Option option : optionList){
+                    if(typeName.equals(option.getValue())){
+                        op = option;
+                        break;
+                    }
+                }
+                NewsVO nv = buildNewsInfo(news,op);
+                newsVOList.add(nv);
+            }
+            page.setResult(newsVOList);
         }
-        Integer pageNoValue = null;
-        if (NumberUtils.isNumber(pageNo)) {
-            pageNoValue = NumberUtils.toInt(pageNo);
-            page.setPageNo(pageNoValue);
-        }
-        List<Option> options = optionService.queryOptionInfo();
-        page = newsService.queryNewInfo(newsClassType, page);
-
         mv.addObject(page);
-        mv.addObject("options",options);
+        mv.addObject("options",optionService.queryOptionInfo());
         return mv;
+    }
+
+    private  NewsVO buildNewsInfo(News news ,Option option){
+        NewsVO newsVO = new NewsVO();
+        newsVO.setId(news.getId());
+        newsVO.setNewsClassType(option.getName());
+        newsVO.setTitle(news.getTitle());
+        if (news.getDateline() != null){
+            newsVO.setDateline(new Date(news.getDateline()));
+        }
+        newsVO.setContent(news.getContent());
+        newsVO.setAuthor(news.getAuthor());
+        newsVO.setSource(news.getSource());
+        newsVO.setDescription(news.getDescription());
+        newsVO.setIsDisplay(news.getIsDisplay());
+        newsVO.setImage(news.getImage());
+        newsVO.setKeywords(news.getKeywords());
+        newsVO.setViewCount(news.getViewCount());
+        return newsVO;
     }
 
     /**
@@ -97,12 +133,16 @@ public class NewsController {
             return null;
         }
         News news = newsService.queryNewsDetails(NumberUtils.toLong(id));
-        if (news == null) {
-            return null;
+        List<Option> optionList = optionService.queryOptionInfo();
+        Option op = null;
+        for (Option option : optionList){
+            if(news.getNewsClassType().equals(option.getValue())){
+                op = option;
+                break;
+            }
         }
-        Map<String, Object> map = new HashMap<>();
-        map.put("news", news);
-        mv.addObject(news);
+        NewsVO newsVO = buildNewsInfo(news,op);
+        mv.addObject("news",newsVO);
         return mv;
 
     }
