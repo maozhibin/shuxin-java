@@ -11,16 +11,14 @@
     <result column="character" property="character" jdbcType="CHAR" />
     <result column="timeout" property="timeout" jdbcType="INTEGER" />
     <result column="response_format" property="responseFormat" jdbcType="CHAR" />
-    <result column="reflect_method" property="reflectMethod" jdbcType="VARCHAR" />
   </resultMap>
   
-  	<delete id="deleteParamLit" parameterType="int">
+  	<delete id="delete" parameterType="int">
         delete from product_interface where product_id=#{productId}
     </delete>
  	
- 	<insert id="insertConfig" parameterType="Config" 
+ 	<insert id="insert"  parameterType="com.baoquan.shuxin.model.product.ProductInterface"
         useGeneratedKeys="true" keyProperty="id"> 
-        insert into product_interface(product_id,name,url,method,character,timeout,response_format)  
-             values(#{productId},#{name},#{url},#{method},#{character},#{timeout},#{responseFormat})  
+        INSERT INTO `product_interface`(product_id,`name`,url,method,free,`character`,timeout,response_format) VALUES (#{productId},#{name},#{url},#{method},#{free},#{character},#{timeout},#{responseFormat});
     </insert>
 </mapper>

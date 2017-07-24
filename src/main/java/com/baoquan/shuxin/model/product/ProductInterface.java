@@ -23,7 +23,6 @@ public class ProductInterface implements Serializable{
 
     private String responseFormat;
 
-    private String reflectMethod;
 
     public Integer getId() {
         return id;
@@ -95,13 +94,5 @@ public class ProductInterface implements Serializable{
 
     public void setResponseFormat(String responseFormat) {
         this.responseFormat = responseFormat == null ? null : responseFormat.trim();
-    }
-
-    public String getReflectMethod() {
-        return reflectMethod;
-    }
-
-    public void setReflectMethod(String reflectMethod) {
-        this.reflectMethod = reflectMethod == null ? null : reflectMethod.trim();
     }
 }

@@ -8,7 +8,7 @@
     <result column="type" property="type" jdbcType="CHAR" />
   </resultMap>
   
-  <insert id="sampleList" useGeneratedKeys="true" parameterType="java.util.List">  
+  <insert id="insertSample" useGeneratedKeys="true" parameterType="java.util.List">  
 	    <selectKey resultType="long" keyProperty="id" order="AFTER">  
 	        SELECT  
 	        LAST_INSERT_ID()  

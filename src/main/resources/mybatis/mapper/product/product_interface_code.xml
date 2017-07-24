@@ -18,7 +18,7 @@
 	        SELECT  
 	        LAST_INSERT_ID()  
 	    </selectKey>  
-	    insert into product_interface_code (product_id,product_interface_id,code,name,desc)   
+	    insert into product_interface_code (product_id,product_interface_id,code,name,`desc`)   
 	    values  
 	    <foreach collection="list" item="item" index="index" separator="," >  
 	        (#{item.productId},#{item.productInterfaceId},#{item.code},#{item.name},#{item.desc})  

@@ -131,14 +131,14 @@
         <a onclick="goto('api')" class="tab api">接口设置</a>
         <a onclick="goto('desc')" class="tab desc">产品描述</a>
         <a onclick="goto('price')" class="tab price">计费设置</a>
-    </div>
+     </div>
         <div class="container base">
             <div class="inline-form mb30">
                 <div class="addon">数据名称</div>
                 <div class="cell">
                     <input type="text" class="input-ctrl" name="productName" id="product_name"
                            value="">
-                </div>
+                </div><span class="label label-warning" id= "productNameSpan"></span>
                 <div class="addon">更新频率</div>
                 <div class="cell">
                     <select class="input-ctrl" name="frequent" id="frequent">
@@ -232,7 +232,7 @@
             </div>
             <div class="ml40 pad30">
                 <input type="button" class="btn btn-blue" value="下一步"
-                       onclick="goto('api');">
+                       onclick="apiFunction();">
             </div>
         </div>
 
@@ -259,8 +259,8 @@
                 <div class="addon">返回报文格式</div>
                 <div class="cell vat">
                     <select class="input-ctrl" name="responseFormat" id="response_format">
-                        <option value="JSON">JSON</option>
-                        <option value="XML">XML</option>
+                        <option value="json">JSON</option>
+                        <option value="xml">XML</option>
                     </select>
                 </div>
             </div>
@@ -305,7 +305,7 @@
                     </td>
                     <td><input type="text" class="input" value="" placeholder="点击输入" name="headerDesc"></td>
                     <td>
-                    	<button class="blue add-line add_header" onclick="btnAddRow()">新增</button>
+                    	<button class="blue add-line add_header" onclick="addHeaders()">新增</button>
                     </td>
                 </tr>
                 </tbody>
@@ -405,7 +405,7 @@
 
             <div class="pt30 pb30">
                 <input type="button" class="btn btn-red" value="下一步"
-                       onclick="goto('desc');">
+                       onclick="descFunction();">
             </div>
         </div>
 
@@ -424,7 +424,7 @@
 
             <div class="pt30 pb30">
                 <input class="btn btn-red" type="button" value="下一步"
-                       onclick="goto('price');">
+                       onclick="priceFunction();">
             </div>
         </div>
 
@@ -499,10 +499,10 @@
                     
 
             <div class="pb30">
-                <p class="mb10"><label class="gray6"><input type="checkbox" class="agreement">
+                <p class="mb10"><label class="gray6"><input type="checkbox" class="agreement" id="chexkboxId">
                     我已同意并阅读 <a href="" class="blue">《2226888协议》</a></label>
                 </p>
-                <button class="btn btn-red" id="submit_btn" onclick="myfunction()">提交发布</button>
+                <button class="btn btn-red" id="submit_btn" onclick="chargingFunction()">提交发布</button>
             </div>
             </div>
         </div>
@@ -675,7 +675,6 @@
 			bodysArrays.push(body);
 		}
 		str.bodysArrays=bodysArrays;
-		console.log(bodysArrays);
 		
 		var codesArrays=new Array();
 		var codet = [];
@@ -716,22 +715,161 @@
 	       });
 	}
 	
-	
-	/*function btnAddRow()  
-	{  
+	function apiFunction(){//基础设置检查
+		var product_name=$('#product_name').val();
+		var product_description=$('#product_description').val();
+		var productTags=$('#productTags').val();
+		product_name_value=product_name.replace(/\n/g,'');
+		product_description_value=product_description.replace(/\n/g,'');
+		productTags_value=productTags.replace(/\n/g,'');
+		if(javaTrim(product_name_value)==""){
+			alert("请输入数据名称");
+			return;
+		}
+		if(javaTrim(product_description_value)==""){
+			alert("请输入数据简介");
+			return;
+		}
+		if(javaTrim(productTags_value)==""){
+			alert("请输入标签设置");
+			return;
+		}
 		
-		var  rownum =$("#Headers tr").length-1;  
-		console.log(rownum);
-		var  chk = "<td><input type='text' class='input' name= 'headerName' placeholder='点击输入'/></td>";  
-		var  selType = "<td><select name='headerType' >< option value ='String'>String</ option ></ select ></td>";
-		var  selMust = "<td><select name='headerMust' > < option   value = '1' > 必须 </ option > < option   value = '0' > 非必须 </ option > </ select ></td> ";
-		var  text = "<td><input type='text' class='input' name= 'headerDesc' placeholder='点击输入'/></td> "; 
-		var del = "<td><button class='blue add-line add_header' onclick='btnAddRow()'>删除</button></td>";
-		var  row = "<tr>" + chk + selType+ selMust + text+ del+"</ tr >";  
-		$("#Headers tbody").prepend(row);
-	}*/
+		goto('api')
+	}
 	
-
+	function descFunction(){//接口设置判断
+		var interface_name=$('#interface_name').val();
+		var url_address=$('#url_address').val();
+		var request_sample=$('#request_sample').val();
+		var normal_sample=$('#normal_sample').val();
+		var error_sample=$('#error_sample').val();
+		
+		var time_out=$('#time_out').val();//请求超时
+		
+		interface_name_value=interface_name.replace(/\n/g,'');
+		url_address_value=url_address.replace(/\n/g,'');
+		request_sample_value=request_sample.replace(/\n/g,'');
+		normal_sample_value=normal_sample.replace(/\n/g,'');
+		error_sample_value=error_sample.replace(/\n/g,'');
+		
+		if(javaTrim(interface_name_value)==""){
+			alert("请输入接口名称");
+			return;
+		}
+		if(javaTrim(url_address_value)==""){
+			alert("请输入服务地址");
+			return;
+		}
+		if(!/^\d{10}$/.test(time_out.trim())){
+			alert("请输入正确的请求超时时长时间");
+			return;
+		}
+		if(javaTrim(request_sample_value)==""){
+			alert("请输入请求实例");
+			return;
+		}
+		if(javaTrim(normal_sample_value)==""){
+			alert("请输入正常返回示例");
+			return;
+		}
+		if(javaTrim(error_sample_value)==""){
+			alert("请输入错误返回实例");
+			return;
+		}
+		goto('desc');
+	}
+	
+	function priceFunction(){//产品描述判断
+		var intro=$('#intro').val();
+		var highlight=$('#highlight').val();
+		//var snapshot=$('#snapshot').val();//产品截图
+		var service=$('#service').val();
+		intro_value=intro.replace(/\n/g,'');
+		highlight_value=highlight.replace(/\n/g,'');
+		service_value=service.replace(/\n/g,'');
+		if(javaTrim(intro_value)==""){
+			alert("请输入产品介绍");
+			return;
+		}
+		if(javaTrim(highlight_value)==""){
+			alert("请输入产品亮点");
+			return;
+		}
+		if(javaTrim(service_value)==""){
+			alert("请输入售后服务");
+			return;
+		}
+		goto('price')
+	}
+	
+	function chargingFunction(){//计费设置判断
+		var priceOne=$('#priceOne').val();
+		var priceHundred=$('#priceHundred').val();
+		var priceYear=$('#priceYear').val();
+		var reg=/^[-\+]?\d+(\.\d+)?$/;
+		
+		priceOne_value=priceOne.replace(/\n/g,'');
+		priceHundred_value=priceHundred.replace(/\n/g,'');
+		priceYear_value=priceYear.replace(/\n/g,'');
+		if(javaTrim(priceOne_value)=="" &&javaTrim(priceHundred_value)=="" && javaTrim(priceYear_value)==""){
+			alert("请至少选择一种计费价格");
+			return;
+		}
+		if(javaTrim(priceOne_value)!=""){
+			if(!reg.test(priceOne) || priceOne.length >7){
+				alert("请输入正确的单次计费价格");
+				return;
+			}
+		}
+		if(javaTrim(priceHundred_value)!=""){
+			if(!reg.test(priceHundred) || priceHundred.length >7){
+				alert("请输入正确的多次计费价格");
+				return;
+			}
+		}
+		
+		if(javaTrim(priceYear_value)!=""){
+			if(!reg.test(priceYear) || priceYear.length >7){
+				alert("请输入正确的包年计费价格");
+				return;
+			}
+		}
+		if(document.getElementById("chexkboxId").checked == false){
+			alert("请认真阅读协议并同意");
+		}
+		//myfunction();
+	}
+	
+	 function javaTrim(str) {//判断输入的是否为空
+	     for (var i=0; (str.charAt(i)==' ') && i<str.length; i++);
+	     if (i == str.length) return ''; //whole string is space
+	     var newstr = str.substr(i);
+	     for (var i=newstr.length-1; newstr.charAt(i)==' ' && i>=0; i--);
+	     newstr = newstr.substr(0,i+1);
+	     return newstr;
+	} 
+	
+	 
+	function addHeaders()  
+	{  
+		var  rownum =$("#Headers tr").length-1;  
+		var  chk = "<td><input type='text' class='input' name= 'headerName' placeholder='点击输入'/></td>";  
+		var  selType = "<td><select name='headerType' class='input-ctrl'><option value='String'>String</option></ select ></td>";
+		var  selMust = "<td><select name='headerType' class='input-ctrl'><option value='1'>必须</option><option value='0'>非必须</option></ select ></td>";
+		var  text = "<td><input type='text' class='input' name= 'headerDesc' placeholder='点击输入'/></td> "; 
+		var del = "<td><button class='deleteTr' onclick='delHeaders(this)' id='1'>删除</button></td>";
+		var  row = "<tr> "+chk+selType+selMust+ text +del+" </tr>";  
+		$("#Headers tbody").prepend(row);
+	}
+	
+	function delHeaders(obj)//点击事件那边需要加this
+	{
+		var tr=obj.parentNode.parentNode;
+		var tbody=tr.parentNode;
+		tbody.removeChild(tr);
+	}
+	
 </script>
 </body>
 </html>

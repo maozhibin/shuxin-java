@@ -9,4 +9,8 @@ import com.baoquan.shuxin.model.product.ProductTag;
 @Repository
 public interface ProductTagDao {
 	List<ProductTag> findByproductId(Integer productId);
+
+	void delete(Integer productId);
+
+	void insertListByTagTds(List<ProductTag> productTagList);
 }

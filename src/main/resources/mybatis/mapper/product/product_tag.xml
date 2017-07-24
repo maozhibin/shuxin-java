@@ -9,6 +9,15 @@
   <select id="findByproductId" resultMap="BaseResultMap">
   		select * from product_tag where product_id=#{productId}
   </select>
+  <delete id="delete" parameterType="int">
+        delete from product_tag where product_id=#{productId}
+   </delete>
   
-  
+    <insert id="insertListByTagTds" useGeneratedKeys="true" parameterType="java.util.List">  
+	    insert into product_tag (product_id,tag_id)   
+	    values  
+	    <foreach collection="list" item="item" index="index" separator="," >  
+	        (#{item.productId},#{item.tagId})  
+	    </foreach>  
+   </insert>
 </mapper>

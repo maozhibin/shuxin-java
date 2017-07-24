@@ -10,6 +10,8 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import com.alibaba.fastjson.JSONArray;
@@ -78,7 +80,6 @@ public class ProductServiceImpl implements ProductService{
 		
 		//解析json
 		JSONObject data=JSONObject.parseObject(json);
-		System.out.println(data.size());
 		//基础设置
 		String productName = data.getString("productName");//产品名
 		Byte frequent = data.getByte("frequent");//更新频率
@@ -131,10 +132,12 @@ public class ProductServiceImpl implements ProductService{
 		//标签
 		JSONArray productTags = data.getJSONArray("tags");
 		Tags tags = new Tags();
-		ProductTag productTag = new ProductTag();
-		List<Object> tagsList = null;;
+		List<Object> tagsNameList = null;;
 		for(int i=0;i<productTags.size();i++){
-			tagsList = (List<Object>) productTags.get(i);
+			tagsNameList = (List<Object>) productTags.get(i);
+		}
+		if(CollectionUtils.isEmpty(tagsNameList)){
+			return false;
 		}
 		List<Integer> tagIdList = new ArrayList<>();
 		List<ProductTag> productTaglist=productTagDao.findByproductId(productId);
@@ -142,6 +145,28 @@ public class ProductServiceImpl implements ProductService{
 			Integer tagId = productTaglist.get(i).getTagId();
 			tagIdList.add(tagId);
 		}
+		if(!CollectionUtils.isEmpty(tagIdList)){
+			tagsDao.delete(tagIdList);
+			productTagDao.delete(productId);
+		}
+		String tagsName=null;
+		List<Tags> tagsList = new ArrayList<>();
+		for(int i=0;i<tagsNameList.size();i++){
+			tagsName=(String) tagsNameList.get(i);
+			tags.setName(tagsName);
+			tagsList.add(tags);
+		}
+		tagsDao.insertTagsList(tagsList);
+		
+		List<Integer> tagsIds = tagsDao.getItermByName(tagsNameList);
+		List<ProductTag> productTagList = new ArrayList<>();
+		for(int i=0;i<tagsIds.size();i++){
+			ProductTag productTag = new ProductTag();
+			productTag.setProductId(productId);
+			productTag.setTagId(tagsIds.get(i));
+			productTagList.add(productTag);
+		}
+		productTagDao.insertListByTagTds(productTagList);
 		
 		
 		//接口设置
@@ -160,24 +185,23 @@ public class ProductServiceImpl implements ProductService{
 		productInterface.setResponseFormat(responseFormat);
 		productInterface.setTimeout(NumberUtils.toInt(timeout));
 		productInterface.setProductId(productId);
-		
+		productInterface.setFree(true);
+		System.out.println(productInterface);
 		productInterfaceDao.delete(productId);
-		productInterfaceDao.update(productInterface);
-		
+		productInterfaceDao.insert(productInterface);
 		//产品api接口参数进行组装
-		
 		Integer productInterfaceId = productInterface.getId();
 		JSONArray headerArray = data.getJSONArray("headersArray");
 		JSONArray bodysArray = data.getJSONArray("bodysArrays");
 		JSONArray querysArray = data.getJSONArray("querysArray");
 		List<Object> paramList = null;;
 		List<ProductInterfaceParam> interfaceParamList = new ArrayList<>();
-		ProductInterfaceParam interfaceParam = new ProductInterfaceParam();
 		if(productInterfaceId==null){
 			return false;
 		}
 		
 		for(int i=0;i<headerArray.size();i++){
+			ProductInterfaceParam interfaceParam = new ProductInterfaceParam();
 			paramList = (List<Object>) headerArray.get(i);
 			String name=(String) paramList.get(0);
 			String type=(String) paramList.get(1);
@@ -194,12 +218,13 @@ public class ProductServiceImpl implements ProductService{
 			interfaceParam.setMust(must);
 			interfaceParam.setType(type);
 			interfaceParam.setProductId(productId);
-			interfaceParam.setParamType(InterfaceParamConstant.PARAM_TYPE_QUERY);
+			interfaceParam.setParamType(InterfaceParamConstant.PARAM_TYPE_HEADERS);
 			interfaceParam.setProductInterfaceId(productInterfaceId);
 			interfaceParamList.add(interfaceParam);
 		}
 		
 		for(int i=0;i<bodysArray.size();i++){
+			ProductInterfaceParam interfaceParam = new ProductInterfaceParam();
 			paramList = (List<Object>) bodysArray.get(i);
 			String name=(String) paramList.get(0);
 			String type=(String) paramList.get(1);
@@ -215,12 +240,13 @@ public class ProductServiceImpl implements ProductService{
 			interfaceParam.setMust(must);
 			interfaceParam.setType(type);
 			interfaceParam.setProductId(productId);
-			interfaceParam.setParamType(InterfaceParamConstant.PARAM_TYPE_QUERY);
+			interfaceParam.setParamType(InterfaceParamConstant.PARAM_TYPE_BODY);
 			interfaceParam.setProductInterfaceId(productInterfaceId);
 			interfaceParamList.add(interfaceParam);
 		}
 		
 		for(int i=0;i<querysArray.size();i++){
+			ProductInterfaceParam interfaceParam = new ProductInterfaceParam();
 			paramList = (List<Object>) querysArray.get(i);
 			String name=(String) paramList.get(0);
 			String type=(String) paramList.get(1);
@@ -251,10 +277,11 @@ public class ProductServiceImpl implements ProductService{
 		String requestSample = data.getString("requestSample");//请求实例
 		String normalSample = data.getString("normalSample");//正常返回
 		String errorSample = data.getString("errorSample");//错误提示
-		ProductInterfaceSample productInterfaceSample = new ProductInterfaceSample();
+	
 		String sampleType=null;
 		String sampleValue=null;
 		for(int i=0;i<3;i++){
+			ProductInterfaceSample productInterfaceSample = new ProductInterfaceSample();
 			if(i==0){
 				 sampleType = InterfaceSampleConstant.TYPE_INPUT;
 				 sampleValue = requestSample;
@@ -275,11 +302,11 @@ public class ProductServiceImpl implements ProductService{
 		productInterfaceSampleDao.insertSample(sampleList);
 		
 		//错误码定义
-		ProductInterfaceCode productInterfaceCode = new ProductInterfaceCode();
 		List<ProductInterfaceCode> codeList = new ArrayList<>();
 		JSONArray codesArrays = data.getJSONArray("codesArrays");
 		List<Object> codes= null;;
 		for(int i=0;i<codesArrays.size();i++){
+			ProductInterfaceCode productInterfaceCode = new ProductInterfaceCode();
 			codes = (List<Object>) codesArrays.get(i);
 			String code=(String) codes.get(0);
 			String codeName=(String) codes.get(1);
@@ -314,23 +341,26 @@ public class ProductServiceImpl implements ProductService{
 		String priceYearPrice = data.getString("priceYear");
 		Integer userId = product.getUserId();
 		List<ProductBillings> billingsList = new ArrayList<>();
-		ProductBillings billings = new ProductBillings();
 		for(int i=0;i<3;i++){
-			if(i==0){
+			ProductBillings billings = new ProductBillings();
+			if(i==0 && !StringUtils.isEmpty(priceOnePrice)){
 				BigDecimal price=new BigDecimal(priceOnePrice); 
 				billings.setPrice(price);
 				billings.setNum("1");
 				billings.setType(1);
-			}else if(i==1){
+				billingsList.add(billings);
+			}else if(i==1 && !StringUtils.isEmpty(priceHundredPrice)){
 				BigDecimal price=new BigDecimal(priceHundredPrice); 
 				billings.setPrice(price);
 				billings.setNum("100");
 				billings.setType(1);
-			}else if(i==2){
+				billingsList.add(billings);
+			}else if(i==2 && !StringUtils.isEmpty(priceYearPrice)){
 				BigDecimal price=new BigDecimal(priceYearPrice); 
 				billings.setPrice(price);
 				billings.setNum("12");
 				billings.setType(2);
+				billingsList.add(billings);
 			}
 			billings.setUserId(userId);
 			billings.setDateline(time);
@@ -339,6 +369,7 @@ public class ProductServiceImpl implements ProductService{
 		
 		productBillingsDao.delete(productId);
 		productBillingsDao.insertList(billingsList);
+		
 		return true;
 	}
 }

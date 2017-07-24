@@ -15,6 +15,6 @@ public interface ProductInterfaceDao {
 
 	void delete(Integer productId);
 
-	void update(ProductInterface productInterface);
+	void insert(ProductInterface productInterface);
 	
 }

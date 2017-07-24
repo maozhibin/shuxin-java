@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baoquan.shuxin.bean.Page;
+import com.baoquan.shuxin.dao.tag.TagsDao;
 import com.baoquan.shuxin.model.area.Area;
 import com.baoquan.shuxin.model.product.ProductBase;
 import com.baoquan.shuxin.model.product.ProductClass;
@@ -46,6 +47,7 @@ public class ProductController {
     private AreaService areaService;
     @Inject
     private UserService userService;
+  
     /**
      * 产品列表
      * @param name
@@ -112,10 +114,10 @@ public class ProductController {
         if(NumberUtils.isNumber(id)){
             idValue=NumberUtils.toInt(id);
         }
-//        Boolean updateOrAdd = productService.UpdateOrAdd(idValue,data);
-//        if(!updateOrAdd){
-//        	return null;
-//        }
+       Boolean updateOrAdd = productService.UpdateOrAdd(idValue,data);
+       if(!updateOrAdd){
+    	   return null;
+        }
         return mv;
     }
 
