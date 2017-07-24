@@ -20,7 +20,7 @@
 
 <section class="filter-box" style="border:none">
     <div class="row">
-    	 <form class="form-inline">
+    	 <form class="form-inline" method="post">
             <table style="margin-left: 30px">
                 <tr>
                     <td>
@@ -73,7 +73,7 @@
 		                                       href=""><i
 		                                            class="fa fa-eye"></i> </a>&nbsp;&nbsp;
 		                             <a class="" title='查看'
-		                                       href="}"><i
+		                                       href=""><i
 		                                            class="fa fa-pencil"></i> </a>&nbsp;&nbsp;
 		                             <a class="" title='查看'
 		                                       href=""><i
@@ -85,10 +85,7 @@
                    
                     </tbody>
                 </table>
-                <div class="col-sm-12" style="text-align: center">
-                    <span class="float-left"
-                          style="line-height: 40px;">共${page.totalRecordCount}条，每页10条</span>
-                </div>
+                <%@include file="/WEB-INF/page/admin/pager.jsp"%>
             </div>
         </div>
     </div>

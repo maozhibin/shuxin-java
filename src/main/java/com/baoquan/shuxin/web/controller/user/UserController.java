@@ -42,21 +42,19 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping("list")
-	public ModelAndView userList(String name, String mobile, String typeId, String pageNo, String pageSize) {
+	public ModelAndView userList(String name, String mobile, String typeId, Integer pageNo, Integer pageSize) {
+		if (pageNo == null || pageNo < 1) pageNo = 1;
+		if (pageSize == null || pageSize > Page.DEFAULT_PAGE_SIZE) pageSize = Page.DEFAULT_PAGE_SIZE;
+		name = StringUtils.trimToNull(name);
+		mobile = StringUtils.trimToNull(mobile);
 		ModelAndView mv = new ModelAndView("admin/user/list");
 		Page<User> page = new Page<User>();
-		Integer pageSizeValue = null;
-		if (NumberUtils.isNumber(pageSize)) {
-			pageSizeValue = NumberUtils.toInt(pageSize);
-			page.setPageSize(pageSizeValue);
-		}
-		Integer pageNoValue = null;
-		if (NumberUtils.isNumber(pageNo)) {
-			pageNoValue = NumberUtils.toInt(pageNo);
-			page.setPageNo(pageNoValue);
-		}
+		page.setPageSize(pageSize);
+		page.setPageNo(pageNo);
 		page = userService.findListUser(name, mobile, typeId, page);
 		mv.addObject(page);
+		mv.addObject("name", name);
+		mv.addObject("mobile", mobile);
 		return mv;
 
 	}
@@ -104,8 +102,10 @@ public class UserController {
 	 * 用户资金变动记录
 	 */
 	@RequestMapping("moneyChange")
-	public ModelAndView moneyChange(String userId, String startTime, String endTime, String pageNo,
-			String pageSize) {
+	public ModelAndView moneyChange(String userId, String startTime, String endTime, Integer pageNo, Integer pageSize) {
+		//todo 搜索条件还差一个交易类型
+		if (pageNo == null || pageNo < 1) pageNo = 1;
+		if (pageSize == null || pageSize > Page.DEFAULT_PAGE_SIZE) pageSize = Page.DEFAULT_PAGE_SIZE;
 		ModelAndView mv = new ModelAndView("admin/user/money");
 		Long startTimeValue = null;
 		if (!StringUtils.isEmpty(startTime)) {
@@ -118,19 +118,13 @@ public class UserController {
 		}
 
 		Page<UserMoneyLog> page = new Page<UserMoneyLog>();
-		Integer pageSizeValue = null;
-		if (NumberUtils.isNumber(pageSize)) {
-			pageSizeValue = NumberUtils.toInt(pageSize);
-			page.setPageSize(pageSizeValue);
-		}
-		Integer pageNoValue = null;
-		if (NumberUtils.isNumber(pageNo)) {
-			pageNoValue = NumberUtils.toInt(pageNo);
-			page.setPageNo(pageNoValue);
-		}
+		page.setPageSize(pageSize);
+		page.setPageNo(pageNo);
 		page = userMoneyLogService.byIdFinduserMoneyChange(page, endTimeValue, startTimeValue,
 				NumberUtils.toLong(userId));
 		mv.addObject(page);
+		mv.addObject("startTime", startTime);
+		mv.addObject("endTime", endTime);
 		return mv;
 	}
 }

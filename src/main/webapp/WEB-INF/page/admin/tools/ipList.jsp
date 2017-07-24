@@ -77,24 +77,15 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="pull-left">
-                            </div>
-                            <div class="pull-right">
-                                <div class="dataTables_paginate paging_bs_full" id="datatable1_paginate">
-                                    <ul class="pagination">
-                                        
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <%@include file="/WEB-INF/page/admin/pager.jsp"%>
                 </section>
             </div>
         </div>
   </div>
 <script>
+    function nav(pageNo) {
+        location.href="?pageNo="+pageNo;
+    }
 </script>
 </body>
 </html>

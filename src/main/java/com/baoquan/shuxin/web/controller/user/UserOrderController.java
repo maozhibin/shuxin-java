@@ -44,17 +44,17 @@ public class UserOrderController {
 
     @RequestMapping("/list")
     @ResponseBody
-    public Object list(Long userId, Integer status,String buyTime ,Integer pageNo,
+    public Object list(Long userId, Integer status,String date_range ,Integer pageNo,
             Integer pageSize ){
         ModelAndView mv = new ModelAndView("admin/order/order_index");
         if (pageNo == null || pageNo < 1)  pageNo = 1;
-        if (pageSize == null || pageSize > 15) pageSize = 15;
+        if (pageSize == null || pageSize > Page.DEFAULT_PAGE_SIZE) pageSize = Page.DEFAULT_PAGE_SIZE;
 
         Page page = new Page();
         page.setPageNo(pageNo);
         page.setPageSize(pageSize);
 
-        String buy = buyTime;
+        String buy = date_range;
         Long statTime = null;
         Long endTime = null;
        if (StringUtils.isNotEmpty(buy)){
@@ -63,7 +63,7 @@ public class UserOrderController {
            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
            try{
                statTime = sdf.parse(star).getTime()/1000;
-               endTime = sdf.parse(end).getTime();
+               endTime = sdf.parse(end).getTime()/1000;
            } catch (ParseException e) {
                e.printStackTrace();
            }
@@ -71,7 +71,7 @@ public class UserOrderController {
 
         Integer orderCount = orderService.countOrderInfo(userId, status,statTime, endTime);
         page.setTotalRecordCount(orderCount);
-        if (orderCount >0 ) {
+        if (orderCount >(pageNo - 1) * pageSize ) {
             List<UserOrder> userOrderList = orderService.querListUserOrderInfo(userId, status, statTime, endTime,
                     (pageNo - 1) * pageSize, pageSize);
             List<UserOrderVO> userOrderVOList = new ArrayList<>(userOrderList.size());
@@ -93,10 +93,14 @@ public class UserOrderController {
                 userOrderVOList.add(userOrderVO);
                 page.setResult(userOrderVOList);
             }
-            mv.addObject("order", optionService.queryOrderInfo());
-            mv.addObject(page);
 
         }
+        mv.addObject(page);
+        mv.addObject("userId", userId);
+        mv.addObject("status", status);
+        mv.addObject("order", optionService.queryOrderInfo());
+        mv.addObject("startTime", statTime != null ? statTime * 1000 : null);
+        mv.addObject("endTime", endTime != null ? endTime * 1000 : null);
         return mv;
     }
 

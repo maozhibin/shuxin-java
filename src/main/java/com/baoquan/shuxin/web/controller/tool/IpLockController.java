@@ -19,19 +19,13 @@ public class IpLockController{
 	 * ip锁定列表列表
 	 */
 	@RequestMapping("list")
-	public ModelAndView ipFlowInfo(String pageNo, String pageSize){
+	public ModelAndView ipFlowInfo(Integer pageNo, Integer pageSize) {
+		if (pageNo == null || pageNo < 1) pageNo = 1;
+		if (pageSize == null || pageSize > Page.DEFAULT_PAGE_SIZE) pageSize = Page.DEFAULT_PAGE_SIZE;
 		ModelAndView mv = new ModelAndView("admin/tools/ipList");
 		Page<IpLock> page = new Page<>();
-		Integer pageSizeValue = null;
-		if (NumberUtils.isNumber(pageSize)) {
-			pageSizeValue = NumberUtils.toInt(pageSize);
-			page.setPageSize(pageSizeValue);
-		}
-		Integer pageNoValue = null;
-		if (NumberUtils.isNumber(pageNo)) {
-			pageNoValue = NumberUtils.toInt(pageNo);
-			page.setPageNo(pageNoValue);
-		}
+		page.setPageSize(pageSize);
+		page.setPageNo(pageNo);
 		page=ipLockService.ipLockList(page);
 		mv.addObject(page);
 		return mv;

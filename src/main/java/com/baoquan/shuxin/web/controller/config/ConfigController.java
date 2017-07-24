@@ -24,19 +24,13 @@ public class ConfigController {
 	 * 配置参数列表
 	 */
 	@RequestMapping("list")
-	public ModelAndView configList(String pageNo, String pageSize){
+	public ModelAndView configList(Integer pageNo, Integer pageSize){
+		if (pageNo == null || pageNo < 1) pageNo = 1;
+		if (pageSize == null || pageSize > Page.DEFAULT_PAGE_SIZE) pageSize = Page.DEFAULT_PAGE_SIZE;
 		ModelAndView mv = new ModelAndView("admin/config/list");
 		Page<Config> page = new Page<>();
-		Integer pageSizeValue = null;
-		if (NumberUtils.isNumber(pageSize)) {
-			pageSizeValue = NumberUtils.toInt(pageSize);
-			page.setPageSize(pageSizeValue);
-		}
-		Integer pageNoValue = null;
-		if (NumberUtils.isNumber(pageNo)) {
-			pageNoValue = NumberUtils.toInt(pageNo);
-			page.setPageNo(pageNoValue);
-		}
+		page.setPageSize(pageSize);
+		page.setPageNo(pageNo);
 		page=configService.configList(page);
 		mv.addObject(page);
 		return mv;

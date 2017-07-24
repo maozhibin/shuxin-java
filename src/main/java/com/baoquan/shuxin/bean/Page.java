@@ -16,7 +16,7 @@ import java.util.Map;
 public class Page<T> implements Serializable {
 
     private static final long serialVersionUID = -2847769622362401350L;
-    private static int DEFAULT_PAGE_SIZE = 10;// 每页默认的容量大小
+    public final static int DEFAULT_PAGE_SIZE = 15;// 每页默认的容量大小
     private int pageSize = DEFAULT_PAGE_SIZE; // 每页的容量
     private int pageNo = 1;// 某一页序号
     private String orderBy;//排序字段

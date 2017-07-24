@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,21 +57,17 @@ public class ProductController {
      * @return
      */
     @RequestMapping("list")
-    public ModelAndView list(String name,String pageNo, String pageSize) {
+    public ModelAndView list(String name, Integer pageNo, Integer pageSize) {
+        if (pageNo == null || pageNo < 1) pageNo = 1;
+        if (pageSize == null || pageSize > Page.DEFAULT_PAGE_SIZE) pageSize = Page.DEFAULT_PAGE_SIZE;
+        name = StringUtils.trimToNull(name);
     	ModelAndView mv = new ModelAndView("admin/product/list");
     	Page<Map<String, Object>> page = new Page<Map<String,Object>>();
-		Integer pageSizeValue = null;
-		if (NumberUtils.isNumber(pageSize)) {
-			pageSizeValue = NumberUtils.toInt(pageSize);
-			page.setPageSize(pageSizeValue);
-		}
-		Integer pageNoValue = null;
-		if (NumberUtils.isNumber(pageNo)) {
-			pageNoValue = NumberUtils.toInt(pageNo);
-			page.setPageNo(pageNoValue);
-		}
+        page.setPageSize(pageSize);
+        page.setPageNo(pageNo);
 		page = productService.findListProduct(page,name);
 		mv.addObject(page);
+		mv.addObject("name", name);
 		return mv;
     }
 

@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: yongj
@@ -92,27 +92,68 @@
             <th>交易额日增长比率</th>
             <th>授权总量</th>
         </tr>
-        <tr class="blue-bold text-overflow">
-            <td>${todayAmount}</td>
-            <td>${todayOrdersum}</td>
-            <td>0</td>
-            <td>${todaytradingRate}</td>
-            <td>0</td>
-        </tr>
-        <tr>
-            <td>昨日 ${yesterdayAmount}</td>
-            <td>昨日 ${yesterdayOrdersum}</td>
-            <td>昨日 0</td>
-            <td>昨日 ${yesterdaytradingRate}</td>
-            <td>昨日 0</td>
-        </tr>
-        <tr>
-            <td>预计明日 <i class="fa fa-fw fa-long-arrow-down"></i></td>
-            <td>预计明日 <i class="fa fa-fw fa-long-arrow-down"></i></td>
-            <td>预计明日 0</td>
-            <td>预计明日 <i class="fa fa-fw fa-long-arrow-down"></i></td>
-            <td>预计明日 0</td>
-        </tr>
+        <c:if test="${today2now != null}">
+            <tr class="blue-bold text-overflow">
+                <td>${today2now.tradeAmount}</td>
+                <td>${today2now.orderCount}</td>
+                <td>${today2now.attestCount}</td>
+                <td>${today2now.tradeIncreaseRate}%</td>
+                <td>${today2now.authorizationCount}</td>
+            </tr>
+        </c:if>
+        <c:if test="${lastday != null}">
+            <tr>
+                <td>昨日 ${lastday.tradeAmount}</td>
+                <td>昨日 ${lastday.orderCount}</td>
+                <td>昨日 ${lastday.attestCount}</td>
+                <td>昨日 ${lastday.tradeIncreaseRate}%</td>
+                <td>昨日 ${lastday.authorizationCount}</td>
+            </tr>
+        </c:if>
+        <c:if test="${todayWhole != null}">
+            <tr>
+                <td>预计今日 ${todayWhole.tradeAmount}
+                    <c:if test="${todayWhole.tradeAmount.doubleValue() > lastday.tradeAmount.doubleValue()}">
+                        <i class="fa fa-fw fa-long-arrow-up"></i>
+                    </c:if>
+                    <c:if test="${todayWhole.tradeAmount.doubleValue() < lastday.tradeAmount.doubleValue()}">
+                        <i class="fa fa-fw fa-long-arrow-down"></i>
+                    </c:if>
+                </td>
+                <td>预计今日 ${todayWhole.orderCount}
+                    <c:if test="${todayWhole.orderCount > lastday.orderCount}">
+                        <i class="fa fa-fw fa-long-arrow-up"></i>
+                    </c:if>
+                    <c:if test="${todayWhole.orderCount < lastday.orderCount}">
+                        <i class="fa fa-fw fa-long-arrow-down"></i>
+                    </c:if>
+                </td>
+                <td>预计今日 ${todayWhole.attestCount}
+                    <c:if test="${todayWhole.attestCount > lastday.attestCount}">
+                        <i class="fa fa-fw fa-long-arrow-up"></i>
+                    </c:if>
+                    <c:if test="${todayWhole.attestCount < lastday.attestCount}">
+                        <i class="fa fa-fw fa-long-arrow-down"></i>
+                    </c:if>
+                </td>
+                <td>预计今日 ${todayWhole.tradeIncreaseRate}%
+                    <c:if test="${todayWhole.tradeIncreaseRate.doubleValue() > lastday.tradeIncreaseRate.doubleValue()}">
+                        <i class="fa fa-fw fa-long-arrow-up"></i>
+                    </c:if>
+                    <c:if test="${todayWhole.tradeIncreaseRate.doubleValue() < lastday.tradeIncreaseRate.doubleValue()}">
+                        <i class="fa fa-fw fa-long-arrow-down"></i>
+                    </c:if>
+                </td>
+                <td>预计今日 ${todayWhole.authorizationCount}
+                    <c:if test="${todayWhole.authorizationCount > lastday.authorizationCount}">
+                        <i class="fa fa-fw fa-long-arrow-up"></i>
+                    </c:if>
+                    <c:if test="${todayWhole.authorizationCount < lastday.authorizationCount}">
+                        <i class="fa fa-fw fa-long-arrow-down"></i>
+                    </c:if>
+                </td>
+            </tr>
+        </c:if>
     </table>
 </div>
 <div class="tab-header row">
@@ -177,8 +218,8 @@
                             ${item.username}
                     </td>
                     <td>
-                    		${status.index+1}
-                          
+                            ${status.index+1}
+
                     </td>
                     <td>
                             ${item.total_amount}

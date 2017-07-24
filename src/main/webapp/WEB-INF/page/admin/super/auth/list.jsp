@@ -25,7 +25,7 @@
 <body>
 <section class="filter-box" style="border:none">
     <div class="row">
-        <form class="form-inline">
+        <form class="form-inline" method="post">
             <table style="margin-left: 30px">
                 <tr>
                     <td> 关键字：</td>
@@ -51,12 +51,6 @@
                     <tr>
                         <th>管理员账号</th>
                         <th>最后登陆时间</th>
-                        <%--<th>用户管理</th>--%>
-                        <%--<th>订单管理</th>--%>
-                        <%--<th>产品管理</th>--%>
-                        <%--<th>新闻管理</th>--%>
-                        <%--<th>财务管理</th>--%>
-                        <%--<th>参数配置/工具</th>--%>
                         <c:if test="${menus != null}">
                             <c:forEach items="${menus.values()}" var="menu">
                                 <th>${menu.name}</th>
@@ -71,12 +65,6 @@
                             <tr>
                                 <td>${user.username}</td>
                                 <td><fmt:formatDate value="${user.lastLoginTime}" pattern="yyyy-MM-dd hh:ss:mm"/></td>
-                                    <%--<td>${user.permUser}</td>--%>
-                                    <%--<td>${user.permOrder}</td>--%>
-                                    <%--<td>${user.permProduct}</td>--%>
-                                    <%--<td>${user.permNews}</td>--%>
-                                    <%--<td>${user.permAccount}</td>--%>
-                                    <%--<td>${user.permConfTool}</td>--%>
                                 <c:if test="${menus != null}">
                                     <c:forEach items="${menus.values()}" var="menu">
                                         <td>
@@ -104,11 +92,8 @@
                     </c:if>
                     </tbody>
                 </table>
-                <div class="col-sm-12" style="text-align: center">
-                    <span class="float-left" style="line-height: 40px;">
-                        共${page.totalRecordCount}条，每页15条
-                    </span>
-                </div>
+
+                <%@include file="/WEB-INF/page/admin/pager.jsp"%>
             </div>
         </div>
     </div>

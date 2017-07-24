@@ -40,7 +40,7 @@
         BETWEEN #{statTime} AND  #{endTime}
       </if>
     </where>
-
+      limit #{start},#{length}
   </select>
 
 

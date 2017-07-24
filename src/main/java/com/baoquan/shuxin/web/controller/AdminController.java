@@ -1,4 +1,4 @@
-package com.baoquan.shuxin.web.admin.controller;
+package com.baoquan.shuxin.web.controller;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -47,7 +47,7 @@ public class AdminController {
         String ip = IPUtils.getIp(request);
         Long timestamp = System.currentTimeMillis();
         adminUserService.refreshLoginInfoById(adminUser.getId(), ip, timestamp);
-        request.getSession(true).setAttribute("userId", adminUser.getId());
+        request.getSession(true).setAttribute("ADMIN_USER_ID", adminUser.getId());
         request.getSession(true).setMaxInactiveInterval(1800);
         jsonBean.setCode(0);
         jsonBean.setMessage("登陆成功");
@@ -56,7 +56,7 @@ public class AdminController {
 
     @RequestMapping({"/logout"})
     public String logout(HttpServletRequest request) {
-        request.getSession(true).removeAttribute("userId");
+        request.getSession(true).removeAttribute("ADMIN_USER_ID");
         return "admin/login";
     }
 
@@ -70,7 +70,7 @@ public class AdminController {
     public Object passwordModify(@RequestParam("old_pass") String oldPass, @RequestParam("new_pass") String newPss,
             HttpServletRequest request) {
         JsonBean jsonBean = new JsonBean();
-        Long userId = (Long) request.getSession(true).getAttribute("userId");
+        Long userId = (Long) request.getSession(true).getAttribute("ADMIN_USER_ID");
         int rows = adminUserService.modifyPassword(userId, oldPass, newPss);
         if (rows > 0) {
             jsonBean.setCode(0);

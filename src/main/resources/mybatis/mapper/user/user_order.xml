@@ -35,8 +35,7 @@
       and user_id = #{userId}
     </if>
     <if test="statTime != null  and endTime != null">
-      and buy_time
-      BETWEEN #{statTime}AND #{endTime}
+      and (buy_time BETWEEN #{statTime} AND #{endTime})
     </if>
     <if test="status != null">
       and status=#{status}
@@ -52,8 +51,7 @@
         and user_id = #{userId}
       </if>
       <if test="statTime != null  and endTime != null">
-        and buy_time
-        BETWEEN #{statTime}AND #{endTime}
+        and (buy_time BETWEEN #{statTime} AND #{endTime})
       </if>
       <if test="status != null">
         and status=#{status}

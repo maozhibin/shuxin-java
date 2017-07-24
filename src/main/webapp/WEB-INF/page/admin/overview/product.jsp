@@ -161,7 +161,7 @@
                 <td> 关键字：</td>
                 <td>
                     <input type="text" class="form-control pull-right" id="keywords" name="productName"
-                           value=""
+                           value="${keywords}"
                            placeholder="请输入关键字搜索">
                 </td>
                <!--   <td> 日期：</td>
@@ -214,10 +214,8 @@
         </c:if>
         </tbody>
     </table>
-    <div class="col-sm-12" style="text-align: center">
-          <span class="float-left"
-             style="line-height: 40px;">共${page.totalRecordCount}条，每页15条</span>
-    </div>
+
+    <%@include file="/WEB-INF/page/admin/pager.jsp"%>
 </div>
 	
 </body>

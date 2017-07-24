@@ -1,4 +1,4 @@
-package com.baoquan.shuxin.web.vo.admin.auth;
+package com.baoquan.shuxin.web.vo.auth;
 
 import java.util.Date;
 import java.util.Map;

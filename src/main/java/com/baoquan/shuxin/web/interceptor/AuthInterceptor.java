@@ -1,4 +1,4 @@
-package com.baoquan.shuxin.web.admin.interceptor;
+package com.baoquan.shuxin.web.interceptor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ import com.baoquan.shuxin.model.admin.AdminMenu;
 import com.baoquan.shuxin.model.admin.AdminUserMenuPerm;
 import com.baoquan.shuxin.service.spi.admin.AdminMenuService;
 import com.baoquan.shuxin.service.spi.admin.AdminUserMenuPermService;
-import com.baoquan.shuxin.web.vo.admin.auth.MenuVO;
+import com.baoquan.shuxin.web.vo.auth.MenuVO;
 import com.google.common.collect.Lists;
 
 /**
@@ -43,7 +43,7 @@ public class AuthInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
         if (HandlerMethod.class.isInstance(handler)) {
-            Long userId = (Long) request.getSession(true).getAttribute("userId");
+            Long userId = (Long) request.getSession(true).getAttribute("ADMIN_USER_ID");
             if (userId == null) {
                 response.sendRedirect("/admin/loginPage");
                 return false;
@@ -110,7 +110,7 @@ public class AuthInterceptor implements HandlerInterceptor {
             if (modelAndView == null) {
                 return;
             }
-            Long userId = (Long) request.getSession(true).getAttribute("userId");
+            Long userId = (Long) request.getSession(true).getAttribute("ADMIN_USER_ID");
             if (userId == null) {
                 return;
             }

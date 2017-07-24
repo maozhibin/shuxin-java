@@ -16,16 +16,16 @@
 
 <section class="filter-box" style="border:none">
     <div class="row">
-        <form class="form-inline">
+        <form class="form-inline" method="post">
             <table style="margin-left: 30px">
                 <tr>
                     <td> 类型：</td>
                     <td>
                         <select name="newsClassType" class="form-control">
-                            <option selected>请选择类型</option>
+                            <option selected value="">请选择类型</option>
                             <c:forEach items="${options}" var="option">
-                                <option value="${option.value}">${option.name}
-                                </option>
+                                <c:if test="${newsClassType == option.value}"><option selected value="${option.value}">${option.name}</option></c:if>
+                                <c:if test="${newsClassType != option.value}"><option value="${option.value}">${option.name}</option></c:if>
                             </c:forEach>
 
                         </select>
@@ -80,11 +80,8 @@
                     </c:if>
                     </tbody>
                 </table>
-                <div class="col-sm-12" style="text-align: center">
-                    <hr>
-                    <span class="float-left" style="line-height: 40px;">共${page.totalRecordCount}条，每页15条</span>
 
-                </div>
+                <%@include file="/WEB-INF/page/admin/pager.jsp"%>
             </div>
         </div>
     </div>

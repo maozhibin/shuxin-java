@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baoquan.shuxin.dao.stats.PlatformOverviewDao">
+
+    <select id="sumMoneyLogByTime" resultType="java.math.BigDecimal">
+        SELECT sum(amount)
+        FROM user_money_log
+        WHERE status = 1
+        AND finish_time >= #{startTime} AND finish_time &lt; #{endTime}
+    </select>
+    <select id="countUserProductByTime" resultType="java.lang.Long">
+        SELECT count(*)
+        FROM user_product
+        WHERE status = 1
+        AND buy_time >= #{startTime} AND buy_time &lt; #{endTime}
+    </select>
+    <select id="countSecurityBaoquanLogByTime" resultType="java.lang.Long">
+        SELECT count(*)
+        FROM security_baoquan_log
+        WHERE status = 1
+        AND success_time >= #{startTime} AND success_time &lt; #{endTime}
+    </select>
+    <select id="countAuthorizationByTime" resultType="java.lang.Long">
+        SELECT count(*)
+        FROM apitest_authorization
+        WHERE status = 'VERIFIED'
+        AND valid_time >= #{startTime} AND valid_time &lt; #{endTime}
+    </select>
+</mapper>
