@@ -76,8 +76,8 @@
                     is_display = #{isDisplay},keywords = #{keywords} ,image = #{image} ,content = #{content} WHERE id = #{id}
   </update>
   <insert id="insertNews" parameterType="com.baoquan.shuxin.model.news.News" useGeneratedKeys="true" keyProperty="id">
-    INSERT INTO news(news_class_type,title,source,author,top,is_display,keywords,image,content)
-           VALUE (#{newsClassType},#{title},#{source},#{author},#{top},#{isDisplay},#{keywords},#{image},#{content})
+    INSERT INTO news(news_class_type,title,source,author,top,is_display,keywords,content)
+           VALUE (#{newsClassType},#{title},#{source},#{author},#{top},#{isDisplay},#{keywords},#{content})
 
   </insert>
 

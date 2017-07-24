@@ -201,13 +201,13 @@
                                             class="fa fa-fw fa-caret-down"></i></a>
                                     <ul id="control_panel" class="collapse" href="/admin/overview">
                                         <li>
-                                            <a href="<%=basePath%>admin/overview/platform">平台概况</a>
+                                            <a href="<%=basepath%>admin/overview/platform">平台概况</a>
                                         </li>
                                         <li>
-                                            <a href="<%=basePath%>admin/overview/organization">机构交易概况</a>
+                                            <a href="<%=basepath%>admin/overview/organization">机构交易概况</a>
                                         </li>
                                         <li>
-                                            <a href="<%=basePath%>admin/overview/product">产品交易概况</a>
+                                            <a href="<%=basepath%>admin/overview/product">产品交易概况</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -217,7 +217,7 @@
                                             class="fa fa-fw fa-caret-down"></i></a>
                                     <ul id="enterprise" class="collapse">
                                         <li>
-                                            <a href="<%=basePath%>admin/user/list">机构列表</a>
+                                            <a href="<%=basepath%>admin/user/list">机构列表</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -245,10 +245,10 @@
                                             class="fa fa-fw fa-caret-down"></i></a>
                                     <ul id="member" class="collapse" href="/admin/user">
                                         <li>
-                                            <a href="<%=basePath%>admin/user/list?typeId=USER">注册用户</a>
+                                            <a href="<%=basepath%>admin/user/list?typeid=user">注册用户</a>
                                         </li>
                                         <li>
-                                            <a href="<%=basePath%>admin/user/list?typeId=ORG">机构用户</a>
+                                            <a href="<%=basepath%>admin/user/list?typeid=org">机构用户</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -258,13 +258,13 @@
                                             class="fa fa-fw fa-caret-down"></i></a>
                                     <ul id="order_form" class="collapse" href="/admin/order">
                                         <li>
-                                            <a href="<%=basePath%>admin/order/list">订单列表</a>
+                                            <a href="<%=basepath%>admin/order/list">订单列表</a>
                                         </li>
                                         &lt;%&ndash; <li>
-                                             <a href="<%=basePath%>admin/order/completed">已完成订单</a>
+                                             <a href="<%=basepath%>admin/order/completed">已完成订单</a>
                                          </li>
                                          <li>
-                                             <a href="<%=basePath%>admin/order/uncompleted">未完成订单</a>
+                                             <a href="<%=basepath%>admin/order/uncompleted">未完成订单</a>
                                          </li>
                                          &ndash;%&gt;
                                     </ul>
@@ -275,10 +275,10 @@
                                             class="fa fa-fw fa-caret-down"></i></a>
                                     <ul id="product" class="collapse" href="/admin/product">
                                         <li>
-                                            <a href="<%=basePath%>admin/product/list">产品列表</a>
+                                            <a href="<%=basepath%>admin/product/list">产品列表</a>
                                         </li>
                                         <li>
-                                            <a href="<%=basePath%>admin/product/issue">产品发布</a>
+                                            <a href="<%=basepath%>admin/product/issue">产品发布</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -288,10 +288,10 @@
                                             class="fa fa-fw fa-caret-down"></i></a>
                                     <ul id="news" class="collapse" href="/admin/news">
                                         <li>
-                                            <a href="<%=basePath%>admin/news/list">文章管理</a>
+                                            <a href="<%=basepath%>admin/news/list">文章管理</a>
                                         </li>
                                         <li>
-                                            <a href="<%=basePath%>admin/news/issue">内容发布</a>
+                                            <a href="<%=basepath%>admin/news/issue">内容发布</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -301,7 +301,7 @@
                                             class="fa fa-fw fa-caret-down"></i></a>
                                     <ul id="account" class="collapse" href="/admin/account">
                                         <li>
-                                            <a href="<%=basePath%>admin/account/flow">账户流水</a>
+                                            <a href="<%=basepath%>admin/account/flow">账户流水</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -311,7 +311,7 @@
                                             class="fa fa-fw fa-caret-down"></i></a>
                                     <ul id="config" class="collapse" href="/admin/config">
                                         <li>
-                                            <a href="<%=basePath%>admin/config/list">配置参数</a>
+                                            <a href="<%=basepath%>admin/config/list">配置参数</a>
                                         </li>
                                         <!--<li>-->
                                         <!-- <a href="admin/recharge">定时调度</a>-->
@@ -324,7 +324,7 @@
                                             class="fa fa-fw fa-caret-down"></i></a>
                                     <ul id="tools" class="collapse" href="/admin/tools">
                                         <li>
-                                            <a href="<%=basePath%>admin/tools/ip/list">IP管理</a>
+                                            <a href="<%=basepath%>admin/tools/ip/list">ip管理</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -334,7 +334,7 @@
                                             class="fa fa-fw fa-caret-down"></i></a>
                                     <ul id="super" class="collapse" href="/admin/super">
                                         <li>
-                                            <a href="<%=basePath%>admin/super/auth/list">权限管理</a>
+                                            <a href="<%=basepath%>admin/super/auth/list">权限管理</a>
                                         </li>
                                     </ul>
                                 </li>

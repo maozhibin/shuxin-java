@@ -177,12 +177,7 @@ public class NewsController {
     @RequestMapping("updateAndAdd")
     public String updateAndAdd(String id,String newsClassType,String title,String source,String author,
             Integer top,Integer isDisplay, String keywords,String content){
-        if(StringUtils.isEmpty(newsClassType)){
-            return null;
-        }
-        if(StringUtils.isEmpty(title)){
-            return null;
-        }
+
         News news = new News();
         news.setNewsClassType(newsClassType);
         news.setTitle(title);
@@ -197,6 +192,9 @@ public class NewsController {
             news.setId(NumberUtils.toInt(id));
             newsService.updateAndAddNews(news);
         }else{
+
+
+
             newsService.insertNews(news);
         }
         return "redirect:list";

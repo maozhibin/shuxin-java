@@ -54,14 +54,14 @@
         <div class="row form-group">
             <label class="col-sm-1 control-label no-padding-right">选择类型:</label>
             <div class="col-sm-11">
-                <select name="newsClassType" class="form-control">
-                    <option selected>请选择类型</option>
+                <select name="newsClassType" class="form-control" id="newsClassType">
+                    <option selected value="">请选择类型</option>
                     <c:forEach items="${options}" var="option">
                         <option value="${option.value}">${option.name}
                         </option>
                     </c:forEach>
-
                 </select>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-warning" id= "newsClassTypeSpan"></span>
             </div>
         </div>
         <div class="row form-group">
@@ -69,13 +69,13 @@
             <div class="col-sm-11">
                 <c:if test="${not empty news.title}">
                     <input name="title" value="${news.title}"
-                           class="col-xs-10 col-sm-5" placeholder="标题必须填写！" id="title"/>
+                           class="col-xs-10 col-sm-5" placeholder="" id="title"/>
                 </c:if>
                 <c:if test="${empty news.title}">
                     <input name="title" value=""
-                           class="col-xs-10 col-sm-5" placeholder="标题必须填写！" id="title"/>
+                           class="col-xs-10 col-sm-5" placeholder="" id="title"/>
                 </c:if>
-
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-warning" id= "titleSpan"></span>
             </div>
         </div>
         <div class="row form-group">
@@ -83,12 +83,13 @@
             <div class="col-sm-11">
                 <c:if test="${not empty news.source}">
                     <input name="source" value="${news.source}"
-                           class="col-xs-10 col-sm-5" placeholder="标题必须填写！" id="source"/>
+                           class="col-xs-10 col-sm-5" placeholder="" id="source"/>
                 </c:if>
                 <c:if test="${empty news.source}">
                     <input name="source" value=""
-                           class="col-xs-10 col-sm-5" placeholder="标题必须填写！" id="source"/>
+                           class="col-xs-10 col-sm-5" placeholder="" id="source"/>
                 </c:if>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-warning" id= "sourceSpan"></span>
 
             </div>
         </div>
@@ -97,37 +98,39 @@
             <div class="col-sm-11">
                 <c:if test="${not empty news.author}">
                     <input name="author" value="${news.author}"
-                           class="col-xs-10 col-sm-5" placeholder="标题必须填写！" id="author"/>
+                           class="col-xs-10 col-sm-5" placeholder="" id="author"/>
                 </c:if>
                 <c:if test="${empty news.author}">
-                    <input name="source" value=""
-                           class="col-xs-10 col-sm-5" placeholder="标题必须填写！" id="author"/>
+                    <input name="author" value=""
+                           class="col-xs-10 col-sm-5" placeholder="" id="author"/>
                 </c:if>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-warning" id= "authorSpan"></span>
 
             </div>
         </div>
         <div class="row form-group">
             <label class="col-sm-1 control-label no-padding-right">是否置顶:</label>
             <div class="col-sm-11">
-                <label><input name="top" type="radio"
+                <label><input name="top" type="radio" id="top"
                               value="1" />是
                 </label>&nbsp;&nbsp;
                 <label><input name="top" type="radio"
-                              value="0" />否
+                              value="0" id="" checked="true"/>否
                 </label>&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-warning" id= "topSpan"></span>
 
             </div>
         </div>
         <div class="row form-group">
             <label class="col-sm-1 control-label no-padding-right">是否显示发布:</label>
             <div class="col-sm-11">
-                <label><input name="is_display" type="radio"
-                              value="1"/>是
+                <label><input name="isDisplay" type="radio"
+                              value="1" checked="true"/>是
                 </label>&nbsp;&nbsp;
-                <label><input name="is_display" type="radio"
+                <label><input name="isDisplay" type="radio"
                               value="0" />否
                 </label>&nbsp;&nbsp;
-
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-warning" id= "isDisplaySpan"></span>
             </div>
         </div>
         <div class="row form-group">
@@ -135,12 +138,13 @@
             <div class="col-sm-11">
                 <c:if test="${not empty news.keywords}">
                     <input name="keywords" value="${news.author}"
-                           class="col-xs-10 col-sm-5" placeholder="标题必须填写！" id="keywords"/>
+                           class="col-xs-10 col-sm-5" placeholder="" id="keywords"/>
                 </c:if>
                 <c:if test="${empty news.keywords}">
                     <input name="keywords" value=""
-                           class="col-xs-10 col-sm-5" placeholder="标题必须填写！" id="keywords"/>
+                           class="col-xs-10 col-sm-5" placeholder="" id="keywords"/>
                 </c:if>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-warning" id= "keywordsSpan"></span>
 
             </div>
         </div>
@@ -167,63 +171,115 @@
                 <c:if test="${not empty news.id}">
 			              	 	 <textarea name="content"  style="height: 200px"
                                            class="col-xs-10 col-sm-5"
-                                           placeholder="新闻内容必须填写！"  id="content">${news.content}</textarea>
+                                           placeholder=""  id="content">${news.content}</textarea>
                 </c:if>
-
                 <c:if test="${empty news.id}">
 			              	 	 <textarea name="content" style="height: 200px"
                                            class="col-xs-10 col-sm-5"
-                                           placeholder="新闻内容必须填写！" id="content"></textarea>
+                                           placeholder="" id="content"></textarea>
                 </c:if>
 
             </div>
         </div>
         <div class="row">
             <hr>
-            <button type="submit" class="btn" id="submit">提交</button>
+            <button type="submit" class="btn" id="submit" onclick="mysumit()">提交</button>
         </div>
         </form>
 
 
 <script type="text/javascript">
+
+
+    function mysumit() {
+        document.getElementById("newsClassTypeSpan").innerText = "";
+        document.getElementById("titleSpan").innerText = "";
+        document.getElementById("sourceSpan").innerText = "";
+        document.getElementById("authorSpan").innerText = "";
+        document.getElementById("topSpan").innerText = "";
+        document.getElementById("isDisplaySpan").innerText = "";
+        document.getElementById("keywordsSpan").innerText = "";
+
+
+        var newsClassType=$("#newsClassType").val()
+        var title=$("#title").val()
+        var source=$("#source").val()
+        var author=$("#author").val()
+        var top=$("#top").val()
+        var isDisplay=$("#isDisplay").val()
+        var keywords=$("#keywords").val()
+
+
+        if(newsClassType.length<=0){//当上面获取的值为空时
+            document.getElementById("newsClassTypeSpan").innerText = "亲，请选择类型！";
+            return false;//返回false（不提交表单）
+        }
+        if(title.length<=0){
+            document.getElementById("titleSpan").innerText = "亲，请填写标题哦！";
+            return false;
+        }
+        if(source.length<=0){
+            document.getElementById("sourceSpan").innerText = "亲，请填写来源！";
+            return false;
+        }
+        if(author.length<=0){
+            document.getElementById("authorSpan").innerText = "亲，请填写作者名称哦！";
+            return false;
+        }
+        if(keywords.length<=0){
+            document.getElementById("keywordsSpan").innerText = "亲，请填写网页关键词哦！";
+            return false;
+        }
+
+
+        document.getElementById("formid").submit();
+    }
+
+
     $(document).ready(function () {
         //响应文件添加成功事件
 
-        $("#inputfile").change(function () {
-            //创建FormData对象
-            var data = new FormData();
-            //为FormData对象添加数据
-            data.append('imgFile', $('#inputfile')[0].files[0]);
-//            data.append('<?php //echo $this->security->get_csrf_token_name();?>//', '<?php //echo $this->security->get_csrf_hash();?>//');
+//        $("#inputfile").change(function () {
+//            //创建FormData对象
+//            var data = new FormData();
+//            //为FormData对象添加数据
+//            data.append('imgFile', $('#inputfile')[0].files[0]);
+//
+////            data.append('<?php //echo $this->security->get_csrf_token_name();?>//', '<?php //echo $this->security->get_csrf_hash();?>//');
+//
+//            //发送数据
+//            $.ajax({
+//                url: "admin/data/upload",
+//                type: 'POST',
+//                data: data,
+//                cache: false,
+//                contentType: false,		//不可缺参数
+//                processData: false,		//不可缺参数
+//                dataType: 'json',
+//                success: function (data) {
+//                    if (data.error == 1) {
+//                        alert(data.message);
+//                    }
+//                    else {
+//                        console.log(data.url);
+//                        // alert( JSON.stringify( data.url ) ) ;
+//                        $('#uf').attr('src', base_url + data.url);
+//                        $('#uf').show();
+//                        $('#icon').val(data.url);
+//                        $('#uf').val(base_url + data.url);
+//                    }
+//                },
+//                error: function () {
+//                    alert('上传失败！');
+//
+//                }
+//            });
+//        });
 
-            //发送数据
-            $.ajax({
-                url: '<?=site_url("admin/data/upload")?>',
-                type: 'POST',
-                data: data,
-                cache: false,
-                contentType: false,		//不可缺参数
-                processData: false,		//不可缺参数
-                dataType: 'json',
-                success: function (data) {
-                    if (data.error == 1) {
-                        alert(data.message);
-                    }
-                    else {
-                        console.log(data.url);
-                        // alert( JSON.stringify( data.url ) ) ;
-                        $('#uf').attr('src', base_url + data.url);
-                        $('#uf').show();
-                        $('#icon').val(data.url);
-                        $('#uf').val(base_url + data.url);
-                    }
-                },
-                error: function () {
-                    alert('上传失败！');
 
-                }
-            });
-        });
+
+
+
 
         var editor = new Simditor({
             textarea: $('#editor'),
