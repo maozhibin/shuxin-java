@@ -24,6 +24,8 @@ public interface ProductDao {
 
 	Product findById(Integer id);
 
+	Map<String, Object> productBaseInfo(Integer id);
+
 
 
 }

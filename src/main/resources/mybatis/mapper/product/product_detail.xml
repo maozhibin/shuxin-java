@@ -19,4 +19,13 @@
         insert into product_detail(product_id,intro,highlight,service)  
              values(#{productId},#{intro},#{highlight},#{service})  
     </insert>
+	
+	 <select id="findByProductId" resultMap="BaseResultMap">
+    	SELECT
+			*
+		FROM
+			product_detail
+		WHERE
+			product_id = #{id}
+    </select>  
 </mapper>

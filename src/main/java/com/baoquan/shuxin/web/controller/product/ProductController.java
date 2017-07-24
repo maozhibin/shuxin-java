@@ -5,8 +5,11 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.apache.http.HttpRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -20,15 +23,30 @@ import org.springframework.web.servlet.ModelAndView;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baoquan.shuxin.bean.Page;
+import com.baoquan.shuxin.dao.product.ProductDetailDao;
+import com.baoquan.shuxin.dao.product.ProductInterfaceCodeDao;
+import com.baoquan.shuxin.dao.product.ProductTagDao;
 import com.baoquan.shuxin.dao.tag.TagsDao;
 import com.baoquan.shuxin.model.area.Area;
+import com.baoquan.shuxin.model.product.Product;
 import com.baoquan.shuxin.model.product.ProductBase;
 import com.baoquan.shuxin.model.product.ProductClass;
+import com.baoquan.shuxin.model.product.ProductDetail;
+import com.baoquan.shuxin.model.product.ProductInterface;
+import com.baoquan.shuxin.model.product.ProductInterfaceCode;
+import com.baoquan.shuxin.model.product.ProductInterfaceParam;
+import com.baoquan.shuxin.model.product.ProductInterfaceSample;
 import com.baoquan.shuxin.model.user.User;
 import com.baoquan.shuxin.service.spi.area.AreaService;
 import com.baoquan.shuxin.service.spi.product.ProductBaseService;
 import com.baoquan.shuxin.service.spi.product.ProductClassService;
+import com.baoquan.shuxin.service.spi.product.ProductDetailService;
+import com.baoquan.shuxin.service.spi.product.ProductInterfaceCodeService;
+import com.baoquan.shuxin.service.spi.product.ProductInterfaceParamService;
+import com.baoquan.shuxin.service.spi.product.ProductInterfaceSampleService;
+import com.baoquan.shuxin.service.spi.product.ProductInterfaceService;
 import com.baoquan.shuxin.service.spi.product.ProductService;
+import com.baoquan.shuxin.service.spi.product.ProductTagService;
 import com.baoquan.shuxin.service.spi.user.UserService;
 import com.baoquan.shuxin.util.JsonResponseMsg;
 
@@ -47,7 +65,18 @@ public class ProductController {
     private AreaService areaService;
     @Inject
     private UserService userService;
-  
+    @Inject
+    private ProductInterfaceService productInterfaceService;
+    @Inject
+    private ProductInterfaceSampleService productInterfaceSampleService;
+    @Inject
+    private ProductDetailService productDetailService;
+    @Inject
+    private ProductTagService productTagService;
+    @Inject
+    private ProductInterfaceParamService productInterfaceParamService;
+    @Inject
+    private ProductInterfaceCodeService productInterfaceCodeService;
     /**
      * 产品列表
      * @param name
@@ -74,8 +103,14 @@ public class ProductController {
 		return mv;
     }
 
+    /**
+     * 产品发布或者修改页面
+     * @param content
+     * @param request
+     * @return
+     */
     @RequestMapping("issue")
-    public ModelAndView issue(@RequestBody(required = false) String content) {
+    public ModelAndView issue(@RequestBody(required = false) String content,HttpServletRequest request) {
         logger.info(content);
         ModelAndView mv = new ModelAndView("admin/product/issue");
         List<ProductClass> productClassList= productClassService.findAllClassList();
@@ -85,6 +120,28 @@ public class ProductController {
         map.put("provinceList", provinceList);
         map.put("productClassList", productClassList);
         map.put("userList", userList);
+        String id = request.getParameter("id");
+        if(!StringUtils.isEmpty(id)){
+        	Integer idValue = NumberUtils.toInt(id);
+        	Map<String,Object> productBaseInfo=productService.productBaseInfo(idValue);
+        	map.put("productBaseInfo", productBaseInfo);
+        	ProductInterface productInterface = productInterfaceService.findByProductId(idValue);
+        	map.put("productInterface", productInterface);
+        	List<ProductInterfaceSample> interfaceSample=productInterfaceSampleService.findByProductId(idValue);
+        	map.put("interfaceSample", interfaceSample);
+        	ProductDetail productDetail = productDetailService.findByProductId(idValue);
+        	map.put("productDetail", productDetail);
+        	String tagLists=productTagService.findByProductId(idValue);
+        	map.put("tagLists",tagLists);
+        	List<ProductInterfaceParam> headersParamslist = productInterfaceParamService.headersParamslist(idValue);
+        	map.put("headersParamslist",headersParamslist);
+        	List<ProductInterfaceParam> queryParamslist = productInterfaceParamService.queryParamslist(idValue);
+        	map.put("queryParamslist",queryParamslist);
+        	List<ProductInterfaceParam> bodyParamslist = productInterfaceParamService.bodyParamslist(idValue);
+        	map.put("bodyParamslist",bodyParamslist);
+        	List<ProductInterfaceCode> interfaceCodeList = productInterfaceCodeService.interfaceCodeList(idValue);
+        	map.put("interfaceCodeList",interfaceCodeList);
+        }
         mv.addObject(map);
         return mv;
     }
@@ -108,8 +165,7 @@ public class ProductController {
      */
     @RequestMapping("updateOrAdd")
     @Transactional
-    public ModelAndView ProductUpdateOrAdd(String id,String data){
-        ModelAndView mv = new ModelAndView("admin/product/list");
+    public String ProductUpdateOrAdd(String id,String data){
         Integer idValue=null;
         if(NumberUtils.isNumber(id)){
             idValue=NumberUtils.toInt(id);
@@ -118,8 +174,9 @@ public class ProductController {
        if(!updateOrAdd){
     	   return null;
         }
-        return mv;
+       return "redirect:list";
     }
+    
 
     @RequestMapping("inter")
     public Object inter() {

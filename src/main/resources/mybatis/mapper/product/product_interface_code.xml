@@ -24,4 +24,12 @@
 	        (#{item.productId},#{item.productInterfaceId},#{item.code},#{item.name},#{item.desc})  
 	    </foreach>  
    </insert>
+   
+   <select id="interfaceCodeList" resultMap="BaseResultMap">
+   		SELECT
+			*
+		FROM
+			product_interface_code
+		WHERE product_id=#{id}
+   </select>
 </mapper>

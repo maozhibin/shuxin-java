@@ -23,4 +23,13 @@
    <delete id="delete" parameterType="int">
         delete from product_interface_sample where product_id=#{productId}
     </delete>
+    
+    <select id="findByProductId" resultMap="BaseResultMap">
+    	SELECT
+			*
+		FROM
+			product_interface_sample
+		WHERE
+			product_id = #{id}
+    </select>
 </mapper>

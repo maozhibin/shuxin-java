@@ -19,4 +19,6 @@ public interface ProductInterfaceDao {
 	
 	void update(ProductInterface productInterface);
 
+	ProductInterface findByProductId(Integer id);
+
 }

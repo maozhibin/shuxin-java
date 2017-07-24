@@ -18,12 +18,16 @@
   </resultMap>
 	
 	 <select id="countByName" resultType="java.lang.Integer">
-       SELECT
+      SELECT
 			COUNT(1)
 		FROM
 			product p
 		LEFT JOIN `user` u ON p.user_id = u.id
-     	where 1 = 1
+		LEFT JOIN product_billings s ON s.product_id = p.id
+		WHERE
+			1 = 1
+		AND s.num = 1
+		AND s.type = 1
 		<if test="name != null">
 	         and p.`name`=#{name}
 	         or u.username=#{name}
@@ -32,6 +36,7 @@
 
   <select id="productList" resultType="java.util.Map">
 		SELECT
+			p.id,
 			p.dateline,
 			p.`name`,
 			p.type,
@@ -50,6 +55,9 @@
 	         and p.`name`=#{name}
 	         or u.username=#{name}
 	    </if>
+	    AND s.num = 1
+		AND s.type = 1
+	    ORDER BY p.dateline DESC
 	    <if test="page != null">
 	              	limit ${page.startIndex},${page.pageSize};
 	     </if>
@@ -68,5 +76,28 @@
 	FROM
 		product
 	WHERE id=#{id}
+  </select>
+  
+  <select id="productBaseInfo" resultType="java.util.Map">
+		SELECT
+			p.id,
+			p.`name`,
+			p.frequent,
+			p.product_class_id,
+			p.product_base_id,
+			p.type,
+			p.description,
+			u.id sellerId,
+			a.pid,
+			a.id areaId
+		FROM
+			product p
+		LEFT JOIN `user` u ON p.user_id = u.id
+		LEFT JOIN area a ON p.area_id = a.id
+		LEFT JOIN product_billings s ON s.product_id = p.id
+		WHERE
+			p.id = #{id}
+	    AND s.num = 1
+		AND s.type = 1
   </select>
 </mapper>

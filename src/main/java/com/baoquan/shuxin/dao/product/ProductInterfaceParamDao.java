@@ -12,5 +12,11 @@ public interface ProductInterfaceParamDao {
 	void paramListInsert(List<ProductInterfaceParam> interfaceParamList);
 
 	void deleteParamLit(Integer productId);
+
+	List<ProductInterfaceParam> headersParamslist(Integer id);
+	
+	List<ProductInterfaceParam> bodyParamslist(Integer id);
+	
+	List<ProductInterfaceParam> queryParamslist(Integer id);
    
 }

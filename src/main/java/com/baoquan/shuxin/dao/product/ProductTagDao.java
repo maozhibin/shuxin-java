@@ -1,6 +1,7 @@
 package com.baoquan.shuxin.dao.product;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
@@ -13,4 +14,6 @@ public interface ProductTagDao {
 	void delete(Integer productId);
 
 	void insertListByTagTds(List<ProductTag> productTagList);
+
+	List<Map<String, Object>> findProductInfo(Integer id);
 }

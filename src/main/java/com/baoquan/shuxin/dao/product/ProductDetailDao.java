@@ -10,5 +10,7 @@ public interface ProductDetailDao {
 	void delete(Integer productId);
 
 	void insert(ProductDetail productDetail);
+
+	ProductDetail findByProductId(Integer id);
    
 }
