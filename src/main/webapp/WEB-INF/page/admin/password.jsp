@@ -29,7 +29,7 @@
     <h4 class="header"><a href="<%=basePath%>admin">后台管理系统</a> — 修改密码</h4>
     <hr>
 
-    <form class="form-inline">
+    <form class="form-inline" method="post">
         <div class="row">
             <label class="col-sm-1 text-overflow">用户名：</label>
             <div class="col-sm-11"><input class="form-control" type="text" name="account"/></div>

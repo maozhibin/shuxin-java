@@ -19,8 +19,7 @@
 <body>
 <section class="filter-box" style="border:none">
     <div class="row">
-        <form class="form-inline">
-        	<input name="typeId" value=<%=request.getParameter("typeId") %> type="hidden"/>
+        <form class="form-inline" method="post">
             <table style="margin-left: 30px">
                 <tr>
                     <td> 客户名称：</td>
@@ -77,10 +76,7 @@
                     </c:if>
                     </tbody>
                 </table>
-                <div class="col-sm-12" style="text-align: center">
-                    <span class="float-left"
-                          style="line-height: 40px;">共${page.totalRecordCount}条，每页10条</span>
-                </div>
+                <%@include file="/WEB-INF/page/admin/pager.jsp"%>
             </div>
         </div>
     </div>

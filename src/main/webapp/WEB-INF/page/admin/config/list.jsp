@@ -13,8 +13,8 @@
 <body>
 <a class="btn" style="float:left;margin-bottom: 20px" href="skip"><!--<i
         class="fa fa-plus"></i> -->添加选项参数</a>
-        
-        
+
+
  <div class="row">
     <div class="col-md-12">
         <div class="box-primary">
@@ -44,14 +44,16 @@
                     	</c:if>
                     </tbody>
                 </table>
-                <div class="col-sm-12" style="text-align: center">
-                    <span class="float-left"
-                          style="line-height: 40px;">共${page.totalRecordCount}条，每页10条</span>
-                </div>
+                <%@include file="/WEB-INF/page/admin/pager.jsp"%>
             </div>
         </div>
     </div>
 </div>
- 
+
+<script>
+    function nav(pageNo) {
+        location.href="?pageNo="+pageNo;
+    }
+</script>
 </body>
 </html>

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.baoquan.shuxin.model.admin.AdminMenu;
-import com.baoquan.shuxin.web.vo.admin.auth.MenuVO;
+import com.baoquan.shuxin.web.vo.auth.MenuVO;
 
 /**
  * Desc:

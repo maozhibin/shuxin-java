@@ -18,6 +18,8 @@
         }
     </style>
 
+
+
     <link href='<%=basePath%>static/admin/plugins/daterangepicker/daterangepicker.css?1.0' rel="stylesheet"
           type="text/css"/>
     <link href='<%=basePath%>static/admin/plugins/datepicker/datepicker3.css?1.0' rel="stylesheet" type="text/css"/>
@@ -87,15 +89,15 @@
                         <select name="status" class="form-control" id="domain">
                             <option value="">全部</option>
                             <c:forEach items="${order}" var="option">
-                                <option value="${option.value}">${option.name}
-                                </option>
+                                <c:if test="${status == option.value}"><option selected value="${option.value}">${option.name}</option></c:if>
+                                <c:if test="${status != option.value}"><option value="${option.value}">${option.name}</option></c:if>
                             </c:forEach>
                         </select>
                     </td>
                     <td> ID：</td>
                     <td>
                         <input type="text" class="form-control pull-right" id="user_id" placeholder="用户ID"
-                               name="userId">
+                               name="userId" value="${userId}">
                     </td>
                     <td> 日期：</td>
                     <td>
@@ -151,11 +153,7 @@
                 </table>
             </div>
             <!-- /BOX -->
-            <div class="col-sm-12" style="text-align: center">
-                <hr>
-                <span class="float-left" style="line-height: 40px;">共${page.totalRecordCount}条，每页15条</span>
-
-            </div>
+            <%@include file="/WEB-INF/page/admin/pager.jsp"%>
         </section>
     </div>
 </div>

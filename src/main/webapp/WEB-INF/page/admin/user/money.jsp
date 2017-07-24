@@ -46,8 +46,7 @@
 <h3 class="header">资金变动记录</h3>
 <section class="filter-box" style="border:none">
     <div class="row">
-        <form class="form-inline">
-        	<input name="userId" value=<%=request.getParameter("userId") %> type="hidden"/>
+        <form class="form-inline" method="post">
             <table>
                 <tr>
                     <td> 资金类型：</td>
@@ -106,10 +105,7 @@
                     </c:if>
                     </tbody>
                 </table>
-                <div class="col-sm-12" style="text-align: center">
-                    <span class="float-left"
-                          style="line-height: 40px;">共${page.totalRecordCount}条，每页15条</span>
-                </div>
+                <%@include file="/WEB-INF/page/admin/pager.jsp"%>
             </div>
         </div>
     </div>

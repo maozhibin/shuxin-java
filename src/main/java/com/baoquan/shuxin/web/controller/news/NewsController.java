@@ -53,7 +53,8 @@ public class NewsController {
         ModelAndView mv = new ModelAndView("admin/news/list");
 
         if (pageNo == null || pageNo < 1)  pageNo = 1;
-        if (pageSize == null || pageSize > 15) pageSize = 15;
+        if (pageSize == null || pageSize > Page.DEFAULT_PAGE_SIZE) pageSize = Page.DEFAULT_PAGE_SIZE;
+        newsClassType = StringUtils.trimToNull(newsClassType);
 
         Page page = new Page();
         page.setPageNo(pageNo);
@@ -61,7 +62,7 @@ public class NewsController {
 
         Integer newsCount = newsService.countNewsInfo(newsClassType);
         page.setTotalRecordCount(newsCount);
-        if(newsCount > 0){
+        if(newsCount > (pageNo - 1) * pageSize){
             List<News> newsList = newsService.queryNewsInfoList(newsClassType,(pageNo-1)*pageSize,pageSize);
             List<Option> optionList = optionService.queryOptionInfo();
 
@@ -82,6 +83,7 @@ public class NewsController {
         }
         mv.addObject(page);
         mv.addObject("options",optionService.queryOptionInfo());
+        mv.addObject("newsClassType", newsClassType);
         return mv;
     }
 
@@ -155,6 +157,7 @@ public class NewsController {
         ModelAndView mv = new ModelAndView("admin/news/add");
         if(NumberUtils.isNumber(id)){
             News news =newsService.updateNews(NumberUtils.toInt(id));
+            mv.addObject("options",optionService.queryOptionInfo());
             mv.addObject(news);
         }
         return mv;
@@ -177,12 +180,7 @@ public class NewsController {
     @RequestMapping("updateAndAdd")
     public String updateAndAdd(String id,String newsClassType,String title,String source,String author,
             Integer top,Integer isDisplay, String keywords,String content){
-        if(StringUtils.isEmpty(newsClassType)){
-            return null;
-        }
-        if(StringUtils.isEmpty(title)){
-            return null;
-        }
+
         News news = new News();
         news.setNewsClassType(newsClassType);
         news.setTitle(title);

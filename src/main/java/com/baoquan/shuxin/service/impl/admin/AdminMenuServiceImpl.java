@@ -10,7 +10,7 @@ import javax.inject.Named;
 import com.baoquan.shuxin.dao.admin.AdminMenuDao;
 import com.baoquan.shuxin.model.admin.AdminMenu;
 import com.baoquan.shuxin.service.spi.admin.AdminMenuService;
-import com.baoquan.shuxin.web.vo.admin.auth.MenuVO;
+import com.baoquan.shuxin.web.vo.auth.MenuVO;
 
 /**
  * Desc:

@@ -88,7 +88,7 @@
 
 <section class="filter-box" style="border:none">
     <div class="row">
-        <form class="form-inline">
+        <form class="form-inline" method="post">
             <table style="margin-left: 30px">
                 <tbody>
                 <tr>
@@ -97,15 +97,15 @@
                         <select name="type" class="form-control" id="domain">
                             <option value="">全部</option>
                             <c:forEach items="${flow}" var="option">
-                                <option value="${option.value}">${option.name}
-                                </option>
+                                <c:if test="${type == option.value}"><option selected value="${option.value}">${option.name}</option></c:if>
+                                <c:if test="${type != option.value}"><option value="${option.value}">${option.name}</option></c:if>
                             </c:forEach>
 
                         </select>
                     </td>
                     <td> ID：</td>
                     <td>
-                        <input type="text" class="form-control pull-right" id="user_id" placeholder="用户ID"
+                        <input type="text" class="form-control pull-right" id="userId" placeholder="用户ID"
                                name="userId" value="">
                     </td>
                     <td> 日期：</td>
@@ -163,10 +163,7 @@
                 </table>
             </div>
 
-            <div class="col-sm-12" style="text-align: center">
-                    <span class="float-left"
-                          style="line-height: 40px;">共${page.totalRecordCount}条，每页15条</span>
-            </div>
+            <%@include file="/WEB-INF/page/admin/pager.jsp"%>
         </section>
     </div>
 </div>

@@ -1,4 +1,4 @@
-package com.baoquan.shuxin.web.admin.controller.superb;
+package com.baoquan.shuxin.web.controller.superb;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,12 +12,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.alibaba.fastjson.JSON;
 import com.baoquan.shuxin.bean.Page;
 import com.baoquan.shuxin.enums.AdminUserMenuPermEnum;
 import com.baoquan.shuxin.model.admin.AdminUser;
@@ -25,7 +23,7 @@ import com.baoquan.shuxin.model.admin.AdminUserMenuPerm;
 import com.baoquan.shuxin.service.spi.admin.AdminMenuService;
 import com.baoquan.shuxin.service.spi.admin.AdminUserMenuPermService;
 import com.baoquan.shuxin.service.spi.admin.AdminUserService;
-import com.baoquan.shuxin.web.vo.admin.auth.AdminUserMenuPermVO;
+import com.baoquan.shuxin.web.vo.auth.AdminUserMenuPermVO;
 
 /**
  * Desc:
@@ -47,7 +45,7 @@ public class AuthManageController {
     public Object list(String keywords, Integer pageNo, Integer pageSize) {
         ModelAndView mav = new ModelAndView("admin/super/auth/list");
         if (pageNo == null || pageNo < 1) pageNo = 1;
-        if (pageSize == null || pageSize > 15) pageSize = 15;
+        if (pageSize == null || pageSize > Page.DEFAULT_PAGE_SIZE) pageSize = Page.DEFAULT_PAGE_SIZE;
         keywords = StringUtils.trimToNull(keywords);
 
         Page page = new Page();
@@ -57,7 +55,7 @@ public class AuthManageController {
         Long userCount = adminUserService.countUserByName(keywords);
         page.setTotalRecordCount(userCount);
 
-        if (userCount > 0) {
+        if (userCount > (pageNo - 1) * pageSize) {
             List<AdminUser> userList = adminUserService.listUserByName(keywords, (pageNo - 1) * pageSize, pageSize);
             List<AdminUserMenuPermVO> userMenuPermVOList = new ArrayList<>(userList.size());
             for (AdminUser user : userList) {
@@ -75,6 +73,7 @@ public class AuthManageController {
         mav.addObject("menus", adminMenuService.queryEffectiveMenuTree());
         mav.addObject("perms", AdminUserMenuPermEnum.getPermMap());
         mav.addObject("page", page);
+        mav.addObject("keywords", keywords);
         return mav;
     }
 
