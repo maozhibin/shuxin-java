@@ -43,11 +43,9 @@ public class AccountFlowController {
     @RequestMapping("/flow")
     @ResponseBody
     public Object list(Long userId, String type, String date_range, Integer pageNo, Integer pageSize) {
-        ModelAndView mv = new ModelAndView("admin/account/account_index");
-
+            ModelAndView mv = new ModelAndView("admin/account/account_index");
             if (pageNo == null || pageNo < 1)  pageNo = 1;
             if (pageSize == null || pageSize > 15) pageSize = 15;
-
             Page page = new Page();
             page.setPageNo(pageNo);
             page.setPageSize(pageSize);

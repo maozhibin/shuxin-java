@@ -18,6 +18,8 @@
         }
     </style>
 
+
+
     <link href='<%=basePath%>static/admin/plugins/daterangepicker/daterangepicker.css?1.0' rel="stylesheet"
           type="text/css"/>
     <link href='<%=basePath%>static/admin/plugins/datepicker/datepicker3.css?1.0' rel="stylesheet" type="text/css"/>

@@ -50,23 +50,23 @@
         COUNT(*)
         FROM
         user_money_log um
-        WHERE 1=1
-        <include refid="taskQuery"></include>
+
+        <where>
+            <if test="userId !=null">
+                AND um.user_id = #{userId}
+            </if>
+            <if test="type != null">
+                AND um.type = #{type}
+            </if>
+            <if test="statTime != null and endTime != null" >
+                AND um.finish_time
+                BETWEEN #{statTime} AND  #{endTime}
+            </if>
+        </where>
 
     </select>
 
-    <sql id="taskQuery">
-        <if test="userId !=null">
-            AND um.user_id = #{userId}
-        </if>
-        <if test="type != null">
-            AND um.type = #{type}
-        </if>
-        <if test="statTime != null and endTime != null" >
-            AND um.finish_time
-            BETWEEN #{statTime} AND  #{endTime}
-        </if>
-    </sql>
+
 
     <select id="querByIdAccountInfo" resultType="com.baoquan.shuxin.model.account.AccountFlow">
         SELECT*FROM user_money_log WHERE id=#{id}

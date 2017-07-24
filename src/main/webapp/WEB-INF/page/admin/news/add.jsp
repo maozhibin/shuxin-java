@@ -183,7 +183,7 @@
         </div>
         <div class="row">
             <hr>
-            <button type="submit" class="btn" id="submit" onclick="mysumit()">提交</button>
+            <button type="button" class="btn"  onclick="mysumit()">提交</button>
         </div>
         </form>
 
