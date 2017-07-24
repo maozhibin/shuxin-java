@@ -54,10 +54,12 @@
         <div class="row form-group">
             <label class="col-sm-1 control-label no-padding-right">选择类型:</label>
             <div class="col-sm-11">
+
                 <select name="newsClassType" class="form-control" id="newsClassType">
                     <option selected value="">请选择类型</option>
                     <c:forEach items="${options}" var="option">
-                        <option value="${option.value}">${option.name}
+                            <option value="${option.value}">${option.name}
+
                         </option>
                     </c:forEach>
                 </select>

@@ -155,6 +155,7 @@ public class NewsController {
         ModelAndView mv = new ModelAndView("admin/news/add");
         if(NumberUtils.isNumber(id)){
             News news =newsService.updateNews(NumberUtils.toInt(id));
+            mv.addObject("options",optionService.queryOptionInfo());
             mv.addObject(news);
         }
         return mv;
@@ -192,9 +193,6 @@ public class NewsController {
             news.setId(NumberUtils.toInt(id));
             newsService.updateAndAddNews(news);
         }else{
-
-
-
             newsService.insertNews(news);
         }
         return "redirect:list";
