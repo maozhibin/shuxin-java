@@ -34,4 +34,13 @@
             (#{item.userId},#{item.productId},#{item.type},#{item.price},#{item.num},#{item.dateline})
         </foreach>
     </insert>
+    
+    <select id="findByProductId" resultMap="BaseResultMap">
+    	SELECT
+			*
+		FROM
+			product_billings
+		WHERE
+			product_id = #{id}
+    </select>
 </mapper>
