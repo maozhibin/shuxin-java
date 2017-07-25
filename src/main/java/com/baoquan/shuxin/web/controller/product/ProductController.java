@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baoquan.shuxin.bean.Page;
+import com.baoquan.shuxin.dao.product.ProductBillingsDao;
 import com.baoquan.shuxin.dao.product.ProductDetailDao;
 import com.baoquan.shuxin.dao.product.ProductInterfaceCodeDao;
 import com.baoquan.shuxin.dao.product.ProductTagDao;
@@ -30,6 +31,7 @@ import com.baoquan.shuxin.dao.tag.TagsDao;
 import com.baoquan.shuxin.model.area.Area;
 import com.baoquan.shuxin.model.product.Product;
 import com.baoquan.shuxin.model.product.ProductBase;
+import com.baoquan.shuxin.model.product.ProductBillings;
 import com.baoquan.shuxin.model.product.ProductClass;
 import com.baoquan.shuxin.model.product.ProductDetail;
 import com.baoquan.shuxin.model.product.ProductInterface;
@@ -39,6 +41,7 @@ import com.baoquan.shuxin.model.product.ProductInterfaceSample;
 import com.baoquan.shuxin.model.user.User;
 import com.baoquan.shuxin.service.spi.area.AreaService;
 import com.baoquan.shuxin.service.spi.product.ProductBaseService;
+import com.baoquan.shuxin.service.spi.product.ProductBillingsService;
 import com.baoquan.shuxin.service.spi.product.ProductClassService;
 import com.baoquan.shuxin.service.spi.product.ProductDetailService;
 import com.baoquan.shuxin.service.spi.product.ProductInterfaceCodeService;
@@ -77,6 +80,8 @@ public class ProductController {
     private ProductInterfaceParamService productInterfaceParamService;
     @Inject
     private ProductInterfaceCodeService productInterfaceCodeService;
+    @Inject
+    private ProductBillingsService productBillingsService;
     /**
      * 产品列表
      * @param name
@@ -137,6 +142,8 @@ public class ProductController {
         	map.put("bodyParamslist",bodyParamslist);
         	List<ProductInterfaceCode> interfaceCodeList = productInterfaceCodeService.interfaceCodeList(idValue);
         	map.put("interfaceCodeList",interfaceCodeList);
+        	List<ProductBillings> billingsList = productBillingsService.findByProductId(idValue);
+        	map.put("billingsList",billingsList);
         }
         mv.addObject(map);
         return mv;
@@ -160,17 +167,18 @@ public class ProductController {
      * @return
      */
     @RequestMapping("updateOrAdd")
-    @Transactional
-    public String ProductUpdateOrAdd(String id,String data){
+    @ResponseBody
+    public JsonResponseMsg ProductUpdateOrAdd(String id,String data){
+    	JsonResponseMsg result = new JsonResponseMsg();
         Integer idValue=null;
         if(NumberUtils.isNumber(id)){
             idValue=NumberUtils.toInt(id);
         }
        Boolean updateOrAdd = productService.UpdateOrAdd(idValue,data);
        if(!updateOrAdd){
-    	   return null;
+    	   return result.fill(JsonResponseMsg.CODE_FAIL,"失败");
         }
-       return "redirect:list";
+       return result.fill(JsonResponseMsg.CODE_SUCCESS,"成功");
     }
     
 

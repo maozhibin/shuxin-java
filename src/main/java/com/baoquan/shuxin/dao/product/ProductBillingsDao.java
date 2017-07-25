@@ -16,4 +16,6 @@ public interface ProductBillingsDao {
 
 	void insertList(List<ProductBillings> billingsList);
 
+	List<ProductBillings> findByProductId(Integer id);
+
 }

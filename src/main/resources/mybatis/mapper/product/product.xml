@@ -70,6 +70,12 @@
              values(#{userId},#{name},#{frequent},#{type},#{productClassId},#{productBaseId},#{areaId},#{description},#{icon},#{used},#{dateline},#{status})  
    </insert>
    
+   <update id="updateProduct" parameterType="Product">
+   		 update product set user_id=#{userId},name=#{name},frequent=#{frequent},type=#{type},product_class_id=#{productClassId},product_base_id=#{productBaseId},
+   		 	area_id=#{areaId},description=#{description},icon=#{icon}
+   		 where id=#{id}
+   </update>
+   
   <select id="findById" resultMap="BaseResultMap">
   	SELECT
 		*

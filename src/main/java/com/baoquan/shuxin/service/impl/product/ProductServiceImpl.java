@@ -13,6 +13,7 @@ import javax.inject.Named;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -77,6 +78,7 @@ public class ProductServiceImpl implements ProductService{
 
 	@SuppressWarnings("unchecked")
 	@Override
+	@Transactional
 	public Boolean UpdateOrAdd(Integer id,String json) {
 		Date date = new Date();
 		Integer time = (int) (date.getTime()/1000);
@@ -134,7 +136,7 @@ public class ProductServiceImpl implements ProductService{
 		
 		//标签
 		JSONArray productTags = data.getJSONArray("tags");
-		Tags tags = new Tags();
+		
 		List<Object> tagsNameList = null;;
 		for(int i=0;i<productTags.size();i++){
 			tagsNameList = (List<Object>) productTags.get(i);
@@ -155,6 +157,7 @@ public class ProductServiceImpl implements ProductService{
 		String tagsName=null;
 		List<Tags> tagsList = new ArrayList<>();
 		for(int i=0;i<tagsNameList.size();i++){
+			Tags tags = new Tags();
 			tagsName=(String) tagsNameList.get(i);
 			tags.setName(tagsName);
 			tagsList.add(tags);
@@ -162,6 +165,9 @@ public class ProductServiceImpl implements ProductService{
 		tagsDao.insertTagsList(tagsList);
 		
 		List<Integer> tagsIds = tagsDao.getItermByName(tagsNameList);
+		if(CollectionUtils.isEmpty(tagsIds)){
+			return false;
+		}
 		List<ProductTag> productTagList = new ArrayList<>();
 		for(int i=0;i<tagsIds.size();i++){
 			ProductTag productTag = new ProductTag();
