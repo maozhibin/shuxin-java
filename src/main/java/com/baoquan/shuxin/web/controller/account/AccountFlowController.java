@@ -3,12 +3,14 @@ package com.baoquan.shuxin.web.controller.account;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -51,30 +53,38 @@ public class AccountFlowController {
         page.setPageSize(pageSize);
 
         //截取时间 转换为时间撮
-        String range = date_range;
         Long statTime = null;
         Long endTime = null;
-        if (StringUtils.isNotEmpty(range)) {
-            String stat = range.substring(0, 10);
-            String end = range.substring(12, range.length());
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            try {
-                statTime = sdf.parse(stat).getTime() / 1000;
-                endTime = sdf.parse(end).getTime() / 1000;
-            } catch (ParseException e) {
-                e.printStackTrace();
+        Long rangeTime = null;
+        if(!StringUtils.isNotEmpty(date_range)){
+            Date now = new Date();
+            Date today = DateUtils.truncate(now, Calendar.DATE);
+            rangeTime= today.getTime()/1000;
+        }else {
+            String range = date_range;
+            if (StringUtils.isNotEmpty(range)) {
+                String stat = range.substring(0, 10);
+                String end = range.substring(12, range.length());
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    statTime = sdf.parse(stat).getTime() / 1000;
+                    endTime = sdf.parse(end).getTime() / 1000;
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
         }
 
-        Integer flowCount = accountFlowService.countFlowInfo(userId, type, statTime, endTime);
+
+
+        Integer flowCount = accountFlowService.countFlowInfo(userId, type,rangeTime,statTime, endTime);
         page.setTotalRecordCount(flowCount);
         if (flowCount > (pageNo - 1) * pageSize) {
-            List<AccountFlow> flowList = accountFlowService.querListAccountFlowInfo(userId, type, statTime, endTime,
+            List<AccountFlow> flowList = accountFlowService.querListAccountFlowInfo(userId, type,rangeTime, statTime, endTime,
                     (pageNo - 1) * pageSize, pageSize);
 
 
             List<Option> optionList = optionService.queryFlowInfo();
-
             List<FlowVO> flowVOList = new ArrayList<>(flowList.size());
 
             for (AccountFlow flow : flowList) {

@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
@@ -144,6 +145,7 @@ public class NewsController {
             }
         }
         NewsVO newsVO = buildNewsInfo(news,op);
+
         mv.addObject("news",newsVO);
         return mv;
 
@@ -157,8 +159,10 @@ public class NewsController {
         ModelAndView mv = new ModelAndView("admin/news/add");
         if(NumberUtils.isNumber(id)){
             News news =newsService.updateNews(NumberUtils.toInt(id));
-            mv.addObject("options",optionService.queryOptionInfo());
-            mv.addObject(news);
+            Map<String,Object> map = new HashedMap();
+            map.put("options",optionService.queryOptionInfo());
+            map.put("news",news);
+            mv.addObject(map);
         }
         return mv;
     }
@@ -206,7 +210,9 @@ public class NewsController {
     public ModelAndView issue() {
         ModelAndView mv = new ModelAndView("admin/news/add");
         List<Option> options = optionService.queryOptionInfo();
-        mv.addObject("options",options);
+        Map<String,Object> map = new HashedMap();
+        map.put("options",options);
+        mv.addObject(map);
         return mv;
     }
 

@@ -29,6 +29,6 @@ public interface AccountFlowDao {
     AccountFlow querByIdAccountInfo(Long id);
 
 
-    Integer countFlowInfo(@Param("userId") Long userId, @Param("type") String type,@Param("statTime") Long statTime,@Param("endTime") Long endTime);
+    Integer countFlowInfo(@Param("userId") Long userId, @Param("type") String type,@Param("rangeTime") Long rangeTime,@Param("statTime") Long statTime,@Param("endTime") Long endTime);
 
 }

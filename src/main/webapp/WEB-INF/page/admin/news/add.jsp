@@ -34,10 +34,6 @@
 
 
 
-
-
-
-
 </head>
 <body>
 
@@ -52,17 +48,14 @@
 
         <input type="hidden" id="typeValue" value="${news.id}" name="id"/>
 
-
-
         <div class="row form-group">
             <label class="col-sm-1 control-label no-padding-right">选择类型:</label>
             <div class="col-sm-11">
 
                 <select name="newsClassType" class="form-control" id="newsClassType">
                     <option selected value="">请选择类型</option>
-                    <c:forEach items="${options}" var="option">
-                            <option value="${option.value}">${option.name}
-
+                    <c:forEach items="${hashedMap.options}" var="options">
+                            <option value="${options.value}"<c:if test="${hashedMap.news.newsClassType==options.value}">selected="selected"</c:if>>${options.name}
                         </option>
                     </c:forEach>
                 </select>
@@ -72,11 +65,11 @@
         <div class="row form-group">
             <label class="col-sm-1 control-label no-padding-right">标题:</label>
             <div class="col-sm-11">
-                <c:if test="${not empty news.title}">
-                    <input name="title" value="${news.title}"
+                <c:if test="${not empty hashedMap.news.title}">
+                    <input name="title" value="${hashedMap.news.title}"
                            class="col-xs-10 col-sm-5" placeholder="" id="title"/>
                 </c:if>
-                <c:if test="${empty news.title}">
+                <c:if test="${empty hashedMap.news.title}">
                     <input name="title" value=""
                            class="col-xs-10 col-sm-5" placeholder="" id="title"/>
                 </c:if>
@@ -86,11 +79,11 @@
         <div class="row form-group">
             <label class="col-sm-1 control-label no-padding-right">来源:</label>
             <div class="col-sm-11">
-                <c:if test="${not empty news.source}">
-                    <input name="source" value="${news.source}"
+                <c:if test="${not empty hashedMap.news.source}">
+                    <input name="source" value="${hashedMap.news.source}"
                            class="col-xs-10 col-sm-5" placeholder="" id="source"/>
                 </c:if>
-                <c:if test="${empty news.source}">
+                <c:if test="${empty hashedMap.news.source}">
                     <input name="source" value=""
                            class="col-xs-10 col-sm-5" placeholder="" id="source"/>
                 </c:if>
@@ -101,11 +94,11 @@
         <div class="row form-group">
             <label class="col-sm-1 control-label no-padding-right">作者:</label>
             <div class="col-sm-11">
-                <c:if test="${not empty news.author}">
-                    <input name="author" value="${news.author}"
+                <c:if test="${not empty hashedMap.news.author}">
+                    <input name="author" value="${hashedMap.news.author}"
                            class="col-xs-10 col-sm-5" placeholder="" id="author"/>
                 </c:if>
-                <c:if test="${empty news.author}">
+                <c:if test="${empty hashedMap.news.author}">
                     <input name="author" value=""
                            class="col-xs-10 col-sm-5" placeholder="" id="author"/>
                 </c:if>
@@ -141,11 +134,11 @@
         <div class="row form-group">
             <label class="col-sm-1 control-label no-padding-right">网页关键词:</label>
             <div class="col-sm-11">
-                <c:if test="${not empty news.keywords}">
-                    <input name="keywords" value="${news.author}"
+                <c:if test="${not empty hashedMap.news.keywords}">
+                    <input name="keywords" value="${hashedMap.news.author}"
                            class="col-xs-10 col-sm-5" placeholder="" id="keywords"/>
                 </c:if>
-                <c:if test="${empty news.keywords}">
+                <c:if test="${empty hashedMap.news.keywords}">
                     <input name="keywords" value=""
                            class="col-xs-10 col-sm-5" placeholder="" id="keywords"/>
                 </c:if>
@@ -173,12 +166,12 @@
         <div class="row form-group">
             <label class="col-sm-1 control-label no-padding-right">新闻内容:</label>
             <div class="col-sm-11">
-                <c:if test="${not empty news.id}">
+                <c:if test="${not empty hashedMap.news.id}">
 			              	 	 <textarea name="content"  style="height: 200px"
                                            class="col-xs-10 col-sm-5"
-                                           placeholder=""  id="content">${news.content}</textarea>
+                                           placeholder=""  id="content">${hashedMap.news.content}</textarea>
                 </c:if>
-                <c:if test="${empty news.id}">
+                <c:if test="${empty hashedMap.news.id}">
 			              	 	 <textarea name="content" style="height: 200px"
                                            class="col-xs-10 col-sm-5"
                                            placeholder="" id="content"></textarea>
@@ -235,8 +228,6 @@
             document.getElementById("keywordsSpan").innerText = "亲，请填写网页关键词哦！";
             return false;
         }
-
-
         document.getElementById("formid").submit();
     }
 

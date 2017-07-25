@@ -35,6 +35,9 @@
       <if test="type != null">
         AND um.type = #{type}
       </if>
+        <if test="rangeTime != null" >
+            AND  um.finish_time = #{rangeTime}
+        </if>
       <if test="statTime != null and endTime != null" >
         AND um.finish_time
         BETWEEN #{statTime} AND  #{endTime}
@@ -42,7 +45,6 @@
     </where>
       limit #{start},#{length}
   </select>
-
 
 
     <select id="countFlowInfo" resultType="Integer">
@@ -61,6 +63,9 @@
             <if test="statTime != null and endTime != null" >
                 AND um.finish_time
                 BETWEEN #{statTime} AND  #{endTime}
+            </if>
+            <if test="rangeTime != null" >
+                AND  um.finish_time = #{rangeTime}
             </if>
         </where>
 

@@ -58,7 +58,7 @@ public class UserOrderController {
         Long statTime = null;
         Long endTime = null;
        if (StringUtils.isNotEmpty(buy)){
-         String star = buy.substring(0,10);
+           String star = buy.substring(0,10);
            String end = buy.substring(12,buy.length());
            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
            try{
