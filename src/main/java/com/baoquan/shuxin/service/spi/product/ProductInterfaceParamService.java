@@ -10,4 +10,11 @@ public interface ProductInterfaceParamService {
 
 	void deleteParamLit(Integer productId);
 
+
+	List<ProductInterfaceParam> headersParamslist(Integer id);
+	
+	List<ProductInterfaceParam> bodyParamslist(Integer id);
+	
+	List<ProductInterfaceParam> queryParamslist(Integer id);
+
 }

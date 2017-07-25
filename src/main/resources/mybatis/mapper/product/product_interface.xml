@@ -6,6 +6,7 @@
     <result column="product_id" property="productId" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="url" property="url" jdbcType="VARCHAR" />
+     <result column="app_code" property="appCode" jdbcType="VARCHAR" />
     <result column="method" property="method" jdbcType="CHAR" />
     <result column="free" property="free" jdbcType="BIT" />
     <result column="character" property="character" jdbcType="CHAR" />
@@ -19,7 +20,7 @@
  	
  	<insert id="insert"  parameterType="com.baoquan.shuxin.model.product.ProductInterface"
         useGeneratedKeys="true" keyProperty="id"> 
-        INSERT INTO `product_interface`(product_id,`name`,url,method,free,`character`,timeout,response_format) VALUES (#{productId},#{name},#{url},#{method},#{free},#{character},#{timeout},#{responseFormat});
+        INSERT INTO `product_interface`(product_id,`name`,app_code,url,method,free,`character`,timeout,response_format) VALUES (#{productId},#{name},#{appCode},#{url},#{method},#{free},#{character},#{timeout},#{responseFormat});
 	</insert>
 	
     <select id="queryByProductId" resultType="com.baoquan.shuxin.model.product.ProductInterface">
@@ -32,4 +33,12 @@
         delete from product_interface where product_id=#{productId}
     </delete>
 
+	<select id="findByProductId" resultMap="BaseResultMap">
+		SELECT
+			*
+		FROM
+			product_interface
+		WHERE
+			product_id = #{id}
+	</select>
 </mapper>

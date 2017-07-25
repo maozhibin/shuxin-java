@@ -20,4 +20,14 @@
 	        (#{item.productId},#{item.tagId})  
 	    </foreach>  
    </insert>
+   
+   <select id="findProductInfo" resultType="java.util.Map">
+  		SELECT
+			`name`
+		FROM
+			product_tag t
+		LEFT JOIN tags s ON t.tag_id = s.id
+		WHERE
+			product_id = #{id}
+  </select>
 </mapper>

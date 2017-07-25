@@ -176,6 +176,7 @@ public class ProductServiceImpl implements ProductService{
 		//产品api接口详情
 		ProductInterface productInterface = new ProductInterface();
 		String interfaceName = data.getString("interfaceName");//接口名称
+		String appCode = data.getString("appCode");//接口名称
 		String urlAddress = data.getString("urlAddress");//服务地址
 		String requestMethod = data.getString("requestMethod");//请求方式
 		String responseFormat = data.getString("responseFormat");//返回报文格式
@@ -183,13 +184,13 @@ public class ProductServiceImpl implements ProductService{
 		String timeout = data.getString("timeout");//请求超时
 		productInterface.setCharacter(character);
 		productInterface.setName(interfaceName);
+		productInterface.setAppCode(appCode);
 		productInterface.setUrl(urlAddress);
 		productInterface.setMethod(requestMethod);
 		productInterface.setResponseFormat(responseFormat);
 		productInterface.setTimeout(NumberUtils.toInt(timeout));
 		productInterface.setProductId(productId);
 		productInterface.setFree(1);
-		System.out.println(productInterface);
 		productInterfaceDao.delete(productId);
 		productInterfaceDao.insert(productInterface);
 		//产品api接口参数进行组装
@@ -380,6 +381,13 @@ public class ProductServiceImpl implements ProductService{
 	public Product findById(Integer id) {
 		return productDao.findById(id);
 	}
-
+	
+	/**
+	 * 根据产品id查找产品的基础信息
+	 */
+	@Override
+	public Map<String, Object> productBaseInfo(Integer id) {
+		return productDao.productBaseInfo(id);
+	}
 
 }

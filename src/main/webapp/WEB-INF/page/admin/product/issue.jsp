@@ -137,12 +137,12 @@
                 <div class="addon">数据名称</div>
                 <div class="cell">
                     <input type="text" class="input-ctrl" name="productName" id="product_name"
-                           value="">
+                           value="${hashMap.productBaseInfo.name}">
                 </div><span class="label label-warning" id= "productNameSpan"></span>
                 <div class="addon">更新频率</div>
                 <div class="cell">
                     <select class="input-ctrl" name="frequent" id="frequent">
-                        <option value="1">实时</option>
+	                    <option value="1" <c:if test="${hashMap.productBaseInfo.frequent==1}">selected="selected"</c:if>>实时</option>
                     </select>
                 </div>
             </div>
@@ -152,7 +152,7 @@
                     <div class="mb15">
                         <select class="input-ctrl" name="productClass" id="product_class">
                         <c:forEach items="${hashMap.productClassList}" var="item">
-			               <option value="${item.id}">${item.name}</option>
+                           <option value="${item.id}" <c:if test="${hashMap.productBaseInfo.product_class_id==item.id}">selected="selected"</c:if>>${item.name}</option>
 			            </c:forEach>
                         </select>
                     </div>
@@ -168,8 +168,8 @@
                 <div class="addon">数据类型</div>
                 <div class="cell vat">
                     <select class="input-ctrl" name="productType" id="product_type">
-                        <option value="1">API</option>
-                        <option value="2">普通文件</option>
+                    	<option value="1" <c:if test="${hashMap.productBaseInfo.type==1}">selected="selected"</c:if>>API</option>
+                    	<option value="2" <c:if test="${hashMap.productBaseInfo.type==2}">selected="selected"</c:if>>普通文件</option>
                     </select>
                 </div>
                 
@@ -197,7 +197,7 @@
                 <div class="cell vat">
                     <select class="input-ctrl" name="userName" id="user_name">
                         <c:forEach items="${hashMap.userList }" var="item">
-                              <option value="${item.id}">${item.username}</option>
+                        	<option value="${item.id}" <c:if test="${hashMap.productBaseInfo.sellerId==item.id}">selected="selected"</c:if>>${item.username}</option>
                         </c:forEach>
                     </select>
                 </div>
@@ -207,13 +207,13 @@
                 <div class="addon">数据简介</div>
                 <div class="cell">
                         <textarea rows="10" class="input-ctrl"
-                                  name="productDescription" id="product_description">${product_description}</textarea>
+                                  name="productDescription" id="product_description">${hashMap.productBaseInfo.description}</textarea>
                 </div>
             </div>
             <div class="inline-form mb30">
                 <div class="addon">标签设置</div>
                 <div class="cell">
-                    <input type="text" name="productTags" value="" class="input-ctrl" id="productTags"/>
+                    <input type="text" name="productTags" value=" ${hashMap.tagLists}" class="input-ctrl" id="productTags"/>
                 </div>
                 <div class="cell gray9">多个标签请用逗号分隔，例如：标签,设置。</div>
             </div>
@@ -240,11 +240,11 @@
 			<div class="inline-form mb30">
             	<div class="addon">接口名称</div>
                 <div class="cell">
-                    <input type="text" class="input-ctrl" name="interfaceName" id="interface_name">
+                    <input type="text" class="input-ctrl" name="interfaceName" id="interface_name" value="${hashMap.productInterface.name}">
                 </div>
-               &nbsp;&nbsp;&nbsp;<div class="addon">服务地址</div>
+               &nbsp;&nbsp;&nbsp;<div class="addon">appCode</div>
                 <div class="cell">
-                    <input type="text" class="input-ctrl" name="urlAddress" id="url_address">
+                    <input type="text" class="input-ctrl" name="appCode" id="app_code" value="${hashMap.productInterface.appCode}">
                 </div>
             </div>
             
@@ -252,15 +252,15 @@
                 <div class="addon">请求方式</div>
                 <div class="cell">
                     <select class="input-ctrl" name="requestMethod" id="request_method">
-                        <option value="post">POST</option>
-                        <option value="get">GET</option>
+                      	<option value="post" <c:if test="${hashMap.productInterface.method eq 'post'}">selected="selected"</c:if>>POST</option>
+                        <option value="get" <c:if test="${hashMap.productInterface.method eq 'get'}">selected="selected"</c:if>>GET</option>
                     </select>
                 </div>
                 <div class="addon">返回报文格式</div>
                 <div class="cell vat">
                     <select class="input-ctrl" name="responseFormat" id="response_format">
-                        <option value="json">JSON</option>
-                        <option value="xml">XML</option>
+                  		<option value="json" <c:if test="${hashMap.productInterface.responseFormat eq 'json'}">selected="selected"</c:if>>JSON</option>
+                        <option value="xml" <c:if test="${hashMap.productInterface.responseFormat eq 'xml'}">selected="selected"</c:if>>XML</option>
                     </select>
                 </div>
             </div>
@@ -274,10 +274,15 @@
                 </div>
                 <div class="addon">请求超时时长</div>
                 <div class="cell">
-                    <input type="text" class="input-ctrl" name="timeout" id="time_out">
+                    <input type="text" class="input-ctrl" name="timeout" id="time_out" value="${hashMap.productInterface.timeout}">
                 </div>
             </div>
-            
+         	 <div class="inline-form mb30">
+                <div class="addon">URL 地址</div>
+                <div class="cell">
+                    <input type="text" class="input-ctrl" name="urlAddress" id="url_address" value="${hashMap.productInterface.url}">
+                </div>
+            </div>
             <p class="f16 gray6 mb10">请求参数（Headers）</p>
             <table class="mb50" id="Headers">
                 <thead>
@@ -290,29 +295,54 @@
                 </tr>
                 </thead>
                 <tbody id="request_headers">
-                <tr>
-                    <td><input type="text" class="input" value="" placeholder="点击输入" name="headerName"></td>
-                    <td>
-                    	<select name="headerType" class="input-ctrl">
-                            <option value="String">String</option>
-                        </select>
-                    </td>
-                    <td>
-                        <select name="headerMust" class="input-ctrl">
-                            <option value="1">必须</option>
-                            <option value="0">非必须</option>
-                        </select>
-                    </td>
-                    <td><input type="text" class="input" value="" placeholder="点击输入" name="headerDesc"></td>
-                    <td>
-                    	<button class="blue add-line add_header" onclick="addHeaders()">新增</button>
-                    </td>
-                </tr>
+	                <c:if test="${not empty hashMap.productBaseInfo.id}">
+	             		<c:forEach items="${hashMap.headersParamslist}" var="item">
+			                <tr>
+			                    <td><input type="text" class="input" value="${item.name}" placeholder="点击输入" name="headerName"></td>
+			                    <td>
+			                    	<select name="headerType" class="input-ctrl">
+			                            <option value="String">String</option>
+			                        </select>
+			                    </td>
+			                    <td>
+			                        <select name="headerMust" class="input-ctrl">
+			                          	<option value="1" <c:if test="${item.must eq 'true'}">selected="selected"</c:if>>必须</option>
+			                          	<option value="0" <c:if test="${item.must eq 'false'}">selected="selected"</c:if>>非必须</option>
+			                        </select>
+			                    </td>
+			                    <td><input type="text" class="input" value="${item.description}" placeholder="点击输入" name="headerDesc"></td>
+			                    <td>
+			                    	    <button class="blue add-line add_header">新增</button>
+			                    </td>
+			                </tr>
+	                	 </c:forEach>
+		            </c:if>
+	            
+		            <c:if test="${empty hashMap.productBaseInfo.id}">
+		             	<tr>
+		                    <td><input type="text" class="input" value="" placeholder="点击输入" name="headerName"></td>
+		                    <td>
+		                    	<select name="headerType" class="input-ctrl">
+		                            <option value="String">String</option>
+		                        </select>
+		                    </td>
+		                    <td>
+		                        <select name="headerMust" class="input-ctrl">
+		                            <option value="1">必须</option>
+		                            <option value="0">非必须</option>
+		                        </select>
+		                    </td>
+		                    <td><input type="text" class="input" value="" placeholder="点击输入" name="headerDesc"></td>
+		                    <td>
+		                    	    <button class="blue add-line add_header">新增</button>
+		                    </td>
+		                </tr>
+		            </c:if>
                 </tbody>
             </table>
 
             <p class="f16 gray6 mb10">请求参数（Query）</p>
-            <table class="mb50">
+            <table class="mb50" id="Querys">
                 <thead>
                 <tr>
                     <th width="145">名称</th>
@@ -323,27 +353,54 @@
                 </tr>
                 </thead>
                 <tbody id="request_querys">
-                <tr>
-                    <td><input type="text" class="input" value="" placeholder="点击输入" name="queryName"></td>
-                    <td>
-                    	<select name="queryType" class="input-ctrl">
-                            <option value="String">String</option>
-                        </select>
-                    </td>
-                    <td>
-                        <select name="queryMust" class="input-ctrl">
-                            <option value="1">必须</option>
-                            <option value="0">非必须</option>
-                        </select>
-                    </td>
-                    <td><input type="text" class="input" value="" placeholder="点击输入" name="queryDesc"></td>
-                    <td><a href="javascript:void(0)" class="blue add-line add_query" >新增</a></td>
-                </tr>
+                <c:if test="${not empty hashMap.productBaseInfo.id}">
+	             		<c:forEach items="${hashMap.queryParamslist}" var="item">
+			                <tr>
+			                    <td><input type="text" class="input" value="${item.name}" placeholder="点击输入" name="queryName"></td>
+			                    <td>
+			                    	<select name="queryType" class="input-ctrl">
+			                            <option value="String">String</option>
+			                        </select>
+			                    </td>
+			                    <td>
+			                        <select name="queryMust" class="input-ctrl">
+			                          	<option value="1" <c:if test="${item.must eq 'true'}">selected="selected"</c:if>>必须</option>
+			                          	<option value="0" <c:if test="${item.must eq 'false'}">selected="selected"</c:if>>非必须</option>
+			                        </select>
+			                    </td>
+			                    <td><input type="text" class="input" value="${item.description}" placeholder="点击输入" name="queryDesc"></td>
+			                    <td>
+			                    	    <button class="blue add-line add_query">新增</button>
+			                    </td>
+			                </tr>
+	                	 </c:forEach>
+		            </c:if>
+	            
+		            <c:if test="${empty hashMap.productBaseInfo.id}">
+		             	<tr>
+		                    <td><input type="text" class="input" value="" placeholder="点击输入" name="queryName"></td>
+		                    <td>
+		                    	<select name="queryType" class="input-ctrl">
+		                            <option value="String">String</option>
+		                        </select>
+		                    </td>
+		                    <td>
+		                        <select name="queryMust" class="input-ctrl">
+		                            <option value="1">必须</option>
+		                            <option value="0">非必须</option>
+		                        </select>
+		                    </td>
+		                    <td><input type="text" class="input" value="" placeholder="点击输入" name="queryDesc"></td>
+		                    <td>
+		                    	<button class="blue add-line add_query">新增</button>
+		                    </td>
+		                </tr>
+		            </c:if>
                 </tbody>
             </table>
 
             <p class="f16 gray6 mb10">请求参数（Body）</p>
-            <table class="mb50">
+            <table class="mb50" id="Bodys">
                 <thead>
                 <tr>
                     <th width="145">名称</th>
@@ -354,33 +411,79 @@
                 </tr>
                 </thead>
                 <tbody id="request_bodys">
-                <tr>
-                    <td><input type="text" class="input" value="" placeholder="点击输入" name="bodyName"></td>
-                    <td>
-                    	<select name="bodyType" class="input-ctrl">
-                            <option value="String">String</option>
-                        </select>
-                    </td>
-                    <td>
-                        <select name="bodyMust" class="input-ctrl">
-                            <option value="1">必须</option>
-                            <option value="0">非必须</option>
-                        </select>
-                    </td>
-                    <td><input type="text" class="input" value="" placeholder="点击输入" name="bodyDesc"></td>
-                    <td><a href="javascript:void(0)" class="blue add-line add_body">新增</a></td>
-                </tr>
+                  <c:if test="${not empty hashMap.productBaseInfo.id}">
+	             		<c:forEach items="${hashMap.bodyParamslist}" var="item">
+			                <tr>
+			                    <td><input type="text" class="input" value="${item.name}" placeholder="点击输入" name="bodyName"></td>
+			                    <td>
+			                    	<select name="bodyType" class="input-ctrl">
+			                            <option value="String">String</option>
+			                        </select>
+			                    </td>
+			                    <td>
+			                        <select name="bodyMust" class="input-ctrl">
+			                          	<option value="1" <c:if test="${item.must eq 'true'}">selected="selected"</c:if>>必须</option>
+			                          	<option value="0" <c:if test="${item.must eq 'false'}">selected="selected"</c:if>>非必须</option>
+			                        </select>
+			                    </td>
+			                    <td><input type="text" class="input" value="${item.description}" placeholder="点击输入" name="bodyDesc"></td>
+			                    <td>
+			                    	    <button class="blue add-line add_body">新增</button>
+			                    </td>
+			                </tr>
+	                	 </c:forEach>
+		            </c:if>
+	            
+		            <c:if test="${empty hashMap.productBaseInfo.id}">
+		             	<tr>
+		                    <td><input type="text" class="input" value="" placeholder="点击输入" name="bodyName"></td>
+		                    <td>
+		                    	<select name="bodyType" class="input-ctrl">
+		                            <option value="String">String</option>
+		                        </select>
+		                    </td>
+		                    <td>
+		                        <select name="bodyMust" class="input-ctrl">
+		                            <option value="1">必须</option>
+		                            <option value="0">非必须</option>
+		                        </select>
+		                    </td>
+		                    <td><input type="text" class="input" value="" placeholder="点击输入" name="bodyDesc"></td>
+		                    <td>
+		                    	<button class="blue add-line add_body">新增</button>
+		                    </td>
+		                </tr>
+		            </c:if>
                 </tbody>
             </table>
-
-            <p class="f16 gray6 mb10">请求示例</p>
-            <textarea rows="10" class="input-ctrl mb30" name="requestSample" id="request_sample"></textarea>
-
-            <p class="f16 gray6 mb10">正常返回示例</p>
-            <textarea rows="10" class="input-ctrl mb30" name="normalSample" id="normal_sample"></textarea>
-
-            <p class="f16 gray6 mb10">错误返回示例</p>
-            <textarea rows="10" class="input-ctrl mb30" name="errorSample" id="error_sample"></textarea>
+			
+			<c:if test="${not empty hashMap.productBaseInfo.id}">
+             	<c:forEach items="${hashMap.interfaceSample}" var="item">
+             		<c:if test="${item.type eq 'INPUT'}">
+             			<p class="f16 gray6 mb10">请求示例</p>
+		          	  <textarea rows="10" class="input-ctrl mb30" name="requestSample" id="request_sample">${item.value}</textarea>
+             		</c:if>
+					<c:if test="${item.type eq 'OUTPUT_SUCCESS' }">
+             			<p class="f16 gray6 mb10">正常返回示例</p>
+		          	  <textarea rows="10" class="input-ctrl mb30" name="requestSample" id="request_sample">${item.value}</textarea>
+             		</c:if>
+             		<c:if test="${item.type eq 'OUTPUT_FAIL' }">
+             			<p class="f16 gray6 mb10">错误返回示例</p>
+		          	  <textarea rows="10" class="input-ctrl mb30" name="requestSample" id="request_sample">${item.value}</textarea>
+             		</c:if>
+         	   </c:forEach>
+            </c:if>
+            <c:if test="${empty hashMap.productBaseInfo.id}">
+             	<p class="f16 gray6 mb10">请求示例</p>
+	            <textarea rows="10" class="input-ctrl mb30" name="requestSample" id="request_sample"></textarea>
+	
+	            <p class="f16 gray6 mb10">正常返回示例</p>
+	            <textarea rows="10" class="input-ctrl mb30" name="normalSample" id="normal_sample"></textarea>
+	
+	            <p class="f16 gray6 mb10">错误返回示例</p>
+	            <textarea rows="10" class="input-ctrl mb30" name="errorSample" id="error_sample"></textarea>
+            </c:if>
+           
 
 
             <p class="f16 gray6 mb10">错误码定义</p>
@@ -394,12 +497,31 @@
                 </tr>
                 </thead>
                 <tbody id="request_codes">
-                <tr>
+                
+                <c:if test="${not empty hashMap.productBaseInfo.id}">
+             	<c:forEach items="${hashMap.interfaceCodeList}" var="item">
+             		<tr>
+	                     <td><input type="text" class="input" value="${item.code}" placeholder="点击输入" name="code"></td>
+			             <td><input type="text" class="input" value="${item.name}" placeholder="点击输入" name="codeName"></td>
+			             <td><input type="text" class="input" value="${item.desc}" placeholder="点击输入" name="codeDesc"></td>
+	                     <td>
+	                     	<button class="blue add-line add_code">新增</button>
+	                    </td>
+                	</tr>
+         	   </c:forEach>
+            </c:if>
+            
+            <c:if test="${empty hashMap.productBaseInfo.id}">
+             	<tr>
                      <td><input type="text" class="input" value="" placeholder="点击输入" name="code"></td>
 		             <td><input type="text" class="input" value="" placeholder="点击输入" name="codeName"></td>
 		             <td><input type="text" class="input" value="" placeholder="点击输入" name="codeDesc"></td>
-                    <td><a href="javascript:void(0)" class="blue add-line add_code">新增</a></td>
+                     <td>
+                     	<button class="blue add-line add_code">新增</button>
+                    </td>
                 </tr>
+            </c:if>
+                
                 </tbody>
             </table>
 
@@ -411,16 +533,16 @@
 
         <div hidden="hidden" class="container desc">
             <p class="f16 gray6 mb10">产品介绍</p>
-            <textarea rows="10" class="input-ctrl mb30" name="intro" id="intro">${intro}</textarea>
+            <textarea rows="10" class="input-ctrl mb30" name="intro" id="intro">${hashMap.productDetail.intro}</textarea>
 
             <p class="f16 gray6 mb10 mt10">产品亮点</p>
-            <textarea rows="10" class="input-ctrl mb30" name="highlight" id="highlight">${highlight}</textarea>
+            <textarea rows="10" class="input-ctrl mb30" name="highlight" id="highlight">${hashMap.productDetail.snapshot}</textarea>
 
             <p class="f16 gray6 mb10 mt10">产品截图</p>
-            <textarea rows="10" class="input-ctrl mb30" name="snapshot" id="snapshot">${snapshot}</textarea>
+            <textarea rows="10" class="input-ctrl mb30" name="snapshot" id="snapshot">${hashMap.productDetail.highlight}</textarea>
 
             <p class="f16 gray6 mb10 mt10">售后服务</p>
-            <textarea rows="10" class="input-ctrl mb30" name="service" id="service">${service}</textarea>
+            <textarea rows="10" class="input-ctrl mb30" name="service" id="service">${hashMap.productDetail.service}</textarea>
 
             <div class="pt30 pb30">
                 <input class="btn btn-red" type="button" value="下一步"
@@ -429,8 +551,7 @@
         </div>
 
        <div hidden="hidden" class="container price">
-        
-            <div class="ml60 pl10" id="container-combo">
+           		   <div class="ml60 pl10" id="container-combo">
                         <table class="mb50">
                             <thead>
                             <tr>
@@ -511,6 +632,7 @@
 <script type="text/javascript">
     $(document).ready(function(){
         var classValue=$('#product_class').val();
+        
         $.ajax({
             type: "GET",
             url: "/admin/product/base?id="+classValue,
@@ -526,6 +648,7 @@
 
         });
     });
+    
 	$('#product_class').change(function(){
 		var classValue=$('#product_class').val();
 	    $.ajax({
@@ -561,6 +684,85 @@
 		         }
 		        
 		    });
+			
+		    //请求参数（Headers）
+		    $('#request_headers').on("click","button.add_header",function(){
+		    	var tr = $(this).parents('tr');
+		    	var td1 =tr.children().eq(0).find(".input").val();
+		    	var td4 =tr.children().eq(3).find(".input").val();
+		    	if(td1.length<=0){
+		    		alert("参数名称不能为空");
+		    		return;
+		    	}
+		    	if(td4.length<=0){
+		    		alert("参数描述不能为空");
+		    		return;
+		    	}
+		    	var row=$(tr).html();
+                $('#request_headers').append("<tr>"+row+"</tr>");
+                $(this).removeClass("add_header").addClass("deleteTr").text("删除").attr("onclick","delHeaders(this)");
+		    });
+			
+		    //请求参数（Query）
+		    $('#request_querys').on("click","button.add_query",function(){
+		    	var tr = $(this).parents('tr');
+		    	var td1 =tr.children().eq(0).find(".input").val();
+		    	var td4 =tr.children().eq(3).find(".input").val();
+		    	if(td1.length<=0){
+		    		alert("参数名称不能为空");
+		    		return;
+		    	}
+		    	if(td4.length<=0){
+		    		alert("参数描述不能为空");
+		    		return;
+		    	}
+		    	var row=$(tr).html();
+                $('#request_querys').append("<tr>"+row+"</tr>");
+                $(this).removeClass("add_query").addClass("deleteTr").text("删除").attr("onclick","delHeaders(this)");
+		    });
+		    
+		    //请求参数（Body）
+		    $('#request_bodys').on("click","button.add_body",function(){
+		    	var tr = $(this).parents('tr');
+		    	var td1 =tr.children().eq(0).find(".input").val();
+		    	var td4 =tr.children().eq(3).find(".input").val();
+		    	if(td1.length<=0){
+		    		alert("参数名称不能为空");
+		    		return;
+		    	}
+		    	if(td4.length<=0){
+		    		alert("参数描述不能为空");
+		    		return;
+		    	}
+		    	var row=$(tr).html();
+                $('#request_bodys').append("<tr>"+row+"</tr>");
+                $(this).removeClass("add_body").addClass("deleteTr").text("删除").attr("onclick","delHeaders(this)");
+		    });
+		    
+		    //错误码定义
+		    $('#request_codes').on("click","button.add_code",function(){
+		    	var tr = $(this).parents('tr');
+		    	var td1 =tr.children().eq(0).find(".input").val();
+		    	var td2 =tr.children().eq(1).find(".input").val();
+		    	var td3 =tr.children().eq(2).find(".input").val();
+		    	if(td1.length<=0){
+		    		alert("错误码不能为空");
+		    		return;
+		    	}
+		    	if(td2.length<=0){
+		    		alert("状态码名称不能为空");
+		    		return;
+		    	}
+		    	if(td3.length<=0){
+		    		alert("描述不能为空");
+		    		return;
+		    	}
+		    	var row=$(tr).html();
+                $('#request_codes').append("<tr>"+row+"</tr>");
+                $(this).removeClass("add_code").addClass("deleteTr").text("删除").attr("onclick","delHeaders(this)");
+		    });
+
+
 	    });
 	
 	$('#province').change(function(){
@@ -592,6 +794,7 @@
 		var userName=$('#user_name').val();//发布人
 		var productDescription=$('#product_description').val();//数据简介
 		var interfaceName=$('#interface_name').val();//接口名称
+		var appCode=$('#app_code').val();//appCode
 		var urlAddress=$('#url_address').val();//服务地址
 		var requestMethod=$('#request_method').val();//请求方式
 		var responseFormat=$('#response_format').val();//返回报文格式
@@ -612,6 +815,7 @@
 		str.userName=userName;
 		str.productDescription=productDescription;
 		str.interfaceName=interfaceName;
+		str.appCode=appCode;
 		str.urlAddress=urlAddress;
 		str.requestMethod=requestMethod;
 		str.responseFormat=responseFormat;
@@ -628,12 +832,12 @@
 		var headersArray=new Array();
 		var headers=[];
 		var headerList = $("#request_headers").children("tr")
-			for (var i=0;i<headerList.length;i++) {
+			for (var i=0;i<headerList.length-1;i++) {
 			var tdArr = headerList.eq(i).find("td");
-			var headerName = tdArr.eq(0).find("input").val();//收入类别
-			var headerType = tdArr.eq(1).find("select").val();//收入金额
-			var headerMust = tdArr.eq(2).find("select").val();// 备注
-			var headerDesc = tdArr.eq(3).find("input").val();// 备注
+			var headerName = tdArr.eq(0).find("input").val();
+			var headerType = tdArr.eq(1).find("select").val();
+			var headerMust = tdArr.eq(2).find("select").val();
+			var headerDesc = tdArr.eq(3).find("input").val();
 			headers.push(headerName)
 			headers.push(headerType)
 			headers.push(headerMust)
@@ -645,12 +849,12 @@
 		var querysArray=new Array();;
 		var query = [];
 		var queryList = $("#request_querys").children("tr")
-			for (var i=0;i<queryList.length;i++) {
+			for (var i=0;i<queryList.length-1;i++) {
 			var tdArr = queryList.eq(i).find("td");
-			var queryName = tdArr.eq(0).find("input").val();//收入类别
-			var queryType = tdArr.eq(1).find("select").val();//收入金额
-			var queryMust = tdArr.eq(2).find("select").val();// 备注
-			var queryDesc = tdArr.eq(3).find("input").val();// 备注
+			var queryName = tdArr.eq(0).find("input").val();
+			var queryType = tdArr.eq(1).find("select").val();
+			var queryMust = tdArr.eq(2).find("select").val();
+			var queryDesc = tdArr.eq(3).find("input").val();
 			query.push(queryName)
 			query.push(queryType)
 			query.push(queryMust)
@@ -662,7 +866,7 @@
 		var bodysArrays=new Array();
 		var body = [];
 		var bodyList = $("#request_bodys").children("tr")
-			for (var i=0;i<bodyList.length;i++) {
+			for (var i=0;i<bodyList.length-1;i++) {
 			var tdArr = bodyList.eq(i).find("td");
 			var bodyName = tdArr.eq(0).find("input").val();//收入类别
 			var bodyType = tdArr.eq(1).find("select").val();//收入金额
@@ -679,7 +883,7 @@
 		var codesArrays=new Array();
 		var codet = [];
 		var codeList = $("#request_codes").children("tr")
-			for (var i=0;i<codeList.length;i++) {
+			for (var i=0;i<codeList.length-1;i++) {
 			var tdArr = codeList.eq(i).find("td");
 			var code = tdArr.eq(0).find("input").val();
 			var codeName = tdArr.eq(1).find("input").val();
@@ -744,7 +948,7 @@
 		var request_sample=$('#request_sample').val();
 		var normal_sample=$('#normal_sample').val();
 		var error_sample=$('#error_sample').val();
-		
+		var app_code = $('#app_code').val();
 		var time_out=$('#time_out').val();//请求超时
 		
 		interface_name_value=interface_name.replace(/\n/g,'');
@@ -752,19 +956,42 @@
 		request_sample_value=request_sample.replace(/\n/g,'');
 		normal_sample_value=normal_sample.replace(/\n/g,'');
 		error_sample_value=error_sample.replace(/\n/g,'');
-		
+		app_code_value=app_code.replace(/\n/g,'');
 		if(javaTrim(interface_name_value)==""){
 			alert("请输入接口名称");
+			return;
+		}
+		if(javaTrim(app_code_value)==""){
+			alert("请输入appCode");
+			return;
+		}
+		if(!/^[0-9]+$/.test(time_out.trim()) || time_out.length > 10){
+			alert("请输入正确的请求超时时长时间");
 			return;
 		}
 		if(javaTrim(url_address_value)==""){
 			alert("请输入服务地址");
 			return;
 		}
-		if(!/^\d{10}$/.test(time_out.trim())){
-			alert("请输入正确的请求超时时长时间");
+		var  rownum =$("#Headers tr").length
+		if(rownum < 3){
+			alert("至少输入一个请求参数(Headers)");
 			return;
 		}
+		
+		var  rownum =$("#Querys tr").length
+		if(rownum < 3){
+			alert("至少输入一个请求参数(Querys)");
+			return;
+		}
+		
+		var  rownum =$("#Bodys tr").length
+		if(rownum < 3){
+			alert("至少输入一个请求参数(Bodys)");
+			return;
+		}
+		
+		
 		if(javaTrim(request_sample_value)==""){
 			alert("请输入请求实例");
 			return;
@@ -777,6 +1004,13 @@
 			alert("请输入错误返回实例");
 			return;
 		}
+		
+		var  rownum =$("#codes tr").length
+		if(rownum < 3){
+			alert("至少输入一个请求参数(codes)");
+			return;
+		}
+		
 		goto('desc');
 	}
 	
@@ -812,8 +1046,8 @@
 		priceOne_value=priceOne.replace(/\n/g,'');
 		priceHundred_value=priceHundred.replace(/\n/g,'');
 		priceYear_value=priceYear.replace(/\n/g,'');
-		if(javaTrim(priceOne_value)=="" &&javaTrim(priceHundred_value)=="" && javaTrim(priceYear_value)==""){
-			alert("请至少选择一种计费价格");
+		if(javaTrim(priceOne_value)==""){
+			alert("单次费用必须填写");
 			return;
 		}
 		if(javaTrim(priceOne_value)!=""){
@@ -838,7 +1072,7 @@
 		if(document.getElementById("chexkboxId").checked == false){
 			alert("请认真阅读协议并同意");
 		}
-		//myfunction();
+		myfunction();
 	}
 	
 	 function javaTrim(str) {//判断输入的是否为空
@@ -850,26 +1084,12 @@
 	     return newstr;
 	} 
 	
-	 
-	function addHeaders()  
-	{  
-		var  rownum =$("#Headers tr").length-1;  
-		var  chk = "<td><input type='text' class='input' name= 'headerName' placeholder='点击输入'/></td>";  
-		var  selType = "<td><select name='headerType' class='input-ctrl'><option value='String'>String</option></ select ></td>";
-		var  selMust = "<td><select name='headerType' class='input-ctrl'><option value='1'>必须</option><option value='0'>非必须</option></ select ></td>";
-		var  text = "<td><input type='text' class='input' name= 'headerDesc' placeholder='点击输入'/></td> "; 
-		var del = "<td><button class='deleteTr' onclick='delHeaders(this)' id='1'>删除</button></td>";
-		var  row = "<tr> "+chk+selType+selMust+ text +del+" </tr>";  
-		$("#Headers tbody").prepend(row);
-	}
-	
 	function delHeaders(obj)//点击事件那边需要加this
 	{
 		var tr=obj.parentNode.parentNode;
 		var tbody=tr.parentNode;
 		tbody.removeChild(tr);
 	}
-	
 </script>
 </body>
 </html>

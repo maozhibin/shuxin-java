@@ -12,5 +12,7 @@ public interface ProductInterfaceCodeDao {
 	void delete(Integer productId);
 
 	void insertList(List<ProductInterfaceCode> codeList);
+
+	List<ProductInterfaceCode> interfaceCodeList(Integer id);
     
 }

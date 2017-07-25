@@ -12,5 +12,7 @@ public interface ProductInterfaceSampleDao {
 	void insertSample(List<ProductInterfaceSample> sampleList);
 
 	void delete(Integer productId);
+
+	List<ProductInterfaceSample> findByProductId(Integer id);
    
 }

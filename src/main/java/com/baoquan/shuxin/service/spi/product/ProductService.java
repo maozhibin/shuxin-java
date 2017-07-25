@@ -1,8 +1,6 @@
 package com.baoquan.shuxin.service.spi.product;
 
-import java.util.List;
 import java.util.Map;
-
 import com.baoquan.shuxin.bean.Page;
 import com.baoquan.shuxin.model.product.Product;
 
@@ -12,6 +10,8 @@ public interface ProductService {
     Boolean UpdateOrAdd(Integer id,String json);
 
     Product findById(Integer id);
+
+	Map<String, Object> productBaseInfo(Integer idValue);
 
 
 }

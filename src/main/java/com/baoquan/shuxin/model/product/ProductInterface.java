@@ -23,8 +23,17 @@ public class ProductInterface implements Serializable{
 
     private String responseFormat;
 
+    private String appCode;
+    
+    public String getAppCode() {
+		return appCode;
+	}
 
-    public Integer getId() {
+	public void setAppCode(String appCode) {
+		this.appCode = appCode;
+	}
+
+	public Integer getId() {
         return id;
     }
 

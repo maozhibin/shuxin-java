@@ -72,9 +72,10 @@
 		                        	 <a class="" title='查看'
 		                                       href=""><i
 		                                            class="fa fa-eye"></i> </a>&nbsp;&nbsp;
-		                             <a class="" title='查看'
-		                                       href=""><i
-		                                            class="fa fa-pencil"></i> </a>&nbsp;&nbsp;
+
+		                             <a class="" title='修改'
+		                                       href="issue?id=${map.id}"><i 
+		                                       							class="fa fa-pencil"></i> </a>&nbsp;&nbsp;
 		                             <a class="" title='查看'
 		                                       href=""><i
 		                                            class="fa fa-trash"></i> </a>&nbsp;&nbsp;             
