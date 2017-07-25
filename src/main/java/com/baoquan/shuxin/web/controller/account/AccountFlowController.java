@@ -77,10 +77,10 @@ public class AccountFlowController {
 
 
 
-        Integer flowCount = accountFlowService.countFlowInfo(userId, type,rangeTime,statTime, endTime);
+        Integer flowCount = accountFlowService.countFlowInfo(userId, type,statTime, endTime);
         page.setTotalRecordCount(flowCount);
         if (flowCount > (pageNo - 1) * pageSize) {
-            List<AccountFlow> flowList = accountFlowService.querListAccountFlowInfo(userId, type,rangeTime, statTime, endTime,
+            List<AccountFlow> flowList = accountFlowService.querListAccountFlowInfo(userId, type, statTime, endTime,
                     (pageNo - 1) * pageSize, pageSize);
 
 

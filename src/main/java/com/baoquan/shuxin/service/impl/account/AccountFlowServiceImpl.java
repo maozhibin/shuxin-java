@@ -34,20 +34,19 @@ public class AccountFlowServiceImpl implements AccountFlowService {
     }
 
     @Override
-    public List<AccountFlow> querListAccountFlowInfo(Long userId, String type,Long rangeTime, Long statTime,Long endTime,Integer start, Integer length) {
+    public List<AccountFlow> querListAccountFlowInfo(Long userId, String type, Long statTime,Long endTime,Integer start, Integer length) {
         Map<String, Object> parms = new HashMap<>();
         parms.put("userId",userId);
         parms.put("type",type);
         parms.put("statTime",statTime);
         parms.put("endTime",endTime);
-        parms.put("rangeTime",rangeTime);
         parms.put("start",start);
         parms.put("length",length);
         return accountFlowDao.querAccountFlowInfo(parms);
     }
 
     @Override
-    public Integer countFlowInfo(Long userId, String type,Long rangeTime ,Long statTime, Long endTime) {
-        return accountFlowDao.countFlowInfo(userId,type,rangeTime,statTime,endTime);
+    public Integer countFlowInfo(Long userId, String type ,Long statTime, Long endTime) {
+        return accountFlowDao.countFlowInfo(userId,type,statTime,endTime);
     }
 }

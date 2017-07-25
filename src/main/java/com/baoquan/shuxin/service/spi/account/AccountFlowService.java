@@ -26,10 +26,10 @@ public interface AccountFlowService {
      * @param type   类型
      * @return
      */
-    List<AccountFlow> querListAccountFlowInfo(Long userId,String type,Long rangeTime,Long statTime,Long endTime,Integer start, Integer length);
+    List<AccountFlow> querListAccountFlowInfo(Long userId,String type,Long statTime,Long endTime,Integer start, Integer length);
 
 
-    Integer countFlowInfo(Long userId,String type,Long rangeTime,Long statTime,Long endTime);
+    Integer countFlowInfo(Long userId,String type,Long statTime,Long endTime);
 
 
 }
