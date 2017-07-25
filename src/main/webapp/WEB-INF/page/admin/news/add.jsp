@@ -51,6 +51,9 @@
     <form action="updateAndAdd" id="formid">
 
         <input type="hidden" id="typeValue" value="${news.id}" name="id"/>
+
+
+
         <div class="row form-group">
             <label class="col-sm-1 control-label no-padding-right">选择类型:</label>
             <div class="col-sm-11">
