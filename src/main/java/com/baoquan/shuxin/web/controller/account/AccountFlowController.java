@@ -1,10 +1,12 @@
 package com.baoquan.shuxin.web.controller.account;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -22,6 +24,9 @@ import com.baoquan.shuxin.model.account.FlowVO;
 import com.baoquan.shuxin.model.news.Option;
 import com.baoquan.shuxin.service.spi.account.AccountFlowService;
 import com.baoquan.shuxin.service.spi.news.OptionService;
+
+import jxl.write.DateFormat;
+import sun.security.timestamp.Timestamper;
 
 /**
  * Author:Zhoumc
@@ -51,30 +56,35 @@ public class AccountFlowController {
         page.setPageNo(pageNo);
         page.setPageSize(pageSize);
 
+
+
+
+        String range = date_range;
         //截取时间 转换为时间戳
         Long statTime = null;
         Long endTime = null;
-        Long rangeTime = null;
-        if(!StringUtils.isNotEmpty(date_range)){
-            Date now = new Date();
-            Date today = DateUtils.truncate(now, Calendar.DATE);
-            rangeTime= today.getTime()/1000;
-        }else {
-            String range = date_range;
-            if (StringUtils.isNotEmpty(range)) {
-                String stat = range.substring(0, 10);
-                String end = range.substring(12, range.length());
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                try {
-                    statTime = sdf.parse(stat).getTime() / 1000;
-                    endTime = sdf.parse(end).getTime() / 1000;
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+        if (StringUtils.isNotEmpty(range)) {
+            String stat = range.substring(0, 10);
+            String end = range.substring(12, range.length());
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                statTime = sdf.parse(stat).getTime() / 1000;
+                endTime = sdf.parse(end).getTime() / 1000;
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
+        }else {
+            //进入默认赋值当天时间和当前时间查询（当天时间指的是0点到系统当前时间，两个时间点）
+            //获取当天0点时间戳
+            Date date = new Date();
+            Date today = DateUtils.truncate(date, Calendar.DATE);
+            statTime = today.getTime()/1000;
+            //获取系统当前时间戳
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
+            String  time =df.format(new Date());
+            Timestamp createTime = Timestamp.valueOf(time);
+            endTime = createTime.getTime()/1000;
         }
-
-
 
         Integer flowCount = accountFlowService.countFlowInfo(userId, type,statTime, endTime);
         page.setTotalRecordCount(flowCount);

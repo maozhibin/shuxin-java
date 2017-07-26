@@ -18,7 +18,7 @@ import com.baoquan.shuxin.model.user.UserOrder;
 public interface UserOrderDao {
     List<UserOrder> querUserOrderInfo(Map<String, Object> parm);
 
-    Integer countFlowInfo(@Param("userId") Long userId,@Param("status") Integer status,@Param("statTime") Long starTime,@Param("endTime") Long endTime);
+    Integer countFlowInfo(@Param("userId") Long userId,@Param("status") Integer status,@Param("statTime") Long statTime,@Param("endTime") Long endTime);
 
     UserOrderDao querByIdUserOrderInfo(Long id);
 }

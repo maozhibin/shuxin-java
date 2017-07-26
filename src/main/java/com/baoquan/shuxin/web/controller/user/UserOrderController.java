@@ -1,13 +1,17 @@
 package com.baoquan.shuxin.web.controller.user;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -67,6 +71,17 @@ public class UserOrderController {
            } catch (ParseException e) {
                e.printStackTrace();
            }
+       }else {
+           //进入默认赋值当天时间和当前时间查询（当天时间指的是0点到系统当前时间，两个时间点）
+           //获取当天0点时间戳
+           Date date = new Date();
+           Date today = DateUtils.truncate(date, Calendar.DATE);
+           statTime = today.getTime()/1000;
+           //获取系统当前时间戳
+           SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
+           String  time =df.format(new Date());
+           Timestamp createTime = Timestamp.valueOf(time);
+           endTime = createTime.getTime()/1000;
        }
 
         Integer orderCount = orderService.countOrderInfo(userId, status,statTime, endTime);
@@ -91,9 +106,8 @@ public class UserOrderController {
                 }
                 UserOrderVO userOrderVO = buildOrderInfoVO(userOrder, productIdList,op);
                 userOrderVOList.add(userOrderVO);
-                page.setResult(userOrderVOList);
             }
-
+            page.setResult(userOrderVOList);
         }
         mv.addObject(page);
         mv.addObject("userId", userId);

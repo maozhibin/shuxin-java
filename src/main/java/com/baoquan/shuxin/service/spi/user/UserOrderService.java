@@ -18,11 +18,11 @@ public interface UserOrderService {
      * @param userId 用户id
      * @return
      */
-    List<UserOrder> querListUserOrderInfo(Long userId,Integer status,Long starTime,Long endTime,Integer start, Integer length);
+    List<UserOrder> querListUserOrderInfo(Long userId,Integer status,Long statTime,Long endTime,Integer start, Integer length);
 
 
 
-    Integer countOrderInfo(Long userId,Integer status,Long starTime,Long endTime);
+    Integer countOrderInfo(Long userId,Integer status,Long statTime,Long endTime);
 
 
 }

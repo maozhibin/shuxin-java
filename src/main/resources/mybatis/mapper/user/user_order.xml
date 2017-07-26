@@ -22,41 +22,44 @@
   </resultMap>
 
   <select id="querUserOrderInfo" resultType="com.baoquan.shuxin.model.user.UserOrder">
-    SELECT * FROM`user_product` where 1 = 1 <include refid="taskQuery" />
-    <if test="page != null">
-      limit ${page.startIndex},${page.pageSize};
-    </if>
+    SELECT * FROM`user_product`
+      <where>
+        <if test="userId != null">
+          and user_id = #{userId}
+        </if>
+        <if test="status != null">
+          and status=#{status}
+        </if>
+        <if test="statTime != null">
+          AND  buy_time &gt;= #{statTime}
+        </if>
+        <if test="endTime != null">
+          AND buy_time &lt;= #{endTime}
+        </if>
+      </where>
+    limit #{start},#{length}
   </select>
-  <sql id="taskQuery">
-    <if test="id != null">
-      and id=#{id}
-    </if>
-    <if test="userId != null">
-      and user_id = #{userId}
-    </if>
-    <if test="statTime != null  and endTime != null">
-      and (buy_time BETWEEN #{statTime} AND #{endTime})
-    </if>
-    <if test="status != null">
-      and status=#{status}
-    </if>
-  </sql>
+
   <select id="countFlowInfo" resultType="Integer">
     SELECT
     COUNT(*)
     FROM
-    user_product
+    `user_product`
     <where>
       <if test="userId != null">
         and user_id = #{userId}
       </if>
-      <if test="statTime != null  and endTime != null">
-        and (buy_time BETWEEN #{statTime} AND #{endTime})
-      </if>
       <if test="status != null">
         and status=#{status}
       </if>
+      <if test="statTime != null">
+        AND  buy_time &gt;= #{statTime}
+      </if>
+      <if test="endTime != null">
+        AND buy_time &lt;= #{endTime}
+      </if>
     </where>
+
 
   </select>
 

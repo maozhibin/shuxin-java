@@ -26,11 +26,11 @@ public class UserOrderServiceImpl implements UserOrderService {
 
 
     @Override
-    public List<UserOrder> querListUserOrderInfo(Long userId, Integer status, Long starTime,Long endTime,Integer start, Integer length) {
+    public List<UserOrder> querListUserOrderInfo(Long userId, Integer status, Long statTime,Long endTime,Integer start, Integer length) {
         Map<String, Object> parms = new HashMap<>();
         parms.put("userId",userId);
         parms.put("status",status);
-        parms.put("starTime",starTime);
+        parms.put("statTime",statTime);
         parms.put("endTime",endTime);
         parms.put("start",start);
         parms.put("length",length);

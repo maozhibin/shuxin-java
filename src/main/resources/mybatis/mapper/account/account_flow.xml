@@ -35,10 +35,15 @@
       <if test="type != null">
         AND um.type = #{type}
       </if>
-      <if test="statTime != null and endTime != null" >
-        AND um.finish_time
-        BETWEEN #{statTime} AND  #{endTime}
-      </if>
+
+        <!--在mybatis sql语句 中大于号（>）和小于号（<）会抛出异常，需要转义 用 &lt;代表<   &gt;代替 > -->
+        <if test="statTime != null">
+          AND  um.finish_time &gt;=  #{statTime}
+        </if>
+        <if test="endTime != null">
+           AND um.finish_time &lt;= #{endTime}
+        </if>
+
     </where>
       limit #{start},#{length}
   </select>
@@ -57,9 +62,11 @@
             <if test="type != null">
                 AND um.type = #{type}
             </if>
-            <if test="statTime != null and endTime != null" >
-                AND um.finish_time
-                BETWEEN #{statTime} AND  #{endTime}
+            <if test="statTime != null">
+                AND  um.finish_time &gt;=  #{statTime}
+            </if>
+            <if test="endTime != null">
+                AND um.finish_time &lt;= #{endTime}
             </if>
         </where>
 
