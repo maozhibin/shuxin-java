@@ -69,7 +69,7 @@
                                     <c:forEach items="${menus.values()}" var="menu">
                                         <td>
                                             <c:choose>
-                                                <c:when test="${user.menuPerm.get(menu.id) == null or user.menuPerm.get(menu.id) == 0}">
+                                                <c:when test="${user.menuPerm.get(menu.id) == null or user.menuPerm.get(menu.id) == 0 or (menu.children == null and menu.isdir == 1)}">
                                                     否
                                                 </c:when>
                                                 <c:when test="${user.menuPerm.get(menu.id) == 1}">

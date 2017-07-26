@@ -27,8 +27,8 @@
                 </c:forEach>
             </ul>
         </c:when>
-        <c:when test="${menu.children == null}">
-            <a href="${basePath}${menu.uri}" data-toggle="collapse" data-target="#menu${menu.id}">
+        <c:when test="${menu.children == null and menu.isdir == 0}">
+            <a href='<c:if test="${menu.isdir == 0}">${basePath}${menu.uri}</c:if>' data-toggle="collapse" data-target="#menu${menu.id}">
                 <c:if test="${menu.ico != null and menu.ico != ''}">
                     <i class="fa fa-fw fa-${menu.ico}"></i>
                 </c:if>
