@@ -35,7 +35,6 @@ public class AccountFlowController {
     @Inject
     private AccountFlowService accountFlowService;
 
-
     @Inject
     private OptionService optionService;
 
@@ -52,7 +51,7 @@ public class AccountFlowController {
         page.setPageNo(pageNo);
         page.setPageSize(pageSize);
 
-        //截取时间 转换为时间撮
+        //截取时间 转换为时间戳
         Long statTime = null;
         Long endTime = null;
         Long rangeTime = null;
