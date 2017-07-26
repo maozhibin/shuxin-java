@@ -37,6 +37,9 @@
         <if test="userId != null">
             and user_id=#{userId}
         </if>
+        <if test="type != null">
+            and type=#{type}
+        </if>
         <if test="endTimeValue != null">
             and finish_time <![CDATA[<=]]>#{endTimeValue}
         </if>

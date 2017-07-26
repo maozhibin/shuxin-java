@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.stereotype.Controller;
@@ -135,14 +136,18 @@ public class OverviewController {
     	List<Map<String, Object>> orgTop = statsOrgService.orgTopOrAll(parms);
     	List<Map<String, Object>> orgList=null;
     	Long count = null;
-    	if(StringUtils.isEmpty(orgName)){
-    		parms.put("type", OrgConstatnt.ALL_ORG);
-    		orgList = statsOrgService.orgTopOrAll(parms);
-    		count = statsOrgService.orgCount();
-    	}else{
-    		orgList = statsOrgService.orgListByOrgName(orgName);
-    		count = (long) orgList.size();
-    	}
+    	//if(StringUtils.isEmpty(orgName)){
+    	//	parms.put("type", OrgConstatnt.ALL_ORG);
+    	//	orgList = statsOrgService.orgTopOrAll(parms);
+    	//	count = statsOrgService.orgCount();
+    	//}else{
+    	//	orgList = statsOrgService.orgListByOrgName(orgName);
+    	//	count = (long) orgList.size();
+    	//}
+		orgList = statsOrgService.orgListByOrgName(orgName);
+    	if(!CollectionUtils.isEmpty(orgList)){
+			count = (long) orgList.size();
+		}
     	//分页实现
 		page.setPageSize(pageSize);
 		page.setPageNo(pageNo);
@@ -170,18 +175,23 @@ public class OverviewController {
     	ModelAndView mv = new ModelAndView("admin/overview/product");
     	List<Map<String, Object>> productTop = statsProductService.productTop();//top10产品
     	Map<String, Object> map = new HashMap<>();
-    	if(!StringUtils.isEmpty(productName)){
-    		map.put("productName", productName);
-    	}
+
     	//分页实现
 		Page<Map<String, Object>> page = new Page<>();
-		Long size = statsProductService.productListCount(map);
+
 		page.setPageSize(pageSize);
 		page.setPageNo(pageNo);
-		page.setTotalRecordCount(size);
+
 		map.put("page",page);
-    	List<Map<String, Object>> productList = statsProductService.productList(map);
+    	List<Map<String, Object>> productList = null;
+		Long size=(long)0;
+		if(!StringUtils.isEmpty(productName)){
+			map.put("productName", productName);
+			productList = statsProductService.productList(map);
+			size = statsProductService.productListCount(map);
+		}
 		page.setResult(productList);
+		page.setTotalRecordCount(size);
     	Map<String, Object> params = Maps.newHashMap();
     	params.put("productTop", productTop);
     	mv.addObject(params);
@@ -189,32 +199,4 @@ public class OverviewController {
     	mv.addObject("keywords", productName);
         return mv;
     }
-
-
-    /**
-     *产品局部刷新
-
-    @RequestMapping("/freshen")
-    @ResponseBody
-    public JsonResponseMsg productFreshen(String productName, Integer pageNo, Integer pageSize) {
-		if (pageNo == null || pageNo < 1) pageNo = 1;
-		if (pageSize == null || pageSize > Page.DEFAULT_PAGE_SIZE) pageSize = Page.DEFAULT_PAGE_SIZE;
-    	JsonResponseMsg result = new JsonResponseMsg();
-    	Map<String, Object> map = new HashMap<>();
-    	if(!StringUtils.isEmpty(productName)){
-    		map.put("productName", productName);
-    	}
-    	List<Map<String, Object>> productList = statsProductService.productList(map);
-    	Long size = (long) productList.size();
-    	//分页实现
-    	Page<Map<String, Object>> page = new Page<>();
-		page.setPageSize(pageSize);
-		page.setPageNo(pageNo);
-		page.setResult(productList);
-    	page.setTotalRecordCount(size);
-    	Map<String, Object>  pageResult = new HashMap<>();
-    	pageResult.put("page", page);
-        return result.fill(JsonResponseMsg.CODE_SUCCESS, "成功",pageResult);
-    }
-	 */
 }
