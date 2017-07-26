@@ -7,6 +7,8 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.baoquan.shuxin.bean.Page;
 import com.baoquan.shuxin.dao.user.UserMoneyLogDao;
 import com.baoquan.shuxin.model.user.UserMoneyLog;
@@ -19,7 +21,7 @@ public class UserMoneyLogServiceImpl implements UserMoneyLogService {
 
 	@Override
 	public Page<UserMoneyLog> byIdFinduserMoneyChange(Page<UserMoneyLog> page, Long endTimeValue, Long startTimeValue,
-			Long userId) {
+			Long userId,String type) {
 		Map<String, Object> map = new HashMap<>();
 		if (userId == null) {
 			return null;
@@ -30,6 +32,9 @@ public class UserMoneyLogServiceImpl implements UserMoneyLogService {
 		}
 		if (startTimeValue != null) {
 			map.put("startTimeValue", startTimeValue);
+		}
+		if (!StringUtils.isEmpty(type)) {
+			map.put("type", type);
 		}
 		map.put("page", page);
 		Integer total = userMoneyLogDao.byIdFindUserMoneyLongTotal(map);

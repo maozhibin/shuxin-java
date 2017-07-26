@@ -564,6 +564,7 @@
 	                     	<button class="blue add-line deleteTr" onclick="delHeaders(this)">删除</button>
 	                    </td>
                 	</tr>
+         	   </c:forEach>
                 	<tr>
 	                     <td><input type="text" class="input" value="" placeholder="点击输入" name="code"></td>
 			             <td><input type="text" class="input" value="" placeholder="点击输入" name="codeName"></td>
@@ -572,7 +573,6 @@
 	                     	<button class="blue add-line add_code">新增</button>
 	                    </td>
                 	</tr>
-         	   </c:forEach>
             </c:if>
             
             <c:if test="${empty hashMap.productBaseInfo.id}">
@@ -903,6 +903,7 @@
 		str.intro=intro;
 		str.highlight=highlight;
 		str.service=service;
+
 		
 		//对请求参数的操作
 		var headersArray=new Array();

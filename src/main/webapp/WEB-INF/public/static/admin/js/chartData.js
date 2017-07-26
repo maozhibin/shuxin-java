@@ -10,10 +10,10 @@ $(function () {
                 csv: csv
             },
             title: {
-                text: '某网站日常访问量'
+                text: '数信系统日常访问量'
             },
             subtitle: {
-                text: '数据来源: Google Analytics'
+                text: '数据来源: Shuxin Analytics'
             },
             xAxis: {
                 tickInterval: 7 * 24 * 3600 * 1000, // 坐标轴刻度间隔为一星期

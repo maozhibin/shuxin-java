@@ -9,25 +9,16 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
-import org.apache.http.HttpRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.baoquan.shuxin.bean.Page;
-import com.baoquan.shuxin.dao.product.ProductBillingsDao;
-import com.baoquan.shuxin.dao.product.ProductDetailDao;
-import com.baoquan.shuxin.dao.product.ProductInterfaceCodeDao;
-import com.baoquan.shuxin.dao.product.ProductTagDao;
-import com.baoquan.shuxin.dao.tag.TagsDao;
 import com.baoquan.shuxin.model.area.Area;
 import com.baoquan.shuxin.model.product.Product;
 import com.baoquan.shuxin.model.product.ProductBase;
@@ -212,6 +203,22 @@ public class ProductController {
         map.put("1", "11");
         System.out.println(0b001 + 0b010 + 0b100);
         return map;
+    }
+
+    /**
+     * 产品状态修改
+     */
+    @RequestMapping("status")
+    public String updateStatus(String id,String status){
+        JsonResponseMsg result = new JsonResponseMsg();
+        if(!NumberUtils.isNumber(id)){
+            return  "参数错误";
+        }
+        Product product = productService.findById(NumberUtils.toInt(id));
+        Integer statusType = NumberUtils.toInt(status);
+        product.setStatus(statusType);
+        productService.updateProductStatus(product);
+        return "redirect:list";
     }
 
 }

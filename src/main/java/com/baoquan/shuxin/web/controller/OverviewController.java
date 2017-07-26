@@ -9,11 +9,11 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.baoquan.shuxin.bean.Page;
@@ -21,7 +21,6 @@ import com.baoquan.shuxin.constatn.OrgConstatnt;
 import com.baoquan.shuxin.service.spi.product.StatsProductService;
 import com.baoquan.shuxin.service.spi.stats.PlatformOverviewService;
 import com.baoquan.shuxin.service.spi.stats.StatsOrgService;
-import com.baoquan.shuxin.util.JsonResponseMsg;
 import com.baoquan.shuxin.web.vo.PlatformOverviewVO;
 import com.google.common.collect.Maps;
 
@@ -45,7 +44,9 @@ public class OverviewController {
     	ModelAndView mv = new ModelAndView("admin/overview/platform");
     	Map<String, Object> params = Maps.newHashMap();
     	List<Map<String, Object>> productTop = statsProductService.productTop();
-    	List<Map<String, Object>> orgTop = statsOrgService.orgTopOrAll(OrgConstatnt.TOP_TEN_ORG);
+    	Map<String, Object> parms = new HashMap<>();
+    	parms.put("type", OrgConstatnt.TOP_TEN_ORG);
+    	List<Map<String, Object>> orgTop = statsOrgService.orgTopOrAll(parms);
     	params.put("productTop", productTop);
     	params.put("orgTop", orgTop);
     	mv.addObject(params);
@@ -72,25 +73,35 @@ public class OverviewController {
         setIncrementRate(lastday2today, twodayBefore);
 
 
+        double rate = 1.0* (today.getTime() - lastday.getTime()) / (now.getTime() - today.getTime());
         PlatformOverviewVO todayWhole = new PlatformOverviewVO();
         todayWhole.setTradeIncreaseRate(today2now.getTradeIncreaseRate());
         if (lastdaySameTime.getTradeAmount() != null && lastdaySameTime.getTradeAmount().doubleValue() > 0) {
             todayWhole.setTradeAmount(BigDecimal.valueOf(
                     today2now.getTradeAmount().doubleValue() / lastdaySameTime.getTradeAmount().doubleValue()
                             * lastday2today.getTradeAmount().doubleValue()).setScale(2, BigDecimal.ROUND_HALF_EVEN));
+        } else {
+            todayWhole.setTradeAmount(BigDecimal.valueOf(today2now.getTradeAmount().doubleValue() * rate).setScale(2,
+                    BigDecimal.ROUND_HALF_EVEN));
         }
         if (lastdaySameTime.getOrderCount() > 0) {
             todayWhole.setOrderCount((long) (1.0 * today2now.getOrderCount() / lastdaySameTime.getOrderCount()
                     * lastday2today.getOrderCount()));
+        } else {
+            todayWhole.setOrderCount((long) (today2now.getOrderCount() * rate));
         }
         if (lastdaySameTime.getOrderCount() > 0) {
             todayWhole.setAttestCount((long) (1.0 * today2now.getAttestCount() / lastdaySameTime.getAttestCount()
                     * lastday2today.getAttestCount()));
+        } else {
+            todayWhole.setAttestCount((long) (today2now.getAttestCount() * rate));
         }
         if (lastdaySameTime.getOrderCount() > 0) {
             todayWhole.setAuthorizationCount(
                     (long) (1.0 * today2now.getAuthorizationCount() / lastdaySameTime.getAuthorizationCount()
                             * lastday2today.getAuthorizationCount()));
+        } else {
+            todayWhole.setAuthorizationCount((long) (today2now.getAuthorizationCount() * rate));
         }
 
         mv.addObject("today2now", today2now);
@@ -109,7 +120,7 @@ public class OverviewController {
     }
 
     /**
-     * 机构top10
+     * 机构top10或者全部
      * @return
      */
     @RequestMapping("/organization")
@@ -118,19 +129,31 @@ public class OverviewController {
 		if (pageSize == null || pageSize > Page.DEFAULT_PAGE_SIZE) pageSize = Page.DEFAULT_PAGE_SIZE;
 		orgName = StringUtils.trimToNull(orgName);
     	ModelAndView mv = new ModelAndView("admin/overview/organization");
-    	List<Map<String, Object>> orgTop = statsOrgService.orgTopOrAll(OrgConstatnt.TOP_TEN_ORG);
-    	List<Map<String, Object>> orgList=null;
-    	if(StringUtils.isEmpty(orgName)){
-    		orgList = statsOrgService.orgTopOrAll(OrgConstatnt.ALL_ORG);
-    	}else{
-    		orgList = statsOrgService.orgListByOrgName(orgName);
-    	}
-    	//分页实现
+    	Map<String, Object> parms = new HashMap<>();
     	Page<Map<String, Object>> page = new Page<>();
+    	parms.put("type", OrgConstatnt.TOP_TEN_ORG);
+    	parms.put("page", page);
+    	List<Map<String, Object>> orgTop = statsOrgService.orgTopOrAll(parms);
+    	List<Map<String, Object>> orgList=null;
+    	Long count = null;
+    	//if(StringUtils.isEmpty(orgName)){
+    	//	parms.put("type", OrgConstatnt.ALL_ORG);
+    	//	orgList = statsOrgService.orgTopOrAll(parms);
+    	//	count = statsOrgService.orgCount();
+    	//}else{
+    	//	orgList = statsOrgService.orgListByOrgName(orgName);
+    	//	count = (long) orgList.size();
+    	//}
+		orgList = statsOrgService.orgListByOrgName(orgName);
+    	if(!CollectionUtils.isEmpty(orgList)){
+			count = (long) orgList.size();
+		}
+    	//分页实现
 		page.setPageSize(pageSize);
 		page.setPageNo(pageNo);
 		page.setResult(orgList);
-		page.setTotalRecordCount(orgList == null ? 0 : orgList.size());
+
+		page.setTotalRecordCount(orgList == null ? 0 : count);
 
     	Map<String, Object> params = Maps.newHashMap();
     	params.put("orgTop", orgTop);
@@ -152,50 +175,28 @@ public class OverviewController {
     	ModelAndView mv = new ModelAndView("admin/overview/product");
     	List<Map<String, Object>> productTop = statsProductService.productTop();//top10产品
     	Map<String, Object> map = new HashMap<>();
-    	if(!StringUtils.isEmpty(productName)){
-    		map.put("productName", productName);
-    	}
-    	List<Map<String, Object>> productList = statsProductService.productList(map);
-    	Long size = (long) productList.size();
+
     	//分页实现
-    	Page<Map<String, Object>> page = new Page<>();
+		Page<Map<String, Object>> page = new Page<>();
+
 		page.setPageSize(pageSize);
 		page.setPageNo(pageNo);
-		page.setResult(productList);
-    	page.setTotalRecordCount(size);
 
+		map.put("page",page);
+    	List<Map<String, Object>> productList = null;
+		Long size=(long)0;
+		if(!StringUtils.isEmpty(productName)){
+			map.put("productName", productName);
+			productList = statsProductService.productList(map);
+			size = statsProductService.productListCount(map);
+		}
+		page.setResult(productList);
+		page.setTotalRecordCount(size);
     	Map<String, Object> params = Maps.newHashMap();
     	params.put("productTop", productTop);
     	mv.addObject(params);
     	mv.addObject(page);
     	mv.addObject("keywords", productName);
         return mv;
-    }
-
-
-    /**
-     *产品局部刷新
-     */
-    @RequestMapping("/freshen")
-    @ResponseBody
-    public JsonResponseMsg productFreshen(String productName, Integer pageNo, Integer pageSize) {
-		if (pageNo == null || pageNo < 1) pageNo = 1;
-		if (pageSize == null || pageSize > Page.DEFAULT_PAGE_SIZE) pageSize = Page.DEFAULT_PAGE_SIZE;
-    	JsonResponseMsg result = new JsonResponseMsg();
-    	Map<String, Object> map = new HashMap<>();
-    	if(!StringUtils.isEmpty(productName)){
-    		map.put("productName", productName);
-    	}
-    	List<Map<String, Object>> productList = statsProductService.productList(map);
-    	Long size = (long) productList.size();
-    	//分页实现
-    	Page<Map<String, Object>> page = new Page<>();
-		page.setPageSize(pageSize);
-		page.setPageNo(pageNo);
-		page.setResult(productList);
-    	page.setTotalRecordCount(size);
-    	Map<String, Object>  pageResult = new HashMap<>();
-    	pageResult.put("page", page);
-        return result.fill(JsonResponseMsg.CODE_SUCCESS, "成功",pageResult);
     }
 }

@@ -23,4 +23,9 @@ public class StatsProductServiceImpl implements StatsProductService{
 		return statsProductDao.productList(map);
 	}
 
+	@Override
+	public Long productListCount(Map<String, Object> map) {
+		return statsProductDao.productListCount(map);
+	}
+
 }

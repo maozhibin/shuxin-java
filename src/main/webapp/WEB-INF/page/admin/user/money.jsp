@@ -53,6 +53,9 @@
                     <td>
                         <select name="type">
                             <option>全部</option>
+                            <option value="consume">消费</option>
+                            <option value="recharge">充值</option>
+                            <option value="buy_product">购买</option>
                         </select>
                     </td>
                     <td> 起始时间：</td>
@@ -91,7 +94,17 @@
                     <c:if test="${page != null && page.result != null}">
                         <c:forEach items="${page.result}" var="UserMoneyLog">
                             <tr>
-                                <td>${UserMoneyLog.type}</td>
+                                <td>
+                                    <c:if test="${UserMoneyLog.type eq 'buy_product'}">
+                                        购买
+                                    </c:if>
+                                    <c:if test="${UserMoneyLog.type eq 'consume'}">
+                                        消费
+                                    </c:if>
+                                    <c:if test="${UserMoneyLog.type eq 'recharge'}">
+                                        充值
+                                    </c:if>
+                                </td>
                                 <td>${UserMoneyLog.amount}</td>
                                 <td>
                                     <jsp:useBean id="dateValue" class="java.util.Date"/>

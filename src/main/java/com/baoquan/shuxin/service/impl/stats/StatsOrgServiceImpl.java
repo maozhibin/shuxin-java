@@ -30,9 +30,10 @@ public class StatsOrgServiceImpl implements StatsOrgService{
 	 * 查询top10或者所有的机构
 	 */
 	@Override
-	public List<Map<String, Object>> orgTopOrAll(Integer type) {
+	public List<Map<String, Object>> orgTopOrAll(Map<String, Object> parms) {
 		List<Long> idList =new ArrayList<>();
 		List<Map<String, Object>> orgTop=null;
+		Integer type = MapUtils.getInteger(parms, "type");
 		if(OrgConstatnt.TOP_TEN_ORG.equals(type)){
 			 orgTop = statsOrgDao.orgTop();
 		}else if(OrgConstatnt.ALL_ORG.equals(type)){
@@ -105,5 +106,10 @@ public class StatsOrgServiceImpl implements StatsOrgService{
 		List<Map<String, Object>> list = new ArrayList<>();
 		list.add(org);
 		return list;
+	}
+
+	@Override
+	public Long orgCount() {
+		return statsOrgDao.orgCount();
 	}
 }
