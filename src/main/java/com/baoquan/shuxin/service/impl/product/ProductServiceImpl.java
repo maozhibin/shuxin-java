@@ -396,4 +396,9 @@ public class ProductServiceImpl implements ProductService{
 		return productDao.productBaseInfo(id);
 	}
 
+	@Override
+	public void updateProductStatus(Product product) {
+		productDao.updateProductStatus(product);
+	}
+
 }

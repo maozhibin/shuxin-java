@@ -13,5 +13,5 @@ public interface ProductService {
 
 	Map<String, Object> productBaseInfo(Integer idValue);
 
-
+    void updateProductStatus(Product product);
 }

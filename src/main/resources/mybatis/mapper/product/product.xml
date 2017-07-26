@@ -106,4 +106,10 @@
 	    AND s.num = 1
 		AND s.type = 1
   </select>
+
+
+	<update id="updateProductStatus" parameterType="Product">
+		update product set status=#{status}
+		where id=#{id}
+	</update>
 </mapper>
