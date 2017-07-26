@@ -78,6 +78,25 @@
 	</if>
 	ORDER BY
 		s.total_amount DESC
+	 <if test="page != null">
+	              	limit ${page.startIndex},${page.pageSize};
+	  </if>
+  </select>
+  
+  <select id="productListCount" resultType="java.lang.Long">
+	  SELECT
+		COUNT(1)
+	  FROM
+			product p
+		LEFT JOIN product_class c ON p.product_class_id = c.id
+		LEFT JOIN stats_product s ON s.product_id = p.id
+		LEFT JOIN `user` u ON u.id = p.user_id
+		where 1=1
+		<if test="productName!=null">
+			and  p.`name`=#{productName}
+			or u.username=#{productName}
+			or c.`name`=#{productName}
+		</if>
   </select>
   
 </mapper>

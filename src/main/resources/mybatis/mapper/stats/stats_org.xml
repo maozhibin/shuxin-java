@@ -28,6 +28,13 @@
 			total_amount DESC
 	</select>
 	
+	<select id="orgCount" resultType="java.lang.Long">
+		SELECT
+			COUNT(1)
+		FROM
+			stats_org
+	</select>
+	
 	<select id="findById" resultType="java.util.Map">
 		SELECT
 			*

@@ -14,4 +14,6 @@ public interface StatsOrgDao{
 
 	Map<String, Object> findById(Long orgId);
 
+	Long orgCount();
+
 }

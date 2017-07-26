@@ -9,4 +9,6 @@ public interface StatsProductService {
 
 	List<Map<String, Object>> productList(Map<String, Object> map);
 
+	Long productListCount(Map<String, Object> map);
+
 }

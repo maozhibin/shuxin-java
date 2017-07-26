@@ -82,7 +82,7 @@ public class ProductServiceImpl implements ProductService{
 	public Boolean UpdateOrAdd(Integer id,String json) {
 		Date date = new Date();
 		Integer time = (int) (date.getTime()/1000);
-		
+
 		//解析json
 		JSONObject data=JSONObject.parseObject(json);
 		//基础设置
@@ -95,7 +95,7 @@ public class ProductServiceImpl implements ProductService{
 		String icon =data.getString("icon");//上传的图片
 		Integer cityid = data.getInteger("city");//区域id
 		Integer userNameId = data.getInteger("userName");
-		
+
 		Product product=null;
 		if(id!=null){
 			product = productDao.findById(id);
@@ -133,10 +133,10 @@ public class ProductServiceImpl implements ProductService{
 		if(productId==null){
 			return false;
 		}
-		
+
 		//标签
 		JSONArray productTags = data.getJSONArray("tags");
-		
+
 		List<Object> tagsNameList = null;;
 		for(int i=0;i<productTags.size();i++){
 			tagsNameList = (List<Object>) productTags.get(i);
@@ -163,7 +163,7 @@ public class ProductServiceImpl implements ProductService{
 			tagsList.add(tags);
 		}
 		tagsDao.insertTagsList(tagsList);
-		
+
 		List<Integer> tagsIds = tagsDao.getItermByName(tagsNameList);
 		if(CollectionUtils.isEmpty(tagsIds)){
 			return false;
@@ -176,8 +176,8 @@ public class ProductServiceImpl implements ProductService{
 			productTagList.add(productTag);
 		}
 		productTagDao.insertListByTagTds(productTagList);
-		
-		
+
+
 		//接口设置
 		//产品api接口详情
 		ProductInterface productInterface = new ProductInterface();
@@ -209,7 +209,7 @@ public class ProductServiceImpl implements ProductService{
 		if(productInterfaceId==null){
 			return false;
 		}
-		
+
 		for(int i=0;i<headerArray.size();i++){
 			ProductInterfaceParam interfaceParam = new ProductInterfaceParam();
 			paramList = (List<Object>) headerArray.get(i);
@@ -221,7 +221,7 @@ public class ProductServiceImpl implements ProductService{
 			}else if("0".equals((String) paramList.get(2))){
 				must=false;
 			}
-			
+
 			String description=(String) paramList.get(3);
 			interfaceParam.setName(name);
 			interfaceParam.setDescription(description);
@@ -232,7 +232,7 @@ public class ProductServiceImpl implements ProductService{
 			interfaceParam.setProductInterfaceId(productInterfaceId);
 			interfaceParamList.add(interfaceParam);
 		}
-		
+
 		for(int i=0;i<bodysArray.size();i++){
 			ProductInterfaceParam interfaceParam = new ProductInterfaceParam();
 			paramList = (List<Object>) bodysArray.get(i);
@@ -254,7 +254,7 @@ public class ProductServiceImpl implements ProductService{
 			interfaceParam.setProductInterfaceId(productInterfaceId);
 			interfaceParamList.add(interfaceParam);
 		}
-		
+
 		for(int i=0;i<querysArray.size();i++){
 			ProductInterfaceParam interfaceParam = new ProductInterfaceParam();
 			paramList = (List<Object>) querysArray.get(i);
@@ -276,18 +276,18 @@ public class ProductServiceImpl implements ProductService{
 			interfaceParam.setProductInterfaceId(productInterfaceId);
 			interfaceParamList.add(interfaceParam);
 		}
-		
+
 		productInterfaceParamService.deleteParamLit(productId);
 		productInterfaceParamService.paramListInsert(interfaceParamList);
-		
-		
-		
+
+
+
 		//产品api接口示例
 		List<ProductInterfaceSample> sampleList = new ArrayList<>();
 		String requestSample = data.getString("requestSample");//请求实例
 		String normalSample = data.getString("normalSample");//正常返回
 		String errorSample = data.getString("errorSample");//错误提示
-	
+
 		String sampleType=null;
 		String sampleValue=null;
 		for(int i=0;i<3;i++){
@@ -310,7 +310,7 @@ public class ProductServiceImpl implements ProductService{
 		}
 		productInterfaceSampleDao.delete(productId);
 		productInterfaceSampleDao.insertSample(sampleList);
-		
+
 		//错误码定义
 		List<ProductInterfaceCode> codeList = new ArrayList<>();
 		JSONArray codesArrays = data.getJSONArray("codesArrays");
@@ -330,7 +330,7 @@ public class ProductServiceImpl implements ProductService{
 		}
 		productInterfaceCodeDao.delete(productId);
 		productInterfaceCodeDao.insertList(codeList);
-		
+
 		//产品描述
 		String intro = data.getString("intro");//产品介绍
 		String highlight = data.getString("highlight");//产品亮点
@@ -341,10 +341,10 @@ public class ProductServiceImpl implements ProductService{
 		productDetail.setHighlight(highlight);
 		productDetail.setService(service);
 		productDetail.setProductId(productId);
-		
+
 		productDetailDao.delete(productId);
 		productDetailDao.insert(productDetail);
-		
+
 		//产品套餐计费规则表
 		String priceOnePrice = data.getString("priceOne");
 		String priceHundredPrice = data.getString("priceHundred");
@@ -354,19 +354,19 @@ public class ProductServiceImpl implements ProductService{
 		for(int i=0;i<3;i++){
 			ProductBillings billings = new ProductBillings();
 			if(i==0 && !StringUtils.isEmpty(priceOnePrice)){
-				BigDecimal price=new BigDecimal(priceOnePrice); 
+				BigDecimal price=new BigDecimal(priceOnePrice);
 				billings.setPrice(price);
 				billings.setNum(1);
 				billings.setType(1);
 				billingsList.add(billings);
 			}else if(i==1 && !StringUtils.isEmpty(priceHundredPrice)){
-				BigDecimal price=new BigDecimal(priceHundredPrice); 
+				BigDecimal price=new BigDecimal(priceHundredPrice);
 				billings.setPrice(price);
 				billings.setNum(100);
 				billings.setType(1);
 				billingsList.add(billings);
 			}else if(i==2 && !StringUtils.isEmpty(priceYearPrice)){
-				BigDecimal price=new BigDecimal(priceYearPrice); 
+				BigDecimal price=new BigDecimal(priceYearPrice);
 				billings.setPrice(price);
 				billings.setNum(12);
 				billings.setType(2);
@@ -376,10 +376,10 @@ public class ProductServiceImpl implements ProductService{
 			billings.setDateline(time);
 			billings.setProductId(productId);
 		}
-		
+
 		productBillingsDao.delete(productId);
 		productBillingsDao.insertList(billingsList);
-		
+
 		return true;
 	}
 
@@ -387,7 +387,7 @@ public class ProductServiceImpl implements ProductService{
 	public Product findById(Integer id) {
 		return productDao.findById(id);
 	}
-	
+
 	/**
 	 * 根据产品id查找产品的基础信息
 	 */

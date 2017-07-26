@@ -51,12 +51,12 @@
 		LEFT JOIN product_billings s ON s.product_id = p.id
 		WHERE
 			1 = 1
+	    AND s.num = 1
+		AND s.type = 1
 		<if test="name != null">
 	         and p.`name`=#{name}
 	         or u.username=#{name}
 	    </if>
-	    AND s.num = 1
-		AND s.type = 1
 	    ORDER BY p.dateline DESC
 	    <if test="page != null">
 	              	limit ${page.startIndex},${page.pageSize};

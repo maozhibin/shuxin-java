@@ -43,6 +43,11 @@
         <if test="startTimeValue != null ">
             and finish_time<![CDATA[>=]]>#{startTimeValue}
         </if>
+        <if test="endTimeValue == null  and startTimeValue == null">
+            and finish_time <![CDATA[<=]]> UNIX_TIMESTAMP(NOW())
+            and finish_time<![CDATA[>=]]> UNIX_TIMESTAMP(date(sysdate()))
+        </if>
+
     </sql>
 
     <select id="byIdFindUserMoneyLongList" resultMap="BaseResultMap">
