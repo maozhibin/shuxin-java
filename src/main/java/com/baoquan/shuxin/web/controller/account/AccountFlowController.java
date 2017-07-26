@@ -69,7 +69,14 @@ public class AccountFlowController {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             try {
                 statTime = sdf.parse(stat).getTime() / 1000;
-                endTime = sdf.parse(end).getTime() / 1000;
+                //开始时间为所选日期的0点开始，结束时间为所选日期的23：59:59
+                Date date = sdf.parse(end);
+                Calendar c = Calendar.getInstance();
+                c.setTime(date);
+                c.set(Calendar.HOUR_OF_DAY, 23);
+                c.set(Calendar.MINUTE, 59);
+                c.set(Calendar.SECOND, 59);
+                endTime = c.getTime().getTime()/1000;
             } catch (ParseException e) {
                 e.printStackTrace();
             }

@@ -64,13 +64,12 @@ public class UserOrderController {
        if (StringUtils.isNotEmpty(buy)){
            String star = buy.substring(0,10);
            String end = buy.substring(12,buy.length());
-
            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
            try{
-
+               //截取的开始时间默认为当天的0点
                statTime = sdf.parse(star).getTime()/1000;
-               //
+               //开始时间为所选日期的0点开始，结束时间为所选日期的23：59:59
                Date date = sdf.parse(end);
                Calendar c = Calendar.getInstance();
                c.setTime(date);
