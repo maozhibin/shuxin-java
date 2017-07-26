@@ -137,7 +137,7 @@ public class ProductServiceImpl implements ProductService{
 		//标签
 		JSONArray productTags = data.getJSONArray("tags");
 
-		List<Object> tagsNameList = null;;
+		List<Object> tagsNameList = null;
 		for(int i=0;i<productTags.size();i++){
 			tagsNameList = (List<Object>) productTags.get(i);
 		}
