@@ -64,10 +64,20 @@ public class UserOrderController {
        if (StringUtils.isNotEmpty(buy)){
            String star = buy.substring(0,10);
            String end = buy.substring(12,buy.length());
+
            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
            try{
+
                statTime = sdf.parse(star).getTime()/1000;
-               endTime = sdf.parse(end).getTime()/1000;
+               //
+               Date date = sdf.parse(end);
+               Calendar c = Calendar.getInstance();
+               c.setTime(date);
+               c.set(Calendar.HOUR_OF_DAY, 23);
+               c.set(Calendar.MINUTE, 59);
+               c.set(Calendar.SECOND, 59);
+               endTime = c.getTime().getTime()/1000;
            } catch (ParseException e) {
                e.printStackTrace();
            }
