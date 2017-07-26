@@ -72,25 +72,35 @@ public class OverviewController {
         setIncrementRate(lastday2today, twodayBefore);
 
 
+        double rate = 1.0* (today.getTime() - lastday.getTime()) / (now.getTime() - today.getTime());
         PlatformOverviewVO todayWhole = new PlatformOverviewVO();
         todayWhole.setTradeIncreaseRate(today2now.getTradeIncreaseRate());
         if (lastdaySameTime.getTradeAmount() != null && lastdaySameTime.getTradeAmount().doubleValue() > 0) {
             todayWhole.setTradeAmount(BigDecimal.valueOf(
                     today2now.getTradeAmount().doubleValue() / lastdaySameTime.getTradeAmount().doubleValue()
                             * lastday2today.getTradeAmount().doubleValue()).setScale(2, BigDecimal.ROUND_HALF_EVEN));
+        } else {
+            todayWhole.setTradeAmount(BigDecimal.valueOf(today2now.getTradeAmount().doubleValue() * rate).setScale(2,
+                    BigDecimal.ROUND_HALF_EVEN));
         }
         if (lastdaySameTime.getOrderCount() > 0) {
             todayWhole.setOrderCount((long) (1.0 * today2now.getOrderCount() / lastdaySameTime.getOrderCount()
                     * lastday2today.getOrderCount()));
+        } else {
+            todayWhole.setOrderCount((long) (today2now.getOrderCount() * rate));
         }
         if (lastdaySameTime.getOrderCount() > 0) {
             todayWhole.setAttestCount((long) (1.0 * today2now.getAttestCount() / lastdaySameTime.getAttestCount()
                     * lastday2today.getAttestCount()));
+        } else {
+            todayWhole.setAttestCount((long) (today2now.getAttestCount() * rate));
         }
         if (lastdaySameTime.getOrderCount() > 0) {
             todayWhole.setAuthorizationCount(
                     (long) (1.0 * today2now.getAuthorizationCount() / lastdaySameTime.getAuthorizationCount()
                             * lastday2today.getAuthorizationCount()));
+        } else {
+            todayWhole.setAuthorizationCount((long) (today2now.getAuthorizationCount() * rate));
         }
 
         mv.addObject("today2now", today2now);
@@ -137,7 +147,7 @@ public class OverviewController {
 		page.setPageSize(pageSize);
 		page.setPageNo(pageNo);
 		page.setResult(orgList);
-		
+
 		page.setTotalRecordCount(orgList == null ? 0 : count);
 
     	Map<String, Object> params = Maps.newHashMap();
