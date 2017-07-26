@@ -109,12 +109,22 @@
         <div class="row form-group">
             <label class="col-sm-1 control-label no-padding-right">是否置顶:</label>
             <div class="col-sm-11">
-                <label><input name="top" type="radio" id="top"
-                              value="1" />是
-                </label>&nbsp;&nbsp;
-                <label><input name="top" type="radio"
-                              value="0" id="" checked="true"/>否
-                </label>&nbsp;&nbsp;
+                <c:if test="${not empty hashedMap.news.top}">
+                    <label><input name="top" type="radio" id="top"
+                                  value="1" <c:if test="${hashedMap.news.top ==1 }">checked="true"</c:if> />是
+                    </label>&nbsp;&nbsp;
+                    <label><input name="top" type="radio"
+                                  value="0" id="" <c:if test="${hashedMap.news.top ==0 }">checked="true"</c:if> />否
+                    </label>&nbsp;&nbsp;
+                </c:if>
+                <c:if test="${empty hashedMap.news.top}">
+                    <label><input name="top" type="radio" id="top"
+                                  value="1" />是
+                    </label>&nbsp;&nbsp;
+                    <label><input name="top" type="radio"
+                                  value="0" id=""  checked="true" />否
+                    </label>&nbsp;&nbsp;
+                </c:if>
                 &nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-warning" id= "topSpan"></span>
 
             </div>
@@ -122,12 +132,23 @@
         <div class="row form-group">
             <label class="col-sm-1 control-label no-padding-right">是否显示发布:</label>
             <div class="col-sm-11">
-                <label><input name="isDisplay" type="radio"
-                              value="1" checked="true"/>是
-                </label>&nbsp;&nbsp;
-                <label><input name="isDisplay" type="radio"
-                              value="0" />否
-                </label>&nbsp;&nbsp;
+                <c:if test="${not empty hashedMap.news.isDisplay}" >
+                    <label><input name="isDisplay" type="radio"
+                                  value="1" <c:if test="${hashedMap.news.isDisplay ==1 }">checked="true"</c:if>/>是
+                    </label>&nbsp;&nbsp;
+                    <label><input name="isDisplay" type="radio"
+                                  value="0"  <c:if test="${hashedMap.news.isDisplay ==0 }">checked="true"</c:if>/>否
+                    </label>&nbsp;&nbsp;
+                </c:if>
+                <c:if test="${ empty hashedMap.news.isDisplay}">
+                    <label><input name="isDisplay" type="radio"
+                                  value="1" checked="true"/>是
+                    </label>&nbsp;&nbsp;
+                    <label><input name="isDisplay" type="radio"
+                                  value="0" />否
+                    </label>&nbsp;&nbsp;
+                </c:if>
+
                 &nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-warning" id= "isDisplaySpan"></span>
             </div>
         </div>
