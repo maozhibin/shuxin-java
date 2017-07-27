@@ -54,8 +54,8 @@
 	    AND s.num = 1
 		AND s.type = 1
 		<if test="name != null">
-	         and p.`name`=#{name}
-	         or u.username=#{name}
+	         and (p.`name`=#{name}
+	         or u.username=#{name})
 	    </if>
 	    ORDER BY p.dateline DESC
 	    <if test="page != null">
