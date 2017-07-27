@@ -16,4 +16,19 @@
         FROM admin_menu
         WHERE uri = #{uri}
     </select>
+    <select id="query" resultType="com.baoquan.shuxin.model.admin.AdminMenu">
+        SELECT *
+        FROM admin_menu
+        <where>
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+            <if test="isdir != null">
+                AND isdir = #{isdir}
+            </if>
+            <if test="display != null">
+                AND display = #{display}
+            </if>
+        </where>
+    </select>
 </mapper>

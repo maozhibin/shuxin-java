@@ -10,6 +10,16 @@ public class Config {
 	    private String rules;
 
 	    private String value;
+	    
+	    private Boolean isValid;
+	    
+		public Boolean getIsValid() {
+			return isValid;
+		}
+
+		public void setIsValid(Boolean isValid) {
+			this.isValid = isValid;
+		}
 
 		public Integer getId() {
 			return id;

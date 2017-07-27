@@ -52,7 +52,7 @@
                     <td> 资金类型：</td>
                     <td>
                         <select name="type">
-                            <option>全部</option>
+                            <option value="">全部</option>
                             <option value="consume">消费</option>
                             <option value="recharge">充值</option>
                             <option value="buy_product">购买</option>
@@ -61,7 +61,7 @@
                     <td> 起始时间：</td>
                     <td>
                         <input class="form-control datepicker" data-date-format="yyyy-mm-dd" type="text"
-                               name="startTime" value="${startTime}"/>
+                               name="startTime"  value="${startTime}"/>
                     </td>
                     <td> -</td>
                     <td>
@@ -107,10 +107,10 @@
                                 </td>
                                 <td>${UserMoneyLog.amount}</td>
                                 <td>
-                                    <jsp:useBean id="dateValue" class="java.util.Date"/>
-                                    <jsp:setProperty name="dateValue" property="time"
-                                                     value="${UserMoneyLog.finishTime*1000}"/>
-                                    <fmt:formatDate value="${dateValue}" pattern="yyyy-MM-dd"/>
+                                	<jsp:useBean id="dateObject" class="java.util.Date"></jsp:useBean>
+									<jsp:setProperty property="time" name="dateObject" value="${UserMoneyLog.finishTime*1000}"/>
+									<fmt:formatDate value="${dateObject}" pattern="yyyy-MM-dd" /> 
+									
                                 </td>
                                 <td>${UserMoneyLog.remark}</td>
                             </tr>

@@ -106,13 +106,20 @@ public class UserController {
 		if (pageSize == null || pageSize > Page.DEFAULT_PAGE_SIZE) pageSize = Page.DEFAULT_PAGE_SIZE;
 		ModelAndView mv = new ModelAndView("admin/user/money");
 		Long startTimeValue = null;
+		Long time =System.currentTimeMillis();
 		if (!StringUtils.isEmpty(startTime)) {
-			startTimeValue = DateUtil.dateToStamp(startTime) / 1000;
+			startTimeValue = DateUtil.zero(startTime) / 1000;
+		}else {
+			startTimeValue = time;
+			startTime=DateUtil.stampToDateY(time.toString());
 		}
 
 		Long endTimeValue = null;
 		if (!StringUtils.isEmpty(endTime)) {
-			endTimeValue = DateUtil.dateToStamp(endTime) / 1000;
+			endTimeValue = DateUtil.twelve(endTime) / 1000;
+		}else{
+			endTimeValue = time;
+			endTime=DateUtil.stampToDateY(time.toString());
 		}
 
 		Page<UserMoneyLog> page = new Page<UserMoneyLog>();

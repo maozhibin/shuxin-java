@@ -1,3 +1,4 @@
+<%@ page import="org.apache.commons.lang3.StringUtils" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
@@ -190,7 +191,7 @@
             <ul class="nav navbar-nav side-nav">
                 <c:if test="${userMenu != null}">
                     <c:forEach items="${userMenu.values()}" var="menu">
-                        <c:set var="basePath" value="<%=basePath%>" scope="request"/>
+                        <c:set var="basePath" value='<%=StringUtils.removeEnd(basePath, "/")%>' scope="request"/>
                         <%@include file="menu_recursive.jsp" %>
                     </c:forEach>
                 </c:if>

@@ -6,6 +6,7 @@
     <result column="varname" property="varname" jdbcType="VARCHAR" />
     <result column="memo" property="memo" jdbcType="VARCHAR" />
     <result column="rules" property="rules" jdbcType="VARCHAR" />
+    <result column="is_valid" property="isValid" jdbcType="TINYINT"/>
   </resultMap>
  	
   <select id="configTotal" resultType="java.lang.Integer">
