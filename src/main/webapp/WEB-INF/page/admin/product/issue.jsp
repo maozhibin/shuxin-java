@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%--
   Created by IntelliJ IDEA.
   User: yongj
@@ -70,28 +70,26 @@
                 });
             }
 
-            var preview = $("#preview");
+            <!--文件上传-->
             $("#upload").AjaxFileUpload({
-                action: '<%=basePath%>admin/product/uploadLogo',
+                action: '<%=basePath%>admin/upload/logo',
                 onComplete: function (filename, response) {
-                    if (response.error != "") {
+                    if (response.error != null) {
                         alert(response.error + "请重新选择");
                     } else {
-                        var url = base_url + "uploads/logos/" + filename;
-//                    preview.attr("src", url).attr("width", 96).attr("height", 96);
-                        $("#logo").val(response.name.file_name);
+                        var url = base_url + response.imgUrl;
+                        $("#logo").val(url);
                         $(this).parents(".cell").addClass('hide');
                         $("#close").removeClass('hide');
                         $("#img").removeClass('hide').attr("src", url).attr("width", 96).attr("height", 96).attr('alt', filename);
                     }
                 }
             });
-
+            $("#img").click(function () {
+                $("#upload").trigger("click");
+            });
             $("#close").click(function () {
                 $(this).addClass('hide').prevAll('img').removeAttr('src width height alt').addClass('hide').prevAll('.cell').removeClass('hide');
-            });
-            preview.click(function () {
-                $("#upload").trigger("click");
             });
 
             $("#submit").click(function () {
@@ -178,8 +176,8 @@
                     	<option value="2" <c:if test="${hashMap.productBaseInfo.type==2}">selected="selected"</c:if>>普通文件</option>
                     </select>
                 </div>
-                
-                
+
+
             </div>
             <div class="inline-form mb30">
                 <div class="addon">区域范围</div>
@@ -198,7 +196,7 @@
                         </select>
                     </div>
                 </div>
-                
+
                 <div class="addon">发布人</div>
                 <div class="cell vat">
                     <select class="input-ctrl" name="userName" id="user_name">
@@ -208,7 +206,7 @@
                     </select>
                 </div>
             </div>
-            
+
             <div class="inline-form mb30">
                 <div class="addon">数据简介</div>
                 <div class="cell">
@@ -228,7 +226,7 @@
                 <div class="addon">数据logo</div>
                 <div class="cell">
                     <label for="upload" class="upload">上传图片</label>
-                    <input type="file" id="upload" class="hide" name="icon"
+                    <input type="file" id="upload" class="hide" name="file"
                            accept="image/png,image/gif,image/jpg,image/jpeg">
                 </div>
                 <img id="img"/>
@@ -253,7 +251,7 @@
                     <input type="text" class="input-ctrl" name="appCode" id="app_code" value="${hashMap.productInterface.appCode}">
                 </div>
             </div>
-            
+
             <div class="inline-form mb30">
                 <div class="addon">请求方式</div>
                 <div class="cell">
@@ -341,7 +339,7 @@
 		                    </td>
 		                </tr>
 		            </c:if>
-	            
+
 		            <c:if test="${empty hashMap.productBaseInfo.id}">
 		             	<tr>
 		                    <td><input type="text" class="input" value="" placeholder="点击输入" name="headerName"></td>
@@ -417,7 +415,7 @@
 			                    </td>
 		              	  </tr>
 		            </c:if>
-	            
+
 		            <c:if test="${empty hashMap.productBaseInfo.id}">
 		             	<tr>
 		                    <td><input type="text" class="input" value="" placeholder="点击输入" name="queryName"></td>
@@ -493,7 +491,7 @@
 		                    </td>
 		                </tr>
 		            </c:if>
-	            
+
 		            <c:if test="${empty hashMap.productBaseInfo.id}">
 		             	<tr>
 		                    <td><input type="text" class="input" value="" placeholder="点击输入" name="bodyName"></td>
@@ -516,7 +514,7 @@
 		            </c:if>
                 </tbody>
             </table>
-			
+
 			<c:if test="${not empty hashMap.productBaseInfo.id}">
              	<c:forEach items="${hashMap.interfaceSample}" var="item">
              		<c:if test="${item.type eq 'INPUT'}">
@@ -536,14 +534,14 @@
             <c:if test="${empty hashMap.productBaseInfo.id}">
              	<p class="f16 gray6 mb10">请求示例</p>
 	            <textarea rows="10" class="input-ctrl mb30" name="requestSample" id="request_sample"></textarea>
-	
+
 	            <p class="f16 gray6 mb10">正常返回示例</p>
 	            <textarea rows="10" class="input-ctrl mb30" name="normalSample" id="normal_sample"></textarea>
-	
+
 	            <p class="f16 gray6 mb10">错误返回示例</p>
 	            <textarea rows="10" class="input-ctrl mb30" name="errorSample" id="error_sample"></textarea>
             </c:if>
-           
+
 
 
             <p class="f16 gray6 mb10">错误码定义</p>
@@ -557,7 +555,7 @@
                 </tr>
                 </thead>
                 <tbody id="request_codes">
-                
+
                 <c:if test="${not empty hashMap.productBaseInfo.id}">
              	<c:forEach items="${hashMap.interfaceCodeList}" var="item">
              		<tr>
@@ -578,7 +576,7 @@
 	                    </td>
                 	</tr>
             </c:if>
-            
+
             <c:if test="${empty hashMap.productBaseInfo.id}">
              	<tr>
                      <td><input type="text" class="input" value="" placeholder="点击输入" name="code"></td>
@@ -589,7 +587,7 @@
                     </td>
                 </tr>
             </c:if>
-                
+
                 </tbody>
             </table>
 
@@ -632,7 +630,7 @@
                                 <td>单次计费</td>
                                 <td>
                                     <ul class="inline">
-                                        <li class="cell"><input type="text" name="priceOne" 
+                                        <li class="cell"><input type="text" name="priceOne"
 	                                       <c:forEach items="${hashMap.billingsList}" var="item">
 	                                       		<c:if test="${item.num == 1}"> value="${item.price}"</c:if></c:forEach>id="priceOne"></li>
                                         <li class="cell">元/</li>
@@ -643,7 +641,7 @@
                             </tbody>
                         </table>
                     </div>
-                    
+
                     <div class="ml60 pl10" id="container-combo">
                         <table class="mb50">
                             <thead>
@@ -657,7 +655,7 @@
                                 <td>多次计费</td>
                                 <td>
                                     <ul class="inline">
-                                        <li class="cell"><input type="text" name="priceHundred" 
+                                        <li class="cell"><input type="text" name="priceHundred"
                                          <c:forEach items="${hashMap.billingsList}" var="item">
 	                                       		<c:if test="${item.num == 100}"> value="${item.price}"</c:if></c:forEach> id="priceHundred"></li>
                                         <li class="cell">元/</li>
@@ -681,7 +679,7 @@
                                 <td>包年计费</td>
                                 <td>
                                     <ul class="inline">
-                                        <li class="cell"><input type="text" name="priceYear" 
+                                        <li class="cell"><input type="text" name="priceYear"
                                         <c:forEach items="${hashMap.billingsList}" var="item">
 	                                       		<c:if test="${item.num == 12}"> value="${item.price}"</c:if></c:forEach>id="priceYear" style="width: "></li>
                                         <li class="cell">元/</li>
@@ -691,8 +689,8 @@
                             </tr>
                             </tbody>
                         </table>
-                        
-                    
+
+
 
             <div class="pb30">
                 <p class="mb10"><label class="gray6"><input type="checkbox" class="agreement" id="chexkboxId">
@@ -722,7 +720,7 @@
 
         });
     });
-    
+
 	$('#product_class').change(function(){
 		var classValue=$('#product_class').val();
 	    $.ajax({
@@ -737,10 +735,10 @@
 	        		}
 	        		$("#product_base").append(option);
 	         }
-	        
+
 	    });
 	});
-	
+
 	var productId = $('#productId').val();
 	 $(document).ready(function(){
 		 var pidValue=$('#province').val();
@@ -754,7 +752,7 @@
 		        		for(var i=0;i<data.length;i++){
 		        			option+="<option value='"+data[i].id+"'>"+data[i].name+"</option>";
 		        		}
-		        		
+
 		      			$("#city").append(option);
 		      			//当是进行修改时显示原来的区域
 		        		var areaId = $('#areaId').val();
@@ -762,9 +760,9 @@
 		      				$('#city').val(areaId);
 		      			}
 		         }
-		        
+
 		    });
-		    
+
 		    //请求参数（Headers）
 		    $('#request_headers').on("click","button.add_header",function(){
 		    	var tr = $(this).parents('tr');
@@ -782,7 +780,7 @@
                 $('#request_headers').append("<tr>"+row+"</tr>");
                 $(this).removeClass("add_header").addClass("deleteTr").text("删除").attr("onclick","delHeaders(this)");
 		    });
-			
+
 		    //请求参数（Query）
 		    $('#request_querys').on("click","button.add_query",function(){
 		    	var tr = $(this).parents('tr');
@@ -800,7 +798,7 @@
                 $('#request_querys').append("<tr>"+row+"</tr>");
                 $(this).removeClass("add_query").addClass("deleteTr").text("删除").attr("onclick","delHeaders(this)");
 		    });
-		    
+
 		    //请求参数（Body）
 		    $('#request_bodys').on("click","button.add_body",function(){
 		    	var tr = $(this).parents('tr');
@@ -818,7 +816,7 @@
                 $('#request_bodys').append("<tr>"+row+"</tr>");
                 $(this).removeClass("add_body").addClass("deleteTr").text("删除").attr("onclick","delHeaders(this)");
 		    });
-		    
+
 		    //错误码定义
 		    $('#request_codes').on("click","button.add_code",function(){
 		    	var tr = $(this).parents('tr');
@@ -844,7 +842,7 @@
 
 
 	    });
-	
+
 	$('#province').change(function(){
 		var pidValue=$('#province').val();
 	    $.ajax({
@@ -859,10 +857,10 @@
 	        		}
 	        		$("#city").append(option);
 	         }
-	        
+
 	    });
 	});
-	
+
 	function myfunction(){
 		var str = {};
 		var productName=$('#product_name').val();//产品名
@@ -908,7 +906,7 @@
 		str.highlight=highlight;
 		str.service=service;
 
-		
+
 		//对请求参数的操作
 		var headersArray=new Array();
 		var headerList = $("#request_headers").children("tr")
@@ -926,7 +924,7 @@
 				headersArray.push(headers);
 				str.headersArray=headersArray;
 			}
-		
+
 		var querysArray=new Array();;
 		var queryList = $("#request_querys").children("tr")
 			for (var i=0;i<queryList.length-1;i++) {
@@ -943,7 +941,7 @@
 				querysArray.push(query);
 				str.querysArray=querysArray;
 		}
-		
+
 		var bodysArrays=new Array();
 		var bodyList = $("#request_bodys").children("tr")
 			for (var i=0;i<bodyList.length-1;i++) {
@@ -960,7 +958,7 @@
 				bodysArrays.push(body);
 				str.bodysArrays=bodysArrays;
 		}
-		
+
 		var codesArrays=new Array();
 		var codeList = $("#request_codes").children("tr")
 			for (var i=0;i<codeList.length-1;i++) {
@@ -975,22 +973,22 @@
 				codesArrays.push(codet);
 				str.codesArrays=codesArrays;
 		}
-		
-		
+
+
 		var priceOne=$('#priceOne').val();//一次收费
 		var priceHundred=$('#priceHundred').val();//100次收费
 		var priceYear=$('#priceYear').val();//1年收费
 		str.priceOne=priceOne;
 		str.priceHundred=priceHundred;
 		str.priceYear=priceYear;
-		
+
 		var productTags=$('#productTags').val();//标签
 		var tags = new Array();
-		tag=productTags.trim().split(","); //字符分割 
+		tag=productTags.trim().split(","); //字符分割
 		console.log(tag);
 		tags.push(tag);
 		str.tags = tags;
-		
+
 		var data = JSON.stringify(str);
 		var productId = $('#productId').val();
 		$.ajax({
@@ -1007,9 +1005,9 @@
 	    		    	   }
 	    			}
 	       });
-		
+
 	}
-	
+
 	function apiFunction(){//基础设置检查
 		var product_name=$('#product_name').val();
 		var product_description=$('#product_description').val();
@@ -1029,10 +1027,10 @@
 			alert("请输入标签设置");
 			return;
 		}
-		
+
 		goto('api')
 	}
-	
+
 	function descFunction(){//接口设置判断
 		var interface_name=$('#interface_name').val();
 		var url_address=$('#url_address').val();
@@ -1041,7 +1039,7 @@
 		var error_sample=$('#error_sample').val();
 		var app_code = $('#app_code').val();
 		var time_out=$('#time_out').val();//请求超时
-		
+
 		interface_name_value=interface_name.replace(/\n/g,'');
 		url_address_value=url_address.replace(/\n/g,'');
 		request_sample_value=request_sample.replace(/\n/g,'');
@@ -1069,20 +1067,20 @@
 			alert("至少输入一个请求参数(Headers)");
 			return;
 		}
-		
+
 		var  rownum =$("#Querys tr").length
 		if(rownum < 3){
 			alert("至少输入一个请求参数(Querys)");
 			return;
 		}
-		
+
 		var  rownum =$("#Bodys tr").length
 		if(rownum < 3){
 			alert("至少输入一个请求参数(Bodys)");
 			return;
 		}
-		
-		
+
+
 		if(javaTrim(request_sample_value)==""){
 			alert("请输入请求实例");
 			return;
@@ -1095,16 +1093,16 @@
 			alert("请输入错误返回实例");
 			return;
 		}
-		
+
 		var  rownum =$("#codes tr").length
 		if(rownum < 3){
 			alert("至少输入一个请求参数(codes)");
 			return;
 		}
-		
+
 		goto('desc');
 	}
-	
+
 	function priceFunction(){//产品描述判断
 		var intro=$('#intro').val();
 		var highlight=$('#highlight').val();
@@ -1127,13 +1125,13 @@
 		}
 		goto('price')
 	}
-	
+
 	function chargingFunction(){//计费设置判断
 		var priceOne=$('#priceOne').val();
 		var priceHundred=$('#priceHundred').val();
 		var priceYear=$('#priceYear').val();
 		var reg=/^[-\+]?\d+(\.\d+)?$/;
-		
+
 		priceOne_value=priceOne.replace(/\n/g,'');
 		priceHundred_value=priceHundred.replace(/\n/g,'');
 		priceYear_value=priceYear.replace(/\n/g,'');
@@ -1153,7 +1151,7 @@
 				return;
 			}
 		}
-		
+
 		if(javaTrim(priceYear_value)!=""){
 			if(!reg.test(priceYear) || priceYear.length >7){
 				alert("请输入正确的包年计费价格");
@@ -1166,7 +1164,7 @@
 		}
 		myfunction();
 	}
-	
+
 	 function javaTrim(str) {//判断输入的是否为空
 	     for (var i=0; (str.charAt(i)==' ') && i<str.length; i++);
 	     if (i == str.length) return ''; //whole string is space
@@ -1174,14 +1172,49 @@
 	     for (var i=newstr.length-1; newstr.charAt(i)==' ' && i>=0; i--);
 	     newstr = newstr.substr(0,i+1);
 	     return newstr;
-	} 
-	
+	}
+
 	function delHeaders(obj)//点击事件那边需要加this
 	{
 		var tr=obj.parentNode.parentNode;
 		var tbody=tr.parentNode;
 		tbody.removeChild(tr);
 	}
+</script>
+
+<script>
+    //查找box元素,检测当粘贴时候,
+    document.querySelector('#snapshot').addEventListener('paste', function (e) {
+
+        //判断是否是粘贴图片
+        if (e.clipboardData && e.clipboardData.items[0].type.indexOf('image') > -1) {
+            var that = this,
+                reader = new FileReader();
+            file = e.clipboardData.items[0].getAsFile();
+
+            //ajax上传图片
+            reader.onload = function (e) {
+                var xhr = new XMLHttpRequest(),
+                    fd = new FormData();
+
+                xhr.open('POST', '/admin/upload/imageBase64', true);
+                xhr.onload = function () {
+                    var img = new Image();
+                    img.src = base_url + xhr.responseText;
+
+                    //todo 记录返回的图片地址
+                    // that.innerHTML = '<img src="'+img.src+'" alt=""/>';
+                    document.getElementById("img_puth").value = img.src;
+                }
+
+                // this.result得到图片的base64 (可以用作即时显示)
+                fd.append('file', this.result);
+                that.innerHTML = '<img src="' + this.result + '" alt=""/>';
+                xhr.send(fd);
+            }
+            reader.readAsDataURL(file);
+        }
+    }, false);
 </script>
 </body>
 </html>

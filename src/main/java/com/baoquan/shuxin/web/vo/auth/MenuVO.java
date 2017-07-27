@@ -13,6 +13,7 @@ public class MenuVO {
     private String ico;
     private Map<Long, MenuVO> children;
     private Long parentId;
+    private Integer isdir;
 
     public Long getId() {
         return id;
@@ -61,4 +62,13 @@ public class MenuVO {
     public void setParentId(Long parentId) {
         this.parentId = parentId;
     }
+
+    public Integer getIsdir() {
+        return isdir;
+    }
+
+    public void setIsdir(Integer isdir) {
+        this.isdir = isdir;
+    }
+
 }

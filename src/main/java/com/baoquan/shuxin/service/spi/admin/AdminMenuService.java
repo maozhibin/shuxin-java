@@ -17,6 +17,8 @@ public interface AdminMenuService {
 
     AdminMenu queryByUri(String uri);
 
+    List<AdminMenu> query(Integer status, Integer isdir, Integer display);
+
     Map<Long, MenuVO> queryEffectiveMenuTree();
 
     Map<Long, MenuVO> buildMenuVOMap(List<AdminMenu> menuList);

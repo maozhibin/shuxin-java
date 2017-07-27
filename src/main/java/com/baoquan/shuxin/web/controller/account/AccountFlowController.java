@@ -56,9 +56,6 @@ public class AccountFlowController {
         page.setPageNo(pageNo);
         page.setPageSize(pageSize);
 
-
-
-
         String range = date_range;
         //截取时间 转换为时间戳
         Long statTime = null;
@@ -135,7 +132,12 @@ public class AccountFlowController {
         vo.setRequestNo(flow.getRequestNo());
         vo.setFee(flow.getFee());
         vo.setStatusDesc(flow.getStatusDesc());
-        vo.setTypeName(option.getName());
+        if(!StringUtils.isNotEmpty(option.getName())){
+            vo.setTypeName("");
+        }else {
+            vo.setTypeName(option.getName());
+        }
+
         if (flow.getDateline() != null) {
             vo.setDateline(new Date(flow.getDateline()));
         }

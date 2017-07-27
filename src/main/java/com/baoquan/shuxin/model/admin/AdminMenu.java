@@ -15,6 +15,10 @@ public class AdminMenu {
 
     private Long parentId;
 
+    private Integer isdir;
+
+    private Integer display;
+
     public Long getId() {
         return id;
     }
@@ -69,5 +73,21 @@ public class AdminMenu {
 
     public void setParentId(Long parentId) {
         this.parentId = parentId;
+    }
+
+    public Integer getIsdir() {
+        return isdir;
+    }
+
+    public void setIsdir(Integer isdir) {
+        this.isdir = isdir;
+    }
+
+    public Integer getDisplay() {
+        return display;
+    }
+
+    public void setDisplay(Integer display) {
+        this.display = display;
     }
 }

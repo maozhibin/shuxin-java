@@ -17,6 +17,7 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.baoquan.shuxin.enums.DualEnum;
 import com.baoquan.shuxin.enums.DualStatusEnum;
 import com.baoquan.shuxin.model.admin.AdminMenu;
 import com.baoquan.shuxin.model.admin.AdminUserMenuPerm;
@@ -94,11 +95,19 @@ public class AuthInterceptor implements HandlerInterceptor {
             }
         }
         if (menu != null) {
-            AdminUserMenuPerm userMenuPerm = adminUserMenuPermService.queryByUserMenuStatus(userId, menu.getId(),
-                    DualStatusEnum.EFFECTIVE.getCode());
-            if (userMenuPerm == null || userMenuPerm.getPerm() == DualStatusEnum.INEFFECTIVE.getCode()) {
-                return false;
-            }
+            do {
+                AdminUserMenuPerm userMenuPerm = adminUserMenuPermService.queryByUserMenuStatus(userId, menu.getId(),
+                        DualStatusEnum.EFFECTIVE.getCode());
+                if (menu.getDisplay() == DualEnum.YES.getCode()) {
+                    if (userMenuPerm == null || userMenuPerm.getPerm() == DualStatusEnum.INEFFECTIVE.getCode()) {
+                        return false;
+                    }
+                }
+                if (menu.getParentId() == 0) {
+                    break;
+                }
+                menu = adminMenuService.queryById(menu.getParentId());
+            } while (true);
         }
         return true;
     }

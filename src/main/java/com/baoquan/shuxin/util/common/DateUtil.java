@@ -73,10 +73,19 @@ public class DateUtil {
 			Date today = DateUtils.truncate(date, Calendar.DATE);
 			Date lastday = DateUtils.addDays(today, +1);
 			time=lastday.getTime()-1;
+
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		return time;
 	}
+
+
+
+
+
+
+
+
 
 }

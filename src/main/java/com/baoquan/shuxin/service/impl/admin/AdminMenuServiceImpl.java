@@ -8,6 +8,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.baoquan.shuxin.dao.admin.AdminMenuDao;
+import com.baoquan.shuxin.enums.DualEnum;
+import com.baoquan.shuxin.enums.DualStatusEnum;
 import com.baoquan.shuxin.model.admin.AdminMenu;
 import com.baoquan.shuxin.service.spi.admin.AdminMenuService;
 import com.baoquan.shuxin.web.vo.auth.MenuVO;
@@ -34,8 +36,12 @@ public class AdminMenuServiceImpl implements AdminMenuService {
         return adminMenuDao.queryByUri(uri);
     }
 
+    public List<AdminMenu> query(Integer status, Integer isdir, Integer display) {
+        return adminMenuDao.query(status, isdir, display);
+    }
+
     public Map<Long, MenuVO> queryEffectiveMenuTree() {
-        List<AdminMenu> menuList = adminMenuDao.queryAllEffective();
+        List<AdminMenu> menuList = adminMenuDao.query(DualStatusEnum.EFFECTIVE.getCode(), null, DualEnum.YES.getCode());
         Map<Long, MenuVO> menuVOMap = buildMenuVOMap(menuList);
         return menuVOMap;
     }
@@ -55,6 +61,8 @@ public class AdminMenuServiceImpl implements AdminMenuService {
                     children = parent.getChildren();
                 }
                 children.put(menu.getId(), menuVOMap.get(menu.getId()));
+            } else if (menu.getParentId() != 0) {//父级菜单都没有权限，当前菜单也无法访问，遂隐藏
+                menuVOMap.remove(menu.getId());
             }
         }
         Map<Long, MenuVO> rootMenuMap = new TreeMap<>();
@@ -74,6 +82,7 @@ public class AdminMenuServiceImpl implements AdminMenuService {
         vo.setUri(menu.getUri());
         vo.setIco(menu.getIco());
         vo.setParentId(menu.getParentId());
+        vo.setIsdir(menu.getIsdir());
         return vo;
     }
 }

@@ -67,16 +67,16 @@
 
                                 <td>
                                     <c:if test="${map.status ==0}">
-                                         初始化
+                                      	   初始化
                                     </c:if>
                                     <c:if test="${map.status ==1}">
-                                        审核中
+                                     	   审核中
                                     </c:if>
                                     <c:if test="${map.status ==2}">
-                                        售卖中
+                              		               售卖中
                                     </c:if>
                                     <c:if test="${map.status ==3}">
-                                        下架
+                             		              下架
                                     </c:if>
                                 </td>
 

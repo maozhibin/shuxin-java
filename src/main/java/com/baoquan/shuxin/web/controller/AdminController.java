@@ -22,7 +22,7 @@ public class AdminController {
 
     @RequestMapping({"/", "/admin"})
     public String index() {
-        return "admin/index";
+        return "redirect:/admin/overview/platform";
     }
 
     @RequestMapping({"/loginPage"})

@@ -28,7 +28,7 @@ import com.baoquan.shuxin.service.spi.user.UserOrderService;
 
 /**
  * Author:Zhoumc
- * Description:${TODO}
+ * Description:
  * DATA:16:39 ${DATA}
  */
 @RequestMapping("/order")
@@ -104,6 +104,7 @@ public class UserOrderController {
                 int id = userOrder.getProductId();
                 Product productIdList = productService.findById(id);
                 String statusName = String.valueOf(userOrder.getStatus());
+
                 List<Option> optionList = optionService.queryOrderInfo();
                 Option op = null;
                 for (Option option : optionList) {
@@ -129,7 +130,9 @@ public class UserOrderController {
     private UserOrderVO buildOrderInfoVO(UserOrder userOrder,Product pd,Option op){
         UserOrderVO vo = new UserOrderVO();
         vo.setUserId(userOrder.getUserId());
-        if(op.getName() != null){
+        if(!StringUtils.isNotEmpty(op.getName())){
+           op.setName("");
+        }else {
             vo.setStatuName(op.getName());
         }
         vo.setName(pd.getName());

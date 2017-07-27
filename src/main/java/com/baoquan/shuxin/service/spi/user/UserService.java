@@ -18,4 +18,18 @@ public interface UserService {
 
 	List<User> userList();
 
+	void updateUser(User user);
+
+	void addUser(User user);
+
+	boolean isValidUserName(String orgName);
+
+	boolean findByMobileUserIdfo(String mobile);
+
+	void updateUserNoNobile(User user);
+
+	void updateUserNoOrgName(User user);
+
+	void updateUserNoNameAndMoile(User user);
+
 }

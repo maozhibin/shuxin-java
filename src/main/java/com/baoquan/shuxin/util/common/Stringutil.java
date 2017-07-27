@@ -13,9 +13,15 @@ public class Stringutil {
 		return m.matches();
 	}
 
+	
 
-	public static void main(String[] args) {
-		System.out.println(isChinaPhoneLegal(""));
+	//邮箱验证
+	public static boolean isEmail(String str) throws PatternSyntaxException {
+		String regex = "[a-zA-Z0-9_-]+@\\w+\\.[a-z]+(\\.[a-z]+)?";
+		Pattern p = Pattern.compile(regex);
+		Matcher m = p.matcher(str);
+		return m.matches();
 	}
+
 
 }

@@ -21,6 +21,7 @@
 			*
 		FROM
 			config
+		where is_valid=1
 		<if test="page != null">
 	        limit ${page.startIndex},${page.pageSize};
 	    </if>	
@@ -43,4 +44,8 @@
 			config
 		where id=#{id}
   </select>
+  
+  <update id="deleteConfig" parameterType="Config" >
+        update config set is_valid=#{isValid} where id=#{id}
+  </update>
 </mapper>

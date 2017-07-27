@@ -35,9 +35,17 @@
                     <td>
                         <button type="submit" class="btn"><i class="fa fa-search"></i> 搜索</button>
                     </td>
+                    
+                     <c:if test="${typeId eq 'ORG'}">
+						<td>
+							<a href="/admin/user/skip" type="button" class="btn btn-info" style="margin-left:10px">新增</a>
+						</td>
+					</c:if>
                 </tr>
             </table>
         </form>
+       
+         
     </div>
 </section>
 <div class="row" style="border-top: none;">
@@ -69,7 +77,11 @@
                                        href="user/detail/"><i
                                             class="fa fa-pencil"></i> </a>&nbsp;&nbsp;-->
                                     <a class="delete_button" title='删除' url="delete?id=${user.id}"><i
-                                            class="fa fa-trash"></i></a>
+                                            class="fa fa-trash"></i></a>&nbsp;&nbsp;
+                                    <c:if test="${typeId eq 'ORG'}">
+                                    	<a class="" title='编辑' href="skip?id=${user.id}"><i
+                                            class="fa fa-pencil"></i></a>
+                                    </c:if>
                                 </td>
                             </tr>
                         </c:forEach>
