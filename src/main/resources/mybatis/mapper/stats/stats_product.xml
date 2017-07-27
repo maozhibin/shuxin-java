@@ -72,9 +72,9 @@
 	LEFT JOIN `user` u ON u.id = p.user_id
 	where 1=1
 	<if test="productName!=null">
-		and  p.`name`=#{productName}
+		and ( p.`name`=#{productName}
 		or u.username=#{productName}
-		or c.`name`=#{productName}
+		or c.`name`=#{productName})
 	</if>
 	ORDER BY
 		s.total_amount DESC
@@ -93,9 +93,9 @@
 		LEFT JOIN `user` u ON u.id = p.user_id
 		where 1=1
 		<if test="productName!=null">
-			and  p.`name`=#{productName}
+			and ( p.`name`=#{productName}
 			or u.username=#{productName}
-			or c.`name`=#{productName}
+			or c.`name`=#{productName})
 		</if>
   </select>
   
