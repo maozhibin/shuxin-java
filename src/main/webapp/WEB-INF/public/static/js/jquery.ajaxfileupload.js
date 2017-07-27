@@ -82,7 +82,9 @@
         function onComplete(e) {
             var $iframe = $(e.target),
                 doc = ($iframe[0].contentWindow || $iframe[0].contentDocument).document,
-                response = doc.body.innerHTML;
+                // response = doc.body.innerHTML;
+                // innerHTML=<pre>innerText</pre>
+                response = doc.body.innerText;
 
             if (response) {
                 response = $.parseJSON(response);
