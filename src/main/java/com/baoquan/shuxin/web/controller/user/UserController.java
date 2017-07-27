@@ -1,5 +1,6 @@
 package com.baoquan.shuxin.web.controller.user;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,16 +8,22 @@ import javax.inject.Inject;
 
 import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.baoquan.shuxin.bean.Page;
-import com.baoquan.shuxin.model.user.UserMoneyLog;
+import com.baoquan.shuxin.constatn.UserConstant;
 import com.baoquan.shuxin.model.user.User;
+import com.baoquan.shuxin.model.user.UserMoneyLog;
 import com.baoquan.shuxin.service.spi.user.UserMoneyLogService;
 import com.baoquan.shuxin.service.spi.user.UserService;
+import com.baoquan.shuxin.util.JsonResponseMsg;
 import com.baoquan.shuxin.util.common.DateUtil;
+import com.baoquan.shuxin.util.common.Stringutil;
 
 /**
  * Created by Administrator on 2017/7/12.
@@ -41,8 +48,10 @@ public class UserController {
 	 */
 	@RequestMapping("list")
 	public ModelAndView userList(String name, String mobile, String typeId, Integer pageNo, Integer pageSize) {
-		if (pageNo == null || pageNo < 1) pageNo = 1;
-		if (pageSize == null || pageSize > Page.DEFAULT_PAGE_SIZE) pageSize = Page.DEFAULT_PAGE_SIZE;
+		if (pageNo == null || pageNo < 1)
+			pageNo = 1;
+		if (pageSize == null || pageSize > Page.DEFAULT_PAGE_SIZE)
+			pageSize = Page.DEFAULT_PAGE_SIZE;
 		name = StringUtils.trimToNull(name);
 		mobile = StringUtils.trimToNull(mobile);
 		ModelAndView mv = new ModelAndView("admin/user/list");
@@ -53,6 +62,7 @@ public class UserController {
 		mv.addObject(page);
 		mv.addObject("name", name);
 		mv.addObject("mobile", mobile);
+		mv.addObject("typeId", typeId);
 		return mv;
 
 	}
@@ -72,8 +82,8 @@ public class UserController {
 		}
 		Map<String, Object> map = new HashMap<>();
 		map.put("user", user);
-		Long time = user.getLastLoginTime()*1000;
-		String lastTime=DateUtil.stampToDate(time.toString());
+		Long time = user.getLastLoginTime() * 1000;
+		String lastTime = DateUtil.stampToDate(time.toString());
 		mv.addObject(user);
 		mv.addObject(lastTime);
 		return mv;
@@ -100,36 +110,139 @@ public class UserController {
 	 * 用户资金变动记录
 	 */
 	@RequestMapping("moneyChange")
-	public ModelAndView moneyChange(String userId, String startTime, String endTime, Integer pageNo, Integer pageSize,String type) {
-		//todo 搜索条件还差一个交易类型
-		if (pageNo == null || pageNo < 1) pageNo = 1;
-		if (pageSize == null || pageSize > Page.DEFAULT_PAGE_SIZE) pageSize = Page.DEFAULT_PAGE_SIZE;
+	public ModelAndView moneyChange(String userId, String startTime, String endTime, Integer pageNo, Integer pageSize,
+			String type) {
+		// todo 搜索条件还差一个交易类型
+		if (pageNo == null || pageNo < 1)
+			pageNo = 1;
+		if (pageSize == null || pageSize > Page.DEFAULT_PAGE_SIZE)
+			pageSize = Page.DEFAULT_PAGE_SIZE;
 		ModelAndView mv = new ModelAndView("admin/user/money");
 		Long startTimeValue = null;
-		Long time =System.currentTimeMillis();
+		Long time = System.currentTimeMillis();
 		if (!StringUtils.isEmpty(startTime)) {
 			startTimeValue = DateUtil.zero(startTime) / 1000;
-		}else {
+		} else {
 			startTimeValue = time;
-			startTime=DateUtil.stampToDateY(time.toString());
+			startTime = DateUtil.stampToDateY(time.toString());
 		}
 
 		Long endTimeValue = null;
 		if (!StringUtils.isEmpty(endTime)) {
 			endTimeValue = DateUtil.twelve(endTime) / 1000;
-		}else{
+		} else {
 			endTimeValue = time;
-			endTime=DateUtil.stampToDateY(time.toString());
+			endTime = DateUtil.stampToDateY(time.toString());
 		}
 
 		Page<UserMoneyLog> page = new Page<UserMoneyLog>();
 		page.setPageSize(pageSize);
 		page.setPageNo(pageNo);
 		page = userMoneyLogService.byIdFinduserMoneyChange(page, endTimeValue, startTimeValue,
-				NumberUtils.toLong(userId),type);
+				NumberUtils.toLong(userId), type);
 		mv.addObject(page);
+		mv.addObject("typeValue", type);
 		mv.addObject("startTime", startTime);
 		mv.addObject("endTime", endTime);
 		return mv;
 	}
+
+	/**
+	 * 添加或者修改页面跳转
+	 */
+	@RequestMapping("skip")
+	public ModelAndView skip(String id) {
+		ModelAndView mv = new ModelAndView("admin/user/addOrEdit");
+		if (NumberUtils.isNumber(id)) {
+			User user = userService.findByIdUserInfo(NumberUtils.toLong(id));
+			mv.addObject("user", user);
+		}
+		return mv;
+	}
+
+	@RequestMapping("addOrEdit")
+	@ResponseBody
+	public JsonResponseMsg addOrEditUser(String id, String orgName, String moneyFreeze, String moneyBalance,
+			String mobile, String email, String realName, String orgCode) {
+		JsonResponseMsg result = new JsonResponseMsg();
+		User user = null;
+		if (StringUtils.isEmpty(orgName)) {
+			return result.fill(JsonResponseMsg.CODE_FAIL, "请输入用户名");
+		}
+		if (!Stringutil.isChinaPhoneLegal(mobile)) {
+			return result.fill(JsonResponseMsg.CODE_FAIL, "请输入正确的手机号码");
+		}
+		if (!NumberUtils.isNumber(moneyBalance)) {
+			return result.fill(JsonResponseMsg.CODE_FAIL, "请传入正确用户账户余额");
+		}
+		String telphone = null;
+		String name = null;
+		if (NumberUtils.isNumber(id)) {
+			user = userService.findByIdUserInfo(NumberUtils.toLong(id));
+			telphone = user.getMobile();
+			name = user.getUsername();
+
+			if (!NumberUtils.isNumber(moneyFreeze)) {
+				return result.fill(JsonResponseMsg.CODE_FAIL, "请传入正确用户冻结金额");
+			}
+			BigDecimal moneyFreezeValue = new BigDecimal(moneyFreeze);
+			user.setMoneyFreeze(moneyFreezeValue);
+		} else {
+			user = new User();
+			user.setPassword("$2y$10$bSp7VZPvuLgP46eLrMdU4OPHG3rZZhCqTT1sIJ8tfDFjyHuChe.U2");
+		}
+
+		if (!Stringutil.isEmail(email)) {
+			return result.fill(JsonResponseMsg.CODE_FAIL, "请输入正确邮箱");
+		}
+		if (StringUtils.isEmpty(realName)) {
+			return result.fill(JsonResponseMsg.CODE_FAIL, "请输入机构实名");
+		}
+		if (StringUtils.isEmpty(orgCode)) {
+			return result.fill(JsonResponseMsg.CODE_FAIL, "请输入机构统一社会信用编码");
+		}
+
+		BigDecimal moneyBalanceValue = new BigDecimal(moneyBalance);
+		user.setMoneyBalance(moneyBalanceValue);
+		user.setEmail(email);
+		user.setRealName(realName);
+		user.setMobile(mobile);
+		user.setOrgCode(orgCode);
+		user.setUsername(orgName);
+		user.setTypeId(UserConstant.ORG);
+		if (NumberUtils.isNumber(id)) {
+			if (mobile.equals(telphone) && !orgName.equals(name)) {//手机相同名字不同
+				if (!userService.isValidUserName(orgName)) {
+					return result.fill(JsonResponseMsg.CODE_FAIL, "你输入的用户名已经被使用了请重新输入");
+				}
+				userService.updateUserNoNobile(user);
+			} else if (orgName.equals(name) && !mobile.equals(telphone)) {//名字相同手机号不同
+				if (!userService.findByMobileUserIdfo(mobile)) {
+					return result.fill(JsonResponseMsg.CODE_FAIL, "你输入的手机号已经被使用过了");
+				}
+				userService.updateUserNoOrgName(user);
+			} else if (mobile.equals(telphone) && orgName.equals(name)) {//名字手机号都相同
+				userService.updateUserNoNameAndMoile(user);
+			} else if (!mobile.equals(telphone) && !orgName.equals(name)) {//名字手机号都不相同
+				if (!userService.isValidUserName(orgName)) {
+					return result.fill(JsonResponseMsg.CODE_FAIL, "你输入的用户名已经被使用了请重新输入");
+				}
+				if (!userService.findByMobileUserIdfo(mobile)) {
+					return result.fill(JsonResponseMsg.CODE_FAIL, "你输入的手机号已经被使用过了");
+				}
+				userService.updateUser(user);
+			}
+		} else {
+			if (!userService.isValidUserName(orgName)) {
+				return result.fill(JsonResponseMsg.CODE_FAIL, "你输入的用户名已经被使用了请重新输入");
+			}
+
+			if (!userService.findByMobileUserIdfo(mobile)) {
+				return result.fill(JsonResponseMsg.CODE_FAIL, "你输入的手机号已经被使用过了");
+			}
+			userService.addUser(user);
+		}
+		return result.fill(JsonResponseMsg.CODE_SUCCESS, "SUCCESS");
+	}
+
 }

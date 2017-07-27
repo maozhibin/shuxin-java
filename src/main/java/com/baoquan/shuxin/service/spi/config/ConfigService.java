@@ -15,6 +15,8 @@ public interface ConfigService {
 
 	Config findByIdConfig(Integer id);
 
+	void deleteConfig(Config config);
+
 
 
 }

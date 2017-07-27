@@ -52,10 +52,11 @@
                     <td> 资金类型：</td>
                     <td>
                         <select name="type">
-                            <option value="">全部</option>
-                            <option value="consume">消费</option>
-                            <option value="recharge">充值</option>
-                            <option value="buy_product">购买</option>
+                        	<option value="" <c:if test="${typeValue eq ''}">selected="selected"</c:if>>全部</option>
+                        	<option value="consume" <c:if test="${typeValue eq 'consume'}">selected="selected"</c:if>>消费</option>
+                        	<option value="recharge" <c:if test="${typeValue eq 'recharge'}">selected="selected"</c:if>>充值</option>
+                        	<option value="buy_product" <c:if test="${typeValue eq 'buy_product'}">selected="selected"</c:if>>购买</option>
+                        	
                         </select>
                     </td>
                     <td> 起始时间：</td>

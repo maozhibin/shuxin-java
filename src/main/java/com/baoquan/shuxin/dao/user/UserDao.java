@@ -32,4 +32,18 @@ public interface UserDao {
 	User findByUserName(String orgName);
 
 	List<User> userList();
+
+	void updateUser(User user);
+
+	void addUser(User user);
+
+	User findByMobileUserIdfo(String mobile);
+
+	void updateUserNoNobile(User user);
+
+	void updateUserNoOrgName(User user);
+
+	void updateUserNoNameAndMoile(User user);
+
+
 }

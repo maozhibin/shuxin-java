@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.baoquan.shuxin.bean.Page;
 import com.baoquan.shuxin.model.config.Config;
 import com.baoquan.shuxin.service.spi.config.ConfigService;
+import com.baoquan.shuxin.util.JsonResponseMsg;
 
 @Controller
 @RequestMapping("config")
@@ -72,4 +73,21 @@ public class ConfigController {
 		}
 		return mv;
 	}
+	
+	/**
+	 * 删除配置
+	 */
+	@RequestMapping("delete")
+	public String delete(String id){
+		if(!NumberUtils.isNumber(id)){
+			return null;
+		}
+		Config config = configService.findByIdConfig(NumberUtils.toInt(id));
+		if(config==null){
+			return null;
+		}
+		config.setIsValid(false);
+		configService.deleteConfig(config);
+		return "redirect:list";
+	} 
 }

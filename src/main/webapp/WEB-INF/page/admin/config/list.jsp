@@ -38,6 +38,8 @@
                                 <td>
                                 	<a class="" title='编辑'
                                        href="skip?id=${Config.id}"><i class="fa fa-pencil"></i> </a>&nbsp;&nbsp;
+                                     <a class="delete_button" title='删除' url="delete?id=${Config.id}"><i
+                                            class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
                         </c:forEach>

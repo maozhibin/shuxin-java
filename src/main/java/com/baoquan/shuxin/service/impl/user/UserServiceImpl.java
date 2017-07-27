@@ -71,4 +71,47 @@ public class UserServiceImpl<T> implements UserService {
 	public List<User> userList() {
 		return userDao.userList();
 	}
+
+	@Override
+	public void updateUser(User user) {
+		userDao.updateUser(user);
+	}	
+
+	@Override
+	public void addUser(User user) {
+		userDao.addUser(user);
+	}
+
+	@Override
+	public boolean isValidUserName(String orgName) {
+		User user = userDao.findByUserName(orgName);
+		if(user!=null){
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean findByMobileUserIdfo(String mobile) {
+		User user = userDao.findByMobileUserIdfo(mobile);
+		if(user!=null){
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public void updateUserNoNobile(User user) {
+		userDao.updateUserNoNobile(user);
+	}
+
+	@Override
+	public void updateUserNoOrgName(User user) {
+		userDao.updateUserNoOrgName(user);
+	}
+
+	@Override
+	public void updateUserNoNameAndMoile(User user) {
+		userDao.updateUserNoNameAndMoile(user);
+	}
 }
