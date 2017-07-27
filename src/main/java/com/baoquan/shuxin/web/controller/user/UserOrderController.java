@@ -111,7 +111,6 @@ public class UserOrderController {
                         op = option;
                         break;
                     }
-
                 }
                 UserOrderVO userOrderVO = buildOrderInfoVO(userOrder, productIdList,op);
                 userOrderVOList.add(userOrderVO);
