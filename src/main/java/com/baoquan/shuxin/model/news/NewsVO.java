@@ -11,7 +11,7 @@ public class NewsVO {
     private Integer id;
     private String newsClassType;
     private String title;
-    private Date dateline;
+    private Long dateline;
     private String source;
     private String author;
     private Integer viewCount;
@@ -119,11 +119,11 @@ public class NewsVO {
         this.title = title;
     }
 
-    public Date getDateline() {
+    public Long getDateline() {
         return dateline;
     }
 
-    public void setDateline(Date dateline) {
+    public void setDateline(Long dateline) {
         this.dateline = dateline;
     }
 }

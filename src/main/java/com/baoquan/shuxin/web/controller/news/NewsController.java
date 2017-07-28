@@ -1,5 +1,7 @@
 package com.baoquan.shuxin.web.controller.news;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -56,7 +58,6 @@ public class NewsController {
         if (pageNo == null || pageNo < 1)  pageNo = 1;
         if (pageSize == null || pageSize > Page.DEFAULT_PAGE_SIZE) pageSize = Page.DEFAULT_PAGE_SIZE;
         newsClassType = StringUtils.trimToNull(newsClassType);
-
         Page page = new Page();
         page.setPageNo(pageNo);
         page.setPageSize(pageSize);
@@ -66,7 +67,6 @@ public class NewsController {
         if(newsCount > (pageNo - 1) * pageSize){
             List<News> newsList = newsService.queryNewsInfoList(newsClassType,(pageNo-1)*pageSize,pageSize);
             List<Option> optionList = optionService.queryOptionInfo();
-
             List<NewsVO> newsVOList = new ArrayList<>(newsList.size());
             for (News news : newsList){
                 String typeName  = news.getNewsClassType();
@@ -82,6 +82,8 @@ public class NewsController {
             }
             page.setResult(newsVOList);
         }
+
+
         mv.addObject(page);
         mv.addObject("options",optionService.queryOptionInfo());
         mv.addObject("newsClassType", newsClassType);
@@ -94,7 +96,7 @@ public class NewsController {
         newsVO.setNewsClassType(option.getName());
         newsVO.setTitle(news.getTitle());
         if (news.getDateline() != null){
-            newsVO.setDateline(new Date(news.getDateline()));
+            newsVO.setDateline(news.getDateline());
         }
         newsVO.setContent(news.getContent());
         newsVO.setAuthor(news.getAuthor());
@@ -183,7 +185,7 @@ public class NewsController {
      */
     @RequestMapping("updateAndAdd")
     public String updateAndAdd(String id,String newsClassType,String title,String source,String author,
-            Integer top,Integer isDisplay, String keywords,String content){
+            Integer top,Integer isDisplay,String image, String keywords,String content){
 
         News news = new News();
         news.setNewsClassType(newsClassType);
@@ -191,10 +193,17 @@ public class NewsController {
         news.setSource(source);
         news.setAuthor(author);
         news.setTop(top);
+        news.setImage(image);
         news.setIsDisplay(isDisplay);
         news.setKeywords(keywords);
         news.setContent(content);
-
+        //获取系统时间戳
+        Long dateline = null;
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
+        String  time =df.format(new Date());
+        Timestamp createTime = Timestamp.valueOf(time);
+        dateline = createTime.getTime()/1000;
+        news.setDateline(dateline);
         if(NumberUtils.isNumber(id)){
             news.setId(NumberUtils.toInt(id));
             newsService.updateAndAddNews(news);
