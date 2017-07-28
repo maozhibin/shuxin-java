@@ -42,7 +42,6 @@ public class NewsServiceImpl implements NewsService {
         parms.put("newsClassType",newsClassType);
         parms.put("start",start);
         parms.put("length",length);
-        List<News> list = newsDao.queryNewsInfo(parms);
         return newsDao.queryNewsInfo(parms);
     }
 

@@ -178,7 +178,7 @@
                 <input type="file" id="upload" name="file"
                        style="height:0;width:0;z-index: -1; position: absolute;left: 10px;top: 5px;"><br/>
                 <input type="hidden" name="image" id="logo" value=""/>
-                <img src="" id="img" width=188 height=96 margin-bottom=20px overflow=hidden;/>
+                <img src="" id="img"  name="image" width=188 height=96 margin-bottom=20px overflow=hidden;/>
 
             </div>
         </div>
