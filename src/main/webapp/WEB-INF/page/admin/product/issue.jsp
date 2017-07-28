@@ -70,28 +70,6 @@
                 });
             }
 
-            <!--文件上传-->
-            $("#upload").AjaxFileUpload({
-                action: '<%=basePath%>admin/upload/logo',
-                onComplete: function (filename, response) {
-                    if (response.error != null) {
-                        alert(response.error + "请重新选择");
-                    } else {
-                        var url = base_url + response.imgUrl;
-                        $("#logo").val(url);
-                        $(this).parents(".cell").addClass('hide');
-                        $("#close").removeClass('hide');
-                        $("#img").removeClass('hide').attr("src", url).attr("width", 96).attr("height", 96).attr('alt', filename);
-                    }
-                }
-            });
-            $("#img").click(function () {
-                $("#upload").trigger("click");
-            });
-            $("#close").click(function () {
-                $(this).addClass('hide').prevAll('img').removeAttr('src width height alt').addClass('hide').prevAll('.cell').removeClass('hide');
-            });
-
             $("#submit").click(function () {
                 $(window).off("beforeunload");
             });
@@ -1181,7 +1159,30 @@
 		tbody.removeChild(tr);
 	}
 </script>
-
+<script>
+    <!--文件上传-->
+    $("#upload").AjaxFileUpload({
+        action: '<%=basePath%>admin/upload/logo',
+        onComplete: function (filename, response) {
+            if (response.error != null) {
+                alert(response.error + "请重新选择");
+            } else {
+                var url = base_url + response.imgUrl;
+                $("#logo").val(url);
+                $(this).parents(".cell").addClass('hide');
+                $("#close").removeClass('hide');
+                $("#img").removeClass('hide').attr("src", url).attr("width", 96).attr("height", 96).attr('alt', filename);
+            }
+        }
+    });
+    $("#img").click(function () {
+        $("#upload").trigger("click");
+    });
+    $("#close").click(function () {
+        $(this).addClass('hide').prevAll('img').removeAttr('src width height alt').addClass('hide').prevAll('.cell').removeClass('hide');
+        $("#upload").val("");
+    });
+</script>
 <script>
     //查找box元素,检测当粘贴时候,
     document.querySelector('#snapshot').addEventListener('paste', function (e) {
