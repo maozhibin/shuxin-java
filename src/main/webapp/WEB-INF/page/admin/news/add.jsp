@@ -171,6 +171,7 @@
 
         <div class="row form-group">
             <label class="col-sm-1 control-label no-padding-right">新闻头图:</label>
+
             <div class="col-sm-11">
                 <label for="upload" class="btn">上传图片</label>
                 (上传图片大小应小于2500px*1500px)
@@ -264,6 +265,7 @@
                     $(this).parents(".cell").addClass('hide');
                     $("#close").removeClass('hide');
                     $("#img").removeClass('hide').attr("src", url).attr('alt', filename);
+
                 }
             }
         });
