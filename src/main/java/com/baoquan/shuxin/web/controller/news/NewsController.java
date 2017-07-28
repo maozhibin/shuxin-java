@@ -96,7 +96,7 @@ public class NewsController {
         newsVO.setNewsClassType(option.getName());
         newsVO.setTitle(news.getTitle());
         if (news.getDateline() != null){
-            newsVO.setDateline(new Date(news.getDateline()));
+            newsVO.setDateline(news.getDateline());
         }
         newsVO.setContent(news.getContent());
         newsVO.setAuthor(news.getAuthor());
@@ -185,7 +185,7 @@ public class NewsController {
      */
     @RequestMapping("updateAndAdd")
     public String updateAndAdd(String id,String newsClassType,String title,String source,String author,
-            Integer top,Integer isDisplay, String keywords,String content){
+            Integer top,Integer isDisplay,String image, String keywords,String content){
 
         News news = new News();
         news.setNewsClassType(newsClassType);
@@ -193,6 +193,7 @@ public class NewsController {
         news.setSource(source);
         news.setAuthor(author);
         news.setTop(top);
+        news.setImage(image);
         news.setIsDisplay(isDisplay);
         news.setKeywords(keywords);
         news.setContent(content);
