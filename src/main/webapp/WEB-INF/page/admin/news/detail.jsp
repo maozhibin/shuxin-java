@@ -39,7 +39,11 @@
     <div class="row">
         <label class="col-md-2 text-overflow">时间：</label>
 
-        <div class="col-md-10"><fmt:formatDate value="${news.dateline}" pattern="yyyy-MM-dd hh:ss:mm"/></div>
+        <div class="col-md-10">
+            <jsp:useBean id="dateValue" class="java.util.Date"/>
+            <jsp:setProperty name="dateValue" property="time" value="${news.dateline*1000}"/>
+            <fmt:formatDate value="${dateValue}" pattern="yyyy-MM-dd hh:ss:mm"/>
+        </div>
     </div>
     <div class="row">
         <label class="col-md-2 text-overflow">来源：</label>
@@ -71,7 +75,7 @@
     </div>
     <div class="row">
         <label class="col-md-2 text-overflow">新闻头图：</label>
-        <div class="col-md-10"><img src="${news.image}"></div>
+        <div class="col-md-10"><img src="${news.image}" width=188 height=96></div>
     </div>
     <div class="row">
         <label class="col-md-2 text-overflow">内容：</label>
