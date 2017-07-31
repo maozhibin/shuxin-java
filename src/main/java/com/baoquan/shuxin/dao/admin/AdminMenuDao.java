@@ -21,4 +21,6 @@ public interface AdminMenuDao {
 
     List<AdminMenu> query(@Param("status") Integer status, @Param("isdir") Integer isdir,
             @Param("display") Integer display);
+
+
 }

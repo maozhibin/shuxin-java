@@ -22,4 +22,6 @@ public interface AdminUserMenuPermDao {
 
     AdminUserMenuPerm queryByUserMenuStatus(@Param("userId") Long userId, @Param("menuId") Long menuId,
             @Param("status") Integer status);
+
+	void insertList(List<AdminUserMenuPerm> menuPermList);
 }

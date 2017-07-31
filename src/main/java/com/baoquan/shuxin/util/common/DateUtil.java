@@ -10,12 +10,32 @@ import java.util.TimeZone;
 import org.apache.commons.lang3.time.DateUtils;
 
 public class DateUtil {
+	
+	public static void main(String[] args) {
+		System.out.println(stampToDate("1484668800000"));
+		System.out.println(dateToStampS("2017-01-18 01:00:00"));
+	}
+	
+	
 	/*
 	 * 将时间转换为时间戳
 	 */
 	public static long dateToStamp(String time) {
 		Long ts = null;
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date date;
+		try {
+			date = simpleDateFormat.parse(time);
+			ts = date.getTime();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return ts;
+	}
+	
+	public static long dateToStampS(String time) {
+		Long ts = null;
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date date;
 		try {
 			date = simpleDateFormat.parse(time);
@@ -36,6 +56,7 @@ public class DateUtil {
 		res = simpleDateFormat.format(date);
 		return res;
 	}
+	
 	public static String stampToDateY(String s) {
 		String res;
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");

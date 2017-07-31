@@ -75,6 +75,7 @@ public class AdminMenuServiceImpl implements AdminMenuService {
         return rootMenuMap;
     }
 
+
     private MenuVO buildMenuVO(AdminMenu menu) {
         MenuVO vo = new MenuVO();
         vo.setId(menu.getId());

@@ -36,6 +36,9 @@
                     <td>
                         <button type="submit" class="btn"><i class="fa fa-search"></i> 搜索</button>
                     </td>
+                    <td>
+                        <a href="skip" type="button" class="btn btn-info" style="margin-left:10px">新增</a>
+                    </td>
                 </tr>
             </table>
         </form>
@@ -87,6 +90,7 @@
                                         <i class="fa fa-pencil"></i>&nbsp;编辑
                                     </a>
                                 </td>
+
                             </tr>
                         </c:forEach>
                     </c:if>

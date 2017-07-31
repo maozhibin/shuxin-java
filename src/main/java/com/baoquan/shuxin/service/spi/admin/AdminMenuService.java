@@ -23,4 +23,5 @@ public interface AdminMenuService {
 
     Map<Long, MenuVO> buildMenuVOMap(List<AdminMenu> menuList);
 
+
 }

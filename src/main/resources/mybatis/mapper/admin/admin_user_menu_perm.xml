@@ -26,4 +26,16 @@
         FROM admin_user_menu_perm
         WHERE user_id = #{userId} and menu_id = #{menuId} and status = #{status}
     </select>
+    
+     <insert id="insertList" useGeneratedKeys="true" parameterType="java.util.List">  
+	    <selectKey resultType="long" keyProperty="id" order="AFTER">  
+	        SELECT  
+	        LAST_INSERT_ID()  
+	    </selectKey>  
+	    insert into admin_user_menu_perm (user_id,menu_id,perm,status,`dateline`)   
+	    values  
+	    <foreach collection="list" item="item" index="index" separator="," >  
+	        (#{item.userId},#{item.menuId},#{item.perm},#{item.status},#{item.dateline})  
+	    </foreach>  
+   </insert>
 </mapper>

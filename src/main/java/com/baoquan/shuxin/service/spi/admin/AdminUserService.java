@@ -20,4 +20,10 @@ public interface AdminUserService {
     Long countUserByName(String name);
 
     AdminUser queryById(Long id);
+
+    boolean queryByUsername(String name);
+
+    void addAdminUser(AdminUser adminUser);
+
+	void addAdminUserInfo(String userName, String password, String copyPassword);
 }

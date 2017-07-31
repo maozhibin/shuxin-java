@@ -41,4 +41,16 @@
         FROM admin_user
         WHERE id = #{id}
     </select>
+
+    <select id="queryByUsername" resultType="com.baoquan.shuxin.model.admin.AdminUser">
+        SELECT *
+        FROM admin_user
+        WHERE username = #{name}
+    </select>
+
+   <insert id="addAdminUser" parameterType="com.baoquan.shuxin.model.admin.AdminMenu" useGeneratedKeys="true" keyProperty="id">
+        insert into admin_user(username,password,status,dateline)
+             values(#{username},#{password},#{status},#{dateline})
+   </insert>
+
 </mapper>

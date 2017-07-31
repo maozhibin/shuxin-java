@@ -6,14 +6,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 import javax.inject.Inject;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.baoquan.shuxin.bean.Page;
@@ -23,8 +28,8 @@ import com.baoquan.shuxin.model.admin.AdminUserMenuPerm;
 import com.baoquan.shuxin.service.spi.admin.AdminMenuService;
 import com.baoquan.shuxin.service.spi.admin.AdminUserMenuPermService;
 import com.baoquan.shuxin.service.spi.admin.AdminUserService;
+import com.baoquan.shuxin.util.JsonResponseMsg;
 import com.baoquan.shuxin.web.vo.auth.AdminUserMenuPermVO;
-
 /**
  * Desc:
  * Created by yongj on 7/14/2017,
@@ -128,5 +133,46 @@ public class AuthManageController {
     public Object update(Long userId, @RequestParam(value = "menuId", required = false) Long[] menuIds) {
         adminUserMenuPermService.resetUserMenuPerm(userId, menuIds);
         return "redirect:edit?userId=" + userId;
+    }
+
+    /**
+     * 跳转到添加管理员页面
+     */
+    @RequestMapping("skip")
+    public ModelAndView skip(String id){
+        ModelAndView mv = new ModelAndView("admin/super/auth/addOrUpdate");
+        if(NumberUtils.isNumber(id)){
+            AdminUser adminUser = adminUserService.queryById(NumberUtils.toLong(id));
+            mv.addObject(adminUser);
+        }
+        return mv;
+    }
+
+    /**
+     * 添加管理员功能
+     */
+    @RequestMapping("addAdmin")
+    @ResponseBody
+    public JsonResponseMsg udpateAdmin(String userName,String password,String copyPassword){
+        JsonResponseMsg result = new JsonResponseMsg();
+       
+        if(StringUtils.isEmpty(userName)){
+            return  result.fill(JsonResponseMsg.CODE_FAIL,"请你输入用户名");
+        }
+        if(!adminUserService.queryByUsername(userName)){
+            return  result.fill(JsonResponseMsg.CODE_FAIL,"你输入的用户名已经存在了");
+        }
+        if(StringUtils.isEmpty(password)){
+            return  result.fill(JsonResponseMsg.CODE_FAIL,"请你输入密码");
+        }
+        if(password.length() < 8){
+        	 return  result.fill(JsonResponseMsg.CODE_FAIL,"请输入管理员密码，字符数在8-20位!");
+        }
+        if(StringUtils.isEmpty(copyPassword)){
+            return  result.fill(JsonResponseMsg.CODE_FAIL,"请你确认密码");
+        }
+        adminUserService.addAdminUserInfo(userName,password,copyPassword);
+        
+        return  result.fill(JsonResponseMsg.CODE_SUCCESS,"添加成功");
     }
 }
