@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -24,9 +23,6 @@ import com.baoquan.shuxin.model.account.FlowVO;
 import com.baoquan.shuxin.model.news.Option;
 import com.baoquan.shuxin.service.spi.account.AccountFlowService;
 import com.baoquan.shuxin.service.spi.news.OptionService;
-
-import jxl.write.DateFormat;
-import sun.security.timestamp.Timestamper;
 
 /**
  * Author:Zhoumc
@@ -84,7 +80,7 @@ public class AccountFlowController {
             Date today = DateUtils.truncate(date, Calendar.DATE);
             statTime = today.getTime()/1000;
             //获取系统当前时间戳
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String  time =df.format(new Date());
             Timestamp createTime = Timestamp.valueOf(time);
             endTime = createTime.getTime()/1000;
@@ -112,7 +108,6 @@ public class AccountFlowController {
                 FlowVO f = buildFlowInfoVO(flow, op);
                 flowVOList.add(f);
             }
-
             page.setResult(flowVOList);
         }
 
@@ -139,10 +134,10 @@ public class AccountFlowController {
         }
 
         if (flow.getDateline() != null) {
-            vo.setDateline(new Date(flow.getDateline()));
+            vo.setDateline(flow.getDateline());
         }
         if (flow.getFinishTime() != null) {
-            vo.setFinishTime(new Date(flow.getFinishTime()));
+            vo.setFinishTime(flow.getFinishTime());
         }
         return vo;
     }

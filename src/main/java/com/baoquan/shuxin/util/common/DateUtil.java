@@ -101,12 +101,4 @@ public class DateUtil {
 		}
 		return time;
 	}
-
-
-	public static void main(String[] args) {
-		Date now = new Date();
-        Date today = DateUtils.truncate(now, Calendar.DATE);
-        Date lastday = DateUtils.addDays(today, -7);
-        System.out.println(dateToStampYY("2017-7-31 03:00:00"));
-	}
 }

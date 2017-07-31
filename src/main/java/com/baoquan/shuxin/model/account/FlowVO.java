@@ -17,8 +17,8 @@ public class FlowVO {
     private String requestNo;
     private BigDecimal fee;
     private String statusDesc;
-    private Date dateline;
-    private Date finishTime;
+    private Long dateline;
+    private Long finishTime;
 
 
     public Long getUserId() {
@@ -69,19 +69,20 @@ public class FlowVO {
         this.statusDesc = statusDesc;
     }
 
-    public Date getDateline() {
+
+    public Long getDateline() {
         return dateline;
     }
 
-    public void setDateline(Date dateline) {
+    public void setDateline(Long dateline) {
         this.dateline = dateline;
     }
 
-    public Date getFinishTime() {
+    public Long getFinishTime() {
         return finishTime;
     }
 
-    public void setFinishTime(Date finishTime) {
+    public void setFinishTime(Long finishTime) {
         this.finishTime = finishTime;
     }
 
