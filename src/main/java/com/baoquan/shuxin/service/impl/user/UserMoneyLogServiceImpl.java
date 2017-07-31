@@ -53,7 +53,6 @@ public class UserMoneyLogServiceImpl implements UserMoneyLogService {
 		List<Map<Object, Object>> list = userMoneyLogDao.findByFinishTime(stampToDateY);
 		List<Object> listMoeyChange = new ArrayList<>();
 		Map<Object, Object> mapValue = new HashMap<>();
-		Integer sizeOld = listMoeyChange.size();
 		for (int i = 0; i < 24; i++) { 
 			for (Map<Object, Object> map : list) {
 				Integer timeValue = MapUtils.getInteger(map, "timeValue");
@@ -63,7 +62,7 @@ public class UserMoneyLogServiceImpl implements UserMoneyLogService {
 				}
 			}
 			Integer sizeNew = listMoeyChange.size();
-			if(sizeOld.equals(sizeNew)){
+			if(sizeNew.equals(i)){
 				listMoeyChange.add(0);
 			}
 		}

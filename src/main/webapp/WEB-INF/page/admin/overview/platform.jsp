@@ -70,6 +70,7 @@
 
         .right-charts, .tables-right {
             margin-left: 2%;
+
         }
     </style>
 
