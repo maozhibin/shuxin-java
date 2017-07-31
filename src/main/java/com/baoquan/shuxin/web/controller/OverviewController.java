@@ -211,12 +211,13 @@ public class OverviewController {
 	@ResponseBody
 	public Object moneyProfile(@RequestParam("types") Integer[] types){
 		Date now = new Date();
+		 Date today = DateUtils.truncate(now, Calendar.DATE);
 		Long time= null;
 		Map<Object, Object> map = new HashMap<>();
 		for (Integer type : types) {
-			time = DateUtils.truncate(now, type).getTime();;
+			time = DateUtils.addDays(today, type).getTime();;
 			Map<Object, Object> mapValue=userMoneyLogService.findByFinishTime(time);
-			map.put(mapValue, mapValue);
+			map.putAll(mapValue);
 		}
 		return map;
 	}

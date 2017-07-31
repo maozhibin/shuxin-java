@@ -17,7 +17,7 @@ $(function() {
 
     // 图表数据
     // 获取的折线图数据
-    var getData;
+    var getData=[];
     $.ajax({
         "url": "/admin/overview/moneyProfile?types=0",
         // "data":{"types": [0]},
@@ -27,7 +27,7 @@ $(function() {
         "success": function (result) {
             for(var k in result){
                 var dt={name:k,data:result[k]};
-                getData.push(dt);
+                getData[getData.length]=dt;
             }
         }
     });
