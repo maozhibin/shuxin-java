@@ -19,9 +19,9 @@ $(function() {
     // 获取的折线图数据
     var getData;
     $.ajax({
-        "url": "/admin/overview/moneyProfile",
-        "data":{"types": [0]},
-        "dataType": "json",
+        "url": "/admin/overview/moneyProfile?types=[0]",
+        // "data":{"types": [0]},
+        // "dataType": "json",
         "type": "GET",
         "cache": false,
         "success": function (result) {
