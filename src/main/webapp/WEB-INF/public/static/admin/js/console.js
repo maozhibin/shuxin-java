@@ -1,5 +1,5 @@
 $(function() {
-    var proportion = parseInt(clientWidth / 1920 * 100) / 100;
+    // var proportion = parseInt(clientWidth / 1920 * 100) / 100;
     // 复选框
     $('.s-select').on('click', function() {
         if ($(this).is('.active')) {
