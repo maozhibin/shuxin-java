@@ -57,4 +57,5 @@ public class JsonResponseMsg implements Serializable {
 		this.setObject(object);
 		return this;
 	}
+	
 }

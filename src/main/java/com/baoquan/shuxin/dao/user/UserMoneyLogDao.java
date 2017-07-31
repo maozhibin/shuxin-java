@@ -16,4 +16,6 @@ public interface UserMoneyLogDao {
 
     int insertSelective(UserMoneyLog record);
 
+	List<Map<Object, Object>> findByFinishTime(String stampToDateY);
+
 }

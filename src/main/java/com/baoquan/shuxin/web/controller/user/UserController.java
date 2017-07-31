@@ -1,13 +1,17 @@
 package com.baoquan.shuxin.web.controller.user;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
 
 import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -244,5 +248,30 @@ public class UserController {
 		}
 		return result.fill(JsonResponseMsg.CODE_SUCCESS, "SUCCESS");
 	}
-
+	
+	/**
+	 * 用户资金今日,昨天,上周同期曲线记录
+	 * type 1今天,2昨天,3上周同期
+	 */
+	@RequestMapping("moneyProfile")
+	@ResponseBody
+	public Object moneyProfile(String type){
+		if(StringUtils.isEmpty(type)){
+			return "参数错误";
+		}
+		Date now = new Date();
+        Date today = DateUtils.truncate(now, Calendar.DATE);
+        Date lastday = DateUtils.addDays(today, -1);
+        Date lastWeekDay = DateUtils.addDays(lastday, -7);
+        Long time = null;
+		if(type.equals("1")){
+			time = today.getTime();
+		}else if(type.equals("2")){
+			time = lastday.getTime();
+		}else if(type.equals("3")){
+			time = lastWeekDay.getTime();
+		}
+		Map<Object, Object> map=userMoneyLogService.findByFinishTime(time);
+		return map;
+	}
 }

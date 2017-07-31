@@ -5,13 +5,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.TimeZone;
-
 import org.apache.commons.lang3.time.DateUtils;
 
 public class DateUtil {
-	/*
-	 * 将时间转换为时间戳
+	/**
+	 * 将时间yyyy-MM-dd  转换为时间戳
 	 */
 	public static long dateToStamp(String time) {
 		Long ts = null;
@@ -25,8 +23,27 @@ public class DateUtil {
 		}
 		return ts;
 	}
-	/*
-	 * 将时间戳转换为时间
+	
+	/**
+	 * 将时间yyyy-MM-dd HH:mm:ss 转换为时间戳
+	 */
+	public static long dateToStampYY(String time) {
+		Long ts = null;
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date;
+		try {
+			date = simpleDateFormat.parse(time);
+			ts = date.getTime();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return ts;
+	}
+	
+	
+	
+	/**
+	 * 将时间戳转换为时间yyyy-MM-dd HH:mm:ss
 	 */
 	public static String stampToDate(String s) {
 		String res;
@@ -36,6 +53,11 @@ public class DateUtil {
 		res = simpleDateFormat.format(date);
 		return res;
 	}
+	/**
+	 * 将时间戳转换为时间yyyy-MM-dd
+	 * @param s
+	 * @return
+	 */
 	public static String stampToDateY(String s) {
 		String res;
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -82,8 +104,9 @@ public class DateUtil {
 
 
 	public static void main(String[] args) {
-		System.out.println(stampToDate("1486518825000"));
+		Date now = new Date();
+        Date today = DateUtils.truncate(now, Calendar.DATE);
+        Date lastday = DateUtils.addDays(today, -7);
+        System.out.println(dateToStampYY("2017-7-31 03:00:00"));
 	}
-
-
 }

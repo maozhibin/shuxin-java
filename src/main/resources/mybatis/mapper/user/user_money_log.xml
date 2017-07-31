@@ -192,5 +192,16 @@
             </if>
         </trim>
     </insert>
-
+	
+	<select id="findByFinishTime" resultType="java.util.Map" parameterType="string" >
+		SELECT
+			FROM_UNIXTIME(finish_time, '%h') AS timeValue,
+			COUNT(amount) count
+		FROM
+			user_money_log
+		WHERE
+			FROM_UNIXTIME(finish_time, '%Y-%m-%d ') = #{stampToDateY}
+		GROUP BY
+			FROM_UNIXTIME(finish_time, '%h')
+	</select>
 </mapper>
