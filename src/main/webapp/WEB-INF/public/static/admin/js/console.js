@@ -20,7 +20,7 @@ $(function() {
     var getData;
     $.ajax({
         "url": "/admin/overview/moneyProfile",
-        "data":{"types": [0]},
+        "data":{"types": JSON.stringify([0])},
         // "dataType": "json",
         "type": "GET",
         "cache": false,
