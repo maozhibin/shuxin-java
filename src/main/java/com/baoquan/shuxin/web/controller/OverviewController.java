@@ -14,6 +14,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.baoquan.shuxin.bean.Page;
@@ -21,6 +23,7 @@ import com.baoquan.shuxin.constatn.OrgConstatnt;
 import com.baoquan.shuxin.service.spi.product.StatsProductService;
 import com.baoquan.shuxin.service.spi.stats.PlatformOverviewService;
 import com.baoquan.shuxin.service.spi.stats.StatsOrgService;
+import com.baoquan.shuxin.service.spi.user.UserMoneyLogService;
 import com.baoquan.shuxin.web.vo.PlatformOverviewVO;
 import com.google.common.collect.Maps;
 
@@ -38,7 +41,8 @@ public class OverviewController {
 
 	@Inject
 	private PlatformOverviewService platformOverviewService;
-
+	@Inject
+	private UserMoneyLogService userMoneyLogService;
     @RequestMapping("/platform")
     public ModelAndView  platform() {
     	ModelAndView mv = new ModelAndView("admin/overview/platform");
@@ -199,4 +203,35 @@ public class OverviewController {
     	mv.addObject("keywords", productName);
         return mv;
     }
+    
+    /**
+	 * 用户资金今日,昨天,上周同期曲线记录
+	 */
+	@RequestMapping("moneyProfile")
+	@ResponseBody
+	public Object moneyProfile(@RequestParam("types") Integer[] types){
+		Date now = new Date();
+		Long time= null;
+		Map<Object, Object> map = new HashMap<>();
+		for (Integer type : types) {
+			time = DateUtils.truncate(now, type).getTime();;
+			Map<Object, Object> mapValue=userMoneyLogService.findByFinishTime(time);
+			map.put(mapValue, mapValue);
+		}
+		return map;
+	}
+	
+	/**
+	 * 圆形统计
+	 */
+	@RequestMapping("round")
+	@ResponseBody
+	public Object round(){
+		List<Map<String, Object>> productTop = statsProductService.productTop();//top10产品
+		Map<Object, Object> map = new HashMap<>();
+		for (Map<String, Object> list : productTop) {
+			map.put(list, list);
+		}
+		return map;
+	}
 }

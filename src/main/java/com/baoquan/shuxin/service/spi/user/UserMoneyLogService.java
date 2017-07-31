@@ -1,5 +1,6 @@
 package com.baoquan.shuxin.service.spi.user;
 
+import java.util.List;
 import java.util.Map;
 
 import com.baoquan.shuxin.bean.Page;
