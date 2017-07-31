@@ -142,7 +142,7 @@ body{
 }
 #top-data{
     position: absolute;
-    left: 50%;
+    left: 51%;
     margin-left: -2rem;
     top: 5.6rem;
 }
@@ -157,6 +157,9 @@ body{
     padding: .24rem;
     vertical-align: middle;
     margin-right: .49rem;
+}
+.business-data{
+    margin-right: 0;
 }
 .product-data .head,
 .business-data .head{
