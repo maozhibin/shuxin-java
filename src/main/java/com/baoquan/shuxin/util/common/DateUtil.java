@@ -81,9 +81,7 @@ public class DateUtil {
 	}
 
 
-	public static void main(String[] args) {
-		System.out.println(stampToDate("1486518825000"));
-	}
+	
 
 
 }
