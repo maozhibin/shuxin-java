@@ -18,49 +18,50 @@ $(function() {
     // 图表数据
     // 获取的折线图数据
     var getData;
-    // $.ajax({
-    //     "url": "/admin/overview/moneyProfile?types=0",
-    //     "data":{"types": 0},
-    //     // "dataType": "json",
-    //     "type": "GET",
-    //     "cache": false,
-    //     "success": function (result) {
-    //         for(var k in result){
-    //             var dt={name:k,data:result[k]};
-    //             getData.push(dt);
-    //         }
-    //     }
-    // });
-    // $("#lastDay").click(function () {
-    //     $.ajax({
-    //         "url": "/admin/overview/moneyProfile",
-    //         "data": {"types": [0,-1]},
-    //         "dataType": "json",
-    //         "type": "GET",
-    //         "cache": false,
-    //         "success": function (result) {
-    //             for(var k in result){
-    //                 var dt={name:k,data:result[k]};
-    //                 getData.push(dt);
-    //             }
-    //         }
-    //     });
-    // });
-    // $("#lastWeek").click(function () {
-    //     $.ajax({
-    //         "url": "/admin/overview/moneyProfile",
-    //         "data": {"types": [0,-1,-7]},
-    //         "dataType": "json",
-    //         "type": "GET",
-    //         "cache": false,
-    //         "success": function (result) {
-    //             for(var k in result){
-    //                 var dt={name:k,data:result[k]};
-    //                 getData.push(dt);
-    //             }
-    //         }
-    //     });
-    // });
+    $.ajax({
+        "url": "/admin/overview/moneyProfile?types=0",
+        "data":{"types": 0},
+        // "dataType": "json",
+        "type": "GET",
+        "cache": false,
+        "success": function (result) {
+            for(var k in result){
+                var dt={name:k,data:result[k]};
+                getData.push(dt);
+            }
+            console.log(getData);
+        }
+    });
+    $("#lastDay").click(function () {
+        $.ajax({
+            "url": "/admin/overview/moneyProfile",
+            "data": {"types": [0,-1]},
+            "dataType": "json",
+            "type": "GET",
+            "cache": false,
+            "success": function (result) {
+                for(var k in result){
+                    var dt={name:k,data:result[k]};
+                    getData.push(dt);
+                }
+            }
+        });
+    });
+    $("#lastWeek").click(function () {
+        $.ajax({
+            "url": "/admin/overview/moneyProfile",
+            "data": {"types": [0,-1,-7]},
+            "dataType": "json",
+            "type": "GET",
+            "cache": false,
+            "success": function (result) {
+                for(var k in result){
+                    var dt={name:k,data:result[k]};
+                    getData.push(dt);
+                }
+            }
+        });
+    });
     getData = [{
         name: '2017/06/21',
         data: [5, 20, 36, 10, 10, 20, 32, 55, 77, 32, 45, 66, 77, 24, 52, 54, 52, 66, 32, 34, 56, 43, 11, 34]
