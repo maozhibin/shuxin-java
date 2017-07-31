@@ -91,7 +91,7 @@ body{
 #canvas-box{
     position: absolute;
     top: .9rem;
-    left: 0;
+    left: 236px;
     right: 0;
     bottom: 0;
     background-color: #000;

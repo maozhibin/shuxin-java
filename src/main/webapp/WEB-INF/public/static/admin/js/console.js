@@ -1,5 +1,5 @@
 $(function() {
-    // var proportion = parseInt(clientWidth / 1920 * 100) / 100;
+    var proportion = parseInt(clientWidth / 1920 * 100) / 100;
     // 复选框
     $('.s-select').on('click', function() {
         if ($(this).is('.active')) {
@@ -18,62 +18,62 @@ $(function() {
     // 图表数据
     // 获取的折线图数据
     var getData;
-    $.ajax({
-        "url": "/admin/overview/moneyProfile?types=0",
-        "data":{"types": 0},
-        // "dataType": "json",
-        "type": "GET",
-        "cache": false,
-        "success": function (result) {
-            for(var k in result){
-                var dt={name:k,data:result[k]};
-                getData.push(dt);
-            }
-        }
-    });
-    $("#lastDay").click(function () {
-        $.ajax({
-            "url": "/admin/overview/moneyProfile",
-            "data": {"types": [0,-1]},
-            "dataType": "json",
-            "type": "GET",
-            "cache": false,
-            "success": function (result) {
-                for(var k in result){
-                    var dt={name:k,data:result[k]};
-                    getData.push(dt);
-                }
-            }
-        });
-    });
-    $("#lastWeek").click(function () {
-        $.ajax({
-            "url": "/admin/overview/moneyProfile",
-            "data": {"types": [0,-1,-7]},
-            "dataType": "json",
-            "type": "GET",
-            "cache": false,
-            "success": function (result) {
-                for(var k in result){
-                    var dt={name:k,data:result[k]};
-                    getData.push(dt);
-                }
-            }
-        });
-    });
-    // getData = [{
-    //     name: '2017/06/21',
-    //     data: [5, 20, 36, 10, 10, 20, 32, 55, 77, 32, 45, 66, 77, 24, 52, 54, 52, 66, 32, 34, 56, 43, 11, 34]
-    // },{
-    //     name: '2017/06/22',
-    //     data: [10, 20, 52, 66, 32, 34, 32, 55, 77, 32, 45, 5, 20, 36, 10, 66, 77, 24, 52, 54, 56, 43, 11, 34]
-    // },{
-    //     name: '2017/06/25',
-    //     data: [1, 2, 5, 6, 3, 4, 2, 5, 77, 32, 45, 5, 20, 36, 10, 66, 77, 24, 52, 54, 56, 43, 11, 34]
-    // },{
-    //     name: '2017/06/05',
-    //     data: [11, 12, 51, 61, 13, 41, 12, 15, 177, 32, 45, 5, 20, 36, 10, 66, 77, 24, 52, 54, 56, 43, 11, 34]
-    // }];
+    // $.ajax({
+    //     "url": "/admin/overview/moneyProfile?types=0",
+    //     "data":{"types": 0},
+    //     // "dataType": "json",
+    //     "type": "GET",
+    //     "cache": false,
+    //     "success": function (result) {
+    //         for(var k in result){
+    //             var dt={name:k,data:result[k]};
+    //             getData.push(dt);
+    //         }
+    //     }
+    // });
+    // $("#lastDay").click(function () {
+    //     $.ajax({
+    //         "url": "/admin/overview/moneyProfile",
+    //         "data": {"types": [0,-1]},
+    //         "dataType": "json",
+    //         "type": "GET",
+    //         "cache": false,
+    //         "success": function (result) {
+    //             for(var k in result){
+    //                 var dt={name:k,data:result[k]};
+    //                 getData.push(dt);
+    //             }
+    //         }
+    //     });
+    // });
+    // $("#lastWeek").click(function () {
+    //     $.ajax({
+    //         "url": "/admin/overview/moneyProfile",
+    //         "data": {"types": [0,-1,-7]},
+    //         "dataType": "json",
+    //         "type": "GET",
+    //         "cache": false,
+    //         "success": function (result) {
+    //             for(var k in result){
+    //                 var dt={name:k,data:result[k]};
+    //                 getData.push(dt);
+    //             }
+    //         }
+    //     });
+    // });
+    getData = [{
+        name: '2017/06/21',
+        data: [5, 20, 36, 10, 10, 20, 32, 55, 77, 32, 45, 66, 77, 24, 52, 54, 52, 66, 32, 34, 56, 43, 11, 34]
+    },{
+        name: '2017/06/22',
+        data: [10, 20, 52, 66, 32, 34, 32, 55, 77, 32, 45, 5, 20, 36, 10, 66, 77, 24, 52, 54, 56, 43, 11, 34]
+    },{
+        name: '2017/06/25',
+        data: [1, 2, 5, 6, 3, 4, 2, 5, 77, 32, 45, 5, 20, 36, 10, 66, 77, 24, 52, 54, 56, 43, 11, 34]
+    },{
+        name: '2017/06/05',
+        data: [11, 12, 51, 61, 13, 41, 12, 15, 177, 32, 45, 5, 20, 36, 10, 66, 77, 24, 52, 54, 56, 43, 11, 34]
+    }];
 
     // 获取的饼图数据
     var getPieData = [{
@@ -138,7 +138,7 @@ $(function() {
     }
     for (var i = 0; i < getPieData.length; i++) {
         pieData.push({
-            value: getPieData[i].value, 
+            value: getPieData[i].value,
             name: getPieData[i].name,
             itemStyle: {
                 normal: {
@@ -183,8 +183,8 @@ $(function() {
             formatter: function(params, ticket, callback){
                 var time = parseInt(params[0].name);
                 var startTime = time - 1;
-                time = time > 9 ? time : '0' + time; 
-                startTime = startTime > 9 ? startTime : '0' + startTime; 
+                time = time > 9 ? time : '0' + time;
+                startTime = startTime > 9 ? startTime : '0' + startTime;
 
                 var dataHtml = '';
                 for (var i = 0; i < params.length; i++) {
@@ -295,7 +295,7 @@ $(function() {
                 }
             },
             data: pieData.sort(function (a, b) { return a.value - b.value; }),
-            roseType: 'radius',                   
+            roseType: 'radius',
             animationType: 'scale',
             animationEasing: 'elasticOut',
             animationDelay: function (idx) {
@@ -308,7 +308,7 @@ $(function() {
     myPieChart.setOption(pieOption);
 
     // 背景
-    clientHeight = document.documentElement.clientHeight;    
+    clientHeight = document.documentElement.clientHeight;
     canvas.width = clientWidth;
     canvas.height = clientHeight - 90 * proportion;
     if (canvas.getContext) {
