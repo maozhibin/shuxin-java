@@ -15,13 +15,13 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>数信系统-后台管理中心</title>
-    <link href='<%=basePath%>static/admin/css/bootstrap.min.css?1499845987' rel="stylesheet"
+    <link href='<%=basePath%>static/admin/css/bootstrap.min.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet"
           type="text/css"/>
-    <link href='<%=basePath%>static/admin/css/sb-admin.css?1499845987' rel="stylesheet" type="text/css"/>
-    <link href='<%=basePath%>static/admin/font-awesome/css/font-awesome.min.css?1499845987' rel="stylesheet"
+    <link href='<%=basePath%>static/admin/css/sb-admin.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
+    <link href='<%=basePath%>static/admin/font-awesome/css/font-awesome.min.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet"
           type="text/css"/>
-    <link href='<%=basePath%>static/admin/css/baseui.css?1499845987' rel="stylesheet" type="text/css"/>
-    <link href='<%=basePath%>static/admin/css/AdminLTE.min.css?1499845987' rel="stylesheet" type="text/css"/>
+    <link href='<%=basePath%>static/admin/css/baseui.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
+    <link href='<%=basePath%>static/admin/css/AdminLTE.min.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -37,10 +37,10 @@
             requestUri = arr[0];
         }
     </script>
-    <script src='<%=basePath%>static/admin/js/jquery.js?1499845987'></script>
-    <script src='<%=basePath%>static/admin/js/bootstrap.min.js?1499845987'></script>
-    <script src='<%=basePath%>static/admin/js/common.js?1499845987'></script>
-    <script src='<%=basePath%>static/js/common/common.js?1499845987'></script>
+    <script src='<%=basePath%>static/admin/js/jquery.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
+    <script src='<%=basePath%>static/admin/js/bootstrap.min.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
+    <script src='<%=basePath%>static/admin/js/common.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
+    <script src='<%=basePath%>static/js/common/common.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
     <sitemesh:write property='head'/>
 </head>
 <body>
