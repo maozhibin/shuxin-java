@@ -17,7 +17,15 @@ $(function() {
 
     // 图表数据
     // 获取的折线图数据
-    var getData=[];
+    var getData;
+    getData = [
+        {
+            name: '2015/06/21',
+            data: [5, 20, 36, 10, 10, 20, 32, 55, 77, 32, 45, 66, 77, 24, 52, 54, 52, 66, 32, 34, 56, 43, 11, 34]
+        }
+    ];
+    console.log(typeof getData);
+    console.log(getData[0].name);
     $.ajax({
         "url": "/admin/overview/moneyProfile?types=0",
         "data":{"types": 0},
@@ -27,16 +35,17 @@ $(function() {
         "success": function (result) {
             for(var k in result){
                 var dt={name:k,data:result[k]};
-                console.log(dt);
-                getData[0]['name']=k;
-                getData[0]['data']=result[k];
-                // getData.push(dt);
-                console.log(typeof getData);
-                console.log(getData);
+                var obj=getData[getData.length];
+                obj=dt;
+                console.log(obj);
+                // obj.name=k;
+                // obj.data=result[k];
+                console.log(obj);
             }
-            console.log(getData[0]);
+            console.log(getData);
         }
     });
+    console.log(getData);
     $("#lastDay").click(function () {
         $.ajax({
             "url": "/admin/overview/moneyProfile",
@@ -69,20 +78,6 @@ $(function() {
             }
         });
     });
-    // getData = [{
-    //     name: '2017/06/21',
-    //     data: [5, 20, 36, 10, 10, 20, 32, 55, 77, 32, 45, 66, 77, 24, 52, 54, 52, 66, 32, 34, 56, 43, 11, 34]
-    // },{
-    //     name: '2017/06/22',
-    //     data: [10, 20, 52, 66, 32, 34, 32, 55, 77, 32, 45, 5, 20, 36, 10, 66, 77, 24, 52, 54, 56, 43, 11, 34]
-    // },{
-    //     name: '2017/06/25',
-    //     data: [1, 2, 5, 6, 3, 4, 2, 5, 77, 32, 45, 5, 20, 36, 10, 66, 77, 24, 52, 54, 56, 43, 11, 34]
-    // },{
-    //     name: '2017/06/05',
-    //     data: [11, 12, 51, 61, 13, 41, 12, 15, 177, 32, 45, 5, 20, 36, 10, 66, 77, 24, 52, 54, 56, 43, 11, 34]
-    // }];
-
     // 获取的饼图数据
     var getPieData = [{
         name: '在线查询',

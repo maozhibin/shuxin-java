@@ -51,22 +51,14 @@ public class UserMoneyLogServiceImpl implements UserMoneyLogService {
 	public Map<Object, Object> findByFinishTime(Long time) {
 		String stampToDateY = DateUtil.stampToDateY(time.toString());
 		List<Map<Object, Object>> list = userMoneyLogDao.findByFinishTime(stampToDateY);
-		List<Object> listMoeyChange = new ArrayList<>();
+		int[] arr= new int[24];
 		Map<Object, Object> mapValue = new HashMap<>();
-		for (int i = 0; i < 24; i++) { 
 			for (Map<Object, Object> map : list) {
 				Integer timeValue = MapUtils.getInteger(map, "timeValue");
 				Integer count = MapUtils.getInteger(map, "count");
-				if(timeValue.equals(i)){
-					listMoeyChange.add(count);
-				}
+				arr[timeValue] = count;
 			}
-			Integer sizeNew = listMoeyChange.size();
-			if(sizeNew.equals(i)){
-				listMoeyChange.add(0);
-			}
-		}
-		mapValue.put(stampToDateY, listMoeyChange);
+		mapValue.put(stampToDateY, arr);
 		return mapValue;
 	}
 }
