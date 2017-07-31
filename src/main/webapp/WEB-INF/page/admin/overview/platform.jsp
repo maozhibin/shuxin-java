@@ -73,165 +73,100 @@
         }
     </style>
 
-    <script src='<%=basePath%>static/admin/hcharts/highcharts.js?1499845987'></script>
-    <script src='<%=basePath%>static/admin/hcharts/modules/exporting.js?1499845987'></script>
-    <script src='<%=basePath%>static/admin/hcharts/modules/data.js?1499845987'></script>
-    <script src='<%=basePath%>static/admin/js/chartData.js?1499845987'></script>
+    <script src='<%=basePath%>static/admin/js/bootstrap.js'></script>
+    <script src='<%=basePath%>static/admin/js/echarts.js'></script>
+    <script src='<%=basePath%>static/admin/js/index2.js'></script>
+    <script src='<%=basePath%>static/admin/js/console.js'></script>
 
 </head>
 <body>
 
-<div class="cnt-data row">
-    <h4 class="header">平台概况</h4>
-    <hr>
-    <table id="survey" class="table text-overflow">
-        <tr>
-            <th>总交易额</th>
-            <th>总订单量</th>
-            <th>存证总数</th>
-            <th>交易额日增长比率</th>
-            <th>授权总量</th>
-        </tr>
-        <c:if test="${today2now != null}">
-            <tr class="blue-bold text-overflow">
-                <td>${today2now.tradeAmount}</td>
-                <td>${today2now.orderCount}</td>
-                <td>${today2now.attestCount}</td>
-                <td>${today2now.tradeIncreaseRate}%</td>
-                <td>${today2now.authorizationCount}</td>
-            </tr>
-        </c:if>
-        <c:if test="${lastday != null}">
-            <tr>
-                <td>昨日 ${lastday.tradeAmount}</td>
-                <td>昨日 ${lastday.orderCount}</td>
-                <td>昨日 ${lastday.attestCount}</td>
-                <td>昨日 ${lastday.tradeIncreaseRate}%</td>
-                <td>昨日 ${lastday.authorizationCount}</td>
-            </tr>
-        </c:if>
-        <c:if test="${todayWhole != null}">
-            <tr>
-                <td>预计今日 ${todayWhole.tradeAmount}
-                    <c:if test="${todayWhole.tradeAmount.doubleValue() > lastday.tradeAmount.doubleValue()}">
-                        <i class="fa fa-fw fa-long-arrow-up"></i>
-                    </c:if>
-                    <c:if test="${todayWhole.tradeAmount.doubleValue() < lastday.tradeAmount.doubleValue()}">
-                        <i class="fa fa-fw fa-long-arrow-down"></i>
-                    </c:if>
-                </td>
-                <td>预计今日 ${todayWhole.orderCount}
-                    <c:if test="${todayWhole.orderCount > lastday.orderCount}">
-                        <i class="fa fa-fw fa-long-arrow-up"></i>
-                    </c:if>
-                    <c:if test="${todayWhole.orderCount < lastday.orderCount}">
-                        <i class="fa fa-fw fa-long-arrow-down"></i>
-                    </c:if>
-                </td>
-                <td>预计今日 ${todayWhole.attestCount}
-                    <c:if test="${todayWhole.attestCount > lastday.attestCount}">
-                        <i class="fa fa-fw fa-long-arrow-up"></i>
-                    </c:if>
-                    <c:if test="${todayWhole.attestCount < lastday.attestCount}">
-                        <i class="fa fa-fw fa-long-arrow-down"></i>
-                    </c:if>
-                </td>
-                <td>预计今日 ${todayWhole.tradeIncreaseRate}%
-                    <c:if test="${todayWhole.tradeIncreaseRate.doubleValue() > lastday.tradeIncreaseRate.doubleValue()}">
-                        <i class="fa fa-fw fa-long-arrow-up"></i>
-                    </c:if>
-                    <c:if test="${todayWhole.tradeIncreaseRate.doubleValue() < lastday.tradeIncreaseRate.doubleValue()}">
-                        <i class="fa fa-fw fa-long-arrow-down"></i>
-                    </c:if>
-                </td>
-                <td>预计今日 ${todayWhole.authorizationCount}
-                    <c:if test="${todayWhole.authorizationCount > lastday.authorizationCount}">
-                        <i class="fa fa-fw fa-long-arrow-up"></i>
-                    </c:if>
-                    <c:if test="${todayWhole.authorizationCount < lastday.authorizationCount}">
-                        <i class="fa fa-fw fa-long-arrow-down"></i>
-                    </c:if>
-                </td>
-            </tr>
-        </c:if>
-    </table>
-</div>
-<div class="tab-header row">
-    <span class="tab active" id="today">今日</span>
-    <span class="tab" id="yesterday">昨日</span>
-    <span class="tab" id="week">最近7天</span>
-    <span class="tab" id="month">最近30天</span>
-</div>
-<div class="row">
-    <div class="float-left left-charts ctn-charts">
-        <div id="tendency"></div>
-        <div class="msg"></div>
-    </div>
-    <div class="float-right right-charts ctn-charts">
-        <div id="productUse"></div>
-        <div class="msg"></div>
-    </div>
-</div>
-<div class="row">
-    <div class="float-left tables-left ctn-tables">
-        <h4 class="header">TOP10产品购买</h4>
-        <table id="purchase" class="table table-bordered table-striped table-hover" style="table-layout:fixed">
-            <thead>
-            <tr>
-                <th>产品名称</th>
-                <th>订单量</th>
-                <th>占比</th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach items="${hashMap.productTop}" var="item">
-                <tr>
-                    <td>
-                            ${item.name}
-                    </td>
-                    <td>
-                            ${item.order_num}
-                    </td>
-                    <td>
-                            ${item.rate}
-                    </td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
-    </div>
-    <div class="float-right tables-right ctn-tables">
-        <h4 class="header">合作机构交易总额排名和明细</h4>
-        <table id="deal" class="table table-bordered table-striped table-hover" style="table-layout:fixed">
-            <thead>
-            <tr>
-                <th>合作机构名称</th>
-                <th>排名</th>
-                <th>交易总额（元）</th>
-                <th>总订单量</th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach items="${hashMap.orgTop}" var="item" varStatus="status">
-                <tr>
-                    <td>
-                            ${item.username}
-                    </td>
-                    <td>
-                            ${status.index+1}
 
-                    </td>
-                    <td>
-                            ${item.total_amount}
-                    </td>
-                    <td>
-                            ${item.order_num}
-                    </td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
+    <div id="canvas-box">
+        <canvas id="bg-canvas"></canvas>
+        <div id="mask"></div>
+        <div id="line-chart"></div>
+        <div id="total">
+            <div class="select-box">
+                <div class="select-item"><div class="s-select"></div>前一日</div>
+                <div class="select-item"><div class="s-select"></div>上周同期</div>
+                  <div class="select-item"><div class="s-select"></div>上周同期</div>
+            </div>
+            <div class="title">平台数据概况</div>
+            <div class="total-number"><span class="item-icon"></span>196.87<span class="tip"> &#8593;</span></div>
+            <div class="number-tip">总交易额(万元)</div>
+            <div class="rate"><span class="item-icon"></span>7.59%<span class="tip"> &#8595;</span></div>
+            <div class="rate-tip">交易额日增长比率</div>
+        </div>
+        <div id="pie-chart"></div>
+        <div id="top-data">
+            <div class="product-data">
+                <div class="head">TOP3 产品购买<a class="product-detail" href="">详细&#8250;</a></div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>产品名称</th>
+                            <th>订单量</th>
+                            <th>占比</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="table-item-icon"></span></td>
+                            <td>产品1</td>
+                            <td>14</td>
+                            <td>10%</td>
+                        </tr>
+                        <tr>
+                            <td><span class="table-item-icon"></span></td>
+                            <td>产品2</td>
+                            <td>12</td>
+                            <td>8.57%</td>
+                        </tr>
+                        <tr>
+                            <td><span class="table-item-icon"></span></td>
+                            <td>产品3</td>
+                            <td>4</td>
+                            <td>2.86%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="business-data">
+                 <div class="head">TOP3 合作机构交易总额排名和明细<a class="business-detail" href="">详细&#8250;</a></div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>合作机构名称</th>
+                            <th>交易总额(万元)</th>
+                            <th>总订单量</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="table-item-icon"></td>
+                            <td>产品1</td>
+                            <td>14</td>
+                            <td>10%</td>
+                        </tr>
+                        <tr>
+                            <td><span class="table-item-icon"></td>
+                            <td>产品2</td>
+                            <td>12</td>
+                            <td>8.57%</td>
+                        </tr>
+                        <tr>
+                            <td><span class="table-item-icon"></td>
+                            <td>产品3</td>
+                            <td>4</td>
+                            <td>2.86%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-</div>
 </body>
 </html>
