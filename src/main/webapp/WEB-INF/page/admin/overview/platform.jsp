@@ -73,10 +73,10 @@
         }
     </style>
 
-    <script src='<%=basePath%>static/admin/hcharts/highcharts.js?1499845987'></script>
-    <script src='<%=basePath%>static/admin/hcharts/modules/exporting.js?1499845987'></script>
-    <script src='<%=basePath%>static/admin/hcharts/modules/data.js?1499845987'></script>
-    <script src='<%=basePath%>static/admin/js/chartData.js?1499845987'></script>
+    <script src='<%=basePath%>static/admin/hcharts/highcharts.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
+    <script src='<%=basePath%>static/admin/hcharts/modules/exporting.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
+    <script src='<%=basePath%>static/admin/hcharts/modules/data.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
+    <script src='<%=basePath%>static/admin/js/chartData.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
 
 </head>
 <body>

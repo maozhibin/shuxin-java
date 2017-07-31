@@ -16,8 +16,8 @@
 <head>
     <title>管理员用户</title>
 
-    <script src='<%=basePath%>static/js/jquery.tagsinput.js?1.0'></script>
-    <script src='<%=basePath%>static/js/jquery.ajaxfileupload.js?1.0'></script>
+    <script src='<%=basePath%>static/js/jquery.tagsinput.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
+    <script src='<%=basePath%>static/js/jquery.ajaxfileupload.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
     <style>
         td {
             padding: 10px;

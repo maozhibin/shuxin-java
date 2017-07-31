@@ -24,15 +24,15 @@
     </style>
 
 
-    <link href='<%=basePath%>static/admin/plugins/simditor/styles/simditor.css?1.0' rel="stylesheet" type="text/css"/>
+    <link href='<%=basePath%>static/admin/plugins/simditor/styles/simditor.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
 
-    <script src='<%=basePath%>static/admin/plugins/simditor/scripts/jquery.min.js?1.0'></script>
-    <script src='<%=basePath%>static/admin/plugins/simditor/scripts/module.js?1.0'></script>
-    <script src='<%=basePath%>static/admin/plugins/simditor/scripts/hotkeys.js?1.0'></script>
-    <script src='<%=basePath%>static/admin/plugins/simditor/scripts/uploader.js?1.0'></script>
-    <script src='<%=basePath%>static/admin/plugins/simditor/scripts/simditor.js?1.0'></script>
+    <script src='<%=basePath%>static/admin/plugins/simditor/scripts/jquery.min.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
+    <script src='<%=basePath%>static/admin/plugins/simditor/scripts/module.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
+    <script src='<%=basePath%>static/admin/plugins/simditor/scripts/hotkeys.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
+    <script src='<%=basePath%>static/admin/plugins/simditor/scripts/uploader.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
+    <script src='<%=basePath%>static/admin/plugins/simditor/scripts/simditor.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
 
-    <script src='<%=basePath%>static/js/jquery.ajaxfileupload.js?1.0'></script>
+    <script src='<%=basePath%>static/js/jquery.ajaxfileupload.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
 
 
 </head>

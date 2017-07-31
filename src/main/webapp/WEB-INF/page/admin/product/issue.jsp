@@ -17,16 +17,16 @@
 <head>
     <title>产品发布</title>
 
-    <link href='<%=basePath%>static/css/style.css?1.0' rel="stylesheet" type="text/css"/>
-    <link href='<%=basePath%>static/css/market.css?1.0' rel="stylesheet" type="text/css"/>
-    <link href='<%=basePath%>static/css/style_other.css?1.0' rel="stylesheet" type="text/css"/>
-    <link href='<%=basePath%>static/css/data.css?1.0' rel="stylesheet" type="text/css"/>
-    <link href='<%=basePath%>static/css/jquery.tagsinput.css?1.0' rel="stylesheet" type="text/css"/>
+    <link href='<%=basePath%>static/css/style.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
+    <link href='<%=basePath%>static/css/market.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
+    <link href='<%=basePath%>static/css/style_other.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
+    <link href='<%=basePath%>static/css/data.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
+    <link href='<%=basePath%>static/css/jquery.tagsinput.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
 
-    <link href='<%=basePath%>static/admin/css/data-release.css?1.0' rel="stylesheet" type="text/css"/>
+    <link href='<%=basePath%>static/admin/css/data-release.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
 
-    <script src='<%=basePath%>static/js/jquery.tagsinput.js?1.0'></script>
-    <script src='<%=basePath%>static/js/jquery.ajaxfileupload.js?1.0'></script>
+    <script src='<%=basePath%>static/js/jquery.tagsinput.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
+    <script src='<%=basePath%>static/js/jquery.ajaxfileupload.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
 
     <script>
         $(function () {
