@@ -19,7 +19,7 @@ $(function() {
     // 获取的折线图数据
     var getData;
     $.ajax({
-        "url": "/admin/overview/moneyProfile?types=[0]",
+        "url": "/admin/overview/moneyProfile?types=0",
         // "data":{"types": [0]},
         // "dataType": "json",
         "type": "GET",
@@ -33,7 +33,7 @@ $(function() {
     });
     $("#lastDay").click(function () {
         $.ajax({
-            "url": "/admin/overview/moneyProfile?types=[0,-1]",
+            "url": "/admin/overview/moneyProfile?types=0&types=-1",
             // "data": {"types": [0,-1]},
             "dataType": "json",
             "type": "GET",
@@ -48,7 +48,7 @@ $(function() {
     });
     $("#lastWeek").click(function () {
         $.ajax({
-            "url": "/admin/overview/moneyProfile?types=[0,-1,-7]",
+            "url": "/admin/overview/moneyProfile?types=0&types=-1&types=-7",
             // "data": {"types": [0,-1,-7]},
             "dataType": "json",
             "type": "GET",

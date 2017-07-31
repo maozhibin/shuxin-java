@@ -8,7 +8,6 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -54,6 +53,7 @@ public class UserMoneyLogServiceImpl implements UserMoneyLogService {
 		List<Map<Object, Object>> list = userMoneyLogDao.findByFinishTime(stampToDateY);
 		List<Object> listMoeyChange = new ArrayList<>();
 		Map<Object, Object> mapValue = new HashMap<>();
+		Integer sizeOld = listMoeyChange.size();
 		for (int i = 0; i < 24; i++) { 
 			for (Map<Object, Object> map : list) {
 				Integer timeValue = MapUtils.getInteger(map, "timeValue");
@@ -63,7 +63,7 @@ public class UserMoneyLogServiceImpl implements UserMoneyLogService {
 				}
 			}
 			Integer sizeNew = listMoeyChange.size();
-			if(sizeNew.equals(i)){
+			if(sizeOld.equals(sizeNew)){
 				listMoeyChange.add(0);
 			}
 		}
