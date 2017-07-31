@@ -80,8 +80,4 @@ public class DateUtil {
 		return time;
 	}
 
-
-	
-
-
 }
