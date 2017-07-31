@@ -36,9 +36,6 @@
                 </tr>
             </table>
         </form>
-
-
-
     </div>
 </section>
 <div class="row" style="margin-top: 20px">
@@ -66,7 +63,7 @@
                                 <td>
                                     <jsp:useBean id="dateValue" class="java.util.Date"/>
                                     <jsp:setProperty name="dateValue" property="time" value="${news.dateline*1000}"/>
-                                    <fmt:formatDate value="${dateValue}" pattern="yyyy-MM-dd hh:ss:mm"/>
+                                    <fmt:formatDate value="${dateValue}" pattern="yyyy-MM-dd HH:ss:mm"/>
                                 </td>
                                 <td>
                                     <a class="" title='查看'

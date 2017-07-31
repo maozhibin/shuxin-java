@@ -154,12 +154,12 @@
                                 <td>
                                     <jsp:useBean id="dateline" class="java.util.Date"/>
                                     <jsp:setProperty name="dateline" property="time" value="${accountFlow.dateline*1000}"/>
-                                    <fmt:formatDate value="${dateline}" pattern="yyyy-MM-dd hh:ss:mm"/>
+                                    <fmt:formatDate value="${dateline}" pattern="yyyy-MM-dd HH:ss:mm"/>
                                 </td>
                                 <td>
                                     <jsp:useBean id="finishTime" class="java.util.Date"/>
                                     <jsp:setProperty name="finishTime" property="time" value="${accountFlow.finishTime*1000}"/>
-                                    <fmt:formatDate value="${finishTime}" pattern="yyyy-MM-dd hh:ss:mm"/>
+                                    <fmt:formatDate value="${finishTime}" pattern="yyyy-MM-dd HH:ss:mm"/>
                                 </td>
                             </tr>
                         </c:forEach>
