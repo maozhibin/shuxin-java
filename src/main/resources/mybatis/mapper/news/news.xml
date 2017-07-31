@@ -22,14 +22,13 @@
   </resultMap>
 
   <select id="queryNewsInfo" resultType="com.baoquan.shuxin.model.news.News">
-    SELECT 	* FROM news   n
-
+    SELECT 	* FROM `news`   n
     <where>
       <if test="newsClassType != null">
         AND n.news_class_type = #{newsClassType}
       </if>
     </where>
-
+    limit #{start},#{length}
   </select>
 
 
@@ -51,7 +50,6 @@
     DELETE FROM news where id=#{id}
   </delete>
 
-  
   <select id="queryNewsDetails" resultMap="BaseResultMap">
     SELECT * FROM  news WHERE id=#{id}
   </select>
@@ -70,8 +68,8 @@
                     is_display = #{isDisplay},keywords = #{keywords}  ,content = #{content} WHERE id = #{id}
   </update>
   <insert id="insertNews" parameterType="com.baoquan.shuxin.model.news.News" useGeneratedKeys="true" keyProperty="id">
-    INSERT INTO news(news_class_type,title,source,author,top,is_display,keywords,content)
-           VALUE (#{newsClassType},#{title},#{source},#{author},#{top},#{isDisplay},#{keywords},#{content})
+    INSERT INTO news(news_class_type,title,dateline,source,author,top,is_display,image,keywords,content)
+           VALUE (#{newsClassType},#{title},#{dateline},#{source},#{author},#{top},#{isDisplay},#{image},#{keywords},#{content})
 
   </insert>
 

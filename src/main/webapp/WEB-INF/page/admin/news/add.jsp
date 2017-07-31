@@ -171,6 +171,7 @@
 
         <div class="row form-group">
             <label class="col-sm-1 control-label no-padding-right">新闻头图:</label>
+
             <div class="col-sm-11">
                 <label for="upload" class="btn">上传图片</label>
                 (上传图片大小应小于2500px*1500px)
@@ -178,7 +179,7 @@
                 <input type="file" id="upload" name="file"
                        style="height:0;width:0;z-index: -1; position: absolute;left: 10px;top: 5px;"><br/>
                 <input type="hidden" name="image" id="logo" value=""/>
-                <img src="" id="img" width=188 height=96 margin-bottom=20px overflow=hidden;/>
+                <img src="${hashedMap.news.image}" id="img"  name="image" width=188 height=96 margin-bottom=20px overflow=hidden;/>
 
             </div>
         </div>
@@ -264,6 +265,7 @@
                     $(this).parents(".cell").addClass('hide');
                     $("#close").removeClass('hide');
                     $("#img").removeClass('hide').attr("src", url).attr('alt', filename);
+
                 }
             }
         });
