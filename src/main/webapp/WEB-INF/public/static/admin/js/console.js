@@ -19,10 +19,8 @@ $(function() {
     // 获取的折线图数据
     var getData;
     $.ajax({
-        "url": "/admin/user/moneyProfile",
-        "data": [
-            {"type": 1}
-        ],
+        "url": "/admin/overview/moneyProfile",
+        "data":{"types": [0]},
         "dataType": "json",
         "type": "GET",
         "cache": false,
@@ -32,6 +30,36 @@ $(function() {
                 getData.push(dt);
             }
         }
+    });
+    $("#lastDay").click(function () {
+        $.ajax({
+            "url": "/admin/overview/moneyProfile",
+            "data": {"types": [0,-1]},
+            "dataType": "json",
+            "type": "GET",
+            "cache": false,
+            "success": function (result) {
+                for(var k in result){
+                    var dt={name:k,data:result[k]};
+                    getData.push(dt);
+                }
+            }
+        });
+    });
+    $("#lastWeek").click(function () {
+        $.ajax({
+            "url": "/admin/overview/moneyProfile",
+            "data": {"types": [0,-1,-7]},
+            "dataType": "json",
+            "type": "GET",
+            "cache": false,
+            "success": function (result) {
+                for(var k in result){
+                    var dt={name:k,data:result[k]};
+                    getData.push(dt);
+                }
+            }
+        });
     });
     // getData = [{
     //     name: '2017/06/21',
