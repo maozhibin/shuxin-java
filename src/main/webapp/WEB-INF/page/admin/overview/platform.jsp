@@ -16,63 +16,11 @@
 <html>
 <head>
     <title>平台概况</title>
-    <style>
-        .container-fluid {
-            background: transparent;
-            border: none;
-            padding: 0;
-        }
 
-        .tab-header {
-            margin: 30px 0 15px 10px;
-        }
-
-        #survey {
-            margin-left: 100px;
-        }
-
-        #survey th, #survey tr, #survey td {
-            border: none;
-        }
-
-        .tab-header span {
-            display: inline-block;
-            width: 90px;
-            line-height: 35px;
-            height: 35px;
-            text-align: center;
-            background: #fff;
-            color: #666;
-            margin: 0;
-            border-right: 1px solid #d8d8d8;
-            cursor: pointer;
-        }
-
-        span.active {
-            background: #1a97f4;
-            color: #fff;
-        }
-
-        .cnt-data, .ctn-charts, .ctn-tables {
-            background: #fff;
-            border: 1px solid #ccc;
-            padding: 10px;
-        }
-
-        .ctn-tables {
-            margin-top: 30px;
-        }
-
-        .left-charts, .right-charts, .tables-left, .tables-right {
-            width: 49%;
-            height: 550px;
-        }
-
-        .right-charts, .tables-right {
-            margin-left: 2%;
-
-        }
-    </style>
+    <link rel="stylesheet" href="<%=basePath%>static/admin/css/bootstrap.css">
+    <link rel="stylesheet" href="<%=basePath%>static/admin/css/baseui2.css">
+    <link rel="stylesheet" href="<%=basePath%>static/admin/fonts/iconfont.css">
+    <link rel="stylesheet" href="<%=basePath%>static/admin/css/console.css">
 
     <script src='<%=basePath%>static/admin/js/bootstrap.js'></script>
     <script src='<%=basePath%>static/admin/js/echarts.js'></script>
