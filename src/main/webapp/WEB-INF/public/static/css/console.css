@@ -1,6 +1,6 @@
 body{
     font-family: "微软雅黑";
-    background-color: #EFEFEF;
+    background-color: transparent;
 }
 .header{
     position: fixed;
@@ -228,7 +228,7 @@ body{
     margin-bottom: .15rem;
 }
 .content{
-    background-color: #EFEFEF;
+    background-color: transparent;
     padding: .3rem;
     margin-top: .9rem;
     margin-left: 2.36rem;
