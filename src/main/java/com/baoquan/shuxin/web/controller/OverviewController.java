@@ -229,10 +229,6 @@ public class OverviewController {
 	@ResponseBody
 	public Object round(){
 		List<Map<String, Object>> productTop = statsProductService.productTop();//top10产品
-		Map<Object, Object> map = new HashMap<>();
-		for (Map<String, Object> list : productTop) {
-			map.put(list, list);
-		}
-		return map;
+		return productTop;
 	}
 }
