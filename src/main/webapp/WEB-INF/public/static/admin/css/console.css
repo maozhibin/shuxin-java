@@ -158,6 +158,9 @@ body{
     vertical-align: middle;
     margin-right: .49rem;
 }
+.business-data{
+    margin-right: 0;
+}
 .product-data .head,
 .business-data .head{
     font-size: .18rem;
