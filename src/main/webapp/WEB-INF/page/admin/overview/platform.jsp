@@ -44,12 +44,11 @@
     <div id="line-chart"></div>
     <div id="total">
         <div class="select-box">
-            <div class="select-item"><div class="s-select"></div>前一日</div>
-            <div class="select-item"><div class="s-select"></div>上周同期</div>
-            <div class="select-item"><div class="s-select"></div>上周同期</div>
+            <div class="select-item" id="lastDay"><div class="s-select"></div>前一日</div>
+            <div class="select-item" id="lastWeek"><div class="s-select"></div>上周同期</div>
         </div>
         <div class="title">平台数据概况</div>
-        <div class="total-number"><span class="item-icon"></span>196.87<span class="tip">&#8593;</span></div>
+        <div class="total-number"><span class="item-icon"></span>196.87<span class="tip">&#8673;</span></div>
         <div class="number-tip">总交易额(万元)</div>
         <div class="rate"><span class="item-icon"></span>7.59%<span class="tip"> &#8595;</span></div>
         <div class="rate-tip">交易额日增长比率</div>

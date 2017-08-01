@@ -27,11 +27,11 @@ $(function() {
         "cache": false,
         "success": function (result) {
             getData="[";
+            console.log("getData:  "+getData);
             for(var k in result){
                 getData+="{'name':'"+k+"','data':["+result[k]+"]}";
             }
             getData+="]";
-            // console.log("getData:  "+getData);
             console.log(eval('(' + getData + ')'));
             getData=eval('(' + getData + ')');
         }
@@ -70,7 +70,6 @@ $(function() {
                     getData+="{'name':'"+k+"','data':["+result[k]+"]}";
                 }
                 getData+="]";
-                // console.log("getData:  "+getData);
                 console.log(eval('(' + getData + ')'));
                 getData=eval('(' + getData + ')');
             }
