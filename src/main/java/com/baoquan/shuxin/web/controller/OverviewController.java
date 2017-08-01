@@ -209,7 +209,7 @@ public class OverviewController {
 	 */
 	@RequestMapping("moneyProfile")
 	@ResponseBody
-	public Object moneyProfile(@RequestParam("types") Integer[] types){
+	public Object moneyProfile(@RequestParam("types[]") Integer[] types){
 		Date now = new Date();
 		 Date today = DateUtils.truncate(now, Calendar.DATE);
 		Long time= null;
