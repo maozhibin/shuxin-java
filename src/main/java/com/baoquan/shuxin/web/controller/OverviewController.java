@@ -240,10 +240,8 @@ public class OverviewController {
 			Map<String, Object> maps = new HashMap<>();
 			String name = MapUtils.getString(map, "name");
 			String value = MapUtils.getString(map, "order_num");
-			double amount = NumberUtils.toDouble(value)/10000;
-			System.out.println(amount);
 			maps.put("name", name);
-			maps.put("value", amount);
+			maps.put("value", value);
 			mapList.add(maps);
 		}
 		return mapList;

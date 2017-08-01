@@ -196,7 +196,7 @@
 	<select id="findByFinishTime" resultType="java.util.Map" parameterType="string" >
 		SELECT
 			FROM_UNIXTIME(finish_time, '%h') AS timeValue,
-			COUNT(amount) count
+			sum(amount) count
 		FROM
 			user_money_log
 		WHERE
@@ -207,7 +207,7 @@
 	
 	<select id="findByTime" resultType="java.lang.Integer">
 		SELECT
-			COUNT(amount) count
+			sum(amount) count
 		FROM
 			user_money_log
 		WHERE
