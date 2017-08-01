@@ -204,4 +204,13 @@
 		GROUP BY
 			FROM_UNIXTIME(finish_time, '%h')
 	</select>
+	
+	<select id="findByTime" resultType="java.lang.Integer">
+		SELECT
+			COUNT(amount) count
+		FROM
+			user_money_log
+		WHERE
+			FROM_UNIXTIME(finish_time, '%Y-%m-%d ') = #{_parameter}
+	</select>
 </mapper>

@@ -49,7 +49,7 @@
             <div class="select-item"><div class="s-select"></div>上周同期</div>
         </div>
         <div class="title">平台数据概况</div>
-        <div class="total-number"><span class="item-icon"></span>196.87<span class="tip"> &#8593;</span></div>
+        <div class="total-number"><span class="item-icon"></span>196.87<span class="tip">&#8593;</span></div>
         <div class="number-tip">总交易额(万元)</div>
         <div class="rate"><span class="item-icon"></span>7.59%<span class="tip"> &#8595;</span></div>
         <div class="rate-tip">交易额日增长比率</div>
@@ -57,7 +57,7 @@
     <div id="pie-chart"></div>
     <div id="top-data">
         <div class="product-data">
-            <div class="head">TOP3 产品购买<a class="product-detail" href="">详细&#8250;</a></div>
+            <div class="head">TOP3 产品购买<a class="product-detail" href="/admin/overview/product">详细&#8250;</a></div>
             <table>
                 <thead>
                 <tr>
@@ -68,29 +68,19 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td><span class="table-item-icon"></span></td>
-                    <td>产品1</td>
-                    <td>14</td>
-                    <td>10%</td>
-                </tr>
-                <tr>
-                    <td><span class="table-item-icon"></span></td>
-                    <td>产品2</td>
-                    <td>12</td>
-                    <td>8.57%</td>
-                </tr>
-                <tr>
-                    <td><span class="table-item-icon"></span></td>
-                    <td>产品3</td>
-                    <td>4</td>
-                    <td>2.86%</td>
-                </tr>
+                <c:forEach items="${hashMap.productTop}" var="item" end="2">
+                    <tr>
+                        <td><span class="table-item-icon"></span></td>
+                        <td>${item.name}</td>
+                        <td>${item.order_num}</td>
+                        <td>${item.rate}</td>
+                    </tr>
+                </c:forEach>
                 </tbody>
             </table>
         </div>
         <div class="business-data">
-            <div class="head">TOP3 合作机构交易总额排名和明细<a class="business-detail" href="">详细&#8250;</a></div>
+            <div class="head">TOP3 合作机构交易总额排名和明细<a class="business-detail" href="/admin/overview/organization">详细&#8250;</a></div>
             <table>
                 <thead>
                 <tr>
@@ -101,24 +91,14 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td><span class="table-item-icon"></td>
-                    <td>产品1</td>
-                    <td>14</td>
-                    <td>10%</td>
-                </tr>
-                <tr>
-                    <td><span class="table-item-icon"></td>
-                    <td>产品2</td>
-                    <td>12</td>
-                    <td>8.57%</td>
-                </tr>
-                <tr>
-                    <td><span class="table-item-icon"></td>
-                    <td>产品3</td>
-                    <td>4</td>
-                    <td>2.86%</td>
-                </tr>
+                <c:forEach items="${hashMap.orgTop}" var="item" end="2">
+                    <tr>
+                        <td><span class="table-item-icon"></td>
+                        <td>${item.username}</td>
+                        <td>${item.total_amount}</td>
+                        <td>${item.order_num}</td>
+                    </tr>
+                </c:forEach>
                 </tbody>
             </table>
         </div>
