@@ -74,7 +74,7 @@
         
     </div>
     <div id="pie-chart"></div>
-    <div id="top-data">
+    <div id="top-data flex-row">
         <div class="product-data">
             <div class="head">TOP3 产品购买<a class="product-detail" href="/admin/overview/product">详细&#8250;</a></div>
             <table>
