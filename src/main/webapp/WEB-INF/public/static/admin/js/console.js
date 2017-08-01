@@ -18,90 +18,86 @@ $(function() {
     // 图表数据
     // 获取的折线图数据
     var getData;
-    getData = [
-        {
-            name: '2015/06/21',
-            data: [5, 20, 36, 10, 10, 20, 32, 55, 77, 32, 45, 66, 77, 24, 52, 54, 52, 66, 32, 34, 56, 43, 11, 34]
-        }
-    ];
-    console.log(typeof getData);
-    console.log(getData[0].name);
     $.ajax({
         "url": "/admin/overview/moneyProfile",
         "data":{"types": [0]},
         // "dataType": "json",
+        async:false,
         "type": "GET",
         "cache": false,
         "success": function (result) {
+            getData="[";
+            console.log("getData:  "+getData);
             for(var k in result){
-                var dt={name:k,data:result[k]};
-                var obj=getData[getData.length];
-                obj=dt;
-                console.log(obj);
-                // obj.name=k;
-                // obj.data=result[k];
-                console.log(obj);
+                getData+="{'name':'"+k+"','data':["+result[k]+"]}";
             }
-            console.log(getData);
+            getData+="]";
+            console.log(eval('(' + getData + ')'));
+            getData=eval('(' + getData + ')');
         }
     });
-    console.log(getData);
     $("#lastDay").click(function () {
         $.ajax({
             "url": "/admin/overview/moneyProfile",
-            "data": {"types": [0,-1]},
-            "dataType": "json",
+            "data":{"types": [0,-1]},
+            // "dataType": "json",
+            async:false,
             "type": "GET",
             "cache": false,
             "success": function (result) {
+                getData="[";
                 for(var k in result){
-                    var dt={name:k,data:result[k]};
-                    console.log(dt);
-                    getData[getData.length]=dt;
+                    getData+="{'name':'"+k+"','data':["+result[k]+"]}";
                 }
-                console.log(getData);
+                getData+="]";
+                // console.log("getData:  "+getData);
+                console.log(eval('(' + getData + ')'));
+                getData=eval('(' + getData + ')');
             }
         });
     });
     $("#lastWeek").click(function () {
         $.ajax({
             "url": "/admin/overview/moneyProfile",
-            "data": {"types": [0,-1,-7]},
-            "dataType": "json",
+            "data":{"types": [0,-1,-7]},
+            // "dataType": "json",
+            async:false,
             "type": "GET",
             "cache": false,
             "success": function (result) {
+                getData="[";
                 for(var k in result){
-                    var dt={name:k,data:result[k]};
-                    getData[getData.length]=dt;
+                    getData+="{'name':'"+k+"','data':["+result[k]+"]}";
                 }
+                getData+="]";
+                console.log(eval('(' + getData + ')'));
+                getData=eval('(' + getData + ')');
             }
         });
     });
+
     // 获取的饼图数据
     var getPieData = [{
-        name: '在线查询',
-        value: 335
-    },{
-        name: '一个分类',
-        value: 255
-    },{
-        name: '场景服务',
-        value: 221
-    },{
-        name: '场景服务2',
-        value: 222
-    },{
         name: '场景服务3',
         value: 333
-    }]
+    }];
+    $.ajax({
+        "url": "/admin/overview/round",
+        async:false,
+        "type": "GET",
+        "cache": false,
+        "success": function (result) {
+            console.log(result);
+            getPieData=result;
+        }
+    });
 
     // 折线图折线的颜色
     var colors = ['#1a97f4', '#97968F'];
     // 折线图折线阴影的颜色
     var areaColors = ['rgba(26,151,244,0.39)','rgba(26,151,244,0.39)'];
     // 折线图x轴的数据
-    var xData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
+    var xData = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
     // 饼图的颜色
     var pieColors = ['#1a97f4','#b1d0e1','#10e2cc'];
     // 处理配置项数据

@@ -13,4 +13,6 @@ public interface UserMoneyLogService {
 
 	Map<Object, Object> findByFinishTime(Long time);
 
+	Map<String, Object> queryAmountMoney();
+
 }

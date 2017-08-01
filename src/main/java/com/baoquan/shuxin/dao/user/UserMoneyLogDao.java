@@ -18,4 +18,6 @@ public interface UserMoneyLogDao {
 
 	List<Map<Object, Object>> findByFinishTime(String stampToDateY);
 
+	Integer findByTime(String stampTimeToday);
+
 }

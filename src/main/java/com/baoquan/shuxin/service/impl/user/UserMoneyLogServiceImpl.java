@@ -1,6 +1,8 @@
 package com.baoquan.shuxin.service.impl.user;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +12,7 @@ import javax.inject.Named;
 
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
 
 import com.baoquan.shuxin.bean.Page;
 import com.baoquan.shuxin.dao.user.UserMoneyLogDao;
@@ -51,14 +54,30 @@ public class UserMoneyLogServiceImpl implements UserMoneyLogService {
 	public Map<Object, Object> findByFinishTime(Long time) {
 		String stampToDateY = DateUtil.stampToDateY(time.toString());
 		List<Map<Object, Object>> list = userMoneyLogDao.findByFinishTime(stampToDateY);
-		int[] arr= new int[24];
+		double[] arr= new double[24];
 		Map<Object, Object> mapValue = new HashMap<>();
 			for (Map<Object, Object> map : list) {
 				Integer timeValue = MapUtils.getInteger(map, "timeValue");
-				Integer count = MapUtils.getInteger(map, "count");
+				double count = MapUtils.getDouble(map, "count");
 				arr[timeValue] = count;
 			}
 		mapValue.put(stampToDateY, arr);
 		return mapValue;
+	}
+
+	@Override
+	public Map<String, Object> queryAmountMoney() {
+		Date now = new Date();
+		Date today = DateUtils.truncate(now, Calendar.DATE);
+		Long timeToday = DateUtils.addDays(today, 0).getTime();//今天
+		Long timeYesterday = DateUtils.addDays(today, -1).getTime();//昨天
+		String stampTimeToday= DateUtil.stampToDateY(timeToday.toString());
+		String stampTimeYesterday= DateUtil.stampToDateY(timeYesterday.toString());
+		Integer todaytAmount=userMoneyLogDao.findByTime(stampTimeToday);
+		Integer yesterdaytAmount=userMoneyLogDao.findByTime(stampTimeYesterday);
+		Map<String, Object> map = new HashMap<>();
+		map.put("todaytAmount", todaytAmount);
+		map.put("yesterdaytAmount", yesterdaytAmount);
+		return map;
 	}
 }

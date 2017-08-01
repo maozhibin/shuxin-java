@@ -1,6 +1,7 @@
 package com.baoquan.shuxin.web.controller;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -10,7 +11,9 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +27,7 @@ import com.baoquan.shuxin.service.spi.product.StatsProductService;
 import com.baoquan.shuxin.service.spi.stats.PlatformOverviewService;
 import com.baoquan.shuxin.service.spi.stats.StatsOrgService;
 import com.baoquan.shuxin.service.spi.user.UserMoneyLogService;
+import com.baoquan.shuxin.util.common.DateUtil;
 import com.baoquan.shuxin.web.vo.PlatformOverviewVO;
 import com.google.common.collect.Maps;
 
@@ -43,21 +47,23 @@ public class OverviewController {
 	private PlatformOverviewService platformOverviewService;
 	@Inject
 	private UserMoneyLogService userMoneyLogService;
-    @RequestMapping("/platform")
-    public ModelAndView  platform() {
-    	ModelAndView mv = new ModelAndView("admin/overview/platform");
-    	Map<String, Object> params = Maps.newHashMap();
-    	List<Map<String, Object>> productTop = statsProductService.productTop();
-    	Map<String, Object> parms = new HashMap<>();
-    	parms.put("type", OrgConstatnt.TOP_TEN_ORG);
-    	List<Map<String, Object>> orgTop = statsOrgService.orgTopOrAll(parms);
-    	params.put("productTop", productTop);
-    	params.put("orgTop", orgTop);
-    	mv.addObject(params);
 
-    	addOverview(mv);
-        return mv;
-    }
+	@RequestMapping("/platform")
+	public ModelAndView platform() {
+		ModelAndView mv = new ModelAndView("admin/overview/platform");
+		Map<String, Object> params = Maps.newHashMap();
+		List<Map<String, Object>> productTop = statsProductService.productTop();
+		Map<String, Object> parms = new HashMap<>();
+		parms.put("type", OrgConstatnt.TOP_TEN_ORG);
+		List<Map<String, Object>> orgTop = statsOrgService.orgTopOrAll(parms);
+		Map<String, Object> moneyCount=userMoneyLogService.queryAmountMoney();
+		params.put("productTop", productTop);
+		params.put("orgTop", orgTop);
+		params.put("moneyCount", moneyCount);
+		mv.addObject(params);
+		addOverview(mv);
+		return mv;
+	}
 
     private void addOverview(ModelAndView mv) {
         Date now = new Date();
@@ -211,7 +217,7 @@ public class OverviewController {
 	@ResponseBody
 	public Object moneyProfile(@RequestParam("types[]") Integer[] types){
 		Date now = new Date();
-		 Date today = DateUtils.truncate(now, Calendar.DATE);
+		Date today = DateUtils.truncate(now, Calendar.DATE);
 		Long time= null;
 		Map<Object, Object> map = new HashMap<>();
 		for (Integer type : types) {
@@ -229,10 +235,15 @@ public class OverviewController {
 	@ResponseBody
 	public Object round(){
 		List<Map<String, Object>> productTop = statsProductService.productTop();//top10产品
-		Map<Object, Object> map = new HashMap<>();
-		for (Map<String, Object> list : productTop) {
-			map.put(list, list);
+		List<Map<String, Object>> mapList = new ArrayList<>();
+		for (Map<String, Object> map : productTop) {
+			Map<String, Object> maps = new HashMap<>();
+			String name = MapUtils.getString(map, "name");
+			String value = MapUtils.getString(map, "order_num");
+			maps.put("name", name);
+			maps.put("value", value);
+			mapList.add(maps);
 		}
-		return map;
+		return mapList;
 	}
 }

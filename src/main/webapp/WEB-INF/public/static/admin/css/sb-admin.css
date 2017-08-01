@@ -112,9 +112,10 @@ body {
 }
 .container-fluid{
     /*margin:30px;*/
-    background: #fff;
-    border:1px solid #ccc;
+    background: transparent;
+    /*border:1px solid #ccc;*/
     padding:15px;
+    position: relative;
 }
 .btn{
     padding:8px 18px;
