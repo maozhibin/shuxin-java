@@ -28,7 +28,7 @@ import com.baoquan.shuxin.service.spi.user.UserOrderService;
 
 /**
  * Author:Zhoumc
- * Description:
+ * Description: 订单
  * DATA:16:39 ${DATA}
  */
 @RequestMapping("/order")
@@ -45,7 +45,15 @@ public class UserOrderController {
     private ProductService productService;
 
 
-
+    /**
+     * 订单列表
+     * @param userId
+     * @param status
+     * @param date_range
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
     @RequestMapping("/list")
     @ResponseBody
     public Object list(Long userId, Integer status,String date_range ,Integer pageNo,

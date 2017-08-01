@@ -82,8 +82,6 @@ public class NewsController {
             }
             page.setResult(newsVOList);
         }
-
-
         mv.addObject(page);
         mv.addObject("options",optionService.queryOptionInfo());
         mv.addObject("newsClassType", newsClassType);
@@ -214,7 +212,10 @@ public class NewsController {
     }
 
 
-
+    /**
+     * 新闻发布
+     * @return
+     */
     @RequestMapping("issue")
     public ModelAndView issue() {
         ModelAndView mv = new ModelAndView("admin/news/add");
