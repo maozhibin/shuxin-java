@@ -27,8 +27,8 @@ $(function() {
     console.log(typeof getData);
     console.log(getData[0].name);
     $.ajax({
-        "url": "/admin/overview/moneyProfile?types=0",
-        "data":{"types": 0},
+        "url": "/admin/overview/moneyProfile",
+        "data":{"types": [0]},
         // "dataType": "json",
         "type": "GET",
         "cache": false,
