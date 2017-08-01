@@ -24,4 +24,19 @@ public class Stringutil {
 	}
 
 
+	/**
+	 * 为空处理
+	 * @param str
+	 * @return
+	 */
+	public static  String notNull(String str){
+		if(str.equals("") && str== null ){
+			return "";
+		}else {
+			return str;
+		}
+
+	}
+
+
 }

@@ -26,8 +26,8 @@ import com.baoquan.shuxin.service.spi.news.OptionService;
 
 /**
  * Author:Zhoumc
- * Description:
- * DATA:11:21 ${DATA}
+ * Description: 账单流水
+ * DATA:11:21
  */
 @Controller
 @RequestMapping("/account")
@@ -85,17 +85,14 @@ public class AccountFlowController {
             Timestamp createTime = Timestamp.valueOf(time);
             endTime = createTime.getTime()/1000;
         }
-
+        List<Option> optionList = optionService.queryFlowInfo();
         Integer flowCount = accountFlowService.countFlowInfo(userId, type,statTime, endTime);
         page.setTotalRecordCount(flowCount);
         if (flowCount > (pageNo - 1) * pageSize) {
             List<AccountFlow> flowList = accountFlowService.querListAccountFlowInfo(userId, type, statTime, endTime,
                     (pageNo - 1) * pageSize, pageSize);
 
-
-            List<Option> optionList = optionService.queryFlowInfo();
             List<FlowVO> flowVOList = new ArrayList<>(flowList.size());
-
             for (AccountFlow flow : flowList) {
                 String typeName = flow.getType();
                 Option op = null;
@@ -110,9 +107,8 @@ public class AccountFlowController {
             }
             page.setResult(flowVOList);
         }
-
         mv.addObject(page);
-        mv.addObject("flow", optionService.queryFlowInfo());
+        mv.addObject("flow", optionList);
         mv.addObject("startTime", statTime != null ? statTime * 1000 : null);
         mv.addObject("endTime", endTime != null ? endTime * 1000 : null);
         mv.addObject("type", type);
