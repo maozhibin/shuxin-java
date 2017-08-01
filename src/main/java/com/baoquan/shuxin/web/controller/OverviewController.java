@@ -1,6 +1,7 @@
 package com.baoquan.shuxin.web.controller;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -10,6 +11,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.stereotype.Controller;
@@ -229,6 +231,15 @@ public class OverviewController {
 	@ResponseBody
 	public Object round(){
 		List<Map<String, Object>> productTop = statsProductService.productTop();//top10产品
-		return productTop;
+		List<Map<String, Object>> mapList = new ArrayList<>();
+		for (Map<String, Object> map : productTop) {
+			Map<String, Object> maps = new HashMap<>();
+			String name = MapUtils.getString(map, "name");
+			String value = MapUtils.getString(map, "order_num");
+			maps.put("name", name);
+			maps.put("value", value);
+			mapList.add(maps);
+		}
+		return mapList;
 	}
 }

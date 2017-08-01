@@ -55,6 +55,6 @@ public class ProductInterfaceSampleServiceImpl implements ProductInterfaceSample
 		}
 		productInterfaceSampleDao.delete(productId);
 		productInterfaceSampleDao.insertSample(sampleList);
-		return null;
+		return true;
 	}
 }

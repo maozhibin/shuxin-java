@@ -57,17 +57,20 @@ public class ProductInterfaceParamServiceImpl implements ProductInterfaceParamSe
 			return false;
 		}
 		JSONArray headerArray = data.getJSONArray("headersArray");
-		Boolean updateParam = this.updateParam(headerArray, productInterfaceId, productId, interfaceParamList,paramList);
+		Boolean updateParam = this.updateParam(headerArray, productInterfaceId, productId, interfaceParamList,
+				paramList, InterfaceParamConstant.PARAM_TYPE_HEADERS);
 		if (!updateParam) {
 			return false;
 		}
 		JSONArray bodysArray = data.getJSONArray("bodysArrays");
-		Boolean updateParam2 = this.updateParam(bodysArray, productInterfaceId, productId, interfaceParamList,paramList);
+		Boolean updateParam2 = this.updateParam(bodysArray, productInterfaceId, productId, interfaceParamList,
+				paramList, InterfaceParamConstant.PARAM_TYPE_BODY);
 		if (!updateParam2) {
 			return false;
 		}
 		JSONArray querysArray = data.getJSONArray("querysArray");
-		Boolean updateParam3 = this.updateParam(querysArray, productInterfaceId, productId, interfaceParamList,paramList);
+		Boolean updateParam3 = this.updateParam(querysArray, productInterfaceId, productId, interfaceParamList,
+				paramList, InterfaceParamConstant.PARAM_TYPE_QUERY);
 		if (!updateParam3) {
 			return false;
 		}
@@ -80,7 +83,7 @@ public class ProductInterfaceParamServiceImpl implements ProductInterfaceParamSe
 
 	@SuppressWarnings("unchecked")
 	public Boolean updateParam(JSONArray array, Integer productInterfaceId, Integer productId,
-			List<ProductInterfaceParam> interfaceParamList, List<Object> paramList) {
+			List<ProductInterfaceParam> interfaceParamList, List<Object> paramList, String paramTypeHeaders) {
 		if (productInterfaceId == null) {
 			return false;
 		}
@@ -102,7 +105,7 @@ public class ProductInterfaceParamServiceImpl implements ProductInterfaceParamSe
 			interfaceParam.setMust(must);
 			interfaceParam.setType(type);
 			interfaceParam.setProductId(productId);
-			interfaceParam.setParamType(InterfaceParamConstant.PARAM_TYPE_HEADERS);
+			interfaceParam.setParamType(paramTypeHeaders);
 			interfaceParam.setProductInterfaceId(productInterfaceId);
 			interfaceParamList.add(interfaceParam);
 		}

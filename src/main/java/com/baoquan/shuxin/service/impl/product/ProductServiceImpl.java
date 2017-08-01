@@ -37,6 +37,8 @@ import com.baoquan.shuxin.model.product.ProductInterfaceParam;
 import com.baoquan.shuxin.model.product.ProductInterfaceSample;
 import com.baoquan.shuxin.model.product.ProductTag;
 import com.baoquan.shuxin.model.tag.Tags;
+import com.baoquan.shuxin.service.spi.product.ProductBillingsService;
+import com.baoquan.shuxin.service.spi.product.ProductDetailService;
 import com.baoquan.shuxin.service.spi.product.ProductInterfaceCodeService;
 import com.baoquan.shuxin.service.spi.product.ProductInterfaceParamService;
 import com.baoquan.shuxin.service.spi.product.ProductInterfaceSampleService;
@@ -51,14 +53,6 @@ public class ProductServiceImpl implements ProductService{
 	@Inject
 	private ProductInterfaceParamService productInterfaceParamService;
 	@Inject
-	private ProductInterfaceDao productInterfaceDao;
-	@Inject
-	private ProductInterfaceSampleDao productInterfaceSampleDao;
-	@Inject
-	private ProductInterfaceCodeDao productInterfaceCodeDao;
-	@Inject
-	private ProductDetailDao productDetailDao;
-	@Inject
 	private ProductBillingsDao productBillingsDao;
 	@Inject
 	private ProductTagService productTagService;
@@ -68,6 +62,11 @@ public class ProductServiceImpl implements ProductService{
 	private ProductInterfaceSampleService productInterfaceSampleService;
 	@Inject
 	private ProductInterfaceCodeService productInterfaceCodeService;
+	@Inject
+	private ProductDetailService productDetailService;
+	@Inject
+	private ProductBillingsService productBillingsService;
+	
 	@Override
 	public Page<Map<String,Object>> findListProduct(Page<Map<String, Object>> page, String name) {
 		Map<String,Object>  map= new HashMap<>();
@@ -167,77 +166,24 @@ public class ProductServiceImpl implements ProductService{
 			return false;
 		}
 		
-		
 		//错误码定义
-		//productInterfaceCodeService.setCode(productId,productInterfaceId,data);
+		Boolean setCode = productInterfaceCodeService.setCode(productId,productInterfaceId,data);
+		if(!setCode){
+			return false;
+		}
 		
-		List<ProductInterfaceCode> codeList = new ArrayList<>();
-		JSONArray codesArrays = data.getJSONArray("codesArrays");
-		List<Object> codes= null;;
-		for(int i=0;i<codesArrays.size();i++){
-			ProductInterfaceCode productInterfaceCode = new ProductInterfaceCode();
-			codes = (List<Object>) codesArrays.get(i);
-			String code=(String) codes.get(0);
-			String codeName=(String) codes.get(1);
-			String codeDesc=(String) codes.get(2);
-			productInterfaceCode.setCode(code);
-			productInterfaceCode.setName(codeName);
-			productInterfaceCode.setDesc(codeDesc);
-			productInterfaceCode.setProductId(productId);
-			productInterfaceCode.setProductInterfaceId(productInterfaceId);
-			codeList.add(productInterfaceCode);
-		}
-		productInterfaceCodeDao.delete(productId);
-		productInterfaceCodeDao.insertList(codeList);
-
 		//产品描述
-		String intro = data.getString("intro");//产品介绍
-		String highlight = data.getString("highlight");//产品亮点
-		//String snapshot = data .getString("snapshot");//产品截图
-		String service = data.getString("service");//售后服务
-		ProductDetail productDetail = new ProductDetail();
-		productDetail.setIntro(intro);
-		productDetail.setHighlight(highlight);
-		productDetail.setService(service);
-		productDetail.setProductId(productId);
-
-		productDetailDao.delete(productId);
-		productDetailDao.insert(productDetail);
-
-		//产品套餐计费规则表
-		String priceOnePrice = data.getString("priceOne");
-		String priceHundredPrice = data.getString("priceHundred");
-		String priceYearPrice = data.getString("priceYear");
-		Integer userId = product.getUserId();
-		List<ProductBillings> billingsList = new ArrayList<>();
-		for(int i=0;i<3;i++){
-			ProductBillings billings = new ProductBillings();
-			if(i==0 && !StringUtils.isEmpty(priceOnePrice)){
-				BigDecimal price=new BigDecimal(priceOnePrice);
-				billings.setPrice(price);
-				billings.setNum(1);
-				billings.setType(1);
-				billingsList.add(billings);
-			}else if(i==1 && !StringUtils.isEmpty(priceHundredPrice)){
-				BigDecimal price=new BigDecimal(priceHundredPrice);
-				billings.setPrice(price);
-				billings.setNum(100);
-				billings.setType(1);
-				billingsList.add(billings);
-			}else if(i==2 && !StringUtils.isEmpty(priceYearPrice)){
-				BigDecimal price=new BigDecimal(priceYearPrice);
-				billings.setPrice(price);
-				billings.setNum(12);
-				billings.setType(2);
-				billingsList.add(billings);
-			}
-			billings.setUserId(userId);
-			billings.setDateline(time);
-			billings.setProductId(productId);
+		Boolean setDetail = productDetailService.setDetail(data,productId);
+		if(!setDetail){
+			return false;
 		}
-
-		productBillingsDao.delete(productId);
-		productBillingsDao.insertList(billingsList);
+		
+		//产品套餐计费规则表
+		Boolean setBillings = productBillingsService.setBillings(data,productId,product,time);
+		if(!setBillings){
+			return false;
+		}
+		
 		return true;
 	}
 
