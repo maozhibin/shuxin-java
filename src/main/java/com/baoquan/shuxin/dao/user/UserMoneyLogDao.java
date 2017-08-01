@@ -16,8 +16,8 @@ public interface UserMoneyLogDao {
 
     int insertSelective(UserMoneyLog record);
 
-	List<Map<Object, Object>> findByFinishTime(String stampToDateY);
+	List<Map<Object, Object>> findCountByFinishTime(String stampToDateY);
 
-	Integer findByTime(String stampTimeToday);
+	Integer findSumAmountByTime(String stampTimeToday);
 
 }

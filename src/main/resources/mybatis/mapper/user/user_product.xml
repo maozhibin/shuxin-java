@@ -6,4 +6,16 @@
         from user_product
         where user_id = #{userId} and product_id = #{productId} and status = #{status}
     </select>
+    <select id="queryByBuyTime" resultType="java.util.Map">
+	    SELECT
+			product_id productId,
+			SUM(buy_amount) buyAmount,
+			COUNT(1) count
+		FROM
+			user_product
+		WHERE
+			FROM_UNIXTIME(buy_time, '%Y-%m-%d ') = #{stampTimeToday}
+		GROUP BY
+			product_id
+    </select>
 </mapper>

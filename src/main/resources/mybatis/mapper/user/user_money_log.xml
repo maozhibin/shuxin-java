@@ -193,7 +193,7 @@
         </trim>
     </insert>
 	
-	<select id="findByFinishTime" resultType="java.util.Map" parameterType="string" >
+	<select id="findCountByFinishTime" resultType="java.util.Map" parameterType="string" >
 		SELECT
 			FROM_UNIXTIME(finish_time, '%h') AS timeValue,
 			sum(amount) count
@@ -205,7 +205,7 @@
 			FROM_UNIXTIME(finish_time, '%h')
 	</select>
 	
-	<select id="findByTime" resultType="java.lang.Integer">
+	<select id="findSumAmountByTime" resultType="java.lang.Integer">
 		SELECT
 			sum(amount) count
 		FROM
