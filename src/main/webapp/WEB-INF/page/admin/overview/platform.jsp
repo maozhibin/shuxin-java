@@ -33,6 +33,7 @@
             document.documentElement.style.fontSize = parseInt(clientWidth / 1920 * 100) + 'px';
         }
         changeSize();
+        window.resize=changeSize();
     </script>
     <script src="<%=basePath%>static/admin/js/echarts.js"></script>
     <script src="<%=basePath%>static/admin/js/console.js"></script>
@@ -44,8 +45,8 @@
     <div id="line-chart"></div>
     <div id="total">
         <div class="select-box">
-            <div class="select-item" id="lastDay"><div class="s-select"></div>前一日</div>
-            <div class="select-item" id="lastWeek"><div class="s-select"></div>上周同期</div>
+            <div class="select-item"><input type="checkbox" id="lastDay"/> 前一日</div>
+            <div class="select-item"><input type="checkbox" id="lastWeek"/> 上周同期</div>
         </div>
         <div class="title">平台数据概况</div>
         <div class="total-number"><span class="item-icon"></span>
@@ -74,7 +75,7 @@
         
     </div>
     <div id="pie-chart"></div>
-    <div id="top-data flex-row">
+    <div id="top-data" class="flex-row">
         <div class="product-data">
             <div class="head">TOP3 产品购买<a class="product-detail" href="/admin/overview/product">详细&#8250;</a></div>
             <table>

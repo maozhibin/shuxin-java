@@ -1,6 +1,6 @@
 body{
     font-family: "微软雅黑";
-    background-color: #EFEFEF;
+    background-color: transparent;
 }
 .header{
     position: fixed;
@@ -97,7 +97,7 @@ body{
     background-color: #000;
 }
 #line-chart{
-    height: 4.5rem; 
+    height: 4.5rem;
 }
 #total{
     position: absolute;
@@ -138,25 +138,27 @@ body{
     color: #F54B5E;
 }
 #pie-chart{
-    height: 5rem; 
+    height: 5rem;
+    float: left;
+    width:50%;
 }
 #top-data{
-    position: absolute;
-    left: 50%;
-    margin-left: -2rem;
-    top: 5.6rem;
+    position: relative;
+    height: 5rem;
+    float: left;
+    width:50%;
+    top: 1.6rem;
 }
 .product-data,
 .business-data{
     display: inline-block;
-    width: 4.71rem;
+    width: 49%;
     height: 2.6rem;
     border:1px solid #426E8F;
     /* background-color: rgba(2, 151, 244, 0.1);  */
     background-image:linear-gradient(-179deg, rgba(2, 151, 244, 0.25) 0%, rgba(26,151,244,0.00) 73%);
     padding: .24rem;
     vertical-align: middle;
-    margin-right: .49rem;
 }
 .business-data{
     margin-right: 0;
@@ -220,6 +222,9 @@ body{
     left: -2.15rem;
     width: 2.2rem;
 }
+.select-box{
+    color: #c3c3c3;
+}
 #console-page .select-item{
     display: inline-block;
     /* margin-right: .28rem; */
@@ -228,7 +233,7 @@ body{
     margin-bottom: .15rem;
 }
 .content{
-    background-color: #EFEFEF;
+    background-color: transparent;
     padding: .3rem;
     margin-top: .9rem;
     margin-left: 2.36rem;
@@ -255,4 +260,10 @@ body{
 }
 .iconfont.icon-chakan{
     font-size: .2rem;
+}
+table thead{
+    background: transparent;
+}
+th,td{
+    color: #999;
 }

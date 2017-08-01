@@ -36,7 +36,7 @@ $(function() {
             getData=eval('(' + getData + ')');
         }
     });
-    $("#lastDay").click(function () {
+    $("#lastDay").change(function () {
         $.ajax({
             "url": "/admin/overview/moneyProfile",
             "data":{"types": [0,-1]},
@@ -46,17 +46,17 @@ $(function() {
             "cache": false,
             "success": function (result) {
                 getData="[";
+                console.log("getData:  "+getData);
                 for(var k in result){
                     getData+="{'name':'"+k+"','data':["+result[k]+"]}";
                 }
                 getData+="]";
-                // console.log("getData:  "+getData);
-                console.log(eval('(' + getData + ')'));
+                console.log(JSON.parse(getData));
                 getData=eval('(' + getData + ')');
             }
         });
     });
-    $("#lastWeek").click(function () {
+    $("#lastWeek").change(function () {
         $.ajax({
             "url": "/admin/overview/moneyProfile",
             "data":{"types": [0,-1,-7]},
@@ -66,11 +66,12 @@ $(function() {
             "cache": false,
             "success": function (result) {
                 getData="[";
+                console.log("getData:  "+getData);
                 for(var k in result){
                     getData+="{'name':'"+k+"','data':["+result[k]+"]}";
                 }
                 getData+="]";
-                console.log(eval('(' + getData + ')'));
+                console.log(JSON.parse(getData));
                 getData=eval('(' + getData + ')');
             }
         });
