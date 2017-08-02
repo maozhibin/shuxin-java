@@ -254,49 +254,4 @@ public class OverviewController {
 		}
 		return mapList;
 	}
-
-	@RequestMapping("platform1")
-	public ModelAndView platform1() {
-		ModelAndView mv = new ModelAndView("admin/overview/platform1");
-		Map<String, Object> params = Maps.newHashMap();
-		List<Map<String, Object>> productTop = statsProductService.productTop();
-		Map<String, Object> parms = new HashMap<>();
-		parms.put("type", OrgConstatnt.TOP_TEN_ORG);
-		List<Map<String, Object>> orgTop = statsOrgService.orgTopOrAll(parms);
-		params.put("productTop", productTop);
-		params.put("orgTop", orgTop);
-		mv.addObject(params);
-		addOverview(mv);
-		return mv;
-	}
-
-	@RequestMapping("platform7")
-	public ModelAndView platform7() {
-		ModelAndView mv = new ModelAndView("admin/overview/platform7");
-		Map<String, Object> params = Maps.newHashMap();
-		List<Map<String, Object>> productTop = statsProductService.productTop();
-		Map<String, Object> parms = new HashMap<>();
-		parms.put("type", OrgConstatnt.TOP_TEN_ORG);
-		List<Map<String, Object>> orgTop = statsOrgService.orgTopOrAll(parms);
-		params.put("productTop", productTop);
-		params.put("orgTop", orgTop);
-		mv.addObject(params);
-		addOverview(mv);
-		return mv;
-	}
-
-	@RequestMapping("platformAll")
-	public ModelAndView platformAll() {
-		ModelAndView mv = new ModelAndView("admin/overview/platformAll");
-		Map<String, Object> params = Maps.newHashMap();
-		List<Map<String, Object>> productTop = statsProductService.productTop();
-		Map<String, Object> parms = new HashMap<>();
-		parms.put("type", OrgConstatnt.TOP_TEN_ORG);
-		List<Map<String, Object>> orgTop = statsOrgService.orgTopOrAll(parms);
-		params.put("productTop", productTop);
-		params.put("orgTop", orgTop);
-		mv.addObject(params);
-		addOverview(mv);
-		return mv;
-	}
 }

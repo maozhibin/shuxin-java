@@ -36,9 +36,9 @@ public class StatsOrgDailyTask {
     @Inject
     private StatsProductDailyService statsProductDailyService;
     /**
-     *  凌晨1点执行添加
+     *  凌晨1点25执行添加
      */
-    @Scheduled(cron = "0 0 1 * * *")
+    @Scheduled(cron = "0 25 1 * * *")
     public void insert(){
         Date now = new Date();
         Date today = DateUtils.truncate(now, Calendar.DATE);
