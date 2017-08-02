@@ -36,7 +36,7 @@
         window.resize=changeSize();
     </script>
     <script src="<%=basePath%>static/admin/js/echarts.js"></script>
-    <script src="<%=basePath%>static/admin/js/console.js" class="console"></script>
+    <script src="<%=basePath%>static/admin/js/console-1.js" class="console"></script>
 </head>
 <body id="console-page">
 <div id="canvas-box">

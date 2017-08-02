@@ -19,25 +19,6 @@ $(function() {
     // 获取的折线图数据
     var getData;
     $.ajax({
-        "url": "/admin/overview/moneyProfile",
-        "data":{"types": [0]},
-        // "dataType": "json",
-        async:false,
-        "type": "GET",
-        "cache": false,
-        "success": function (result) {
-            getData="[";
-            console.log("getData:  "+getData);
-            for(var k in result){
-                getData+="{'name':'"+k+"','data':["+result[k]+"]}";
-            }
-            getData+="]";
-            console.log(eval('(' + getData + ')'));
-            getData=eval('(' + getData + ')');
-        }
-    });
-    $("#lastDay").change(function () {
-        $.ajax({
             "url": "/admin/overview/moneyProfile",
             "data":{"types": [0,-1]},
             // "dataType": "json",
@@ -55,9 +36,25 @@ $(function() {
                 getData=eval('(' + getData + ')');
             }
         });
-    });
     $("#lastWeek").change(function () {
-       window.location.href=""
+        $.ajax({
+            "url": "/admin/overview/moneyProfile",
+            "data":{"types": [0,-1,-7]},
+            // "dataType": "json",
+            async:false,
+            "type": "GET",
+            "cache": false,
+            "success": function (result) {
+                getData="[";
+                console.log("getData:  "+getData);
+                for(var k in result){
+                    getData+="{'name':'"+k+"','data':["+result[k]+"]}";
+                }
+                getData+="]";
+                console.log(JSON.parse(getData));
+                getData=eval('(' + getData + ')');
+            }
+        });
     });
     // 折线图折线的颜色
     var colors = ['#1a97f4', '#97968F'];
