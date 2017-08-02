@@ -17,4 +17,12 @@ public interface StatsProductDao{
 
 	List<StatsProduct> queryAllStatsProduct();
 
+	void insert(List<StatsProduct> insertStatsProductList);
+
+	void insertStatsProductList(List<StatsProduct> insertStatsProductList);
+
+	StatsProduct queryProductId(Long productId);
+
+	void updateStatsProductList(List<StatsProduct> updateStatsProductList);
+
 }

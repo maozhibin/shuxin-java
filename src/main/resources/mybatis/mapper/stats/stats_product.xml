@@ -105,4 +105,36 @@
 	FROM
 		stats_product
   </select>
+  <select id="queryProductId" resultMap="BaseResultMap">
+   		SELECT
+			*
+		FROM
+			stats_product
+		where product_id=#{productId}
+   </select>
+   <insert id="insertStatsProductList" useGeneratedKeys="true" parameterType="java.util.List">  
+	    <selectKey resultType="long" keyProperty="id" order="AFTER">  
+	        SELECT  
+	        LAST_INSERT_ID()  
+	    </selectKey>  
+	    insert into stats_product (product_id,total_amount,order_num,purchase_num,`dateline`)   
+	    values  
+	    <foreach collection="list" item="item" index="index" separator="," >  
+	        (#{item.productId},#{item.totalAmount},#{item.orderNum},#{item.purchaseNum},#{item.dateline})  
+	    </foreach>  
+   </insert>
+   
+   
+   <update id="updateStatsProductList">
+    <foreach collection="list" item="item" index="index" separator=";">
+       update stats_product
+        <set >
+            total_amount = #{item.totalAmount,jdbcType=DECIMAL},
+       		order_num = #{item.orderNum,jdbcType=BIGINT},
+       		purchase_num = #{item.purchaseNum,jdbcType=BIGINT},
+       		dateline = #{item.dateline,jdbcType=BIGINT},
+        </set>
+        where product_id = #{item.productId,jdbcType=BIGINT}
+    </foreach>       
+   </update>
 </mapper>

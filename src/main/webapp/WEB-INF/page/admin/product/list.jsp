@@ -46,10 +46,10 @@
                         <th>发布时间</th>
                         <th>产品名称</th>
                         <th>类型</th>
-                        <th>状态</th>
                         <th>定价</th>
                         <th>覆盖范围</th>
                         <th>供应商</th>
+                        <th>状态</th>
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -64,8 +64,10 @@
                              	 </td>
 		                        <td>${map.name}</td>
 		                        <td>${map.type}</td>
-
-                                <td>
+		                        <td>${map.price}</td>
+		                        <td>${map.areaName}</td>
+		                        <td>${map.seller}</td>
+		                        <td>
                                     <c:if test="${map.status ==0}">
                                       	   初始化
                                     </c:if>
@@ -76,21 +78,16 @@
                               		               售卖中
                                     </c:if>
                                     <c:if test="${map.status ==3}">
-                             		              下架
+                             		             已下架
                                     </c:if>
                                 </td>
-
-
-		                        <td>${map.price}</td>
-		                        <td>${map.areaName}</td>
-		                         <td>${map.seller}</td>
 		                        <td>
 		                             <a class="" title='修改'
 		                                       href="issue?id=${map.id}"><i class="fa fa-pencil"></i> </a>&nbsp;&nbsp;
 		                             <a href="status?id=${map.id}&status=${1}"
-                                                type="button" <c:if test="${map.status ==1}"> onclick="return false;" </c:if> >审核中</a>&nbsp;&nbsp;
+                                                type="button" <c:if test="${map.status ==1}"> onclick="return false;" </c:if> >审核</a>&nbsp;&nbsp;
                                      <a href="status?id=${map.id}&status=${2}"
-                                                type="button" <c:if test="${map.status ==2}"> onclick="return false;" </c:if>>售卖中</a>&nbsp;&nbsp;
+                                                type="button" <c:if test="${map.status ==2}"> onclick="return false;" </c:if>>售卖</a>&nbsp;&nbsp;
                                      <a href="status?id=${map.id}&status=${3}"
                                                 type="button" <c:if test="${map.status ==3}"> onclick="return false;" </c:if>>下架</a>&nbsp;&nbsp;
 

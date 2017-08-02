@@ -19,23 +19,41 @@ $(function() {
     // 获取的折线图数据
     var getData;
     $.ajax({
-            "url": "/admin/overview/moneyProfile",
-            "data":{"types": [0,-7]},
-            // "dataType": "json",
-            async:false,
-            "type": "GET",
-            "cache": false,
-            "success": function (result) {
-                getData="[";
-                console.log("getData:  "+getData);
-                for(var k in result){
-                    getData+="{'name':'"+k+"','data':["+result[k]+"]}";
-                }
-                getData+="]";
-                console.log(JSON.parse(getData));
-                getData=eval('(' + getData + ')');
+        "url": "/admin/overview/moneyProfile",
+        "data":{"types": [0,-1,-7]},
+        // "dataType": "json",
+        async:false,
+        "type": "GET",
+        "cache": false,
+        "success": function (result) {
+            getData="[";
+            console.log("getData:  "+getData);
+            for(var k in result){
+                getData+="{'name':'"+k+"','data':["+result[k]+"]}";
             }
-        });
+            getData+="]";
+            console.log(eval('(' + getData + ')'));
+            getData=eval('(' + getData + ')');
+        }
+    });
+    $("#lastDay").change(function () {
+        // console.log($(this).attr('checked'));
+        var lastDayChenked=$(this).is(':checked');
+        var lastWeekChenked=$("#lastWeek").is(':checked');
+        if(lastDayChenked&&!lastWeekChenked){ /*只出现今日与昨日*/
+            window.location.href="/admin/overview/platform1";
+        }else if(lastWeekChenked&&lastDayChenked){
+            window.location.href="/admin/overview/platformAll";
+        }
+    });
+    $("#lastWeek").change(function () {
+        var lastWeekChenked=$(this).is(':checked');
+        var lastDayChenked=$("#lastDay").is(':checked');
+        if(lastDayChenked&&!lastWeekChenked){ /*只出现今日与上周同日*/
+            window.location.href="/admin/overview/platform1";
+        }else if(lastWeekChenked&&lastDayChenked){
+            window.location.href="/admin/overview/platformAll";        }
+    });
     // 折线图折线的颜色
     var colors = ['#1a97f4', '#97968F'];
     // 折线图折线阴影的颜色
