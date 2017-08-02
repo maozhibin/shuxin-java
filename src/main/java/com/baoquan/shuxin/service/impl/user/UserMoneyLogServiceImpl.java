@@ -53,7 +53,7 @@ public class UserMoneyLogServiceImpl implements UserMoneyLogService {
 	@Override
 	public Map<Object, Object> findByFinishTime(Long time) {
 		String stampToDateY = DateUtil.stampToDateY(time.toString());
-		List<Map<Object, Object>> list = userMoneyLogDao.findByFinishTime(stampToDateY);
+		List<Map<Object, Object>> list = userMoneyLogDao.findCountByFinishTime(stampToDateY);
 		double[] arr= new double[24];
 		Map<Object, Object> mapValue = new HashMap<>();
 			for (Map<Object, Object> map : list) {
@@ -73,8 +73,8 @@ public class UserMoneyLogServiceImpl implements UserMoneyLogService {
 		Long timeYesterday = DateUtils.addDays(today, -1).getTime();//昨天
 		String stampTimeToday= DateUtil.stampToDateY(timeToday.toString());
 		String stampTimeYesterday= DateUtil.stampToDateY(timeYesterday.toString());
-		Integer todaytAmount=userMoneyLogDao.findByTime(stampTimeToday);
-		Integer yesterdaytAmount=userMoneyLogDao.findByTime(stampTimeYesterday);
+		Integer todaytAmount=userMoneyLogDao.findSumAmountByTime(stampTimeToday);
+		Integer yesterdaytAmount=userMoneyLogDao.findSumAmountByTime(stampTimeYesterday);
 		Map<String, Object> map = new HashMap<>();
 		map.put("todaytAmount", todaytAmount);
 		map.put("yesterdaytAmount", yesterdaytAmount);

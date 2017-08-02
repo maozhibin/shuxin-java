@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baoquan.shuxin.dao.stats.StatsProductDailyDao" >
+  <resultMap id="BaseResultMap" type="com.baoquan.shuxin.model.stats.StatsProductDaily" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="product_id" property="productId" jdbcType="BIGINT" />
+    <result column="total_amount" property="totalAmount" jdbcType="DECIMAL" />
+    <result column="order_num" property="orderNum" jdbcType="BIGINT" />
+    <result column="purchase_num" property="purchaseNum" jdbcType="BIGINT" />
+    <result column="stats_date" property="statsDate" jdbcType="DATE" />
+    <result column="dateline" property="dateline" jdbcType="BIGINT" />
+  </resultMap>
+   <insert id="insertListStatsProductDaily" useGeneratedKeys="true" parameterType="java.util.List">  
+	    <selectKey resultType="long" keyProperty="id" order="AFTER">  
+	        SELECT  
+	        LAST_INSERT_ID()  
+	    </selectKey>  
+	    insert into stats_product_daily (product_id,total_amount,order_num,purchase_num,stats_date,`dateline`)   
+	    values  
+	    <foreach collection="list" item="item" index="index" separator="," >  
+	        (#{item.productId},#{item.totalAmount},#{item.orderNum},#{item.purchaseNum},#{item.statsDate},#{item.dateline})  
+	    </foreach>  
+   </insert>
+</mapper>
