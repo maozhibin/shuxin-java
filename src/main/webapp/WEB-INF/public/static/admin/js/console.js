@@ -37,10 +37,17 @@ $(function() {
         }
     });
     $("#lastDay").change(function () {
-        window.location.href="platform1.jsp"
+        // console.log($(this).attr('checked'));
+        console.log($(this).is(':checked'));
+        if($(this).is(':checked')){
+            window.location.href="/admin/overview/platform1";
+        }
+
+        // window.location.href="platform1.jsp"
     });
     $("#lastWeek").change(function () {
-       window.location.href="platform7.jsp"
+       // window.location.href="platform7.jsp"
+        console.log($(this).is(':checked'));
     });
     // 折线图折线的颜色
     var colors = ['#1a97f4', '#97968F'];
