@@ -27,32 +27,24 @@ $(function() {
         "cache": false,
         "success": function (result) {
             getData="[";
-            console.log("getData:  "+getData);
             for(var k in result){
-                getData+="{'name':'"+k+"','data':["+result[k]+"]}";
+                getData+="{'name':'"+k+"','data':["+result[k]+"]},";
             }
+            getData=getData.substring(0, getData.length - 1);
             getData+="]";
-            console.log(eval('(' + getData + ')'));
+            console.log(getData);
+            console.log(typeof getData);
+            console.log(eval('('+getData +')'));
             getData=eval('(' + getData + ')');
         }
     });
-    $("#lastDay").change(function () {
-        // console.log($(this).attr('checked'));
-        var lastDayChenked=$(this).is(':checked');
-        var lastWeekChenked=$("#lastWeek").is(':checked');
-        if(lastDayChenked&&!lastWeekChenked){ /*只出现今日与昨日*/
-            window.location.href="/admin/overview/platform1";
-        }else if(lastWeekChenked&&lastDayChenked){
-            window.location.href="/admin/overview/platformAll";
-        }
+    $("#lastDay").click(function () {
+        console.log('1000011');
+        window.location.href="/admin/overview/platform7";
     });
-    $("#lastWeek").change(function () {
-        var lastWeekChenked=$(this).is(':checked');
-        var lastDayChenked=$("#lastDay").is(':checked');
-        if(lastDayChenked&&!lastWeekChenked){ /*只出现今日与上周同日*/
-            window.location.href="/admin/overview/platform1";
-        }else if(lastWeekChenked&&lastDayChenked){
-            window.location.href="/admin/overview/platformAll";        }
+    $("#lastWeek").click(function () {
+        console.log('1211');
+        window.location.href="/admin/overview/platform1";
     });
     // 折线图折线的颜色
     var colors = ['#1a97f4', '#97968F'];

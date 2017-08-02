@@ -38,21 +38,10 @@ $(function() {
     });
     $("#lastDay").change(function () {
         // console.log($(this).attr('checked'));
-        var lastDayChenked=$(this).is(':checked');
-        var lastWeekChenked=$("#lastWeek").is(':checked');
-        if(lastDayChenked&&!lastWeekChenked){ /*只出现今日与昨日*/
-            window.location.href="/admin/overview/platform1";
-        }else if(lastWeekChenked&&lastDayChenked){
-            window.location.href="/admin/overview/platformAll";
-        }
+        window.location.href="/admin/overview/platform1";
     });
     $("#lastWeek").change(function () {
-        var lastWeekChenked=$(this).is(':checked');
-        var lastDayChenked=$("#lastDay").is(':checked');
-        if(lastDayChenked&&!lastWeekChenked){ /*只出现今日与上周同日*/
-            window.location.href="/admin/overview/platform1";
-        }else if(lastWeekChenked&&lastDayChenked){
-            window.location.href="/admin/overview/platformAll";        }
+            window.location.href="/admin/overview/platform7";
     });
     // 折线图折线的颜色
     var colors = ['#1a97f4', '#97968F'];

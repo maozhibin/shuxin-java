@@ -46,7 +46,7 @@
     <div id="total">
         <div class="select-box">
             <div class="select-item"><input type="checkbox" id="lastDay"/> 前一日</div>
-            <div class="select-item"><input type="checkbox" id="lastWeek"/> 上周同期</div>
+            <div class="select-item"><input type="checkbox" id="lastWeek" checked="checked"/> 上周同期</div>
         </div>
         <div class="title">平台数据概况</div>
         <div class="total-number"><span class="item-icon"></span>

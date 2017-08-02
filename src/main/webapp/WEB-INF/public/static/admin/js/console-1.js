@@ -27,34 +27,26 @@ $(function() {
             "cache": false,
             "success": function (result) {
                 getData="[";
-                console.log("getData:  "+getData);
                 for(var k in result){
-                    getData+="{'name':'"+k+"','data':["+result[k]+"]}";
+                    getData+="{'name':'"+k+"','data':["+result[k]+"]},";
                 }
+                getData=getData.substring(0, getData.length - 1);
                 getData+="]";
-                console.log(JSON.parse(getData));
+                console.log(getData);
+                console.log(typeof getData);
+                console.log(eval('('+getData +')'));
                 getData=eval('(' + getData + ')');
             }
         });
+    $("#lastDay").change(function () {
+        // console.log($(this).attr('checked'));
+        var lastDayChenked=$(this).is(':checked');
+        if(!lastDayChenked){ /*只出现今日*/
+            window.location.href="/admin/overview/platform";
+        }
+    });
     $("#lastWeek").change(function () {
-        $.ajax({
-            "url": "/admin/overview/moneyProfile",
-            "data":{"types": [0,-1,-7]},
-            // "dataType": "json",
-            async:false,
-            "type": "GET",
-            "cache": false,
-            "success": function (result) {
-                getData="[";
-                console.log("getData:  "+getData);
-                for(var k in result){
-                    getData+="{'name':'"+k+"','data':["+result[k]+"]}";
-                }
-                getData+="]";
-                console.log(JSON.parse(getData));
-                getData=eval('(' + getData + ')');
-            }
-        });
+        window.location.href="/admin/overview/platformAll";
     });
     // 折线图折线的颜色
     var colors = ['#1a97f4', '#97968F'];

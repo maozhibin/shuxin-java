@@ -27,15 +27,24 @@ $(function() {
             "cache": false,
             "success": function (result) {
                 getData="[";
-                console.log("getData:  "+getData);
                 for(var k in result){
-                    getData+="{'name':'"+k+"','data':["+result[k]+"]}";
+                    getData+="{'name':'"+k+"','data':["+result[k]+"]},";
                 }
+                getData=getData.substring(0, getData.length - 1);
                 getData+="]";
-                console.log(JSON.parse(getData));
+                console.log(getData);
+                console.log(typeof getData);
+                console.log(eval('('+getData +')'));
                 getData=eval('(' + getData + ')');
             }
         });
+    $("#lastDay").change(function () {
+        /*增加昨日*/
+        window.location.href="/admin/overview/platformAll";
+    });
+    $("#lastWeek").change(function () {
+        window.location.href="/admin/overview/platform";
+    });
     // 折线图折线的颜色
     var colors = ['#1a97f4', '#97968F'];
     // 折线图折线阴影的颜色
