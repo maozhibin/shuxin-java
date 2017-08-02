@@ -24,15 +24,15 @@
     </style>
 
 
-    <link href='<%=basePath%>static/admin/plugins/simditor/styles/simditor.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
+    <link href='/static/admin/plugins/simditor/styles/simditor.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
 
-    <script src='<%=basePath%>static/admin/plugins/simditor/scripts/jquery.min.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
-    <script src='<%=basePath%>static/admin/plugins/simditor/scripts/module.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
-    <script src='<%=basePath%>static/admin/plugins/simditor/scripts/hotkeys.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
-    <script src='<%=basePath%>static/admin/plugins/simditor/scripts/uploader.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
-    <script src='<%=basePath%>static/admin/plugins/simditor/scripts/simditor.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
+    <script src='/static/admin/plugins/simditor/scripts/jquery.min.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
+    <script src='/static/admin/plugins/simditor/scripts/module.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
+    <script src='/static/admin/plugins/simditor/scripts/hotkeys.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
+    <script src='/static/admin/plugins/simditor/scripts/uploader.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
+    <script src='/static/admin/plugins/simditor/scripts/simditor.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
 
-    <script src='<%=basePath%>static/js/jquery.ajaxfileupload.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
+    <script src='/static/js/jquery.ajaxfileupload.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
 
 
 </head>
@@ -255,7 +255,7 @@
     $(document).ready(function () {
         <!--文件上传-->
         $("#upload").AjaxFileUpload({
-            action: '<%=basePath%>admin/upload/logo',
+            action: '/admin/upload/logo',
             onComplete: function (filename, response) {
                 if (response.error != null) {
                     alert(response.error + "请重新选择");

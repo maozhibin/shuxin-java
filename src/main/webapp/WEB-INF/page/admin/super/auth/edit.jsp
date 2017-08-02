@@ -70,7 +70,7 @@
     </div>
 </div>
 
-<form action="<%=basePath%>admin/super/auth/update" method="post">
+<form action="/admin/super/auth/update" method="post">
     <input name="userId" value="${user.userId}" hidden="hidden">
     <div class="row" style="border-top: none;">
         <div class="col-md-12">

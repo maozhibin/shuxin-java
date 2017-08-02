@@ -15,13 +15,13 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>数信系统-后台管理中心</title>
-    <link href='<%=basePath%>static/admin/css/bootstrap.min.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet"
+    <link href='/static/admin/css/bootstrap.min.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet"
           type="text/css"/>
-    <link href='<%=basePath%>static/admin/css/sb-admin.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
-    <link href='<%=basePath%>static/admin/font-awesome/css/font-awesome.min.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet"
+    <link href='/static/admin/css/sb-admin.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
+    <link href='/static/admin/font-awesome/css/font-awesome.min.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet"
           type="text/css"/>
-    <link href='<%=basePath%>static/admin/css/baseui.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
-    <link href='<%=basePath%>static/admin/css/AdminLTE.min.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
+    <link href='/static/admin/css/baseui.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
+    <link href='/static/admin/css/AdminLTE.min.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -29,7 +29,7 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script>
-        var base_url = "<%=basePath%>";
+        var base_url = "/";
         var requestUri = '${requestScope['javax.servlet.forward.request_uri']}';
         var reg = /(\/\w+)+/g;
         var arr = reg.exec(requestUri);
@@ -37,10 +37,10 @@
             requestUri = arr[0];
         }
     </script>
-    <script src='<%=basePath%>static/admin/js/jquery.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
-    <script src='<%=basePath%>static/admin/js/bootstrap.min.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
-    <script src='<%=basePath%>static/admin/js/common.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
-    <script src='<%=basePath%>static/js/common/common.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
+    <script src='/static/admin/js/jquery.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
+    <script src='/static/admin/js/bootstrap.min.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
+    <script src='/static/admin/js/common.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
+    <script src='/static/js/common/common.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
     <sitemesh:write property='head'/>
 </head>
 <body>
@@ -163,7 +163,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="<%=basePath%>admin"><img src="<%=basePath%>static/admin/images/logo.png"
+            <a href="/admin"><img src="/static/admin/images/logo.png"
                                               alt="" width="302" height="38"></a>
         </div>
         <!-- Top Menu Items -->
@@ -176,11 +176,11 @@
                         class="fa fa-user"></i> ${admin_username} <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a href="<%=basePath%>admin/logout"><i
+                        <a href="/admin/logout"><i
                                 class="fa fa-fw fa-power-off"></i>退出</a>
                     </li>
                     <li>
-                        <a href="<%=basePath%>admin/password"><i
+                        <a href="/admin/password"><i
                                 class="fa fa-fw fa-lock"></i>修改密码</a>
                     </li>
                 </ul>
@@ -191,7 +191,6 @@
             <ul class="nav navbar-nav side-nav">
                 <c:if test="${userMenu != null}">
                     <c:forEach items="${userMenu.values()}" var="menu">
-                        <c:set var="basePath" value='<%=StringUtils.removeEnd(basePath, "/")%>' scope="request"/>
                         <%@include file="menu_recursive.jsp" %>
                     </c:forEach>
                 </c:if>

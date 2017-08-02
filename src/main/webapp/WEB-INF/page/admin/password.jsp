@@ -20,13 +20,13 @@
         }
     </style>
     <%--密码加密--%>
-    <script src="<%=basePath%>static/js/CryptoJSv3.1.2/rollups/hmac-sha256.js"></script>
-    <script src="<%=basePath%>static/js/CryptoJSv3.1.2/components/enc-base64-min.js"></script>
+    <script src="/static/js/CryptoJSv3.1.2/rollups/hmac-sha256.js"></script>
+    <script src="/static/js/CryptoJSv3.1.2/components/enc-base64-min.js"></script>
 </head>
 <body>
 
 <section>
-    <h4 class="header"><a href="<%=basePath%>admin">后台管理系统</a> — 修改密码</h4>
+    <h4 class="header"><a href="/admin">后台管理系统</a> — 修改密码</h4>
     <hr>
 
     <form class="form-inline" method="post">
@@ -81,12 +81,12 @@
             'old_pass': CryptoJS.enc.Base64.stringify(CryptoJS.HmacSHA256(old_pass, account)),
             'new_pass': CryptoJS.enc.Base64.stringify(CryptoJS.HmacSHA256(new_pass, account)),
         };
-        $.post('<%=basePath%>admin/password/modify', data, function (obj) {
+        $.post('/admin/password/modify', data, function (obj) {
             if (obj && obj.code == 0) {
                 show_success(obj.message);
 //                debugger;
                 setTimeout(function () {
-                    location.href = '<%=basePath%>admin';
+                    location.href = '/admin';
                 }, 3000);
             } else {
                 show_error(obj.message);

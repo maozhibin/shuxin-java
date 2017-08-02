@@ -17,16 +17,16 @@
 <head>
     <title>产品发布</title>
 
-    <link href='<%=basePath%>static/css/style.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
-    <link href='<%=basePath%>static/css/market.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
-    <link href='<%=basePath%>static/css/style_other.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
-    <link href='<%=basePath%>static/css/data.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
-    <link href='<%=basePath%>static/css/jquery.tagsinput.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
+    <link href='/static/css/style.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
+    <link href='/static/css/market.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
+    <link href='/static/css/style_other.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
+    <link href='/static/css/data.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
+    <link href='/static/css/jquery.tagsinput.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
 
-    <link href='<%=basePath%>static/admin/css/data-release.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
+    <link href='/static/admin/css/data-release.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
 
-    <script src='<%=basePath%>static/js/jquery.tagsinput.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
-    <script src='<%=basePath%>static/js/jquery.ajaxfileupload.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
+    <script src='/static/js/jquery.tagsinput.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
+    <script src='/static/js/jquery.ajaxfileupload.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
 
     <script>
         $(function () {
@@ -606,7 +606,7 @@
 <script>
     <!--文件上传-->
     $("#upload").AjaxFileUpload({
-        action: '<%=basePath%>admin/upload/logo',
+        action: '/admin/upload/logo',
         onComplete: function (filename, response) {
             if (response.error != null) {
                 alert(response.error + "请重新选择");
