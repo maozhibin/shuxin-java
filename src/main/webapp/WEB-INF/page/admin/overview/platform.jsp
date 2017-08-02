@@ -42,7 +42,6 @@
     </script>
     <script src="/static/admin/js/echarts.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>"></script>
     <script src="/static/admin/js/console.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>"></script>
-    <script src="/static/admin/js/pieChart.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>"></script>
 </head>
 <body id="console-page">
 <div id="canvas-box">
@@ -50,11 +49,6 @@
     <div id="mask"></div>
     <div id="line-chart"></div>
     <div id="total">
-        <div class="select-box">
-            <div class="select-item"><input type="checkbox" id="lastDay"/> 前一日</div>
-            <div class="select-item"><input type="checkbox" id="lastWeek"/> 上周同期</div>
-        </div>
-        <div class="title">平台数据概况</div>
         <div class="total-number"><span class="item-icon"></span>
        		<fmt:formatNumber type="number" value="${hashMap.moneyCount.todaytAmount /10000}" pattern="0.00" maxFractionDigits="2"/>  
 	        <c:if test="${hashMap.moneyCount.todaytAmount  gt hashMap.moneyCount.yesterdaytAmount}">

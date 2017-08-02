@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 
 import com.baoquan.shuxin.model.stats.StatsOrgDaily;
 import com.baoquan.shuxin.service.spi.stats.StatsOrgDailyService;
+import com.baoquan.shuxin.service.spi.stats.StatsProductDailyService;
 import com.baoquan.shuxin.service.spi.user.UserProductService;
 import com.baoquan.shuxin.util.common.DateUtil;
 
@@ -33,8 +34,7 @@ public class StatsOrgDailyTask {
     private StatsOrgDailyService statsOrgDailyService;
 
     @Inject
-    private UserProductService userProductService;
-
+    private StatsProductDailyService statsProductDailyService;
     /**
      *  凌晨1点25执行添加
      */
@@ -45,14 +45,14 @@ public class StatsOrgDailyTask {
         Date Yesterday = DateUtils.addDays(today, -1);
         Long timeYesterday = DateUtils.addDays(today, -1).getTime();//昨天
         String stampTimeToday= DateUtil.stampToDateY(timeYesterday.toString());
-        List<Map<String, Object>> listuserProduct = userProductService.queryByBuyTime(stampTimeToday);
+        List<Map<String, Object>> listuserProduct = statsProductDailyService.findByTimeYesterday(stampTimeToday);
         if(CollectionUtils.isEmpty(listuserProduct)){
             return;
         }
         List<StatsOrgDaily> maps = new ArrayList<>();
         for (Map<String, Object> map : listuserProduct) {
             StatsOrgDaily statsOrgDaily = new StatsOrgDaily();
-            Long orgId = MapUtils.getLong(map, "orgId");
+            Long orgId = MapUtils.getLong(map, "userId");
             String buyAmount = MapUtils.getString(map, "totalAmount");
             Long count =MapUtils.getLong(map, "count");
             BigDecimal totalAmount = new BigDecimal(buyAmount);
