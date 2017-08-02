@@ -34,7 +34,6 @@ public class StatsProductTask {
 	 */
 	@Scheduled(cron = "0 10 1 * * *")
 	public void updateStatsProduct() {
-		System.out.println(1);
 		Date now = new Date();
 		Date today = DateUtils.truncate(now, Calendar.DATE);
 		Long timeYesterday = DateUtils.addDays(today, -1).getTime();// 昨天

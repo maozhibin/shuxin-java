@@ -1,7 +1,5 @@
 package com.baoquan.shuxin.service.impl.product;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -10,33 +8,15 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baoquan.shuxin.bean.Page;
-import com.baoquan.shuxin.constatn.InterfaceParamConstant;
-import com.baoquan.shuxin.constatn.InterfaceSampleConstant;
 import com.baoquan.shuxin.dao.product.ProductBillingsDao;
 import com.baoquan.shuxin.dao.product.ProductDao;
-import com.baoquan.shuxin.dao.product.ProductDetailDao;
-import com.baoquan.shuxin.dao.product.ProductInterfaceCodeDao;
-import com.baoquan.shuxin.dao.product.ProductInterfaceDao;
-import com.baoquan.shuxin.dao.product.ProductInterfaceSampleDao;
-import com.baoquan.shuxin.dao.product.ProductTagDao;
-import com.baoquan.shuxin.dao.tag.TagsDao;
 import com.baoquan.shuxin.model.product.Product;
-import com.baoquan.shuxin.model.product.ProductBillings;
-import com.baoquan.shuxin.model.product.ProductDetail;
 import com.baoquan.shuxin.model.product.ProductInterface;
-import com.baoquan.shuxin.model.product.ProductInterfaceCode;
-import com.baoquan.shuxin.model.product.ProductInterfaceParam;
-import com.baoquan.shuxin.model.product.ProductInterfaceSample;
-import com.baoquan.shuxin.model.product.ProductTag;
-import com.baoquan.shuxin.model.tag.Tags;
 import com.baoquan.shuxin.service.spi.product.ProductBillingsService;
 import com.baoquan.shuxin.service.spi.product.ProductDetailService;
 import com.baoquan.shuxin.service.spi.product.ProductInterfaceCodeService;
@@ -204,5 +184,6 @@ public class ProductServiceImpl implements ProductService{
 	public void updateProductStatus(Product product) {
 		productDao.updateProductStatus(product);
 	}
+
 
 }

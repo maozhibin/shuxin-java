@@ -10,4 +10,16 @@
     <result column="dateline" property="dateline" jdbcType="BIGINT" />
   </resultMap>
   
+   <insert id="insertList" useGeneratedKeys="true" parameterType="java.util.List">  
+	    <selectKey resultType="long" keyProperty="id" order="AFTER">  
+	        SELECT  
+	        LAST_INSERT_ID()  
+	    </selectKey>  
+	    insert into stats_org_product_daily (org_id,product_id,purchase_num,stats_date,`dateline`)   
+	    values  
+	    <foreach collection="list" item="item" index="index" separator="," >  
+	        (#{item.orgId},#{item.productId},#{item.purchaseNum},#{item.statsDate},#{item.dateline})  
+	    </foreach>  
+   </insert>
+   
 </mapper>

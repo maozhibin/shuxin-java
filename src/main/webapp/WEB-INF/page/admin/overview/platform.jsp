@@ -24,6 +24,11 @@
     <title>数信平台控制台</title>
     <link rel="stylesheet" href="/static/admin/fonts/iconfont.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>">
     <link rel="stylesheet" href="/static/admin/css/console.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>">
+    <style>
+    html,body{
+        background: url('/static/admin/images/bj.png');
+    }
+    </style>
     <script>
         var clientWidth = null;
         var clientHeight = null;
@@ -36,7 +41,8 @@
         window.resize=changeSize();
     </script>
     <script src="/static/admin/js/echarts.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>"></script>
-    <script src="/static/admin/js/console.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>" class="console"></script>
+    <script src="/static/admin/js/console.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>"></script>
+    <script src="/static/admin/js/pieChart.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>"></script>
 </head>
 <body id="console-page">
 <div id="canvas-box">

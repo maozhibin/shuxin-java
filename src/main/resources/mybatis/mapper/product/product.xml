@@ -107,7 +107,6 @@
 		AND s.type = 1
   </select>
 
-
 	<update id="updateProductStatus" parameterType="Product">
 		update product set status=#{status}
 		where id=#{id}
