@@ -119,5 +119,20 @@ public class StatsOrgServiceImpl implements StatsOrgService{
 		return statsOrgDao.queryAllStatsOrg();
 	}
 
+	@Override
+	public StatsOrg queryById(Long orgId) {
+		return statsOrgDao.queryById(orgId);
+	}
+
+	@Override
+	public void insertOrgList(List<StatsOrg> insertOrgList) {
+		 statsOrgDao.insertOrgList(insertOrgList);
+	}
+
+	@Override
+	public void updateOrgtList(List<StatsOrg> updateOrgtList) {
+		statsOrgDao.updateOrgList(updateOrgtList);
+	}
+
 
 }

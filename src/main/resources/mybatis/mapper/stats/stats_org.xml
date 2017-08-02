@@ -49,5 +49,35 @@
 		FROM
 		stats_org
 	</select>
-	
+	<select id="queryById" resultMap="BaseResultMap">
+		SELECT
+		*
+		FROM
+		stats_org
+		where org_id=#{orgId}
+	</select>
+	<insert id="insertOrgList" useGeneratedKeys="true" parameterType="java.util.List">
+		<selectKey resultType="long" keyProperty="id" order="AFTER">
+			SELECT
+			LAST_INSERT_ID()
+		</selectKey>
+		insert into stats_org (org_id,total_amount,order_num,receipt_num,`dateline`)
+		values
+		<foreach collection="list" item="item" index="index" separator="," >
+			(#{item.orgId},#{item.totalAmount},#{item.orderNum},#{item.receiptNum},#{item.dateline})
+		</foreach>
+	</insert>
+	<update id="updateOrgList">
+		<foreach collection="list" item="item" index="index" separator=";">
+			update stats_org
+			<set >
+				total_amount = #{item.totalAmount,jdbcType=DECIMAL},
+				order_num = #{item.orderNum,jdbcType=BIGINT},
+				receipt_num = #{item.receiptNum,jdbcType=BIGINT},
+				dateline = #{item.dateline,jdbcType=BIGINT},
+			</set>
+			where org_id = #{item.orgId,jdbcType=BIGINT}
+		</foreach>
+	</update>
+
 </mapper>

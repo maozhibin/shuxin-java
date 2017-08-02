@@ -1,5 +1,6 @@
 package com.baoquan.shuxin.task;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -72,6 +73,43 @@ public class StatsOrgTask {
 					}
 				}
 			}
+		}
+		List<StatsOrg> insetOrgList = new ArrayList<>();
+		List<StatsOrg> updateOrgList = new ArrayList<>();
+		for (StatsOrgDaily statsOrgDaily : updateList){
+			StatsOrg statsOrg = statsOrgService.queryById(statsOrgDaily.getOrgId());
+			Long orderNum = statsOrg.getOrderNum() + statsOrgDaily.getOrderNum();
+			Long receiptNum = statsOrg.getReceiptNum() + statsOrgDaily.getReceiptNum();
+			BigDecimal totalAmount = statsOrg.getTotalAmount().add(statsOrgDaily.getTotalAmount());
+			statsOrg.setOrderNum(orderNum);
+			statsOrg.setOrgId(statsOrgDaily.getOrgId());
+			statsOrg.setReceiptNum(receiptNum);
+			statsOrg.setTotalAmount(totalAmount);
+			statsOrg.setDateline(now.getTime());
+			updateOrgList.add(statsOrg);
+
+		}
+
+		for (StatsOrgDaily statsOrgDaily : insertList){
+			 StatsOrg statsOrg = new StatsOrg();
+			 statsOrg.setOrgId(statsOrgDaily.getOrgId());
+			 statsOrg.setReceiptNum(statsOrgDaily.getReceiptNum());
+			 statsOrg.setTotalAmount(statsOrgDaily.getTotalAmount());
+			 statsOrg.setDateline(now.getTime());
+			 statsOrg.setOrderNum(statsOrgDaily.getOrderNum());
+			insetOrgList.add(statsOrg);
+		}
+		/**
+		 * 添加
+		 */
+		if (!CollectionUtils.isEmpty(insetOrgList)){
+			statsOrgService.insertOrgList(insetOrgList);
+		}
+		/**
+		 * 更新
+		 */
+		if (!CollectionUtils.isEmpty(updateOrgList)){
+			statsOrgService.updateOrgtList(updateOrgList);
 		}
     }
 }
