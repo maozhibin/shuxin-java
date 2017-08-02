@@ -37,7 +37,7 @@ public class StatsOrgDailyTask {
     private UserProductService userProductService;
 
     /**
-     *  0点执行添加
+     *  凌晨1点执行添加
      */
     @Scheduled(cron = "0 0 1 * * *")
     public void insert(){

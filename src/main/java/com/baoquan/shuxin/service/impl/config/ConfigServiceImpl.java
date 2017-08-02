@@ -49,4 +49,18 @@ public class ConfigServiceImpl implements ConfigService{
 		configDao.deleteConfig(config);
 	}
 
+	@Override
+	public Integer countConfigInfo() {
+		return configDao.countConfigInfo();
+	}
+
+	@Override
+	public List<Config> queryConfigList(Integer start, Integer length) {
+		Map<String, Object> parms = new HashMap<>();
+		parms.put("start",start);
+		parms.put("length",length);
+		return configDao.configList(parms);
+	}
+
+
 }
