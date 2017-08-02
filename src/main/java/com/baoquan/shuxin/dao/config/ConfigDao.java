@@ -21,4 +21,6 @@ public interface ConfigDao {
 	Config findByIdConfig(Integer id);
 
 	void deleteConfig(Config config);
+
+	Integer countConfigInfo();
 }

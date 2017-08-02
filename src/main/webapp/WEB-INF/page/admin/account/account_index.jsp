@@ -106,7 +106,7 @@
                     <td> ID：</td>
                     <td>
                         <input type="text" class="form-control pull-right" id="userId" placeholder="用户ID"
-                               name="userId" value="">
+                               name="userId" value="${userId}">
                     </td>
                     <td> 日期：</td>
                     <td>
@@ -136,7 +136,6 @@
                         <td>状态</td>
                         <td>操作第三方流水号</td>
                         <td>手续费值</td>
-                        <td>状态描述</td>
                         <td>生成时间</td>
                         <td>完成时间</td>
                     </tr>
@@ -147,10 +146,22 @@
                                 <td>${accountFlow.userId}</td>
                                 <td>${accountFlow.typeName}</td>
                                 <td>${accountFlow.amount}</td>
-                                <td>${accountFlow.status}</td>
+                                <td>
+                                    <c:if test="${accountFlow.status eq '1'}">
+                                       已完成
+                                    </c:if>
+                                    <c:if test="${accountFlow.status eq '2'}">
+                                        已取消
+                                    </c:if>
+                                    <c:if test="${accountFlow.status eq '3'}">
+                                        已失败
+                                    </c:if>
+                                    <c:if test="${accountFlow.status eq '0'}">
+                                        未完成
+                                    </c:if>
+                                </td>
                                 <td>${accountFlow.requestNo}</td>
                                 <td>${accountFlow.fee}</td>
-                                <td>${accountFlow.statusDesc}</td>
                                 <td>
                                     <jsp:useBean id="dateline" class="java.util.Date"/>
                                     <jsp:setProperty name="dateline" property="time" value="${accountFlow.dateline*1000}"/>

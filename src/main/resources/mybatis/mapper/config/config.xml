@@ -9,24 +9,24 @@
     <result column="is_valid" property="isValid" jdbcType="TINYINT"/>
   </resultMap>
  	
-  <select id="configTotal" resultType="java.lang.Integer">
+  <select id="countConfigInfo" resultType="java.lang.Integer">
   		SELECT
-			COUNT(1)
+			COUNT(*)
 		FROM
 			config
   </select>
-  
+
    <select id="configList" resultMap="BaseResultMap">
   		SELECT
 			*
 		FROM
 			config
-		where is_valid=1
-		<if test="page != null">
-	        limit ${page.startIndex},${page.pageSize};
-	    </if>	
+		where is_valid = 1
+	        limit #{start},#{length}
   </select>
-  
+
+
+
   <update id="updateConfig" parameterType="Config" >
         update config set varname=#{varname},value=#{value},memo=#{memo} where id=#{id}
   </update>

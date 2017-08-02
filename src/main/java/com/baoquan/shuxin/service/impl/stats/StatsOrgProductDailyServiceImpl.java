@@ -18,4 +18,9 @@ public class StatsOrgProductDailyServiceImpl implements StatsOrgProductDailyServ
 	public void insertList(List<StatsOrgProductDaily> list) {
 		statsOrgProductDailyDao.insertList(list);
 	}
+
+	@Override
+	public List<StatsOrgProductDaily> queryByYesterDay(String stampTimeToday) {
+		return statsOrgProductDailyDao.queryByYesterDay(stampTimeToday);
+	}
 }

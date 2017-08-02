@@ -36,7 +36,6 @@ public class StatsOrgProductDailyTask {
 	 * 
 	 * @throws ParseException
 	 */
-	@SuppressWarnings("deprecation")
 	@Scheduled(cron = "0 15 1 * * *")
 	//@Scheduled(fixedDelay=2000)
 	public void updateStatsOrgProductDaily() {

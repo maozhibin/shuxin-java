@@ -22,4 +22,12 @@
 	    </foreach>  
    </insert>
    
+   <select id="queryByYesterDay" resultMap="BaseResultMap">
+   		SELECT
+			*
+		FROM
+			stats_org_product_daily
+		WHERE stats_date = #{stampTimeToday}
+   </select>
+   
 </mapper>

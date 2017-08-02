@@ -16,5 +16,11 @@ public interface StatsOrgService {
 
 	List<StatsOrg> queryAllStatsOrg();
 
+	StatsOrg queryById(Long orgId);
+
+	void insertOrgList(List<StatsOrg> insertOrgList);
+
+	void updateOrgtList(List<StatsOrg> updateOrgtList);
+
 
 }
