@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.baoquan.shuxin.model.stats.StatsProduct;
+import com.baoquan.shuxin.model.stats.StatsProductDaily;
 
 public interface StatsProductService {
 
@@ -14,5 +15,15 @@ public interface StatsProductService {
 	Long productListCount(Map<String, Object> map);
 
 	List<StatsProduct> queryAllStatsProduct();
+
+
+	StatsProduct setStatsProductDaily(StatsProductDaily statsProductDaily);
+
+
+	void insertStatsProductList(List<StatsProduct> insertStatsProductList);
+
+	StatsProduct queryProductId(Long productId);
+
+	void updateStatsProductList(List<StatsProduct> updateStatsProductList);
 
 }

@@ -210,7 +210,6 @@ public class ProductController {
      */
     @RequestMapping("status")
     public String updateStatus(String id,String status){
-        JsonResponseMsg result = new JsonResponseMsg();
         if(!NumberUtils.isNumber(id)){
             return  "参数错误";
         }
@@ -220,5 +219,25 @@ public class ProductController {
         productService.updateProductStatus(product);
         return "redirect:list";
     }
-
+    
+    
+    @RequestMapping("platform1")
+    public ModelAndView platform1() {
+    	ModelAndView mv = new ModelAndView("admin/product/platform1");
+		return mv;
+    }
+    
+    @RequestMapping("platform7")
+    public ModelAndView platform7() {
+    	ModelAndView mv = new ModelAndView("admin/product/platform7");
+		return mv;
+    }
+    
+    @RequestMapping("platformAll")
+    public ModelAndView platformAll() {
+    	ModelAndView mv = new ModelAndView("admin/product/platformAll");
+		return mv;
+    }
 }
+
+

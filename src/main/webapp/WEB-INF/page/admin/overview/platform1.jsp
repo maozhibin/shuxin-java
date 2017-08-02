@@ -22,8 +22,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>数信平台控制台</title>
-    <link rel="stylesheet" href="<%=basePath%>static/admin/fonts/iconfont.css">
-    <link rel="stylesheet" href="<%=basePath%>static/admin/css/console.css">
+    <link rel="stylesheet" href="/static/admin/fonts/iconfont.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>">
+    <link rel="stylesheet" href="/static/admin/css/console.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>">
     <script>
         var clientWidth = null;
         var clientHeight = null;
@@ -35,8 +35,8 @@
         changeSize();
         window.resize=changeSize();
     </script>
-    <script src="<%=basePath%>static/admin/js/echarts.js"></script>
-    <script src="<%=basePath%>static/admin/js/console-1.js" class="console"></script>
+    <script src="/static/admin/js/echarts.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>"></script>
+    <script src="/static/admin/js/console-1.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>" class="console"></script>
 </head>
 <body id="console-page">
 <div id="canvas-box">

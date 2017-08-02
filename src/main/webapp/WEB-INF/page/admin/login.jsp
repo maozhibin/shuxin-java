@@ -17,11 +17,11 @@
 
     <title>数信系统-后台管理中心</title>
 
-    <link href='<%=basePath%>static/admin/css/bootstrap.min.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
-    <link href='<%=basePath%>static/admin/css/sb-admin.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
-    <link href='<%=basePath%>static/admin/font-awesome/css/font-awesome.min.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet"
+    <link href='/static/admin/css/bootstrap.min.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
+    <link href='/static/admin/css/sb-admin.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
+    <link href='/static/admin/font-awesome/css/font-awesome.min.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet"
           type="text/css"/>
-    <link href='<%=basePath%>static/admin/css/baseui.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
+    <link href='/static/admin/css/baseui.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -32,8 +32,8 @@
     <![endif]-->
 
     <%--密码加密--%>
-    <script src="<%=basePath%>static/js/CryptoJSv3.1.2/rollups/hmac-sha256.js"></script>
-    <script src="<%=basePath%>static/js/CryptoJSv3.1.2/components/enc-base64-min.js"></script>
+    <script src="/static/js/CryptoJSv3.1.2/rollups/hmac-sha256.js"></script>
+    <script src="/static/js/CryptoJSv3.1.2/components/enc-base64-min.js"></script>
 
 </head>
 
@@ -48,7 +48,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <img src="<%=basePath%>static/admin/images/logo.png" alt="" width="302" height="38">
+        <img src="/static/admin/images/logo.png" alt="" width="302" height="38">
     </div>
 </nav>
 <div class="row">
@@ -91,10 +91,10 @@
     </div>
 </div>
 
-<script src='<%=basePath%>static/admin/js/jquery.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
-<script src='<%=basePath%>static/admin/js/bootstrap.min.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
-<script src='<%=basePath%>static/admin/js/common.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
-<script src='<%=basePath%>static/admin/js/md5.min.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
+<script src='/static/admin/js/jquery.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
+<script src='/static/admin/js/bootstrap.min.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
+<script src='/static/admin/js/common.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
+<script src='/static/admin/js/md5.min.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
 
 <script>
     /*
@@ -131,12 +131,12 @@
             'password': hashInBase64
         };
 
-        $.post('<%=basePath%>admin/login', data, function (obj) {
+        $.post('/admin/login', data, function (obj) {
             if (obj && obj.code == 0) {
                 console.log(obj);
                 localStorage.token = obj.data;
 //                debugger;
-                location.href = '<%=basePath%>admin';
+                location.href = '/admin';
             } else {
                 $("#psd_error").text("用户名或密码错误，" + obj.message);
             }
