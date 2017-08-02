@@ -28,11 +28,11 @@ public class StatsProductTask {
 	private StatsProductDailyService statsProductDailyService;
 
 	/**
-	 * 每天凌晨2点执行
+	 * 每天凌晨1点10分执行
 	 * 
 	 * @throws ParseException
 	 */
-	@Scheduled(cron = "0 0 2 * * *")
+	@Scheduled(cron = "0 10 1 * * *")
 	public void updateStatsProduct() {
 		System.out.println(1);
 		Date now = new Date();
