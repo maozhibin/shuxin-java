@@ -220,5 +220,19 @@ public class ProductController {
         productService.updateProductStatus(product);
         return "redirect:list";
     }
-
+    
+    
+    @RequestMapping("platform1")
+    public ModelAndView platform1() {
+    	ModelAndView mv = new ModelAndView("admin/product/platform1");
+		return mv;
+    }
+    
+    @RequestMapping("platform7")
+    public ModelAndView platform7() {
+    	ModelAndView mv = new ModelAndView("admin/product/platform7");
+		return mv;
+    }
 }
+
+
