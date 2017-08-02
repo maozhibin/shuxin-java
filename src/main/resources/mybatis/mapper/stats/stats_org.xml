@@ -42,5 +42,12 @@
 			stats_org
 		where org_id=#{orgId}
 	</select>
+
+	<select id="queryAllStatsOrg" resultMap="BaseResultMap">
+		SELECT
+		*
+		FROM
+		stats_org
+	</select>
 	
 </mapper>

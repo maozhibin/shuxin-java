@@ -20,8 +20,7 @@ public interface UserOrderService {
      */
     List<UserOrder> querListUserOrderInfo(Long userId,Integer status,Long statTime,Long endTime,Integer start, Integer length);
 
-
-
+    //默认查询
     Integer countOrderInfo(Long userId,Integer status,Long statTime,Long endTime);
 
 
