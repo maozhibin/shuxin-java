@@ -21,4 +21,13 @@
 	        (#{item.productId},#{item.totalAmount},#{item.orderNum},#{item.purchaseNum},#{item.statsDate},#{item.dateline})  
 	    </foreach>  
    </insert>
+   
+   <select id="queryByTime" resultMap="BaseResultMap">
+   		SELECT
+			*
+		FROM
+			stats_product_daily
+		WHERE
+			stats_date = #{stampTimeToday}
+   </select>
 </mapper>

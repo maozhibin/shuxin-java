@@ -1,16 +1,13 @@
-package com.baoquan.shuxin.dao.stats;
+package com.baoquan.shuxin.service.spi.stats;
 
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
-
 import com.baoquan.shuxin.model.stats.StatsProductDaily;
 
-@Repository
-public interface StatsProductDailyDao {
+public interface StatsProductDailyService {
 
 	void insertListStatsProductDaily(List<StatsProductDaily> maps);
 
 	List<StatsProductDaily> queryByTime(String stampTimeToday);
-    
+
 }

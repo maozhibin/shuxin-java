@@ -99,4 +99,10 @@
 		</if>
   </select>
   
+  <select id="queryAllStatsProduct" resultMap="BaseResultMap">
+  	SELECT
+		*
+	FROM
+		stats_product
+  </select>
 </mapper>

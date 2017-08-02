@@ -19,14 +19,16 @@ import org.springframework.stereotype.Component;
 import com.baoquan.shuxin.dao.stats.StatsProductDailyDao;
 import com.baoquan.shuxin.dao.user.UserProductDao;
 import com.baoquan.shuxin.model.stats.StatsProductDaily;
+import com.baoquan.shuxin.service.spi.stats.StatsProductDailyService;
+import com.baoquan.shuxin.service.spi.user.UserProductService;
 import com.baoquan.shuxin.util.common.DateUtil;
 
 @Component
-public class StatsOrgDailyTask {
+public class StatsProductDailyTask {
 	@Inject
-	private UserProductDao userProductDao;
+	private StatsProductDailyService statsProductDailyService;
 	@Inject
-	private StatsProductDailyDao statsProductDailyDao;
+	private UserProductService userProductService;
 	/**
 	 * 每天凌晨1点执行
 	 * @throws ParseException
@@ -38,7 +40,7 @@ public class StatsOrgDailyTask {
 		Date Yesterday = DateUtils.addDays(today, -1);
 		Long timeYesterday = DateUtils.addDays(today, -1).getTime();//昨天
 		String stampTimeToday= DateUtil.stampToDateY(timeYesterday.toString());
-		List<Map<String, Object>> listuserProduct = userProductDao.queryByBuyTime(stampTimeToday);
+		List<Map<String, Object>> listuserProduct = userProductService.queryByBuyTime(stampTimeToday);
 		if(CollectionUtils.isEmpty(listuserProduct)){
 			return;
 		}
@@ -59,7 +61,7 @@ public class StatsOrgDailyTask {
 			
 			maps.add(statsProductDaily);
 		}
-		statsProductDailyDao.insertListStatsProductDaily(maps);
+		statsProductDailyService.insertListStatsProductDaily(maps);
     }
 	
 }
