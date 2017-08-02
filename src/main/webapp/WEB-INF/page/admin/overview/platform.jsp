@@ -36,7 +36,8 @@
         window.resize=changeSize();
     </script>
     <script src="/static/admin/js/echarts.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>"></script>
-    <script src="/static/admin/js/console.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>" class="console"></script>
+    <script src="/static/admin/js/console.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>"></script>
+    <script src="/static/admin/js/pieChart.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>"></script>
 </head>
 <body id="console-page">
 <div id="canvas-box">
