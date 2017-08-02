@@ -16,7 +16,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.baoquan.shuxin.model.stats.StatsOrgDaily;
-import com.baoquan.shuxin.model.stats.StatsProductDaily;
 import com.baoquan.shuxin.service.spi.stats.StatsOrgDailyService;
 import com.baoquan.shuxin.service.spi.user.UserProductService;
 import com.baoquan.shuxin.util.common.DateUtil;

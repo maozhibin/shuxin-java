@@ -54,4 +54,41 @@
 			)
 		AND org_id=#{orgId}
     </select>  
+    
+    <select id="queryAllOrgProduct" resultMap="BaseResultMap">
+    	SELECT
+			*
+		FROM
+			stats_org_product
+    </select>
+    
+      <select id="queryProductId" resultMap="BaseResultMap">
+    	SELECT
+			*
+		FROM
+			stats_org_product
+		where product_id=#{statsOrgProductProductId}
+    </select>
+    
+    <insert id="insertStatsOrgProductList" useGeneratedKeys="true" parameterType="java.util.List">  
+	    <selectKey resultType="long" keyProperty="id" order="AFTER">  
+	        SELECT  
+	        LAST_INSERT_ID()  
+	    </selectKey>  
+	    insert into stats_org_product (org_id,product_id,purchase_num,`dateline`)   
+	    values  
+	    <foreach collection="list" item="item" index="index" separator="," >  
+	        (#{item.orgId},#{item.productId},#{item.purchaseNum},#{item.dateline})  
+	    </foreach>  
+   </insert>
+   
+   <update id="updateStatsOrgProductList">
+    <foreach collection="list" item="item" index="index" separator=";">
+       update stats_org_product
+        <set >
+       		purchase_num = #{item.purchaseNum,jdbcType=INTEGER},
+        </set>
+        where product_id = #{item.productId,jdbcType=BIGINT}
+    </foreach>       
+   </update>
 </mapper>

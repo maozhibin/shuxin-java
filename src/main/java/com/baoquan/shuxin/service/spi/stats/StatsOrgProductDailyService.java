@@ -8,4 +8,6 @@ public interface StatsOrgProductDailyService {
 
 	void insertList(List<StatsOrgProductDaily> list);
 
+	List<StatsOrgProductDaily> queryByYesterDay(String stampTimeToday);
+
 }
