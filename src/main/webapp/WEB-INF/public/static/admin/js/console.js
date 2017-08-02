@@ -1,109 +1,4 @@
 $(function() {
-    // 路径配置
-    require.config({
-        paths: {
-            echarts: 'http://echarts.baidu.com/build/dist'
-        }
-    });
-
-    // 图表数据
-    var name1,name2,name3,data1,data2,data3;
-    $.ajax({
-        "url": "/admin/overview/moneyProfile",
-        "data":{"types": [0,-1,-7]},
-        async:false,
-        "type": "GET",
-        "cache": false,
-        "success": function (result) {
-           var name=[],data=[];
-            for(var k in result){
-                name.push(k);
-                data.push(result[k]);
-            }
-            name1=name[0];
-            name2=name[1];
-            name3=name[2];
-            data1=data[0];
-            data2=data[1];
-            data3=data[2];
-            console.log(name);
-            console.log(data);
-        }
-    });
-
-    // 使用
-    require(
-        [
-            'echarts',
-            'echarts/chart/line' // 使用柱状图就加载bar模块，按需加载
-        ],
-        function (ec) {
-            // 基于准备好的dom，初始化echarts图表
-            var myChart = ec.init(document.getElementById('line-chart'));
-
-            var option = {
-                title : {
-                    text: '平台数据概况',
-                    subtext: '纯属虚构'
-                },
-                tooltip : {
-                    trigger: 'axis'
-                },
-                legend: {
-                    data:['意向','预购','成交']
-                },
-                toolbox: {
-                    show : true,
-                    feature : {
-                        mark : {show: false},
-                        dataView : {show: false, readOnly: false},
-                        magicType : {show: false, type: ['line', 'bar', 'stack', 'tiled']},
-                        restore : {show: false},
-                        saveAsImage : {show: false}
-                    }
-                },
-                calculable : true,
-                xAxis : [
-                    {
-                        type : 'category',
-                        boundaryGap : false,
-                        data : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
-                    }
-                ],
-                yAxis : [
-                    {
-                        type : 'value'
-                    }
-                ],
-                series : [
-                    {
-                        name:'成交',
-                        type:'line',
-                        smooth:true,
-                        itemStyle: {normal: {areaStyle: {type: 'default'}}},
-                        data:[10, 12, 21, 54, 260, 830, 710]
-                    },
-                    {
-                        name:'前一日',
-                        type:'line',
-                        smooth:true,
-                        itemStyle: {normal: {areaStyle: {type: 'default'}}},
-                        data:[30, 182, 434, 791, 390, 30, 10]
-                    },
-                    {
-                        name:'上周同期',
-                        type:'line',
-                        smooth:true,
-                        itemStyle: {normal: {areaStyle: {type: 'default'}}},
-                        data:[1320, 1132, 601, 234, 120, 90, 20]
-                    }
-                ]
-            };
-
-            // 为echarts对象加载数据
-            myChart.setOption(option);
-        }
-    );
 
     var proportion = parseInt(clientWidth / 1920 * 100) / 100;
     // 复选框
@@ -126,10 +21,7 @@ $(function() {
     // 饼图的颜色
     var pieColors = ['#1a97f4','#b1d0e1','#10e2cc'];
     // 获取的饼图数据
-    var getPieData = [{
-        name: '场景服务3',
-        value: 333
-    }];
+    var getPieData;
     $.ajax({
         "url": "/admin/overview/round",
         async:false,
