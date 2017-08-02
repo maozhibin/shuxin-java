@@ -37,27 +37,10 @@ $(function() {
         }
     });
     $("#lastDay").change(function () {
-        $.ajax({
-            "url": "/admin/overview/moneyProfile",
-            "data":{"types": [0,-1]},
-            // "dataType": "json",
-            async:false,
-            "type": "GET",
-            "cache": false,
-            "success": function (result) {
-                getData="[";
-                console.log("getData:  "+getData);
-                for(var k in result){
-                    getData+="{'name':'"+k+"','data':["+result[k]+"]}";
-                }
-                getData+="]";
-                console.log(JSON.parse(getData));
-                getData=eval('(' + getData + ')');
-            }
-        });
+        window.location.href="platform1.jsp"
     });
     $("#lastWeek").change(function () {
-       window.location.href=""
+       window.location.href="platform7.jsp"
     });
     // 折线图折线的颜色
     var colors = ['#1a97f4', '#97968F'];
