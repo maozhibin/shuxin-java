@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="/static/admin/css/console.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>">
     <style>
     html,body{
-        background: url(../images/bj.png);
+        background: url('/static/admin/images/bj.png');
     }
     </style>
     <script>
