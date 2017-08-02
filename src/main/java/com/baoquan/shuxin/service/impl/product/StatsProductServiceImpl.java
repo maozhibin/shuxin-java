@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.baoquan.shuxin.dao.product.StatsProductDao;
+import com.baoquan.shuxin.model.stats.StatsProduct;
 import com.baoquan.shuxin.service.spi.product.StatsProductService;
 @Named
 public class StatsProductServiceImpl implements StatsProductService{
@@ -26,6 +27,11 @@ public class StatsProductServiceImpl implements StatsProductService{
 	@Override
 	public Long productListCount(Map<String, Object> map) {
 		return statsProductDao.productListCount(map);
+	}
+
+	@Override
+	public List<StatsProduct> queryAllStatsProduct() {
+		return statsProductDao.queryAllStatsProduct();
 	}
 
 }
