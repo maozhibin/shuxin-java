@@ -26,5 +26,4 @@ public interface StatsOrgDao{
 	void insertOrgList(List<StatsOrg> insertOrgList);
 
 	void updateOrgList(List<StatsOrg> updateOrgList);
-
 }

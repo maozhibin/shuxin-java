@@ -51,24 +51,22 @@ public class StatsProductTask {
 		Long productDailyProductId = null;
 		Long statsProductId = null;
 
-		if (!CollectionUtils.isEmpty(listStatsProductDaily)) {
-			// 查询需要更新的
-			for(int i=0;i<listStatsProductDaily.size();i++){
-				StatsProductDaily statsProductDaily = listStatsProductDaily.get(i);
-				productDailyProductId = statsProductDaily.getProductId();
-				for (StatsProduct statsProduct : statsProductList) {
-					statsProductId = statsProduct.getProductId();
-					if (productDailyProductId.equals(statsProductId)) {
-						updateList.add(statsProductDaily);
-						listStatsProductDaily.remove(i);
-						i--;
-					}
+		// 查询需要更新的
+		for (int i = 0; i < listStatsProductDaily.size(); i++) {
+			StatsProductDaily statsProductDaily = listStatsProductDaily.get(i);
+			productDailyProductId = statsProductDaily.getProductId();
+			for (StatsProduct statsProduct : statsProductList) {
+				statsProductId = statsProduct.getProductId();
+				if (productDailyProductId.equals(statsProductId)) {
+					updateList.add(statsProductDaily);
+					listStatsProductDaily.remove(i);
+					i--;
 				}
 			}
-			// 查询需要添加的
-			for (StatsProductDaily statsProductDailyOld : listStatsProductDaily) {
-				insertList.add(statsProductDailyOld);
-			}
+		}
+		// 查询需要添加的
+		for (StatsProductDaily statsProductDailyOld : listStatsProductDaily) {
+			insertList.add(statsProductDailyOld);
 		}
 
 		List<StatsProduct> insertStatsProductList = new ArrayList<>();
@@ -91,10 +89,10 @@ public class StatsProductTask {
 			insertStatsProductList.add(statsProduct);
 		}
 		// 插入
-		if(!CollectionUtils.isEmpty(insertStatsProductList)){
+		if (!CollectionUtils.isEmpty(insertStatsProductList)) {
 			statsProductService.insertStatsProductList(insertStatsProductList);
 		}
-		if(!CollectionUtils.isEmpty(updateStatsProductList)){
+		if (!CollectionUtils.isEmpty(updateStatsProductList)) {
 			// 更新
 			statsProductService.updateStatsProductList(updateStatsProductList);
 		}

@@ -79,5 +79,4 @@
 			where org_id = #{item.orgId,jdbcType=BIGINT}
 		</foreach>
 	</update>
-
 </mapper>

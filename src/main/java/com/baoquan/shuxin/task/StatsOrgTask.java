@@ -16,8 +16,6 @@ import org.springframework.stereotype.Component;
 
 import com.baoquan.shuxin.model.stats.StatsOrg;
 import com.baoquan.shuxin.model.stats.StatsOrgDaily;
-import com.baoquan.shuxin.model.stats.StatsProduct;
-import com.baoquan.shuxin.model.stats.StatsProductDaily;
 import com.baoquan.shuxin.service.spi.stats.StatsOrgDailyService;
 import com.baoquan.shuxin.service.spi.stats.StatsOrgService;
 import com.baoquan.shuxin.util.common.DateUtil;
