@@ -195,14 +195,14 @@
 	
 	<select id="findCountByFinishTime" resultType="java.util.Map" parameterType="string" >
 		SELECT
-			FROM_UNIXTIME(finish_time, '%h') AS timeValue,
+			FROM_UNIXTIME(finish_time, '%H') AS timeValue,
 			sum(amount) count
 		FROM
 			user_money_log
 		WHERE
 			FROM_UNIXTIME(finish_time, '%Y-%m-%d ') = #{stampToDateY}
 		GROUP BY
-			FROM_UNIXTIME(finish_time, '%h')
+			FROM_UNIXTIME(finish_time, '%H')
 	</select>
 	
 	<select id="findSumAmountByTime" resultType="java.lang.Integer">

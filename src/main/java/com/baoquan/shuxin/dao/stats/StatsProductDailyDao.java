@@ -1,6 +1,7 @@
 package com.baoquan.shuxin.dao.stats;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
@@ -12,5 +13,9 @@ public interface StatsProductDailyDao {
 	void insertListStatsProductDaily(List<StatsProductDaily> maps);
 
 	List<StatsProductDaily> queryByTime(String stampTimeToday);
+
+	List<Map<String, Object>> findByTimeYesterday(String stampTimeToday);
+
+
     
 }

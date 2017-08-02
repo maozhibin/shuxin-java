@@ -1,6 +1,7 @@
 package com.baoquan.shuxin.service.impl.stats;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -22,4 +23,10 @@ public class StatsProductDailyServiceImpl implements StatsProductDailyService{
 	public List<StatsProductDaily> queryByTime(String stampTimeToday) {
 		return statsProductDailyDao.queryByTime(stampTimeToday);
 	}
+
+	@Override
+	public List<Map<String, Object>> findByTimeYesterday(String stampTimeToday) {
+		return statsProductDailyDao.findByTimeYesterday(stampTimeToday);
+	}
+
 }

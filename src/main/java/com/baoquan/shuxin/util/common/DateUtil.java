@@ -41,21 +41,22 @@ public class DateUtil {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(dateToStampYY("2017-8-1 00:00:00")/1000);
-		System.out.println(dateToStampYY("2017-8-1 01:00:00")/1000);
-		System.out.println(dateToStampYY("2017-8-1 03:00:00")/1000);
-		System.out.println(dateToStampYY("2017-8-1 08:00:00")/1000);
-		System.out.println(dateToStampYY("2017-8-1 09:00:00")/1000);
-		System.out.println(dateToStampYY("2017-8-1 10:00:00")/1000);
-		System.out.println(dateToStampYY("2017-8-1 11:00:00")/1000);
-		System.out.println(dateToStampYY("2017-8-1 15:00:00")/1000);
-		System.out.println(dateToStampYY("2017-8-1 16:00:00")/1000);
-		System.out.println(dateToStampYY("2017-8-1 18:00:00")/1000);
-		System.out.println(dateToStampYY("2017-8-1 19:00:00")/1000);
-		System.out.println(dateToStampYY("2017-8-1 20:00:00")/1000);
-		System.out.println(dateToStampYY("2017-8-1 21:00:00")/1000);
-		System.out.println(dateToStampYY("2017-8-1 22:00:00")/1000);
+		
+		System.out.println(dateToStampYY("2017-08-02 05:00:00"));
+		System.out.println(dateToStampYY("2017-08-02 18:00:00"));
+		System.out.println(dateToStampYY("2017-08-02 20:00:00"));
+		System.out.println(dateToStampYY("2017-08-02 22:00:00"));
+		System.out.println(dateToStampYY("2017-08-02 23:00:00"));
+		System.out.println(stampToDate("1501686000000"));
 	}
+	
+//	1501660800000
+//	1501668000000
+//	1501675200000
+//	1501682400000
+//	1501686000000
+//	2017-08-02 22:00:00
+
 	
 	/**
 	 * 将时间戳转换为时间yyyy-MM-dd HH:mm:ss
