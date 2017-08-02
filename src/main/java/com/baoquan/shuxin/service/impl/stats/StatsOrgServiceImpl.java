@@ -14,6 +14,7 @@ import com.baoquan.shuxin.constatn.OrgConstatnt;
 import com.baoquan.shuxin.dao.stats.StatsOrgDao;
 import com.baoquan.shuxin.dao.stats.StatsOrgProductDao;
 import com.baoquan.shuxin.dao.user.UserDao;
+import com.baoquan.shuxin.model.stats.StatsOrg;
 import com.baoquan.shuxin.model.user.User;
 import com.baoquan.shuxin.service.spi.stats.StatsOrgService;
 
@@ -112,4 +113,11 @@ public class StatsOrgServiceImpl implements StatsOrgService{
 	public Long orgCount() {
 		return statsOrgDao.orgCount();
 	}
+
+	@Override
+	public List<StatsOrg> queryAllStatsOrg() {
+		return statsOrgDao.queryAllStatsOrg();
+	}
+
+
 }

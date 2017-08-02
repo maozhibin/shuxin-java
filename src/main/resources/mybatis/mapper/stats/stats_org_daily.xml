@@ -10,5 +10,26 @@
     <result column="stats_date" property="statsDate" jdbcType="DATE" />
     <result column="dateline" property="dateline" jdbcType="BIGINT" />
   </resultMap>
-  
+
+  <insert id="insert" useGeneratedKeys="true" parameterType="java.util.List">
+    <selectKey resultType="long" keyProperty="id" order="AFTER">
+      SELECT
+      LAST_INSERT_ID()
+    </selectKey>
+    insert into stats_org_daily (org_id,total_amount,order_num,receipt_num,stats_date,`dateline`)
+    values
+    <foreach collection="list" item="item" index="index" separator="," >
+      (#{item.orgId},#{item.totalAmount},#{item.orderNum},#{item.receiptNum},#{item.statsDate},#{item.dateline})
+    </foreach>
+  </insert>
+
+  <select id="queryByTime" resultMap="BaseResultMap">
+    SELECT
+    *
+    FROM
+    stats_org_dailysss
+    WHERE
+    stats_date = #{stampTimeToday}
+  </select>
+
 </mapper>
