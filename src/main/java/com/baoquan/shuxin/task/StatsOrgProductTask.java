@@ -31,7 +31,7 @@ public class StatsOrgProductTask {
 	 * 
 	 * @throws ParseException
 	 */
-	@Scheduled(cron = "0 15 1 * * *")
+	@Scheduled(cron = "0 20 1 * * *")
 	//@Scheduled(fixedDelay = 2000)
 	public void updateStatsOrgProduct() {
 		Date now = new Date();
