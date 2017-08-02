@@ -24,6 +24,11 @@
     <title>数信平台控制台</title>
     <link rel="stylesheet" href="/static/admin/fonts/iconfont.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>">
     <link rel="stylesheet" href="/static/admin/css/console.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>">
+    <style>
+    html,body{
+        background: url(../images/bj.png);
+    }
+    </style>
     <script>
         var clientWidth = null;
         var clientHeight = null;
