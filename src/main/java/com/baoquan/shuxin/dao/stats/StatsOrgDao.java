@@ -21,4 +21,10 @@ public interface StatsOrgDao{
 
 	List<StatsOrg> queryAllStatsOrg();
 
+	StatsOrg queryById(Long orgId);
+
+	void insertOrgList(List<StatsOrg> insertOrgList);
+
+	void updateOrgList(List<StatsOrg> updateOrgList);
+
 }

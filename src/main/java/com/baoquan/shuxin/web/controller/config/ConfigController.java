@@ -1,6 +1,8 @@
 package com.baoquan.shuxin.web.controller.config;
 
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.commons.lang.math.NumberUtils;
@@ -26,13 +28,19 @@ public class ConfigController {
 	 */
 	@RequestMapping("list")
 	public ModelAndView configList(Integer pageNo, Integer pageSize){
+		ModelAndView mv = new ModelAndView("admin/config/list");
 		if (pageNo == null || pageNo < 1) pageNo = 1;
 		if (pageSize == null || pageSize > Page.DEFAULT_PAGE_SIZE) pageSize = Page.DEFAULT_PAGE_SIZE;
-		ModelAndView mv = new ModelAndView("admin/config/list");
-		Page<Config> page = new Page<>();
-		page.setPageSize(pageSize);
+		Page page = new Page();
 		page.setPageNo(pageNo);
-		page=configService.configList(page);
+		page.setPageSize(pageSize);
+		Integer configCount = configService.countConfigInfo();
+		page.setTotalRecordCount(configCount);
+		if (configCount >(pageNo -1)* pageSize ){
+			List<Config>  configList = configService.queryConfigList((pageNo -1)*pageSize ,pageSize);
+			page.setResult(configList);
+		}
+
 		mv.addObject(page);
 		return mv;
 	}

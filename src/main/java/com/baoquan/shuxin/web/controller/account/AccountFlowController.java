@@ -112,6 +112,7 @@ public class AccountFlowController {
         mv.addObject("startTime", statTime != null ? statTime * 1000 : null);
         mv.addObject("endTime", endTime != null ? endTime * 1000 : null);
         mv.addObject("type", type);
+        mv.addObject("userId",userId);
         return mv;
     }
 
