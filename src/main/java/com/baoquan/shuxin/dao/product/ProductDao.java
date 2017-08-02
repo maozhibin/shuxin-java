@@ -27,4 +27,5 @@ public interface ProductDao {
 	Map<String, Object> productBaseInfo(Integer id);
 
     void updateProductStatus(Product product);
+
 }
