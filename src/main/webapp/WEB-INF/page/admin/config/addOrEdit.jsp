@@ -15,58 +15,6 @@
             padding: 10px;
         }
     </style>
-	<script type="text/javascript">
-		function myfunction(){//js表单验证方法
-			  document.getElementById("nameSpan").innerText = "";
-			  document.getElementById("valueSpan").innerText = "";
-			  var valueSpanValue=$("#valueName").val()
-			  var nameSpanValue=$("#varname").val()
-			   if(nameSpanValue.length<=0){//当上面获取的值为空时
-				   document.getElementById("nameSpan").innerText = "要求含有 变量名 字段。";
-			     return false;//返回false（不提交表单）
-			   }
-			   if(valueSpanValue.length<=0){//当上面获取的值为空时
-				   document.getElementById("valueSpan").innerText = "要求含有 变量值 字段。";
-			     return false;//返回false（不提交表单）
-			   }
-		
-          	  document.getElementById("formid").submit();
-		}
-		
-		
-		var userId= $('#userId').val();
-		$(document).ready(function(){
-			  $("#from_module_edit").submit(function(e){
-				  if(userId.length==0){//新增
-					  $.ajax({
-		                    url:'/admin/user/add',
-		                    data:$("#from_module_edit").serialize(),
-		                    success:function (data) {
-		                        if(data.code==1){
-		                            alert(data.msg);
-		                        }else{
-		                            window.location.href="/admin/user/list?typeId=ORG";
-		                        }
-		                    }
-		                });
-					}else{
-						$.ajax({
-			                  url:'/admin/user/update',
-			                  data:$("#from_module_edit").serialize(),
-			                  success:function (data) {
-			                      if(data.code==1){
-			                           alert(data.msg);
-			                      }else{
-			                            window.location.href="/admin/user/list?typeId=ORG";
-			                      }
-			                    }
-			             });
-					}
-				  return false;
-			  });
-			});
-		
-	</script>
 </head>
 <body>
 	<c:if test="${not empty config.id}">
@@ -76,8 +24,8 @@
 		<h4 class="header"><a onclick="javascript:;history.back()">参数配置</a> — 新增</h4>
 	</c:if>
 	
-    <form action ="updateOrAdd" id="formid">
-    	<input type="hidden" id="typeValue" value="${config.id}" name="id"/>
+    <form id="from_module_edit" method="post">
+    	<input type="hidden" id="typeValue" value="${config.id}" name="id" />
 		<div class="row">
      	   <div class="box-body">
 	            <div class="form-group">
@@ -143,5 +91,38 @@
    		 </div>		
 	</form>
 	
+<script type="text/javascript">
+		var configId= $('#typeValue').val();
+		$(document).ready(function(){
+			  $("#from_module_edit").submit(function(e){
+				  if(configId.length==0){//新增
+					  $.ajax({
+		                    url:'/admin/config/add',
+		                    data:$("#from_module_edit").serialize(),
+		                    success:function (data) {
+		                        if(data.code==1){
+		                            alert(data.msg);
+		                        }else{
+		                            window.location.href="/admin/config/list";
+		                        }
+		                    }
+		                });
+					}else{
+						$.ajax({
+			                  url:'/admin/config/update',
+			                  data:$("#from_module_edit").serialize(),
+			                  success:function (data) {
+			                      if(data.code==1){
+			                           alert(data.msg);
+			                      }else{
+			                            window.location.href="/admin/config/list";
+			                      }
+			                    }
+			             });
+					}
+				  return false;
+			});
+	});
+</script>
 </body>
 </html>

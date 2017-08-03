@@ -298,7 +298,8 @@
             </c:if>
         </c:forEach>
     </c:if>
-    <c:if test="${empty hashMap.productBaseInfo.id}">
+    
+     <c:if test="${empty hashMap.productBaseInfo.id}">
         <p class="f16 gray6 mb10">请求示例</p>
         <textarea rows="10" class="input-ctrl mb30" name="requestSample" id="request_sample"></textarea>
 
@@ -307,10 +308,8 @@
 
         <p class="f16 gray6 mb10">错误返回示例</p>
         <textarea rows="10" class="input-ctrl mb30" name="errorSample" id="error_sample"></textarea>
-    </c:if>
-
-
-
+     </c:if>
+    
     <p class="f16 gray6 mb10">错误码定义</p>
     <table class="mb50" id="codes">
         <thead>

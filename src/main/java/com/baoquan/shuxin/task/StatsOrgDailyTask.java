@@ -18,6 +18,7 @@ import com.baoquan.shuxin.model.stats.StatsOrgDaily;
 import com.baoquan.shuxin.service.spi.stats.PlatformOverviewService;
 import com.baoquan.shuxin.service.spi.stats.StatsOrgDailyService;
 import com.baoquan.shuxin.service.spi.stats.StatsOrgProductDailyService;
+import com.baoquan.shuxin.service.spi.stats.StatsProductDailyService;
 import com.baoquan.shuxin.util.common.DateUtil;
 
 /**
