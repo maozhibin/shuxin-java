@@ -32,6 +32,7 @@ public class StatsProductDailyTask {
 	 * @throws ParseException
 	 */
 	@Scheduled(cron = "0 0 1 * * *")
+	//@Scheduled(fixedDelay=2000)
 	public void updateStatsOrgDaily(){
 		Date now = new Date();
 		Date today = DateUtils.truncate(now, Calendar.DATE);

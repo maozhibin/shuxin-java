@@ -27,9 +27,6 @@ import com.baoquan.shuxin.util.common.DateUtil;
 @Component
 public class StatsOrgProductDailyTask {
 	private static final Logger LOGGER = LoggerFactory.getLogger(StatsOrgProductDailyTask.class);
-	
-	@Inject
-	private StatsProductDailyService statsProductDailyService;
 	@Inject
 	private StatsOrgProductDailyService statsOrgProductDailyService;
 	@Inject
