@@ -1,5 +1,107 @@
 $(function() {
     var proportion = parseInt(clientWidth / 1920 * 100) / 100;
+    /*lineChart*/
+    // 图表数据
+    var name1,name2,name3,data1,data2,data3;
+    $.ajax({
+        "url": "/admin/overview/moneyProfile",
+        "data":{"types": [0,-1,-7]},
+        async:false,
+        "type": "GET",
+        "cache": false,
+        "success": function (result) {
+            var name=[],data=[];
+            for(var k in result){
+                name.push(k);
+                data.push(result[k]);
+            }
+            name1=name[0];
+            name2=name[1];
+            name3=name[2];
+            data1=data[0];
+            data2=data[1];
+            data3=data[2];
+            // console.log(name1);
+            // console.log(name2);
+            // console.log(name3);
+            // console.log(data1);
+            // console.log(data2);
+            // console.log(data3);
+        }
+    });
+
+
+    // 基于准备好的dom，初始化echarts图表
+    var myChart = echarts.init(document.getElementById('line-chart'));
+
+    var option = {
+        title : {
+            text: '平台数据概况'
+        },
+        tooltip : {
+            trigger: 'axis'
+        },
+        axis : {
+            axisLine: {show: false}
+        },
+        legend: {
+            data:['今天','前一日','上周同期']
+        },
+        toolbox: {
+            show : false,
+            feature : {
+                mark : {show: true},
+                dataView : {show: true, readOnly: false},
+                magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                restore : {show: true},
+                saveAsImage : {show: true}
+            }
+        },
+        calculable : false,
+        xAxis : [
+            {
+                type : 'category',
+                boundaryGap : false,
+                splitLine:{show:false},
+                splitArea:{show:false},
+                data : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value',
+                splitLine:{show:false},
+                splitArea:{show:false}
+            }
+        ],
+        series : [
+            {
+                name:'今天',
+                type:'line',
+                smooth:true,
+                itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                data:data1
+            },
+            {
+                name:'前一日',
+                type:'line',
+                smooth:true,
+                itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                data:data2
+            },
+            {
+                name:'上周同期',
+                type:'line',
+                smooth:true,
+                itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                data:data3
+            }
+        ]
+    };
+
+    // 为echarts对象加载数据
+    myChart.setOption(option);
+    /* /lineChart */
     // 复选框
     $('.s-select').on('click', function() {
         if ($(this).is('.active')) {
@@ -14,11 +116,7 @@ $(function() {
             // myLineChart.setOption(lineOption);
         }
     });
-
-
     var canvas = document.querySelector('#bg-canvas');
-
-
     // 饼图
     // 饼图的颜色
     var pieColors = ['#1a97f4','#b1d0e1','#10e2cc'];
