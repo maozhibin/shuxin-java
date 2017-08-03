@@ -48,7 +48,7 @@
 <div id="canvas-box">
     <canvas id="bg-canvas"></canvas>
     <div id="mask"></div>
-    <div id="line-chart"></div>
+    <div id="line-chart" style="width:80%"></div>
     <div id="total">
         <div class="total-number"><span class="item-icon"></span>
        		<fmt:formatNumber type="number" value="${hashMap.moneyCount.todaytAmount /10000}" pattern="0.00" maxFractionDigits="2"/>
