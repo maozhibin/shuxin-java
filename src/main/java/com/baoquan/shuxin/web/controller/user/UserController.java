@@ -127,15 +127,13 @@ public class UserController {
 		if (!StringUtils.isEmpty(startTime)) {
 			startTimeValue = DateUtil.zero(startTime) / 1000;
 		} else {
-			startTimeValue = time;
 			startTime = DateUtil.stampToDateY(time.toString());
 		}
-
+		
 		Long endTimeValue = null;
 		if (!StringUtils.isEmpty(endTime)) {
 			endTimeValue = DateUtil.twelve(endTime) / 1000;
 		} else {
-			endTimeValue = time;
 			endTime = DateUtil.stampToDateY(time.toString());
 		}
 

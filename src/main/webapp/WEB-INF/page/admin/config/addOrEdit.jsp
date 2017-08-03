@@ -32,6 +32,40 @@
 		
           	  document.getElementById("formid").submit();
 		}
+		
+		
+		var userId= $('#userId').val();
+		$(document).ready(function(){
+			  $("#from_module_edit").submit(function(e){
+				  if(userId.length==0){//新增
+					  $.ajax({
+		                    url:'/admin/user/add',
+		                    data:$("#from_module_edit").serialize(),
+		                    success:function (data) {
+		                        if(data.code==1){
+		                            alert(data.msg);
+		                        }else{
+		                            window.location.href="/admin/user/list?typeId=ORG";
+		                        }
+		                    }
+		                });
+					}else{
+						$.ajax({
+			                  url:'/admin/user/update',
+			                  data:$("#from_module_edit").serialize(),
+			                  success:function (data) {
+			                      if(data.code==1){
+			                           alert(data.msg);
+			                      }else{
+			                            window.location.href="/admin/user/list?typeId=ORG";
+			                      }
+			                    }
+			             });
+					}
+				  return false;
+			  });
+			});
+		
 	</script>
 </head>
 <body>
@@ -104,7 +138,7 @@
 			             </c:if>
 	                </div>
 	            </div>
-	            	<input type="button" value="保存" class="btn btn-primary" onclick="myfunction()">
+	            	<button class="btn btn-primary"  type="submit" value="Submit">保存</button>
     	    </div>
    		 </div>		
 	</form>

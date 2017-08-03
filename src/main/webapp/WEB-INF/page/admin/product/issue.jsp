@@ -27,7 +27,7 @@
 
     <script src='/static/js/jquery.tagsinput.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
     <script src='/static/js/jquery.ajaxfileupload.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
-
+	<script src='/static/js/issue.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
     <script>
         $(function () {
             var product_class = $("#product_class");
@@ -103,14 +103,14 @@
 
 <div class="release-tabs" >
     <div class="tabs">
-        <a onclick=" " class="tab base active">基础设置</a>
+        <!--  <a onclick=" " class="tab base active">基础设置</a>
         <a onclick=" " class="tab api">接口设置</a>
         <a onclick=" " class="tab desc">产品描述</a>
-        <a onclick=" " class="tab price">计费设置</a>
-        <%--<a onclick="goto('base')" class="tab base active">基础设置</a>
+        <a onclick=" " class="tab price">计费设置</a>-->
+        <a onclick="goto('base')" class="tab base active">基础设置</a>
         <a onclick="goto('api')" class="tab api">接口设置</a>
         <a onclick="goto('desc')" class="tab desc">产品描述</a>
-        <a onclick="goto('price')" class="tab price">计费设置</a>--%>
+        <a onclick="goto('price')" class="tab price">计费设置</a>
      </div>
      	<input type="hidden" class="input-ctrl" name="productId" id="productId" value="${hashMap.productBaseInfo.id}">
      	<input type="hidden" class="input-ctrl" name="areaId" id="areaId" value="${hashMap.productBaseInfo.areaId}">

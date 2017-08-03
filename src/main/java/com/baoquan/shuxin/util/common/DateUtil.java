@@ -5,6 +5,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateUtils;
 
 public class DateUtil {
@@ -41,7 +43,6 @@ public class DateUtil {
 	}
 	
 	public static void main(String[] args) {
-		
 		System.out.println(dateToStampYY("2017-07-27 05:00:00"));
 		System.out.println(dateToStampYY("2017-07-27 18:00:00"));
 		System.out.println(dateToStampYY("2017-07-27 20:00:00"));
