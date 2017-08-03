@@ -31,7 +31,7 @@
 			stats_date = #{stampTimeToday}
    </select>
 
-    <select id="countOrgTask" resultMap="java.util.Map">
+    <select id="countOrgTask" resultType="java.util.Map">
         SELECT
          p.user_id orgId,
          SUM(s.total_amount) totalAmount,
