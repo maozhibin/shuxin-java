@@ -16,6 +16,15 @@
 			config
 		where is_valid = 1
   </select>
+  
+  <select id="queryByVarname" resultMap="BaseResultMap">
+  		SELECT
+			*
+		FROM
+			config
+		where  varname=#{varname}
+			and is_valid = 1
+  </select>
 
    <select id="configList" resultMap="BaseResultMap">
   		SELECT
@@ -28,10 +37,20 @@
 	    </if>
   </select>
 
-
-
   <update id="updateConfig" parameterType="Config" >
-        update config set varname=#{varname},value=#{value},memo=#{memo} where id=#{id}
+        update config 
+        	<set>
+        		<if test="varname!=null">
+        		varname=#{varname},
+        		</if>
+        		<if test="value">
+        		value=#{value},
+        		</if>
+        		<if test="varname!=null">
+        		memo=#{memo}
+        		</if>
+        	</set>
+        where id=#{id}
   </update>
   
 	<insert id="insertConfig" parameterType="Config" 

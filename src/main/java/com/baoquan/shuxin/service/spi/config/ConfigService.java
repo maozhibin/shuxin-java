@@ -24,4 +24,7 @@ public interface ConfigService {
 
 
 	List<Config> queryConfigList(Integer start, Integer length);
+
+
+	boolean queryByVarname(String varname);
 }

@@ -23,4 +23,6 @@ public interface ConfigDao {
 	void deleteConfig(Config config);
 
 	Integer countConfigInfo();
+
+	Config queryByVarname(String varname);
 }

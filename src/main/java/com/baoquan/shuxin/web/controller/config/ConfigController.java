@@ -1,6 +1,5 @@
 package com.baoquan.shuxin.web.controller.config;
 
-
 import java.util.List;
 
 import javax.inject.Inject;
@@ -22,80 +21,112 @@ import com.baoquan.shuxin.util.JsonResponseMsg;
 public class ConfigController {
 	@Inject
 	private ConfigService configService;
-	
+
 	/**
 	 * 配置参数列表
 	 */
 	@RequestMapping("list")
-	public ModelAndView configList(Integer pageNo, Integer pageSize){
+	public ModelAndView configList(Integer pageNo, Integer pageSize) {
 		ModelAndView mv = new ModelAndView("admin/config/list");
-		if (pageNo == null || pageNo < 1) pageNo = 1;
-		if (pageSize == null || pageSize > Page.DEFAULT_PAGE_SIZE) pageSize = Page.DEFAULT_PAGE_SIZE;
+		if (pageNo == null || pageNo < 1)
+			pageNo = 1;
+		if (pageSize == null || pageSize > Page.DEFAULT_PAGE_SIZE)
+			pageSize = Page.DEFAULT_PAGE_SIZE;
 		Page page = new Page();
 		page.setPageNo(pageNo);
 		page.setPageSize(pageSize);
 		Integer configCount = configService.countConfigInfo();
 		page.setTotalRecordCount(configCount);
-		if (configCount >(pageNo -1)* pageSize ){
-			List<Config>  configList = configService.queryConfigList((pageNo -1)*pageSize ,pageSize);
+		if (configCount > (pageNo - 1) * pageSize) {
+			List<Config> configList = configService.queryConfigList((pageNo - 1) * pageSize, pageSize);
 			page.setResult(configList);
 		}
 
 		mv.addObject(page);
 		return mv;
 	}
-	
+
 	/**
-	 * 配置参数修改或者添加
+	 * 配置参数修改
 	 */
-	@RequestMapping("updateOrAdd")
-	public String updateOrAdd(String id,String varname,String valueName,String memo){
-		if(StringUtils.isEmpty(varname)){
-			return null;
+	@RequestMapping("update")
+	@ResponseBody
+	public JsonResponseMsg updateConfig(String id, String varname, String valueName, String memo) {
+		JsonResponseMsg result = new JsonResponseMsg();
+		if (StringUtils.isEmpty(varname)) {
+			return result.fill(JsonResponseMsg.CODE_FAIL, "请填写变量名");
 		}
-		if(StringUtils.isEmpty(valueName)){
-			return null;
+		if (StringUtils.isEmpty(valueName)) {
+			return result.fill(JsonResponseMsg.CODE_FAIL, "请填写变量值");
+		}
+		
+		Config configOld = configService.findByIdConfig(NumberUtils.toInt(id));
+		Config config = new Config();
+		if(!configOld.getVarname().equals(varname)){
+			config.setMemo(memo);
+			boolean queryByVarname = configService.queryByVarname(varname);
+			if(!queryByVarname){
+				return result.fill(JsonResponseMsg.CODE_FAIL, "你的变量名已经存在请重新命名");
+			}
+		}
+		config.setVarname(varname);
+		config.setValue(valueName);
+		configService.updateConfig(config);
+		return result.fill(JsonResponseMsg.CODE_SUCCESS, "修改成功");
+	}
+
+	/**
+	 * 配置参数添加
+	 */
+	@RequestMapping("add")
+	@ResponseBody
+	public JsonResponseMsg addConfig( String varname, String valueName, String memo) {
+		JsonResponseMsg result = new JsonResponseMsg();
+		if (StringUtils.isEmpty(varname)) {
+			return result.fill(JsonResponseMsg.CODE_FAIL, "请填写变量名");
+		}
+		if (StringUtils.isEmpty(valueName)) {
+			return result.fill(JsonResponseMsg.CODE_FAIL, "请填写变量值");
+		}
+		boolean queryByVarname = configService.queryByVarname(varname);
+		if(!queryByVarname){
+			return result.fill(JsonResponseMsg.CODE_FAIL, "你的变量名已经存在请重新命名");
 		}
 		Config config = new Config();
 		config.setMemo(memo);
 		config.setVarname(varname);
 		config.setValue(valueName);
-		if(NumberUtils.isNumber(id)){
-			config.setId(NumberUtils.toInt(id));
-			configService.updateConfig(config);
-		}else{
-			configService.insertConfig(config);
-		}
-		return "redirect:list";
+		configService.insertConfig(config);
+		return result.fill(JsonResponseMsg.CODE_SUCCESS, "修改成功");
 	}
-	
+
 	/**
 	 * 跳转到编辑页面或者新增页面
 	 */
 	@RequestMapping("skip")
-	public ModelAndView page(String id){
+	public ModelAndView page(String id) {
 		ModelAndView mv = new ModelAndView("admin/config/addOrEdit");
-		if(NumberUtils.isNumber(id)){
-			Config config =configService.findByIdConfig(NumberUtils.toInt(id));
+		if (NumberUtils.isNumber(id)) {
+			Config config = configService.findByIdConfig(NumberUtils.toInt(id));
 			mv.addObject(config);
 		}
 		return mv;
 	}
-	
+
 	/**
 	 * 删除配置
 	 */
 	@RequestMapping("delete")
-	public String delete(String id){
-		if(!NumberUtils.isNumber(id)){
+	public String delete(String id) {
+		if (!NumberUtils.isNumber(id)) {
 			return null;
 		}
 		Config config = configService.findByIdConfig(NumberUtils.toInt(id));
-		if(config==null){
+		if (config == null) {
 			return null;
 		}
 		config.setIsValid(false);
 		configService.deleteConfig(config);
 		return "redirect:list";
-	} 
+	}
 }

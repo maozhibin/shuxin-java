@@ -62,5 +62,14 @@ public class ConfigServiceImpl implements ConfigService{
 		return configDao.configList(parms);
 	}
 
+	@Override
+	public boolean queryByVarname(String varname) {
+		Config config=configDao.queryByVarname(varname);
+		if(config!=null){
+			return false;
+		}
+		return true;
+	}
+
 
 }
