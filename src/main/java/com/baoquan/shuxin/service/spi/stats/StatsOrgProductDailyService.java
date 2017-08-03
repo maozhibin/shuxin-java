@@ -12,6 +12,5 @@ public interface StatsOrgProductDailyService {
 
 	List<StatsOrgProductDaily> queryByYesterDay(String stampTimeYesterday);
 
-	List<Map<String, Object>> findByTimeOrgTask(String stampTimeToday);
 
 }

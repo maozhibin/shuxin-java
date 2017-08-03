@@ -42,12 +42,7 @@ public class DateUtil {
 	
 	public static void main(String[] args) {
 		
-		System.out.println(dateToStampYY("2017-08-02 05:00:00"));
-		System.out.println(dateToStampYY("2017-08-02 18:00:00"));
-		System.out.println(dateToStampYY("2017-08-02 20:00:00"));
-		System.out.println(dateToStampYY("2017-08-02 22:00:00"));
-		System.out.println(dateToStampYY("2017-08-02 23:00:00"));
-		System.out.println(stampToDate("1501578498000"));
+		System.out.println(stampToDate("1501603200000"));
 	}
 	
 	/**

@@ -17,6 +17,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.baoquan.shuxin.model.stats.StatsOrgDaily;
+import com.baoquan.shuxin.service.spi.stats.PlatformOverviewService;
 import com.baoquan.shuxin.service.spi.stats.StatsOrgDailyService;
 import com.baoquan.shuxin.service.spi.stats.StatsOrgProductDailyService;
 import com.baoquan.shuxin.service.spi.stats.StatsProductDailyService;
@@ -31,17 +32,17 @@ import com.baoquan.shuxin.util.common.DateUtil;
 @Component
 public class StatsOrgDailyTask {
 
-
     @Inject
     private StatsOrgDailyService statsOrgDailyService;
 
     @Inject
-    private StatsOrgProductDailyService statsOrgProductDailyService;
+    private StatsProductDailyService statsProductDailyService;
+
+    @Inject
+    private PlatformOverviewService platformOverviewService;
     /**
      *  凌晨1点25执行添加
      */
-
-    //@Scheduled(cron = "0/5 * *  * * ? ")
     @Scheduled(cron = "0 0 1 * * *")
     public void insert(){
         Date now = new Date();
@@ -49,17 +50,25 @@ public class StatsOrgDailyTask {
         Date Yesterday = DateUtils.addDays(today, -1);
         Long timeYesterday = DateUtils.addDays(today, -1).getTime();//昨天
         String stampTimeToday= DateUtil.stampToDateY(timeYesterday.toString());
-        List<Map<String, Object>> listuserProduct = statsOrgProductDailyService.findByTimeOrgTask(stampTimeToday);
+        List<Map<String, Object>> listuserProduct = statsProductDailyService.countOrgTask(stampTimeToday);
+
 
         if(CollectionUtils.isEmpty(listuserProduct)){
             return;
         }
+
         List<StatsOrgDaily> maps = new ArrayList<>();
         for (Map<String, Object> map : listuserProduct) {
             StatsOrgDaily statsOrgDaily = new StatsOrgDaily();
+            Long countReceiptNum = platformOverviewService.queryOrgByTime(timeYesterday);
             Long orgId = MapUtils.getLong(map, "orgId");
-
+            Long orderNum = MapUtils.getLong(map, "orderNum");
+            if (orgId ==null){
+                break;
+            }
             statsOrgDaily.setOrgId(orgId);
+            statsOrgDaily.setOrderNum(orderNum);
+            statsOrgDaily.setReceiptNum(countReceiptNum);
             statsOrgDaily.setStatsDate(Yesterday);
             statsOrgDaily.setDateline(now.getTime());
             maps.add(statsOrgDaily);
