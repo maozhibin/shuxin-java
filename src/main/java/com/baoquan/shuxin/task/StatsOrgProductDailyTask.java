@@ -21,6 +21,7 @@ import org.springframework.stereotype.Component;
 import com.baoquan.shuxin.model.stats.StatsOrgProductDaily;
 import com.baoquan.shuxin.service.spi.stats.StatsOrgProductDailyService;
 import com.baoquan.shuxin.service.spi.stats.StatsProductDailyService;
+import com.baoquan.shuxin.service.spi.user.UserProductService;
 import com.baoquan.shuxin.util.common.DateUtil;
 
 @Component
@@ -31,6 +32,8 @@ public class StatsOrgProductDailyTask {
 	private StatsProductDailyService statsProductDailyService;
 	@Inject
 	private StatsOrgProductDailyService statsOrgProductDailyService;
+	@Inject
+	private UserProductService userProductService;
 	/**
 	 * 每天凌晨1点15分执行
 	 * 
@@ -42,26 +45,23 @@ public class StatsOrgProductDailyTask {
 		Date now = new Date();
 		Date today = DateUtils.truncate(now, Calendar.DATE);
 		Long timeYesterday = DateUtils.addDays(today, -1).getTime();// 昨天
-		String stampTimeToday = DateUtil.stampToDateY(timeYesterday.toString());
-		
-		List<Map<String, Object>> StatsProductDailyList = statsProductDailyService.findByTimeYesterday(stampTimeToday);
-		if(CollectionUtils.isEmpty(StatsProductDailyList)){
+		String stampTimeYesterday = DateUtil.stampToDateY(timeYesterday.toString());
+		List<Map<String, Object>> userProductList = userProductService.findByTimeYesterday(stampTimeYesterday);
+		if(CollectionUtils.isEmpty(userProductList)){
 			return;
 		}
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");//小写的mm表示的是分钟  
 		List<StatsOrgProductDaily> list = new ArrayList<>();
-		for (Map<String, Object> map : StatsProductDailyList) {
+		for (Map<String, Object> map : userProductList) {
 			Long productId = MapUtils.getLong(map, "productId");
 			Long orgId = MapUtils.getLong(map, "userId");
-			Integer purchaseNum = MapUtils.getInteger(map, "purchaseNum");
-			String statsDate = MapUtils.getString(map, "statsDate");
-			
+			Integer purchaseNum = MapUtils.getInteger(map, "count");
 			StatsOrgProductDaily orgProductDaily = new StatsOrgProductDaily();
 			orgProductDaily.setOrgId(orgId);
 			orgProductDaily.setProductId(productId);
 			orgProductDaily.setPurchaseNum(purchaseNum);
 			try {
-				Date date = sdf.parse(statsDate);
+				Date date = sdf.parse(stampTimeYesterday);
 				orgProductDaily.setStatsDate(date);
 			} catch (ParseException e) {
 				LOGGER.error("时间格式化错误");

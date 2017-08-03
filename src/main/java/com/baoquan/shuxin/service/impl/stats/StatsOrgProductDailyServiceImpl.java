@@ -20,7 +20,7 @@ public class StatsOrgProductDailyServiceImpl implements StatsOrgProductDailyServ
 	}
 
 	@Override
-	public List<StatsOrgProductDaily> queryByYesterDay(String stampTimeToday) {
-		return statsOrgProductDailyDao.queryByYesterDay(stampTimeToday);
+	public List<StatsOrgProductDaily> queryByYesterDay(String stampTimeYesterday) {
+		return statsOrgProductDailyDao.queryByYesterDay(stampTimeYesterday);
 	}
 }

@@ -23,10 +23,4 @@ public class StatsProductDailyServiceImpl implements StatsProductDailyService{
 	public List<StatsProductDaily> queryByTime(String stampTimeToday) {
 		return statsProductDailyDao.queryByTime(stampTimeToday);
 	}
-
-	@Override
-	public List<Map<String, Object>> findByTimeYesterday(String stampTimeToday) {
-		return statsProductDailyDao.findByTimeYesterday(stampTimeToday);
-	}
-
 }

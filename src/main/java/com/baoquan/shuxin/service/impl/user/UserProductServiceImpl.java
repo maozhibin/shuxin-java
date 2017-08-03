@@ -17,4 +17,9 @@ public class UserProductServiceImpl implements UserProductService{
 	public List<Map<String, Object>> queryByBuyTime(String stampTimeToday) {
 		return userProductDao.queryByBuyTime(stampTimeToday);
 	}
+
+	@Override
+	public List<Map<String, Object>> findByTimeYesterday(String stampTimeYesterday) {
+		return userProductDao.findByTimeYesterday(stampTimeYesterday);
+	}
 }

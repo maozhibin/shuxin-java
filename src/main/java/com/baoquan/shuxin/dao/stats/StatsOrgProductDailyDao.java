@@ -12,7 +12,7 @@ public interface StatsOrgProductDailyDao {
 
 	void insertList(List<StatsOrgProductDaily> list);
 
-	List<StatsOrgProductDaily> queryByYesterDay(String stampTimeToday);
+	List<StatsOrgProductDaily> queryByYesterDay(String stampTimeYesterDay);
 
     
 }

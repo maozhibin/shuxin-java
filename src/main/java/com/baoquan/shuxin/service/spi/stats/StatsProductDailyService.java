@@ -10,8 +10,4 @@ public interface StatsProductDailyService {
 	void insertListStatsProductDaily(List<StatsProductDaily> maps);
 
 	List<StatsProductDaily> queryByTime(String stampTimeToday);
-
-	List<Map<String, Object>> findByTimeYesterday(String stampTimeToday);
-
-
 }

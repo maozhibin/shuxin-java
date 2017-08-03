@@ -18,4 +18,6 @@ public interface UserProductDao {
             @Param("status") int status);
 
 	List<Map<String, Object>> queryByBuyTime(String stampTimeToday);
+
+	List<Map<String, Object>> findByTimeYesterday(String stampTimeYesterday);
 }

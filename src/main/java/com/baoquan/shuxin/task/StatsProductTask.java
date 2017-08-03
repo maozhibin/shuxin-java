@@ -33,14 +33,16 @@ public class StatsProductTask {
 	 * @throws ParseException
 	 */
 	@Scheduled(cron = "0 10 1 * * *")
+	//@Scheduled(fixedDelay=2000)
 	public void updateStatsProduct() {
 		Date now = new Date();
 		Date today = DateUtils.truncate(now, Calendar.DATE);
+		Long timeToday = DateUtils.addDays(today, 0).getTime();//今天
 		Long timeYesterday = DateUtils.addDays(today, -1).getTime();// 昨天
-		String stampTimeToday = DateUtil.stampToDateY(timeYesterday.toString());
-
+		String stampTimeYesterday = DateUtil.stampToDateY(timeYesterday.toString());
+		String stampTimeToday = DateUtil.stampToDateY(timeToday.toString());
 		List<StatsProduct> statsProductList = statsProductService.queryAllStatsProduct();
-		List<StatsProductDaily> listStatsProductDaily = statsProductDailyService.queryByTime(stampTimeToday);
+		List<StatsProductDaily> listStatsProductDaily = statsProductDailyService.queryByTime(stampTimeYesterday);
 		if (CollectionUtils.isEmpty(listStatsProductDaily)) {
 			return;
 		}
@@ -73,6 +75,12 @@ public class StatsProductTask {
 		List<StatsProduct> updateStatsProductList = new ArrayList<>();
 		for (StatsProductDaily statsProductDaily : updateList) {
 			StatsProduct statsProduct = statsProductService.queryProductId(statsProductDaily.getProductId());
+			//判断今天是否执行过,执行过就不让在执行
+			Long dateline = statsProduct.getDateline();
+			String stampToDateY = DateUtil.stampToDateY(dateline.toString());
+			if(stampToDateY.equals(stampTimeToday)){
+				return;
+			}
 			Long orderNum = statsProduct.getOrderNum() + statsProductDaily.getOrderNum();
 			Long purchaseNum = statsProduct.getPurchaseNum() + statsProductDaily.getPurchaseNum();
 			BigDecimal totalAmount = statsProduct.getTotalAmount().add(statsProductDaily.getTotalAmount());

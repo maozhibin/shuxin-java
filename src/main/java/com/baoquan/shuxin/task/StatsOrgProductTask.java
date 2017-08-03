@@ -36,11 +36,13 @@ public class StatsOrgProductTask {
 	public void updateStatsOrgProduct() {
 		Date now = new Date();
 		Date today = DateUtils.truncate(now, Calendar.DATE);
+		Long timeToday = DateUtils.addDays(today, 0).getTime();//今天
 		Long timeYesterday = DateUtils.addDays(today, -1).getTime();// 昨天
-		String stampTimeToday = DateUtil.stampToDateY(timeYesterday.toString());
+		String stampTimeYesterday = DateUtil.stampToDateY(timeYesterday.toString());
+		String stampTimeToday = DateUtil.stampToDateY(timeToday.toString());
 
 		List<StatsOrgProduct> StatsOrgProductList = statsOrgProductService.queryAllOrgProduct();
-		List<StatsOrgProductDaily> OrgProductDailyList = statsOrgProductDailyService.queryByYesterDay(stampTimeToday);
+		List<StatsOrgProductDaily> OrgProductDailyList = statsOrgProductDailyService.queryByYesterDay(stampTimeYesterday);
 		if (CollectionUtils.isEmpty(OrgProductDailyList)) {
 			return;
 		}
@@ -72,6 +74,13 @@ public class StatsOrgProductTask {
 
 		for (StatsOrgProductDaily statsOrgProductDaily : updateList) {// 更新
 			Long statsOrgProductProductId = statsOrgProductDaily.getProductId();
+			//判断今天是否执行过,执行过就不让在执行
+			Long dateline = statsOrgProductDaily.getDateline();
+			String stampToDateY = DateUtil.stampToDateY(dateline.toString());
+			if(stampToDateY.equals(stampTimeToday)){
+				return;
+			}
+			
 			StatsOrgProduct statsOrgProduct = statsOrgProductService.queryProductId(statsOrgProductProductId);
 			Integer purchaseNum = statsOrgProductDaily.getPurchaseNum() + statsOrgProduct.getPurchaseNum();
 			statsOrgProduct.setPurchaseNum(purchaseNum);

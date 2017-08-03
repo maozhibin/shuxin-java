@@ -30,16 +30,4 @@
 		WHERE
 			stats_date = #{stampTimeToday}
    </select>
-   
-   <select id="findByTimeYesterday" resultType="java.util.Map">
-   		SELECT
-			s.product_id productId,
-			s.purchase_num purchaseNum,
-			p.user_id userId,
-			s.stats_date statsDate
-		FROM
-			stats_product_daily s
-		LEFT JOIN product p ON s.product_id = p.id
-		WHERE s.stats_date =#{stampTimeToday}
-   </select>
 </mapper>
