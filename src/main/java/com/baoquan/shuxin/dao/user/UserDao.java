@@ -39,11 +39,4 @@ public interface UserDao {
 
 	User findByMobileUserIdfo(String mobile);
 
-	void updateUserNoNobile(User user);
-
-	void updateUserNoOrgName(User user);
-
-	void updateUserNoNameAndMoile(User user);
-
-
 }

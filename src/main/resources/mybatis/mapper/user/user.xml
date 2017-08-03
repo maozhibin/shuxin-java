@@ -98,25 +98,30 @@
 	
 	
 	<update id="updateUser" parameterType="User" >
-        update user set username=#{username},money_balance=#{moneyBalance},money_freeze=#{moneyFreeze},
-        	mobile=#{mobile},email=#{email},real_name=#{realName},org_code=#{orgCode} where id=#{id}
+        update user 
+       		 <set>
+        		<if test="moneyBalance!=null">
+        			money_balance=#{moneyBalance},
+        		</if>
+        		<if test="moneyFreeze1=null">
+        			money_freeze=#{moneyFreeze},
+        		</if>
+        		<if test="mobile!=null">
+        			mobile=#{mobile},
+        		</if>
+        		<if test="email!=null">
+        			email=#{email},
+        		</if>
+        		<if test="realName!=null">
+        			real_name=#{realName},
+        		</if>
+        		<if test="orgCode1=null">
+        			org_code=#{orgCode}
+        		</if>
+       		 </set>
+       		 where id=#{id}
     </update>
-    
-    <update id="updateUserNoNobile" parameterType="User" >
-        update user set username=#{username},money_balance=#{moneyBalance},money_freeze=#{moneyFreeze},
-        	email=#{email},real_name=#{realName},org_code=#{orgCode} where id=#{id}
-    </update>
-    
-    <update id="updateUserNoOrgName" parameterType="User" >
-        update user set money_balance=#{moneyBalance},money_freeze=#{moneyFreeze},
-        	mobile=#{mobile},email=#{email},real_name=#{realName},org_code=#{orgCode} where id=#{id}
-    </update>
-    
-    <update id="updateUserNoNameAndMoile" parameterType="User" >
-        update user set money_balance=#{moneyBalance},money_freeze=#{moneyFreeze},
-        	email=#{email},real_name=#{realName},org_code=#{orgCode} where id=#{id}
-    </update>
-  
+	
 	<insert id="addUser" parameterType="User" 
         useGeneratedKeys="true" keyProperty="id"> 
         insert into user(username,money_balance,mobile,email,real_name,org_code,`password`,type_id)  

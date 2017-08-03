@@ -99,19 +99,4 @@ public class UserServiceImpl<T> implements UserService {
 		}
 		return true;
 	}
-
-	@Override
-	public void updateUserNoNobile(User user) {
-		userDao.updateUserNoNobile(user);
-	}
-
-	@Override
-	public void updateUserNoOrgName(User user) {
-		userDao.updateUserNoOrgName(user);
-	}
-
-	@Override
-	public void updateUserNoNameAndMoile(User user) {
-		userDao.updateUserNoNameAndMoile(user);
-	}
 }

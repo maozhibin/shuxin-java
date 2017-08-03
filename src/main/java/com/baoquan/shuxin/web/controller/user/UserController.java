@@ -164,12 +164,11 @@ public class UserController {
 		return mv;
 	}
 
-	@RequestMapping("addOrEdit")
+	@RequestMapping("add")
 	@ResponseBody
-	public JsonResponseMsg addOrEditUser(String id, String orgName, String moneyFreeze, String moneyBalance,
-			String mobile, String email, String realName, String orgCode) {
+	public JsonResponseMsg addUser(String orgName, String moneyFreeze, String moneyBalance, String mobile, String email,
+			String realName, String orgCode) {
 		JsonResponseMsg result = new JsonResponseMsg();
-		User user = null;
 		if (StringUtils.isEmpty(orgName)) {
 			return result.fill(JsonResponseMsg.CODE_FAIL, "请输入用户名");
 		}
@@ -179,23 +178,6 @@ public class UserController {
 		if (!NumberUtils.isNumber(moneyBalance)) {
 			return result.fill(JsonResponseMsg.CODE_FAIL, "请传入正确用户账户余额");
 		}
-		String telphone = null;
-		String name = null;
-		if (NumberUtils.isNumber(id)) {
-			user = userService.findByIdUserInfo(NumberUtils.toLong(id));
-			telphone = user.getMobile();
-			name = user.getUsername();
-
-			if (!NumberUtils.isNumber(moneyFreeze)) {
-				return result.fill(JsonResponseMsg.CODE_FAIL, "请传入正确用户冻结金额");
-			}
-			BigDecimal moneyFreezeValue = new BigDecimal(moneyFreeze);
-			user.setMoneyFreeze(moneyFreezeValue);
-		} else {
-			user = new User();
-			user.setPassword("$2y$10$bSp7VZPvuLgP46eLrMdU4OPHG3rZZhCqTT1sIJ8tfDFjyHuChe.U2");
-		}
-
 		if (!Stringutil.isEmail(email)) {
 			return result.fill(JsonResponseMsg.CODE_FAIL, "请输入正确邮箱");
 		}
@@ -205,7 +187,8 @@ public class UserController {
 		if (StringUtils.isEmpty(orgCode)) {
 			return result.fill(JsonResponseMsg.CODE_FAIL, "请输入机构统一社会信用编码");
 		}
-
+		User user = new User();
+		user.setPassword("$2y$10$bSp7VZPvuLgP46eLrMdU4OPHG3rZZhCqTT1sIJ8tfDFjyHuChe.U2");
 		BigDecimal moneyBalanceValue = new BigDecimal(moneyBalance);
 		user.setMoneyBalance(moneyBalanceValue);
 		user.setEmail(email);
@@ -214,40 +197,62 @@ public class UserController {
 		user.setOrgCode(orgCode);
 		user.setUsername(orgName);
 		user.setTypeId(UserConstant.ORG);
-		if (NumberUtils.isNumber(id)) {
-			if (mobile.equals(telphone) && !orgName.equals(name)) {//手机相同名字不同
-				if (!userService.isValidUserName(orgName)) {
-					return result.fill(JsonResponseMsg.CODE_FAIL, "你输入的用户名已经被使用了请重新输入");
-				}
-				userService.updateUserNoNobile(user);
-			} else if (orgName.equals(name) && !mobile.equals(telphone)) {//名字相同手机号不同
-				if (!userService.findByMobileUserIdfo(mobile)) {
-					return result.fill(JsonResponseMsg.CODE_FAIL, "你输入的手机号已经被使用过了");
-				}
-				userService.updateUserNoOrgName(user);
-			} else if (mobile.equals(telphone) && orgName.equals(name)) {//名字手机号都相同
-				userService.updateUserNoNameAndMoile(user);
-			} else if (!mobile.equals(telphone) && !orgName.equals(name)) {//名字手机号都不相同
-				if (!userService.isValidUserName(orgName)) {
-					return result.fill(JsonResponseMsg.CODE_FAIL, "你输入的用户名已经被使用了请重新输入");
-				}
-				if (!userService.findByMobileUserIdfo(mobile)) {
-					return result.fill(JsonResponseMsg.CODE_FAIL, "你输入的手机号已经被使用过了");
-				}
-				userService.updateUser(user);
-			}
-		} else {
-			if (!userService.isValidUserName(orgName)) {
-				return result.fill(JsonResponseMsg.CODE_FAIL, "你输入的用户名已经被使用了请重新输入");
-			}
-
-			if (!userService.findByMobileUserIdfo(mobile)) {
-				return result.fill(JsonResponseMsg.CODE_FAIL, "你输入的手机号已经被使用过了");
-			}
-			userService.addUser(user);
+		if (!userService.isValidUserName(orgName)) {
+			return result.fill(JsonResponseMsg.CODE_FAIL, "你输入的用户名已经被使用了请重新输入");
 		}
+
+		if (!userService.findByMobileUserIdfo(mobile)) {
+			return result.fill(JsonResponseMsg.CODE_FAIL, "你输入的手机号已经被使用过了");
+		}
+		userService.addUser(user);
 		return result.fill(JsonResponseMsg.CODE_SUCCESS, "SUCCESS");
 	}
-	
-	
+
+	@RequestMapping("update")
+	@ResponseBody
+	public JsonResponseMsg updateUser(String id, String moneyFreeze, String moneyBalance, String mobile, String email,
+			String realName, String orgCode) {
+		JsonResponseMsg result = new JsonResponseMsg();
+		if (!Stringutil.isChinaPhoneLegal(mobile)) {
+			return result.fill(JsonResponseMsg.CODE_FAIL, "请输入正确的手机号码");
+		}
+		if (!NumberUtils.isNumber(moneyBalance)) {
+			return result.fill(JsonResponseMsg.CODE_FAIL, "请传入正确用户账户余额");
+		}
+		if (!Stringutil.isEmail(email)) {
+			return result.fill(JsonResponseMsg.CODE_FAIL, "请输入正确邮箱");
+		}
+		if (StringUtils.isEmpty(realName)) {
+			return result.fill(JsonResponseMsg.CODE_FAIL, "请输入机构实名");
+		}
+		if (StringUtils.isEmpty(orgCode)) {
+			return result.fill(JsonResponseMsg.CODE_FAIL, "请输入机构统一社会信用编码");
+		}
+		if (!NumberUtils.isNumber(id)) {
+			return result.fill(JsonResponseMsg.CODE_FAIL, "参数错误");
+		}
+		User user = userService.findByIdUserInfo(NumberUtils.toLong(id));
+		if (user == null) {
+			return result.fill(JsonResponseMsg.CODE_FAIL, "你查询的账号信息不存在");
+		}
+		String telPhone = user.getMobile();
+		if (!mobile.equals(telPhone)) {
+			if (userService.findByMobileUserIdfo(mobile)) {
+				user.setMobile(telPhone);
+			} else {
+				return result.fill(JsonResponseMsg.CODE_FAIL, "这个手机已经被使用了请换个手机号码");
+			}
+		}
+		
+		BigDecimal moneyBalanceValue = new BigDecimal(moneyBalance);
+		user.setMoneyBalance(moneyBalanceValue);
+		user.setEmail(email);
+		user.setRealName(realName);
+		user.setMobile(mobile);
+		user.setOrgCode(orgCode);
+		user.setTypeId(UserConstant.ORG);
+
+		userService.updateUser(user);
+		return result.fill(JsonResponseMsg.CODE_SUCCESS, "SUCCESS");
+	}
 }
