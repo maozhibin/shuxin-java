@@ -41,6 +41,7 @@
         window.resize=changeSize();
     </script>
     <script src="/static/admin/js/echarts.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>"></script>
+    <script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
     <script src="/static/admin/js/console.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>"></script>
 </head>
 <body id="console-page">
@@ -127,11 +128,11 @@
 </body>
 <script>
 // 路径配置
-    require.config({
-        paths: {
-            echarts: 'http://echarts.baidu.com/build/dist'
-        }
-    });
+   // require.config({
+       // paths: {
+        //    echarts: 'http://echarts.baidu.com/build/dist'
+       // }
+   // });
 
     // 图表数据
     var name1,name2,name3,data1,data2,data3;

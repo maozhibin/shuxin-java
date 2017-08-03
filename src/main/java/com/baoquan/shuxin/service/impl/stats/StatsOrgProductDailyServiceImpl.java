@@ -1,11 +1,13 @@
 package com.baoquan.shuxin.service.impl.stats;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.baoquan.shuxin.dao.stats.StatsOrgProductDailyDao;
+import com.baoquan.shuxin.model.stats.StatsOrgDaily;
 import com.baoquan.shuxin.model.stats.StatsOrgProductDaily;
 import com.baoquan.shuxin.service.spi.stats.StatsOrgProductDailyService;
 
@@ -23,4 +25,11 @@ public class StatsOrgProductDailyServiceImpl implements StatsOrgProductDailyServ
 	public List<StatsOrgProductDaily> queryByYesterDay(String stampTimeYesterday) {
 		return statsOrgProductDailyDao.queryByYesterDay(stampTimeYesterday);
 	}
+
+	@Override
+	public List<Map<String, Object>> findByTimeOrgTask(String stampTimeToday) {
+		return statsOrgProductDailyDao.findByTimeOrgTask(stampTimeToday);
+	}
+
+
 }
