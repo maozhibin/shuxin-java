@@ -42,4 +42,6 @@
 		LEFT JOIN product p ON s.product_id = p.id
 		WHERE s.stats_date =#{stampTimeToday}
    </select>
+
+
 </mapper>

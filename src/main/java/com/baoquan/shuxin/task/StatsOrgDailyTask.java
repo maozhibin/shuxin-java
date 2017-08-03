@@ -1,6 +1,7 @@
 package com.baoquan.shuxin.task;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Component;
 
 import com.baoquan.shuxin.model.stats.StatsOrgDaily;
 import com.baoquan.shuxin.service.spi.stats.StatsOrgDailyService;
+import com.baoquan.shuxin.service.spi.stats.StatsOrgProductDailyService;
 import com.baoquan.shuxin.service.spi.stats.StatsProductDailyService;
 import com.baoquan.shuxin.service.spi.user.UserProductService;
 import com.baoquan.shuxin.util.common.DateUtil;
@@ -34,10 +36,11 @@ public class StatsOrgDailyTask {
     private StatsOrgDailyService statsOrgDailyService;
 
     @Inject
-    private StatsProductDailyService statsProductDailyService;
+    private StatsOrgProductDailyService statsOrgProductDailyService;
     /**
      *  凌晨1点执行添加
      */
+    //@Scheduled(cron = "0/5 * *  * * ? ")
     @Scheduled(cron = "0 0 1 * * *")
     public void insert(){
         Date now = new Date();
@@ -45,25 +48,19 @@ public class StatsOrgDailyTask {
         Date Yesterday = DateUtils.addDays(today, -1);
         Long timeYesterday = DateUtils.addDays(today, -1).getTime();//昨天
         String stampTimeToday= DateUtil.stampToDateY(timeYesterday.toString());
-        List<Map<String, Object>> listuserProduct = statsProductDailyService.findByTimeYesterday(stampTimeToday);
+        List<Map<String, Object>> listuserProduct = statsOrgProductDailyService.findByTimeOrgTask(stampTimeToday);
+
         if(CollectionUtils.isEmpty(listuserProduct)){
             return;
         }
         List<StatsOrgDaily> maps = new ArrayList<>();
         for (Map<String, Object> map : listuserProduct) {
             StatsOrgDaily statsOrgDaily = new StatsOrgDaily();
-            Long orgId = MapUtils.getLong(map, "userId");
-            String buyAmount = MapUtils.getString(map, "totalAmount");
-            Long count =MapUtils.getLong(map, "count");
-            BigDecimal totalAmount = new BigDecimal(buyAmount);
+            Long orgId = MapUtils.getLong(map, "orgId");
 
             statsOrgDaily.setOrgId(orgId);
-            statsOrgDaily.setTotalAmount(totalAmount);
-            statsOrgDaily.setOrderNum(count);
-            statsOrgDaily.setReceiptNum(count);
             statsOrgDaily.setStatsDate(Yesterday);
             statsOrgDaily.setDateline(now.getTime());
-
             maps.add(statsOrgDaily);
         }
         statsOrgDailyService.insert(maps);
