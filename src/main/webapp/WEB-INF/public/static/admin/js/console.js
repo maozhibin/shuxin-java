@@ -35,7 +35,29 @@ $(function() {
     var myChart = echarts.init(document.getElementById('line-chart'));
 
     var option = {
-        title : {
+        // 图表标题
+        title: {
+            x: 'left',                 // 水平安放位置，默认为左对齐，可选为：
+                                       // 'center' ¦ 'left' ¦ 'right'
+                                       // ¦ {number}（x坐标，单位px）
+            y: 'top',                  // 垂直安放位置，默认为全图顶端，可选为：
+                                       // 'top' ¦ 'bottom' ¦ 'center'
+                                       // ¦ {number}（y坐标，单位px）
+            //textAlign: null          // 水平对齐方式，默认根据x设置自动调整
+            backgroundColor: 'rgba(0,0,0,0)',
+            borderColor: '#ccc',       // 标题边框颜色
+            borderWidth: 0,            // 标题边框线宽，单位px，默认为0（无边框）
+            padding: 5,                // 标题内边距，单位px，默认各方向内边距为5，
+                                       // 接受数组分别设定上右下左边距，同css
+            itemGap: 10,               // 主副标题纵向间隔，单位px，默认为10，
+            textStyle: {
+                fontSize: 18,
+                fontWeight: 'bolder',
+                color: '#ccc'          // 主标题文字颜色
+            },
+            subtextStyle: {
+                color: '#aaa'          // 副标题文字颜色
+            },
             text: '平台数据概况'
         },
         tooltip : {
@@ -64,6 +86,12 @@ $(function() {
                 boundaryGap : false,
                 splitLine:{show:false},
                 splitArea:{show:false},
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: '#fff'
+                    }
+                },
                 data : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
             }
         ],
@@ -71,6 +99,12 @@ $(function() {
             {
                 type : 'value',
                 splitLine:{show:false},
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: '#fff'
+                    }
+                },
                 splitArea:{show:false}
             }
         ],
@@ -93,7 +127,12 @@ $(function() {
                 name:'上周同期',
                 type:'line',
                 smooth:true,
-                itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                itemStyle: {
+                    normal:
+                        {areaStyle:
+                            {type: 'default',color:'#333'}
+                        }
+                    },
                 data:data3
             }
         ]
@@ -102,29 +141,12 @@ $(function() {
     // 为echarts对象加载数据
     myChart.setOption(option);
     /* /lineChart */
-    // 复选框
-    $('.s-select').on('click', function() {
-        if ($(this).is('.active')) {
-            $(this).removeClass('active');
-            // lineOption.legend.selected = {};
-            // lineOption.legend.selected['2017/06/21'] = false;
-            // myLineChart.setOption(lineOption);
-        } else {
-            $(this).addClass('active');
-            // lineOption.legend.selected = {};
-            // lineOption.legend.selected['2017/06/21'] = true;
-            // myLineChart.setOption(lineOption);
-        }
-    });
     var canvas = document.querySelector('#bg-canvas');
+
     // 饼图
-    // 饼图的颜色
-    var pieColors = ['#1a97f4','#b1d0e1','#10e2cc'];
+    var myPieChart = echarts.init(document.getElementById('pie-chart'));
     // 获取的饼图数据
-    var getPieData = [{
-        name: '场景服务3',
-        value: 333
-    }];
+    var getPieData,names=[];
     $.ajax({
         "url": "/admin/overview/round",
         async:false,
@@ -133,77 +155,39 @@ $(function() {
         "success": function (result) {
             console.log(result);
             getPieData=result;
+            for(var i=0;i<result.length;i++){
+                names.push(result[i].name);
+            }
+            console.log(names);
         }
     });
-    // 处理配置项数据
-    var pieData = [];
-    for (var i = 0; i < getPieData.length; i++) {
-        pieData.push({
-            value: getPieData[i].value,
-            name: getPieData[i].name,
-            itemStyle: {
-                normal: {
-                    color: pieColors[i],
-                    shadowBlur: 200 * proportion,
-                    shadowColor: 'rgba(0, 0, 0, 0.5)'
-                }
-            },
-            labelLine: {
-                normal: {
-                    lineStyle: {
-                        color: pieColors[i]
-                    },
-                    smooth: 0.2 * proportion,
-                    length: 15 * proportion,
-                    length2: 30 * proportion
-                }
-            },
-            label: {
-                normal: {
-                    textStyle: {
-                        color: pieColors[i]
-                    }
-                }
-            },
-        })
-    }
 
-    var pieChart = document.querySelector('#pie-chart');
-    myPieChart = echarts.init(pieChart);
 
     var pieOption = {
-        // tooltip : {
-        //     trigger: 'item',
-        //     formatter: "{a} <br/>{b} : {c} ({d}%)"
-        // },
-        visualMap: {
-            show: false,
-            min: 80,
-            max: 600,
-            inRange: {
-                colorLightness: [0, 1]
-            }
+       /* title : {
+            text: '某站点用户访问来源',
+            subtext: '纯属虚构',
+            x:'center'
+        },*/
+        tooltip : {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
         },
-        series: [{
-            type:'pie',
-            radius : ['22%','55%'],
-            center: [350 * proportion + 'px', '50%'],
-            label: {
-                normal: {
-                    formatter: '{d}%\n{b}',
-                    textStyle: {
-                        fontSize: 24 * proportion
-                    }
-                }
-            },
-            data: pieData.sort(function (a, b) { return a.value - b.value; }),
-            roseType: 'radius',
-            animationType: 'scale',
-            animationEasing: 'elasticOut',
-            animationDelay: function (idx) {
-                return Math.random() * 200;
+        legend: {
+            orient : 'vertical',
+            x : 'left',
+            data:names
+        },
+        calculable : false,
+        series : [
+            {
+                name:'访问来源',
+                type:'pie',
+                radius : '55%',
+                center: ['50%', '60%'],
+                data:getPieData
             }
-        }]
+        ]
     };
 
     // 使用刚指定的配置项和数据显示图表。
