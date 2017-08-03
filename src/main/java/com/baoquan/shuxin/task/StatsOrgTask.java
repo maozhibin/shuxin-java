@@ -33,81 +33,61 @@ public class StatsOrgTask {
 	 * 每天凌晨2点执行
 	 * @throws ParseException
 	 */
-	@Scheduled(cron = "0 0 2 * * *")
+	//@Scheduled(cron = "0 0 2 * * *")
+	@Scheduled(fixedRate = 1000*60*1)
 	public void updateStatsOrg() throws ParseException {
 		Date now = new Date();
 		Date today = DateUtils.truncate(now, Calendar.DATE);
+		Long timeToday = DateUtils.addDays(today, 0).getTime();//今天
 		Long timeYesterday = DateUtils.addDays(today, -1).getTime();//昨天
-		String stampTimeToday= DateUtil.stampToDateY(timeYesterday.toString());
+		String stampTimeYesterday = DateUtil.stampToDateY(timeYesterday.toString());
+		String stampTimeToday= DateUtil.stampToDateY(timeToday.toString());
 
-		List<StatsOrg> statsOrgList = statsOrgService.queryAllStatsOrg();
-		List<StatsOrgDaily> listStatsOrgDaily=statsOrgDailyService.queryByTime(stampTimeToday);
+		List<StatsOrgDaily> listStatsOrgDaily=statsOrgDailyService.queryByTime(stampTimeYesterday);
 		if(CollectionUtils.isEmpty(listStatsOrgDaily)){
 			return;
 		}
 
 		//统计机构交易(每日)中的数据和产品交易统计中的数据OrgId中是否有相同,相同表明只需要更新,没有的话需要插入
-		List<StatsOrgDaily> insertList = new ArrayList<>();
-		List<StatsOrgDaily> updateList = new ArrayList<>();
-		Long orgDailyOrgId = null;
-		Long statsOrgId = null;
+		List<StatsOrg> insertList = new ArrayList<>();
+		List<StatsOrg> updateList = new ArrayList<>();
 
-		if(!CollectionUtils.isEmpty(statsOrgList)){
-			//更新
-			for (StatsOrgDaily statsOrgDaily : listStatsOrgDaily) {
-				orgDailyOrgId = statsOrgDaily.getOrgId();
-				for (StatsOrg statsOrg : statsOrgList) {
-					statsOrgId = statsOrg.getOrgId();
-					if(orgDailyOrgId.equals(statsOrgId)){
-						updateList.add(statsOrgDaily);
-					}
+		for (StatsOrgDaily statsOrgDaily : listStatsOrgDaily){
+			Long orgId = statsOrgDaily.getOrgId();
+			StatsOrg statsOrg = statsOrgService.queryById(orgId);
+			if (statsOrg == null){
+				statsOrg = new StatsOrg();
+				statsOrg.setDateline(now.getTime());
+				statsOrg.setOrderNum(statsOrgDaily.getOrderNum());
+				statsOrg.setTotalAmount(statsOrgDaily.getTotalAmount());
+				statsOrg.setReceiptNum(statsOrgDaily.getReceiptNum());
+				statsOrg.setOrgId(statsOrgDaily.getOrgId());
+				insertList.add(statsOrg);
+			}else {
+
+				Long dateline = statsOrgDaily.getDateline();
+				String stampToDate = DateUtil.stampToDateY(dateline.toString());
+				//判断今天是否执行过，执行过就不在执行，一天只执行一次
+				if (stampToDate.equals(stampTimeToday)){
+					return;
 				}
-			}
-			//添加
-			for (StatsOrgDaily statsOrgDaily : listStatsOrgDaily) {
-				for (StatsOrgDaily statsProductDailyupdate : updateList) {
-					if(!statsOrgDaily.equals(statsProductDailyupdate)){
-						insertList.add(statsOrgDaily);
-					}
-				}
+				Long receiptNum = statsOrgDaily.getReceiptNum() + statsOrgDaily.getReceiptNum();
+				statsOrg.setReceiptNum(receiptNum);
+				updateList.add(statsOrg);
 			}
 		}
-		List<StatsOrg> insetOrgList = new ArrayList<>();
-		List<StatsOrg> updateOrgList = new ArrayList<>();
-		for (StatsOrgDaily statsOrgDaily : updateList){
-			StatsOrg statsOrg = statsOrgService.queryById(statsOrgDaily.getOrgId());
-			Long orderNum = statsOrg.getOrderNum() + statsOrgDaily.getOrderNum();
-			Long receiptNum = statsOrg.getReceiptNum() + statsOrgDaily.getReceiptNum();
-			BigDecimal totalAmount = statsOrg.getTotalAmount().add(statsOrgDaily.getTotalAmount());
-			statsOrg.setOrderNum(orderNum);
-			statsOrg.setOrgId(statsOrgDaily.getOrgId());
-			statsOrg.setReceiptNum(receiptNum);
-			statsOrg.setTotalAmount(totalAmount);
-			statsOrg.setDateline(now.getTime());
-			updateOrgList.add(statsOrg);
 
-		}
-
-		for (StatsOrgDaily statsOrgDaily : insertList){
-			 StatsOrg statsOrg = new StatsOrg();
-			 statsOrg.setOrgId(statsOrgDaily.getOrgId());
-			 statsOrg.setReceiptNum(statsOrgDaily.getReceiptNum());
-			 statsOrg.setTotalAmount(statsOrgDaily.getTotalAmount());
-			 statsOrg.setDateline(now.getTime());
-			 statsOrg.setOrderNum(statsOrgDaily.getOrderNum());
-			insetOrgList.add(statsOrg);
-		}
 		/**
 		 * 添加
 		 */
-		if (!CollectionUtils.isEmpty(insetOrgList)){
-			statsOrgService.insertOrgList(insetOrgList);
+		if (!CollectionUtils.isEmpty(insertList)){
+			statsOrgService.insertOrgList(insertList);
 		}
 		/**
 		 * 更新
 		 */
-		if (!CollectionUtils.isEmpty(updateOrgList)){
-			statsOrgService.updateOrgtList(updateOrgList);
+		if (!CollectionUtils.isEmpty(updateList)){
+			statsOrgService.updateOrgtList(updateList);
 		}
     }
 }

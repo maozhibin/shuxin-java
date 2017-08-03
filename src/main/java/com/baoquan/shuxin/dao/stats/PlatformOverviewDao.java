@@ -23,6 +23,5 @@ public interface PlatformOverviewDao {
     //授权总量
     Long countAuthorizationByTime(@Param("startTime") long startTime, @Param("endTime") long endTime);
 
-    //机构统计存证总数
-    Long countOrgTaskByTime(@Param("stampTimeToday") long stampTimeToday);
+
 }
