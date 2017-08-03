@@ -35,4 +35,9 @@ public class PlatformOverviewServiceImpl implements PlatformOverviewService {
         vo.setAuthorizationCount(authorizationCount);
         return vo;
     }
+
+    @Override
+    public Long queryOrgByTime(long stampTimeToday) {
+        return platformOverviewDao.countOrgTaskByTime(stampTimeToday);
+    }
 }

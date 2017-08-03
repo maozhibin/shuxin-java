@@ -95,10 +95,7 @@ public class UserOrderController {
            Date today = DateUtils.truncate(date, Calendar.DATE);
            statTime = today.getTime()/1000;
            //获取系统当前时间戳
-           SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
-           String  time =df.format(new Date());
-           Timestamp createTime = Timestamp.valueOf(time);
-           endTime = createTime.getTime()/1000;
+           endTime = date.getTime()/1000;
        }
 
         Integer orderCount = orderService.countOrderInfo(userId, status,statTime, endTime);

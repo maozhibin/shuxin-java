@@ -30,12 +30,5 @@
 		WHERE stats_date = #{stampTimeYesterday}
    </select>
 
-	<select id="findByTimeOrgTask" resultMap="BaseResultMap">
-		SELECT
-        s.org_id orgId
-		 FROM
-		stats_org_product_daily s
-        WHERE s.stats_date =#{stampTimeToday}
-	</select>
-   
+
 </mapper>
