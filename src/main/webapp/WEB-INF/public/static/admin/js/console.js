@@ -1,5 +1,4 @@
 $(function() {
-
     var proportion = parseInt(clientWidth / 1920 * 100) / 100;
     // 复选框
     $('.s-select').on('click', function() {
@@ -17,17 +16,24 @@ $(function() {
     });
 
 
+    var canvas = document.querySelector('#bg-canvas');
+
+
     // 饼图
     // 饼图的颜色
     var pieColors = ['#1a97f4','#b1d0e1','#10e2cc'];
     // 获取的饼图数据
-    var getPieData;
+    var getPieData = [{
+        name: '场景服务3',
+        value: 333
+    }];
     $.ajax({
         "url": "/admin/overview/round",
         async:false,
         "type": "GET",
         "cache": false,
         "success": function (result) {
+            console.log(result);
             getPieData=result;
         }
     });
