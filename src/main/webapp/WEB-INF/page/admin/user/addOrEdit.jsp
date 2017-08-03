@@ -39,14 +39,21 @@
 	
 	
     <form id="from_module_edit" method="post">
-    	<input type="hidden" class="input-ctrl" name="id"  value="${user.id}">
+    	<input type="hidden" class="input-ctrl" name="id"  id="userId"  value="${user.id}">
     	<div class="container base">
     		<div class="inline-form mb30">
                 <label class="col-md-2 control-label">会员名称:</label>
-                <div class="cell">
-                    <input type="text" class="input-ctrl" name="orgName" id="orgName"
-                           value="${user.username}">
-                </div>
+                <c:if test="${empty user.id}">
+	                <div class="cell">
+	                    <input type="text" class="input-ctrl" name="orgName" id="orgName"
+	                           value="${user.username}">
+	                </div>
+				</c:if>
+                <c:if test="${not empty user.id}">
+					 <div class="cell">
+					 	<span>${user.username}</span>
+                	</div>
+				</c:if>
             </div><br/>
             
             <div class="inline-form mb30">
@@ -108,24 +115,39 @@
     	</div>
 	</form>
 	<script type="text/javascript">
-	
 		
+		var userId= $('#userId').val();
 		$(document).ready(function(){
 			  $("#from_module_edit").submit(function(e){
-				  $.ajax({
-                      url:'/admin/user/addOrEdit',
-                      data:$("#from_module_edit").serialize(),
-                      success:function (data) {
-                          if(data.code==1){
-                              alert(data.msg);
-                          }else{
-                              window.location.href="/admin/user/list?typeId=ORG";
-                          }
-                      }
-                  });
+				  if(userId.length==0){//新增
+					  $.ajax({
+		                    url:'/admin/user/add',
+		                    data:$("#from_module_edit").serialize(),
+		                    success:function (data) {
+		                        if(data.code==1){
+		                            alert(data.msg);
+		                        }else{
+		                            window.location.href="/admin/user/list?typeId=ORG";
+		                        }
+		                    }
+		                });
+					}else{
+						$.ajax({
+			                  url:'/admin/user/update',
+			                  data:$("#from_module_edit").serialize(),
+			                  success:function (data) {
+			                      if(data.code==1){
+			                           alert(data.msg);
+			                      }else{
+			                            window.location.href="/admin/user/list?typeId=ORG";
+			                      }
+			                    }
+			             });
+					}
 				  return false;
 			  });
 			});
+		
 		
 	</script>
 </body>

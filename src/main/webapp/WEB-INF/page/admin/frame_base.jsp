@@ -227,7 +227,7 @@
     for (i = 0; i < d.length; i++) {
         if (requestUri.startsWith($(d[i]).attr("href"))) {
             $(d[i]).addClass("in").parent("li").addClass("active");
-            $(d[i]).find("a[href='"+window.location.href+"']").parent("li").addClass("nav_active");
+            $(d[i]).find("a[href='"+requestUri+"']").parent("li").addClass("nav_active");
         }
     }
 </script>

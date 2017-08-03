@@ -40,60 +40,37 @@ public class StatsOrgProductTask {
 		Long timeYesterday = DateUtils.addDays(today, -1).getTime();// 昨天
 		String stampTimeYesterday = DateUtil.stampToDateY(timeYesterday.toString());
 		String stampTimeToday = DateUtil.stampToDateY(timeToday.toString());
-
-		List<StatsOrgProduct> StatsOrgProductList = statsOrgProductService.queryAllOrgProduct();
 		List<StatsOrgProductDaily> OrgProductDailyList = statsOrgProductDailyService.queryByYesterDay(stampTimeYesterday);
 		if (CollectionUtils.isEmpty(OrgProductDailyList)) {
 			return;
-		}
-		List<StatsOrgProductDaily> insertList = new ArrayList<>();
-		List<StatsOrgProductDaily> updateList = new ArrayList<>();
-		Long productId = null;
-		Long orgProductId = null;
-
-		// 查询需要更新的
-		for (int i = 0; i < OrgProductDailyList.size(); i++) {
-			StatsOrgProductDaily statsOrgProductDaily = OrgProductDailyList.get(i);
-			productId = statsOrgProductDaily.getProductId();
-			for (StatsOrgProduct statsOrgProduct : StatsOrgProductList) {
-				orgProductId = statsOrgProduct.getProductId();
-				if (productId.equals(orgProductId)) {
-					updateList.add(statsOrgProductDaily);
-					OrgProductDailyList.remove(i);
-					i--;
-				}
-			}
-		}
-		// 查询需要添加的
-		for (StatsOrgProductDaily statsOrgProductDaily : OrgProductDailyList) {
-			insertList.add(statsOrgProductDaily);
 		}
 
 		List<StatsOrgProduct> insertStatsOrgProductList = new ArrayList<>();
 		List<StatsOrgProduct> updateStatsOrgProductList = new ArrayList<>();
 
-		for (StatsOrgProductDaily statsOrgProductDaily : updateList) {// 更新
+		for (StatsOrgProductDaily statsOrgProductDaily : OrgProductDailyList) {
 			Long statsOrgProductProductId = statsOrgProductDaily.getProductId();
-			//判断今天是否执行过,执行过就不让在执行
-			Long dateline = statsOrgProductDaily.getDateline();
-			String stampToDateY = DateUtil.stampToDateY(dateline.toString());
-			if(stampToDateY.equals(stampTimeToday)){
-				return;
+			StatsOrgProduct statsOrgProduct = statsOrgProductService.queryProductId(statsOrgProductProductId);
+			if(statsOrgProduct==null){
+				statsOrgProduct = new StatsOrgProduct();
+				statsOrgProduct.setDateline(now.getTime());
+				statsOrgProduct.setOrgId(statsOrgProductDaily.getOrgId());
+				statsOrgProduct.setProductId(statsOrgProductDaily.getProductId());
+				statsOrgProduct.setPurchaseNum(statsOrgProductDaily.getPurchaseNum());
+				insertStatsOrgProductList.add(statsOrgProduct);
+			}else{
+				//判断今天是否执行过,执行过就不让在执行
+				Long dateline = statsOrgProductDaily.getDateline();
+				String stampToDateY = DateUtil.stampToDateY(dateline.toString());
+				if(stampToDateY.equals(stampTimeToday)){
+					return;
+				}
+				Integer purchaseNum = statsOrgProductDaily.getPurchaseNum() + statsOrgProduct.getPurchaseNum();
+				statsOrgProduct.setPurchaseNum(purchaseNum);
+				updateStatsOrgProductList.add(statsOrgProduct);
 			}
 			
-			StatsOrgProduct statsOrgProduct = statsOrgProductService.queryProductId(statsOrgProductProductId);
-			Integer purchaseNum = statsOrgProductDaily.getPurchaseNum() + statsOrgProduct.getPurchaseNum();
-			statsOrgProduct.setPurchaseNum(purchaseNum);
-			updateStatsOrgProductList.add(statsOrgProduct);
-		}
-
-		for (StatsOrgProductDaily statsOrgProductDaily : insertList) {// 插入
-			StatsOrgProduct statsOrgProduct = new StatsOrgProduct();
-			statsOrgProduct.setDateline(now.getTime());
-			statsOrgProduct.setOrgId(statsOrgProductDaily.getOrgId());
-			statsOrgProduct.setProductId(statsOrgProductDaily.getProductId());
-			statsOrgProduct.setPurchaseNum(statsOrgProductDaily.getPurchaseNum());
-			insertStatsOrgProductList.add(statsOrgProduct);
+			
 		}
 		// 插入
 		if (!CollectionUtils.isEmpty(insertStatsOrgProductList)) {

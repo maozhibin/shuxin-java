@@ -16,6 +16,7 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.alibaba.fastjson.JSON;
 import com.baoquan.shuxin.model.stats.StatsProductDaily;
 import com.baoquan.shuxin.service.spi.stats.StatsProductDailyService;
 import com.baoquan.shuxin.service.spi.user.UserProductService;
@@ -32,6 +33,7 @@ public class StatsProductDailyTask {
 	 * @throws ParseException
 	 */
 	@Scheduled(cron = "0 0 1 * * *")
+	//@Scheduled(fixedDelay=2000)
 	public void updateStatsOrgDaily(){
 		Date now = new Date();
 		Date today = DateUtils.truncate(now, Calendar.DATE);
@@ -58,6 +60,8 @@ public class StatsProductDailyTask {
 			statsProductDaily.setDateline(now.getTime());
 			
 			maps.add(statsProductDaily);
+			
+			
 		}
 		statsProductDailyService.insertListStatsProductDaily(maps);
     }

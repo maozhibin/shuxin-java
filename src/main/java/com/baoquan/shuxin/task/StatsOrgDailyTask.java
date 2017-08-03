@@ -1,7 +1,5 @@
 package com.baoquan.shuxin.task;
 
-import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -20,8 +18,6 @@ import com.baoquan.shuxin.model.stats.StatsOrgDaily;
 import com.baoquan.shuxin.service.spi.stats.PlatformOverviewService;
 import com.baoquan.shuxin.service.spi.stats.StatsOrgDailyService;
 import com.baoquan.shuxin.service.spi.stats.StatsOrgProductDailyService;
-import com.baoquan.shuxin.service.spi.stats.StatsProductDailyService;
-import com.baoquan.shuxin.service.spi.user.UserProductService;
 import com.baoquan.shuxin.util.common.DateUtil;
 
 /**
