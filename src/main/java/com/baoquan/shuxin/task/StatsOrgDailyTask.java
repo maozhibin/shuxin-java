@@ -38,8 +38,9 @@ public class StatsOrgDailyTask {
     @Inject
     private StatsOrgProductDailyService statsOrgProductDailyService;
     /**
-     *  凌晨1点执行添加
+     *  凌晨1点25执行添加
      */
+
     //@Scheduled(cron = "0/5 * *  * * ? ")
     @Scheduled(cron = "0 0 1 * * *")
     public void insert(){

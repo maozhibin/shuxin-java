@@ -114,7 +114,7 @@
             <th>产品名称</th>
             <th>产品类别</th>
             <th>排名</th>
-            <th>交易总额</th>
+            <th>交易总额(万元)</th>
             <th>总购买次数</th>
             <th>产品来源</th>
         </tr>
@@ -132,7 +132,7 @@
                 		${status.index+1}
                 </td>
                 <td>
-                        ${item.total_amount}
+                        ${item.total_amount/10000}
                 </td>
                 <td>
                         ${item.purchase_num}
@@ -182,7 +182,7 @@
             <th>产品名称</th>
             <th>产品类别</th>
             <th>排名</th>
-            <th>交易总额</th>
+            <th>交易总额(万元)</th>
             <th>总购买次数</th>
             <th>产品来源</th>
         </tr>

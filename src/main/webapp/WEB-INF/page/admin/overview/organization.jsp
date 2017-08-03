@@ -90,7 +90,7 @@
         <tr>
             <th>合作机构名称</th>
             <th>排名</th>
-            <th>交易总额</th>
+            <th>交易总额(万元)</th>
             <th>总订单量</th>
             <th>购买最多产品名称|购买次数</th>
             <th>存证总数</th>
@@ -106,7 +106,7 @@
 	                		${status.index+1}
 	                </td>
 	                <td>
-	                        ${item.total_amount}
+	                        ${item.total_amount /10000}
 	                </td>
 	                <td>
 	                        ${item.order_num}
@@ -159,7 +159,7 @@
         <tr>
             <th>合作机构名称</th>
             <th>排名</th>
-            <th>交易总额</th>
+            <th>交易总额(万元)</th>
             <th>总订单量</th>
             <th>购买最多产品名称 | 购买次数</th>
             <th>存证总数</th>
@@ -176,7 +176,7 @@
 	                		${status.index+1}
 	                </td>
 	                <td>
-	                        ${item.total_amount}
+	                        ${item.total_amount /10000}
 	                </td>
 	                <td>
 	                        ${item.order_num}
