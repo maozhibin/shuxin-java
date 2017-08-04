@@ -359,7 +359,7 @@
 
     <div class="pt30 pb30">
         <input type="button" class="btn btn-red" value="下一步"
-               onclick="goto('desc');">
+               onclick="examineData(desc);">
     </div>
 </div>
 

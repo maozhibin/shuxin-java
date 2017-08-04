@@ -23,26 +23,26 @@ $(document).ready(function(){
             }
 
         });
-    $('#product_class').change(function(){
-        var classValue=$('#product_class').find('option:selected').val();
-        $.ajax({
-            type: "GET",
-            url: "/admin/product/base?id="+classValue,
-            dataType: "json",
-            success: function(data){
-                $("#product_base").html('');
-                var option="";
-                for(var i=0;i<data.length;i++){
-                    option+="<option value='"+data[i].id+"'>"+data[i].name+"</option>";
+        $('#product_class').change(function(){
+            var classValue=$('#product_class').find('option:selected').val();
+            $.ajax({
+                type: "GET",
+                url: "/admin/product/base?id="+classValue,
+                dataType: "json",
+                success: function(data){
+                    $("#product_base").html('');
+                    var option="";
+                    for(var i=0;i<data.length;i++){
+                        option+="<option value='"+data[i].id+"'>"+data[i].name+"</option>";
+                    }
+                    $("#product_base").append(option);
                 }
-                $("#product_base").append(option);
-            }
 
+            });
         });
-    });
-    var productId = $('#productId').val();
-    var pidValue=$('#province').val();
-    $.ajax({
+        var productId = $('#productId').val();
+        var pidValue=$('#province').val();
+        $.ajax({
         type: "GET",
         url: "/admin/area/city?pid="+pidValue,
         dataType: "json",
@@ -74,6 +74,15 @@ $(document).ready(function(){
         $(this).removeClass('animation').attr('placeholder','');
     });
 
+    /*基础设置*/
+    function examineData(tab){
+        if($(".input-ctrl").is('animation')){
+            $('.animation').addClass('animation');
+            return ;
+        }else{
+            goto(tab);
+        }
+    }
     //请求参数（Headers）
     $('#request_headers').on("click","button.add_header",function(){
         var tr = $(this).parents('tr');

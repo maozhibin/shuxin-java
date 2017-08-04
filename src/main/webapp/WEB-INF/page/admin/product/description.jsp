@@ -21,7 +21,7 @@
 
     <div class="pt30 pb30">
         <input class="btn btn-red" type="button" value="下一步"
-               onclick="goto('price');">
+               onclick="examineData(price);">
     </div>
 </div>
 
