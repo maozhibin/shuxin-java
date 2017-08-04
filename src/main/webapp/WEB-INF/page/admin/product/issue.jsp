@@ -90,6 +90,15 @@
 </head>
 <body>
 
+<script>
+    function goto(tab) {
+        $('.container').attr('hidden', 'hidden');
+        $('.container.' + tab).removeAttr('hidden');
+        $('.tab').removeClass('active');
+        $('.tab.' + tab).addClass('active');
+        scroll(0, 0);
+    }
+</script>
 
 <div class="release-tabs" >
     <div class="tabs">
