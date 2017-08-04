@@ -23,7 +23,7 @@
                     <ul class="inline">
                         <li class="cell"><input type="text" name="priceOne"
                         <c:forEach items="${hashMap.billingsList}" var="item">
-                        <c:if test="${item.num == 1}"> value="${item.price}"</c:if></c:forEach>id="priceOne"></li>
+                        <c:if test="${item.num == 1}"> value="${item.price}"</c:if></c:forEach>id="priceOne" class="input-ctrl"></li>
                         <li class="cell">元/</li>
                         <li class="cell">1次</li>
                     </ul>
@@ -84,7 +84,7 @@
 
 
         <div class="pb30">
-            <p class="mb10"><label class="gray6"><input type="checkbox" class="agreement" id="chexkboxId">
+            <p class="mb10"><label class="gray6"><input type="checkbox" class="agreement" id="chexkboxId" checked>
                 我已同意并阅读 <a href="" class="blue">《2226888协议》</a></label>
             </p>
             <button class="btn btn-red" id="submit_btn" onclick="chargingFunction()">提交发布</button>
