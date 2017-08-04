@@ -1,4 +1,12 @@
 $(document).ready(function(){
+    function goto(tab) {
+        $('.container').attr('hidden', 'hidden');
+        $('.container.' + tab).removeAttr('hidden');
+        $('.tab').removeClass('active');
+        $('.tab.' + tab).addClass('active');
+        scroll(0, 0);
+    }
+
     var classValue=$('#product_class').val();
     $.ajax({
         type: "GET",
@@ -15,7 +23,6 @@ $(document).ready(function(){
 
     });
 });
-
     $('#product_class').change(function(){
         var classValue=$('#product_class').find('option:selected').val();
         $.ajax({
@@ -33,7 +40,6 @@ $(document).ready(function(){
 
         });
     });
-
     var productId = $('#productId').val();
     var pidValue=$('#province').val();
     $.ajax({
@@ -57,6 +63,15 @@ $(document).ready(function(){
 
     });
 
+    /*数据填写*/
+    $(".input-ctrl").blur(function () {
+        //失焦
+        if(!$(this).val()){
+            $(this).attr('placeholder','请填写！').addClass('animation');
+        }
+    }).focus(function () {
+        $(this).removeClass('animation').attr('placeholder','');
+    });
     //请求参数（Headers）
     $('#request_headers').on("click","button.add_header",function(){
         var tr = $(this).parents('tr');

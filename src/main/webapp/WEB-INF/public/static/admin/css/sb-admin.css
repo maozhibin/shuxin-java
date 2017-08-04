@@ -340,11 +340,12 @@ ul.alert-dropdown {
     background: #fff url(../images/uc-icon-cal.png) no-repeat 175px 50%;
 }
 .animation{
-    animation:myfirst 10s;
+    animation:myfirst 2s;
+    -moz-animation:myfirst 2s; /* Firefox */
+    -webkit-animation:myfirst 2s; /* Safari and Chrome */
+    -o-animation:myfirst 2s; /* Opera */
+    
     animation-duration:3s;
-    -moz-animation:myfirst 10s; /* Firefox */
-    -webkit-animation:myfirst 10s; /* Safari and Chrome */
-    -o-animation:myfirst 10s; /* Opera */
     -moz-animation-duration:3s;
     -webkit-animation-duration:3s;
     -o-animation-duration:3s;
@@ -352,56 +353,56 @@ ul.alert-dropdown {
 
 @keyframes myfirst
 {
-    10% {border-color:red;background:red;-webkit-transform: translateX(3px) rotate(2deg);}
-    20% {border-color:red;background:red;-webkit-transform: translateX(-3px) rotate(-2deg);}
-    30% {border-color:red;background:red;-webkit-transform: translateX(3px) rotate(2deg);}
-    40% {border-color:red;background:red;-webkit-transform: translateX(-3px) rotate(-2deg);}
-    50% {border-color:red;background:red;-webkit-transform: translateX(3px) rotate(2deg);}
-    60% {border-color:red;background:red;-webkit-transform: translateX(-3px) rotate(-2deg);}
-    70% {border-color:red;background:red;-webkit-transform: translateX(3px) rotate(2deg);}
-    80% {border-color:red;background:red;-webkit-transform: translateX(-3px) rotate(-2deg);}
-    90% {border-color:red;background:red;-webkit-transform: translateX(3px) rotate(2deg);}
+    10% {border-color:red;-webkit-transform: translateX(3px) rotate(2deg);}
+    20% {border-color:red;-webkit-transform: translateX(-3px) rotate(-2deg);}
+    30% {border-color:red;-webkit-transform: translateX(3px) rotate(2deg);}
+    40% {border-color:red;-webkit-transform: translateX(-3px) rotate(-2deg);}
+    50% {border-color:red;-webkit-transform: translateX(3px) rotate(2deg);}
+    60% {border-color:red;-webkit-transform: translateX(-3px) rotate(-2deg);}
+    70% {border-color:red;-webkit-transform: translateX(3px) rotate(2deg);}
+    80% {border-color:red;-webkit-transform: translateX(-3px) rotate(-2deg);}
+    90% {border-color:red;-webkit-transform: translateX(3px) rotate(2deg);}
     100% {border-color:#b5b5b5;-webkit-transform: translateX(-3px) rotate(-2deg);}
 }
 
 @-moz-keyframes myfirst /* Firefox */
 {
-    10% {border-color:red;background:red;-webkit-transform: translateX(3px) rotate(2deg);}
-    20% {border-color:red;background:red;-webkit-transform: translateX(-3px) rotate(-2deg);}
-    30% {border-color:red;background:red;-webkit-transform: translateX(3px) rotate(2deg);}
-    40% {border-color:red;background:red;-webkit-transform: translateX(-3px) rotate(-2deg);}
-    50% {border-color:red;background:red;-webkit-transform: translateX(3px) rotate(2deg);}
-    60% {border-color:red;background:red;-webkit-transform: translateX(-3px) rotate(-2deg);}
-    70% {border-color:red;background:red;-webkit-transform: translateX(3px) rotate(2deg);}
-    80% {border-color:red;background:red;-webkit-transform: translateX(-3px) rotate(-2deg);}
-    90% {border-color:red;background:red;-webkit-transform: translateX(3px) rotate(2deg);}
+    10% {border-color:red;-webkit-transform: translateX(3px) rotate(2deg);}
+    20% {border-color:red;-webkit-transform: translateX(-3px) rotate(-2deg);}
+    30% {border-color:red;-webkit-transform: translateX(3px) rotate(2deg);}
+    40% {border-color:red;-webkit-transform: translateX(-3px) rotate(-2deg);}
+    50% {border-color:red;-webkit-transform: translateX(3px) rotate(2deg);}
+    60% {border-color:red;-webkit-transform: translateX(-3px) rotate(-2deg);}
+    70% {border-color:red;-webkit-transform: translateX(3px) rotate(2deg);}
+    80% {border-color:red;-webkit-transform: translateX(-3px) rotate(-2deg);}
+    90% {border-color:red;-webkit-transform: translateX(3px) rotate(2deg);}
     100% {border-color:#b5b5b5;-webkit-transform: translateX(-3px) rotate(-2deg);}
 }
 
 @-webkit-keyframes myfirst /* Safari and Chrome */
 {
-    10% {border-color:red;background:red;-webkit-transform: translateX(3px) rotate(2deg);}
-    20% {border-color:red;background:red;-webkit-transform: translateX(-3px) rotate(-2deg);}
-    30% {border-color:red;background:red;-webkit-transform: translateX(3px) rotate(2deg);}
-    40% {border-color:red;background:red;-webkit-transform: translateX(-3px) rotate(-2deg);}
-    50% {border-color:red;background:red;-webkit-transform: translateX(3px) rotate(2deg);}
-    60% {border-color:red;background:red;-webkit-transform: translateX(-3px) rotate(-2deg);}
-    70% {border-color:red;background:red;-webkit-transform: translateX(3px) rotate(2deg);}
-    80% {border-color:red;background:red;-webkit-transform: translateX(-3px) rotate(-2deg);}
-    90% {border-color:red;background:red;-webkit-transform: translateX(3px) rotate(2deg);}
+    10% {border-color:red;-webkit-transform: translateX(3px) rotate(2deg);}
+    20% {border-color:red;-webkit-transform: translateX(-3px) rotate(-2deg);}
+    30% {border-color:red;-webkit-transform: translateX(3px) rotate(2deg);}
+    40% {border-color:red;-webkit-transform: translateX(-3px) rotate(-2deg);}
+    50% {border-color:red;-webkit-transform: translateX(3px) rotate(2deg);}
+    60% {border-color:red;-webkit-transform: translateX(-3px) rotate(-2deg);}
+    70% {border-color:red;-webkit-transform: translateX(3px) rotate(2deg);}
+    80% {border-color:red;-webkit-transform: translateX(-3px) rotate(-2deg);}
+    90% {border-color:red;-webkit-transform: translateX(3px) rotate(2deg);}
     100% {border-color:#b5b5b5;-webkit-transform: translateX(-3px) rotate(-2deg);}
 }
 
 @-o-keyframes myfirst /* Opera */
 {
-    10% {border-color:red;background:red;-webkit-transform: translateX(3px) rotate(2deg);}
-    20% {border-color:red;background:red;-webkit-transform: translateX(-3px) rotate(-2deg);}
-    30% {border-color:red;background:red;-webkit-transform: translateX(3px) rotate(2deg);}
-    40% {border-color:red;background:red;-webkit-transform: translateX(-3px) rotate(-2deg);}
-    50% {border-color:red;background:red;-webkit-transform: translateX(3px) rotate(2deg);}
-    60% {border-color:red;background:red;-webkit-transform: translateX(-3px) rotate(-2deg);}
-    70% {border-color:red;background:red;-webkit-transform: translateX(3px) rotate(2deg);}
-    80% {border-color:red;background:red;-webkit-transform: translateX(-3px) rotate(-2deg);}
-    90% {border-color:red;background:red;-webkit-transform: translateX(3px) rotate(2deg);}
+    10% {border-color:red;-webkit-transform: translateX(3px) rotate(2deg);}
+    20% {border-color:red;-webkit-transform: translateX(-3px) rotate(-2deg);}
+    30% {border-color:red;-webkit-transform: translateX(3px) rotate(2deg);}
+    40% {border-color:red;-webkit-transform: translateX(-3px) rotate(-2deg);}
+    50% {border-color:red;-webkit-transform: translateX(3px) rotate(2deg);}
+    60% {border-color:red;-webkit-transform: translateX(-3px) rotate(-2deg);}
+    70% {border-color:red;-webkit-transform: translateX(3px) rotate(2deg);}
+    80% {border-color:red;-webkit-transform: translateX(-3px) rotate(-2deg);}
+    90% {border-color:red;-webkit-transform: translateX(3px) rotate(2deg);}
     100% {border-color:#b5b5b5;-webkit-transform: translateX(-3px) rotate(-2deg);}
 }
