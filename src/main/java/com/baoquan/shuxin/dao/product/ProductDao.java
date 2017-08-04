@@ -28,4 +28,6 @@ public interface ProductDao {
 
     void updateProductStatus(Product product);
 
+
+
 }

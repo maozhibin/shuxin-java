@@ -109,8 +109,10 @@ public class UserOrderController {
                 int id = userOrder.getProductId();
                 Product productIdList = productService.findById(id);
                 String statusName = String.valueOf(userOrder.getStatus());
-
                 List<Option> optionList = optionService.queryOrderInfo();
+                if (optionList ==null){
+                    break;
+                }
                 Option op = null;
                 for (Option option : optionList) {
                     if (statusName.equals(option.getValue())) {
@@ -136,11 +138,19 @@ public class UserOrderController {
         UserOrderVO vo = new UserOrderVO();
         vo.setUserId(userOrder.getUserId());
         if(!StringUtils.isNotEmpty(op.getName())){
-           op.setName("");
+            vo.setStatuName("");
         }else {
             vo.setStatuName(op.getName());
         }
-        vo.setName(pd.getName());
+        if (pd ==null){
+            vo.setName("");
+        }else {
+            if (!StringUtils.isNotEmpty(pd.getName())){
+                vo.setName("");
+            }else {
+                vo.setName(pd.getName());
+            }
+        }
         vo.setBuyAmount(userOrder.getBuyAmount());
         vo.setPayAmount(userOrder.getPayAmount());
         if (userOrder.getRequestNo() !=null){
