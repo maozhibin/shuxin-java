@@ -2,7 +2,7 @@
  * Created by Administrator on 2016/5/18.
  */
 function trim(str){ //删除左右两端的空格
-    return str.replace(/(^\s*)|(\s*$)/g, "");
+    return str?str.replace(/(^\s*)|(\s*$)/g, ""):'';
 }
 function ltrim(str){ //删除左边的空格
     return str.replace(/(^\s*)/g,"");

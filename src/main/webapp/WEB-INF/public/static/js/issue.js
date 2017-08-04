@@ -87,6 +87,7 @@ $(document).ready(function(){
                     return ;
                 }
             }
+            apiFunction();
             goto(tab);
         }else if(tab == 'desc'){
             for(var m=0;m<$('.api').find('.input-ctrl').length;m++){
@@ -95,6 +96,7 @@ $(document).ready(function(){
                     return ;
                 }
             }
+            descFunction();
             goto(tab);
         }else{
             for(var n=0;n<$('.desc').find('.input-ctrl').length;n++){
@@ -103,6 +105,7 @@ $(document).ready(function(){
                     return ;
                 }
             }
+            priceFunction();
             goto(tab);
         }
 
@@ -111,6 +114,7 @@ $(document).ready(function(){
     $('#submit_btn').click(function () {
         chargingFunction();
     });
+
     //请求参数（Headers）
     $('#request_headers').on("click","button.add_header",function(){
         var tr = $(this).parents('tr');
@@ -208,36 +212,36 @@ $(document).ready(function(){
         });
     });
 
-    function myfunction(){
-        var str = {};
+    /*数据更新*/
+    function update() {
         for (var k in base){
-            if(!base.k){
+            if(!trim(base[k])){
                 goto('base');
-
                 console.log(k);
-                console.log(base.k);
-                baseError(k);
+                apiError(k);
                 return ;
             }
         }
         for (var a in api){
-            if(!api.a){
+            console.log(api[k]);
+            console.log('XXXXXXXXXXXXXXXXXXXXXXX');
+            if(!api[a]){
                 goto('api');
-                console.log(k);
-                console.log(api.k);
                 apiError(a);
                 return ;
             }
         }
         for (var b in desc){
-            if(!desc.b){
+            if(!desc[b]){
                 goto('price');
-                console.log(k);
-                console.log(desc.k);
                 descError(b);
                 return ;
             }
         }
+    }
+    function myfunction(){
+        var str = {};
+        update();
 
         var productName=$('#product_name').val();//产品名
         var frequent=$('#frequent').val();//更新频率
@@ -385,56 +389,21 @@ $(document).ready(function(){
 
     var base={},api={},desc={};
     function apiFunction(){//基础设置检查
-        var product_name=$('#product_name').val();
-        var product_description=$('#product_description').val();
-        var productTags=$('#productTags').val();
-        product_name_value=product_name.replace(/\n/g,'');
-        product_description_value=product_description.replace(/\n/g,'');
-        productTags_value=productTags.replace(/\n/g,'');
-        if(javaTrim(product_name_value)==""){
-            // alert("请输入数据名称");
-            base.product_name=false;
-        }
-        if(javaTrim(product_description_value)==""){
-            // alert("请输入数据简介");
-            base.product_description=false;
-        }
-        if(javaTrim(productTags_value)==""){
-            // alert("请输入标签设置");
-            base.productTags=false;
-        }
+        base.product_name=$('#product_name').val();
+        base.product_description=$('#product_description').val();
+        base.productTags=$('#productTags').val();
+        console.log(base);
     }
     function descFunction(){//接口设置判断
-        var interface_name=$('#interface_name').val();
-        var url_address=$('#url_address').val();
-        var request_sample=$('#request_sample').val();
-        var normal_sample=$('#normal_sample').val();
-        var error_sample=$('#error_sample').val();
-        var app_code = $('#app_code').val();
-        var time_out=$('#time_out').val();//请求超时
+        var request_sample_value=trim($('#request_sample').val()),
+        normal_sample_value=trim($('#normal_sample').val()),
+        error_sample_value=trim($('#error_sample').val());
 
-        interface_name_value=interface_name.replace(/\n/g,'');
-        url_address_value=url_address.replace(/\n/g,'');
-        request_sample_value=request_sample.replace(/\n/g,'');
-        normal_sample_value=normal_sample.replace(/\n/g,'');
-        error_sample_value=error_sample.replace(/\n/g,'');
-        app_code_value=app_code.replace(/\n/g,'');
-        if(javaTrim(interface_name_value)==""){
-            // alert("请输入接口名称");
-            api.interface_name=false;
-        }
-        if(javaTrim(app_code_value)==""){
-            // alert("请输入appCode");
-            api.app_code=false;
-        }
-        if(!/^[0-9]+$/.test(time_out.trim()) || time_out.length > 10){
-            // alert("请输入正确的请求超时时长时间");
-            api.time_out=false;
-        }
-        if(javaTrim(url_address_value)==""){
-            // alert("请输入服务地址");
-            api.url_address=false;
-        }
+        api.interface_name=trim($('#interface_name').val());
+        api.app_code=trim($('#app_code').val());
+        api.time_out=trim($('#time_out').val());
+        api.url_address=trim($('#url_address').val());
+
         var  headerRow =$("#request_headers").find('tr').length;
         if(headerRow < 2){
             // alert("至少输入一个请求参数(Headers)");
@@ -454,16 +423,13 @@ $(document).ready(function(){
         }
 
 
-        if(javaTrim(request_sample_value)==""){
-            // alert("请输入请求实例");
+        if(request_sample_value==""){
             api.request_sample=false;
         }
-        if(javaTrim(normal_sample_value)==""){
-            // alert("请输入正常返回示例");
+        if(normal_sample_value==""){
             api.normal_sample=false;
         }
-        if(javaTrim(error_sample_value)==""){
-            // alert("请输入错误返回实例");
+        if(error_sample_value==""){
             api.error_sample=false;
         }
 
@@ -475,23 +441,16 @@ $(document).ready(function(){
 
     }
     function priceFunction(){//产品描述判断
-        var intro=$('#intro').val();
-        var highlight=$('#highlight').val();
-        //var snapshot=$('#snapshot').val();//产品截图
-        var service=$('#service').val();
-        intro_value=intro.replace(/\n/g,'');
-        highlight_value=highlight.replace(/\n/g,'');
-        service_value=service.replace(/\n/g,'');
-        if(javaTrim(intro_value)==""){
-            // alert("请输入产品介绍");
+        var intro_value=trim($('#intro').val()),
+        highlight_value=trim($('#highlight').val()),
+        service_value=trim($('#service').val());
+        if(intro_value==""){
             desc.intro=false;
         }
-        if(javaTrim(highlight_value)==""){
-            // alert("请输入产品亮点");
+        if(highlight_value==""){
             desc.highlight=false;
         }
-        if(javaTrim(service_value)==""){
-            // alert("请输入售后服务");
+        if(service_value==""){
             desc.service=false;
         }
     }
@@ -519,19 +478,19 @@ $(document).ready(function(){
         priceOne_value=priceOne.replace(/\n/g,'');
         priceHundred_value=priceHundred.replace(/\n/g,'');
         priceYear_value=priceYear.replace(/\n/g,'');
-        if(javaTrim(priceOne_value)==""){
+        if(priceOne_value==""){
             // alert("单次费用必须填写");
             $('#priceOne').addClass('animation');
             return;
         }
-        if(javaTrim(priceOne_value)!=""){
+        if(priceOne_value!=""){
             if(!reg.test(priceOne) || priceOne.length >7){
                 // alert("请输入正确的单次计费价格");
                 $('#priceOne').addClass('animation');
                 return;
             }
         }
-        if(javaTrim(priceHundred_value)!=""){
+        if(priceHundred_value!=""){
             if(!reg.test(priceHundred) || priceHundred.length >7){
                 // alert("请输入正确的多次计费价格");
                 $('#priceHundred').addClass('animation');
@@ -539,7 +498,7 @@ $(document).ready(function(){
             }
         }
 
-        if(javaTrim(priceYear_value)!=""){
+        if(priceYear_value!=""){
             if(!reg.test(priceYear) || priceYear.length >7){
                 // alert("请输入正确的包年计费价格");
                 $('#priceYear').addClass('animation');
@@ -552,15 +511,6 @@ $(document).ready(function(){
             return;
         }
         myfunction();
-    }
-
-    function javaTrim(str) {//判断输入的是否为空
-        for (var i=0; (str.charAt(i)==' ') && i<str.length; i++);
-        if (i == str.length) return ''; //whole string is space
-        var newstr = str.substr(i);
-        for (var i=newstr.length-1; newstr.charAt(i)==' ' && i>=0; i--);
-        newstr = newstr.substr(0,i+1);
-        return newstr;
     }
 
     function delHeaders(obj){//点击事件那边需要加this
