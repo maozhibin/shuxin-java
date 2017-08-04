@@ -6,6 +6,8 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.commons.collections.CollectionUtils;
+
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baoquan.shuxin.constatn.InterfaceParamConstant;
@@ -57,23 +59,16 @@ public class ProductInterfaceParamServiceImpl implements ProductInterfaceParamSe
 			return false;
 		}
 		JSONArray headerArray = data.getJSONArray("headersArray");
-		Boolean updateParam = this.updateParam(headerArray, productInterfaceId, productId, interfaceParamList,
-				paramList, InterfaceParamConstant.PARAM_TYPE_HEADERS);
-		if (!updateParam) {
-			return false;
-		}
+		this.updateParam(headerArray, productInterfaceId, productId, interfaceParamList, paramList,
+				InterfaceParamConstant.PARAM_TYPE_HEADERS);
+
 		JSONArray bodysArray = data.getJSONArray("bodysArrays");
-		Boolean updateParam2 = this.updateParam(bodysArray, productInterfaceId, productId, interfaceParamList,
-				paramList, InterfaceParamConstant.PARAM_TYPE_BODY);
-		if (!updateParam2) {
-			return false;
-		}
+		this.updateParam(bodysArray, productInterfaceId, productId, interfaceParamList, paramList,
+				InterfaceParamConstant.PARAM_TYPE_BODY);
+
 		JSONArray querysArray = data.getJSONArray("querysArray");
-		Boolean updateParam3 = this.updateParam(querysArray, productInterfaceId, productId, interfaceParamList,
-				paramList, InterfaceParamConstant.PARAM_TYPE_QUERY);
-		if (!updateParam3) {
-			return false;
-		}
+		this.updateParam(querysArray, productInterfaceId, productId, interfaceParamList, paramList,
+				InterfaceParamConstant.PARAM_TYPE_QUERY);
 
 		this.deleteParamLit(productId);
 		this.paramListInsert(interfaceParamList);
@@ -82,11 +77,15 @@ public class ProductInterfaceParamServiceImpl implements ProductInterfaceParamSe
 	}
 
 	@SuppressWarnings("unchecked")
-	public Boolean updateParam(JSONArray array, Integer productInterfaceId, Integer productId,
+	public void updateParam(JSONArray array, Integer productInterfaceId, Integer productId,
 			List<ProductInterfaceParam> interfaceParamList, List<Object> paramList, String paramTypeHeaders) {
 		if (productInterfaceId == null) {
-			return false;
+			return;
 		}
+		if (CollectionUtils.isEmpty(array)) {
+			return;
+		}
+
 		for (int i = 0; i < array.size(); i++) {
 			ProductInterfaceParam interfaceParam = new ProductInterfaceParam();
 			paramList = (List<Object>) array.get(i);
@@ -109,6 +108,5 @@ public class ProductInterfaceParamServiceImpl implements ProductInterfaceParamSe
 			interfaceParam.setProductInterfaceId(productInterfaceId);
 			interfaceParamList.add(interfaceParam);
 		}
-		return true;
 	}
 }
