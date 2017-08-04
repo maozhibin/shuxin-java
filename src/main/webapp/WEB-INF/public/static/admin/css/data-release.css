@@ -177,10 +177,11 @@ input[type="checkbox"], input[type="radio"] {
 .release-tabs table .inline .cell {
     display: table-cell;
 }
-.release-tabs table .inline input {
-    width: 48px;
-    border: none;
-    border-bottom: 1px solid #b5b5b5;
+.release-tabs table .inline input{
+    width: 216px;
+    height: 35px;
+    line-height: 35px;
+    border: 1px solid #b5b5b5;
 }
 a.blue, a.color-blue {
     color: #1a60f4;

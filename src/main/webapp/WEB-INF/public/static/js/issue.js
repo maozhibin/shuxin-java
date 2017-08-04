@@ -1,4 +1,12 @@
 $(document).ready(function(){
+    function goto(tab) {
+        $('.container').attr('hidden', 'hidden');
+        $('.container.' + tab).removeAttr('hidden');
+        $('.tab').removeClass('active');
+        $('.tab.' + tab).addClass('active');
+        scroll(0, 0);
+    }
+
     var classValue=$('#product_class').val();
     $.ajax({
         type: "GET",
