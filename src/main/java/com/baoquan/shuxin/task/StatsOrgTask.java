@@ -33,8 +33,8 @@ public class StatsOrgTask {
 	 * 每天凌晨2点执行
 	 * @throws ParseException
 	 */
-	//@Scheduled(cron = "0 0 2 * * *")
-	@Scheduled(fixedRate = 1000*60*1)
+	@Scheduled(cron = "0 0 2 * * *")
+	//@Scheduled(fixedRate = 1000*60*5)
 	public void updateStatsOrg() throws ParseException {
 		Date now = new Date();
 		Date today = DateUtils.truncate(now, Calendar.DATE);
@@ -47,8 +47,6 @@ public class StatsOrgTask {
 		if(CollectionUtils.isEmpty(listStatsOrgDaily)){
 			return;
 		}
-
-		//统计机构交易(每日)中的数据和产品交易统计中的数据OrgId中是否有相同,相同表明只需要更新,没有的话需要插入
 		List<StatsOrg> insertList = new ArrayList<>();
 		List<StatsOrg> updateList = new ArrayList<>();
 
@@ -64,8 +62,7 @@ public class StatsOrgTask {
 				statsOrg.setOrgId(statsOrgDaily.getOrgId());
 				insertList.add(statsOrg);
 			}else {
-
-				Long dateline = statsOrgDaily.getDateline();
+				Long dateline = statsOrg.getDateline();
 				String stampToDate = DateUtil.stampToDateY(dateline.toString());
 				//判断今天是否执行过，执行过就不在执行，一天只执行一次
 				if (stampToDate.equals(stampTimeToday)){

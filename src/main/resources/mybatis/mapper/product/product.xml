@@ -76,7 +76,7 @@
    		 where id=#{id}
    </update>
    
-  <select id="findById" resultMap="BaseResultMap">
+  <select id="findById" resultType="com.baoquan.shuxin.model.product.Product">
   	SELECT
 		*
 	FROM
