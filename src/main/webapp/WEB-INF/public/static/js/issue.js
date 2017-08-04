@@ -156,21 +156,34 @@ $(document).ready(function(){
 
     function myfunction(){
         var str = {};
-        for (var k in api){
-            if(!api.k){
+        for (var k in base){
+            if(!base.k){
                 goto('base');
+                console.log(k);
+                console.log(base.k);
+                baseError(k);
+                return ;
             }
         }
-        for (var a in desc){
+        for (var a in api){
             if(!api.a){
                 goto('api');
+                console.log(k);
+                console.log(api.k);
+                apiError(a);
+                return ;
             }
         }
-        for (var b in api){
-            if(!api.b){
+        for (var b in desc){
+            if(!desc.b){
                 goto('price');
+                console.log(k);
+                console.log(desc.k);
+                descError(b);
+                return ;
             }
         }
+
         var productName=$('#product_name').val();//产品名
         var frequent=$('#frequent').val();//更新频率
         var productClass=$('#product_class').val();//产品类型
@@ -315,7 +328,7 @@ $(document).ready(function(){
 
     }
 
-    var api={},desc={},price={};
+    var base={},api={},desc={};
     function apiFunction(){//基础设置检查
         var product_name=$('#product_name').val();
         var product_description=$('#product_description').val();
@@ -325,19 +338,17 @@ $(document).ready(function(){
         productTags_value=productTags.replace(/\n/g,'');
         if(javaTrim(product_name_value)==""){
             // alert("请输入数据名称");
-            api.dataName=false;
+            base.product_name=false;
         }
         if(javaTrim(product_description_value)==""){
             // alert("请输入数据简介");
-            api.dataInfo=false;
+            base.product_description=false;
         }
         if(javaTrim(productTags_value)==""){
             // alert("请输入标签设置");
-            api.signName=false;
+            base.productTags=false;
         }
-        console.log(api);
     }
-
     function descFunction(){//接口设置判断
         var interface_name=$('#interface_name').val();
         var url_address=$('#url_address').val();
@@ -355,61 +366,59 @@ $(document).ready(function(){
         app_code_value=app_code.replace(/\n/g,'');
         if(javaTrim(interface_name_value)==""){
             // alert("请输入接口名称");
-            desc.apiName=false;
+            api.interface_name=false;
         }
         if(javaTrim(app_code_value)==""){
             // alert("请输入appCode");
-            desc.appCode=false;
+            api.app_code=false;
         }
         if(!/^[0-9]+$/.test(time_out.trim()) || time_out.length > 10){
             // alert("请输入正确的请求超时时长时间");
-            desc.apiOuttime=false;
+            api.time_out=false;
         }
         if(javaTrim(url_address_value)==""){
             // alert("请输入服务地址");
-            desc.appUrl=false;
+            api.url_address=false;
         }
-        var  rownum =$("#Headers tr").length
-        if(rownum < 3){
+        var  headerRow =$("#request_headers").find('tr').length;
+        if(headerRow < 2){
             // alert("至少输入一个请求参数(Headers)");
-            desc.appHeader=false;
+            api.request_headers=false;
         }
 
-        var  rownum =$("#Querys tr").length
-        if(rownum < 3){
+        var  queryRow =$("#request_querys").find('tr').length;
+        if(queryRow < 2){
             // alert("至少输入一个请求参数(Querys)");
-            desc.appQuery=false;
+            api.request_querys=false;
         }
 
-        var  rownum =$("#Bodys tr").length;
-        if(rownum < 3){
+        var  bodyRow =$("#request_bodys").find('tr').length;
+        if(bodyRow < 2){
             // alert("至少输入一个请求参数(Bodys)");
-            desc.appBody=false;
+            api.request_bodys=false;
         }
 
 
         if(javaTrim(request_sample_value)==""){
             // alert("请输入请求实例");
-            desc.appQuerys=false;
+            api.request_sample=false;
         }
         if(javaTrim(normal_sample_value)==""){
             // alert("请输入正常返回示例");
-            desc.appresponse=false;
+            api.normal_sample=false;
         }
         if(javaTrim(error_sample_value)==""){
             // alert("请输入错误返回实例");
-            desc.appError=false;
+            api.error_sample=false;
         }
 
-        var  rownum =$("#codes tr").length
-        if(rownum < 3){
-            // alert("至少输入一个请求参数(codes)");
-            desc.appParam=false;
+        var  codeRow =$("#request_codes").find('tr').length;
+        if(codeRow < 3){
+            // alert("至少输入一个错误码定义");
+            api.request_codes=false;
         }
 
-        console.log(api);
     }
-
     function priceFunction(){//产品描述判断
         var intro=$('#intro').val();
         var highlight=$('#highlight').val();
@@ -420,17 +429,26 @@ $(document).ready(function(){
         service_value=service.replace(/\n/g,'');
         if(javaTrim(intro_value)==""){
             // alert("请输入产品介绍");
-            price.info=false;
+            desc.intro=false;
         }
         if(javaTrim(highlight_value)==""){
             // alert("请输入产品亮点");
-            price.proTip=false;
+            desc.highlight=false;
         }
         if(javaTrim(service_value)==""){
             // alert("请输入售后服务");
-            price.server=false;
+            desc.service=false;
         }
-        console.log(price);
+    }
+
+    function baseError(base){
+        $('#'+base).addClass('animation');
+    }
+    function apiError(api){
+        $('#'+api).addClass('animation');
+    }
+    function descError(desc){
+        $('#'+desc).addClass('animation');
     }
 
     function chargingFunction(){//计费设置判断
