@@ -27,7 +27,6 @@
 
     <script src='/static/js/jquery.tagsinput.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
     <script src='/static/js/jquery.ajaxfileupload.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
-	<script src='/static/js/issue.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
     <script>
         $(function () {
             var product_class = $("#product_class");
@@ -181,5 +180,6 @@
         }
     }, false);
 </script>
+<script src='/static/js/issue.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
 </body>
 </html>

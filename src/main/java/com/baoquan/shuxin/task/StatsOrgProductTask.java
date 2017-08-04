@@ -27,12 +27,12 @@ public class StatsOrgProductTask {
 	private StatsOrgProductDailyService statsOrgProductDailyService;
 
 	/**
-	 * 每天凌晨1点15分执行
+	 * 每天凌晨1点20分执行
 	 * 
 	 * @throws ParseException
 	 */
 	@Scheduled(cron = "0 20 1 * * *")
-	//@Scheduled(fixedDelay = 2000)
+	//@Scheduled(fixedDelay = 3000)
 	public void updateStatsOrgProduct() {
 		Date now = new Date();
 		Date today = DateUtils.truncate(now, Calendar.DATE);
@@ -60,13 +60,14 @@ public class StatsOrgProductTask {
 				insertStatsOrgProductList.add(statsOrgProduct);
 			}else{
 				//判断今天是否执行过,执行过就不让在执行
-				Long dateline = statsOrgProductDaily.getDateline();
+				Long dateline = statsOrgProduct.getDateline();
 				String stampToDateY = DateUtil.stampToDateY(dateline.toString());
 				if(stampToDateY.equals(stampTimeToday)){
 					return;
 				}
 				Integer purchaseNum = statsOrgProductDaily.getPurchaseNum() + statsOrgProduct.getPurchaseNum();
 				statsOrgProduct.setPurchaseNum(purchaseNum);
+				statsOrgProduct.setDateline(now.getTime());
 				updateStatsOrgProductList.add(statsOrgProduct);
 			}
 			

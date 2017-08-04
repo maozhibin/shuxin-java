@@ -87,6 +87,7 @@
        update stats_org_product
         <set >
        		purchase_num = #{item.purchaseNum,jdbcType=INTEGER},
+       		dateline = #{item.dateline,jdbcType=BIGINT},
         </set>
         where product_id = #{item.productId,jdbcType=BIGINT}
     </foreach>       

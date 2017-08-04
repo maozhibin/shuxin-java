@@ -33,7 +33,7 @@ public class StatsProductTask {
 	 * @throws ParseException
 	 */
 	@Scheduled(cron = "0 10 1 * * *")
-	//@Scheduled(fixedDelay=2000)
+	//@Scheduled(fixedDelay=8000)
 	public void updateStatsProduct() {
 		Date now = new Date();
 		Date today = DateUtils.truncate(now, Calendar.DATE);
