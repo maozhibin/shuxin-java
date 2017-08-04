@@ -1,8 +1,11 @@
 $(document).ready(function(){
-    var classValue=$('#product_class').val();
+    var classValue=$('select#product_class').text();
+    var id=window.location.href.split('=');
+    id=id[1]?id[1]:1;
+    console.log(id);
     $.ajax({
         type: "GET",
-        url: "/admin/product/base?id="+classValue,
+        url: "/admin/product/base?id="+id,
         dataType: "json",
         success: function(data){
             $("#product_base").html('');
