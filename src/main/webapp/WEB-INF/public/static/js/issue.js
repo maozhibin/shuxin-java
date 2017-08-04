@@ -174,6 +174,7 @@ $(document).ready(function(){
         for (var k in base){
             if(!base.k){
                 goto('base');
+                
                 console.log(k);
                 console.log(base.k);
                 baseError(k);
