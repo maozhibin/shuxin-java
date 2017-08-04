@@ -45,7 +45,7 @@
         </div>
         <div class="addon">请求超时时长</div>
         <div class="cell">
-            <input type="text" class="input-ctrl" name="timeout" id="time_out" value="${hashMap.productInterface.timeout}">
+            <input type="number" class="input-ctrl" name="timeout" id="time_out" value="${hashMap.productInterface.timeout}" max="10">
         </div>
     </div>
     <div class="inline-form mb30">

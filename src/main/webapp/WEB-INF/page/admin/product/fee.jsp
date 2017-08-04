@@ -13,7 +13,7 @@
             <thead>
             <tr>
                 <th width="218">标准名称</th>
-                <th>设置</th>
+                <th>设置(元/1次)</th>
             </tr>
             </thead>
             <tbody id="request_billings_per">
@@ -21,11 +21,9 @@
                 <td>单次计费</td>
                 <td>
                     <ul class="inline">
-                        <li class="cell"><input class="input-ctrl" type="text" name="priceOne"
+                        <li class="cell"><input class="input-ctrl" type="number" name="priceOne" 
                         <c:forEach items="${hashMap.billingsList}" var="item">
                         <c:if test="${item.num == 1}"> value="${item.price}"</c:if></c:forEach>id="priceOne"></li>
-                        <li class="cell">元/</li>
-                        <li class="cell">1次</li>
                     </ul>
                 </td>
             </tr>
@@ -38,7 +36,7 @@
             <thead>
             <tr>
                 <th width="218">标准名称</th>
-                <th>设置</th>
+                <th>设置(元/100次)</th>
             </tr>
             </thead>
             <tbody id="request_billings_multi">
@@ -49,8 +47,6 @@
                         <li class="cell"><input type="text" name="priceHundred"
                         <c:forEach items="${hashMap.billingsList}" var="item">
                         <c:if test="${item.num == 100}"> value="${item.price}"</c:if></c:forEach> id="priceHundred"></li>
-                        <li class="cell">元/</li>
-                        <li class="cell">100次</li>
                     </ul>
                 </td>
             </tr>
@@ -62,7 +58,7 @@
             <thead>
             <tr>
                 <th width="218">标准名称</th>
-                <th>设置</th>
+                <th>设置(元/1年)</th>
             </tr>
             </thead>
             <tbody id="request_billings_year">
@@ -73,8 +69,6 @@
                         <li class="cell"><input type="text" name="priceYear"
                         <c:forEach items="${hashMap.billingsList}" var="item">
                         <c:if test="${item.num == 12}"> value="${item.price}"</c:if></c:forEach>id="priceYear" style="width: "></li>
-                        <li class="cell">元/</li>
-                        <li class="cell">1年</li>
                     </ul>
                 </td>
             </tr>
