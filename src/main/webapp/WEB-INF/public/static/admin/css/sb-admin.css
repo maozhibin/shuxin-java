@@ -345,10 +345,10 @@ ul.alert-dropdown {
     -webkit-animation:myfirst 2s; /* Safari and Chrome */
     -o-animation:myfirst 2s; /* Opera */
     
-    animation-duration:3s;
-    -moz-animation-duration:3s;
-    -webkit-animation-duration:3s;
-    -o-animation-duration:3s;
+    animation-duration:1s;
+    -moz-animation-duration:1s;
+    -webkit-animation-duration:1s;
+    -o-animation-duration:1s;
 }
 
 @keyframes myfirst

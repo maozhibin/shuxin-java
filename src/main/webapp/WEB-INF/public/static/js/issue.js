@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    /*tab 跳转函数*/
     function goto(tab) {
         $('.container').attr('hidden', 'hidden');
         $('.container.' + tab).removeAttr('hidden');
@@ -6,23 +7,22 @@ $(document).ready(function(){
         $('.tab.' + tab).addClass('active');
         scroll(0, 0);
     }
-
-    var classValue=$('#product_class').val();
-    $.ajax({
-        type: "GET",
-        url: "/admin/product/base?id="+classValue,
-        dataType: "json",
-        success: function(data){
-            $("#product_base").html('');
-            var option="";
-            for(var i=0;i<data.length;i++){
-                option+="<option value='"+data[i].id+"'>"+data[i].name+"</option>";
+    /*数据加载*/
+        var classValue=$('#product_class').val();
+        $.ajax({
+            type: "GET",
+            url: "/admin/product/base?id="+classValue,
+            dataType: "json",
+            success: function(data){
+                $("#product_base").html('');
+                var option="";
+                for(var i=0;i<data.length;i++){
+                    option+="<option value='"+data[i].id+"'>"+data[i].name+"</option>";
+                }
+                $("#product_base").append(option);
             }
-            $("#product_base").append(option);
-        }
 
-    });
-});
+        });
     $('#product_class').change(function(){
         var classValue=$('#product_class').find('option:selected').val();
         $.ajax({
@@ -62,6 +62,7 @@ $(document).ready(function(){
         }
 
     });
+    /* END* select数据加载 *END*/
 
     /*数据填写*/
     $(".input-ctrl").blur(function () {
@@ -72,6 +73,7 @@ $(document).ready(function(){
     }).focus(function () {
         $(this).removeClass('animation').attr('placeholder','');
     });
+
     //请求参数（Headers）
     $('#request_headers').on("click","button.add_header",function(){
         var tr = $(this).parents('tr');
@@ -152,29 +154,29 @@ $(document).ready(function(){
 
 
     $('#province').change(function(){
-    var pidValue=$('#province').val();
-    $.ajax({
-        type: "GET",
-        url: "/admin/area/city?pid="+pidValue,
-        dataType: "json",
-        success: function(data){
-            $("#city").html('');
-            var option="";
-            for(var i=0;i<data.length;i++){
-                option+="<option value='"+data[i].id+"'>"+data[i].name+"</option>";
+        var pidValue=$('#province').val();
+        $.ajax({
+            type: "GET",
+            url: "/admin/area/city?pid="+pidValue,
+            dataType: "json",
+            success: function(data){
+                $("#city").html('');
+                var option="";
+                for(var i=0;i<data.length;i++){
+                    option+="<option value='"+data[i].id+"'>"+data[i].name+"</option>";
+                }
+                $("#city").append(option);
             }
-            $("#city").append(option);
-        }
 
+        });
     });
-});
 
     function myfunction(){
         var str = {};
         for (var k in base){
             if(!base.k){
                 goto('base');
-                
+
                 console.log(k);
                 console.log(base.k);
                 baseError(k);
@@ -524,9 +526,11 @@ $(document).ready(function(){
         return newstr;
     }
 
-    function delHeaders(obj)//点击事件那边需要加this
-    {
+    function delHeaders(obj){//点击事件那边需要加this
         var tr=obj.parentNode.parentNode;
         var tbody=tr.parentNode;
         tbody.removeChild(tr);
     }
+
+    });
+
