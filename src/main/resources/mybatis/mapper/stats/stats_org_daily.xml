@@ -16,10 +16,10 @@
       SELECT
       LAST_INSERT_ID()
     </selectKey>
-    insert into stats_org_daily (org_id,stats_date,`dateline`)
+    insert into stats_org_daily (org_id,total_amount,order_num,receipt_num,stats_date,`dateline`)
     values
     <foreach collection="list" item="item" index="index" separator="," >
-      (#{item.orgId},#{item.statsDate},#{item.dateline})
+      (#{item.orgId},#{item.totalAmount},#{item.orderNum},#{item.receiptNum},#{item.statsDate},#{item.dateline})
     </foreach>
   </insert>
 

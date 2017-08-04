@@ -37,7 +37,7 @@ public class PlatformOverviewServiceImpl implements PlatformOverviewService {
     }
 
     @Override
-    public Long queryOrgByTime(long stampTimeToday) {
-        return platformOverviewDao.countOrgTaskByTime(stampTimeToday);
+    public Long queryOrgByTime(long startTime, long endTime) {
+        return platformOverviewDao.countSecurityBaoquanLogByTime(startTime,endTime);
     }
 }

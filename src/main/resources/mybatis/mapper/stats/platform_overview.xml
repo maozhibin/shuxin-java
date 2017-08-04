@@ -26,10 +26,5 @@
         WHERE status = 'VERIFIED'
         AND valid_time >= #{startTime} AND valid_time &lt; #{endTime}
     </select>
-    <select id="countOrgTaskByTime" resultType="java.lang.Long">
-        SELECT count(*)
-        FROM user_product
-        WHERE status = 1
-        AND success_time = #{stampTimeToday}
-    </select>
+
 </mapper>

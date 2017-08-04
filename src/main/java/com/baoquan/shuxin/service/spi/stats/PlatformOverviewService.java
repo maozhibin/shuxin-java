@@ -10,7 +10,7 @@ public interface PlatformOverviewService {
 
     PlatformOverviewVO queryByTime(long startTime, long endTime);
 
-    Long queryOrgByTime(long stampTimeToday);
+    Long queryOrgByTime(long startTime, long endTime);
 
 
 }

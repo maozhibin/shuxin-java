@@ -38,7 +38,7 @@
          SUM(s.order_num) orderNum
          FROM  stats_product_daily s
          LEFT JOIN product p on s.product_id = p.id
-         WHERE stats_date =  #{stampTimeToday}
+         WHERE stats_date =  #{stampTimeToday} AND   p.user_id is not NULL
          GROUP BY p.user_id
     </select>
 </mapper>
