@@ -27,11 +27,7 @@
             <div class="mb15">
                 <select class="input-ctrl" name="productClass" id="product_class">
                     <c:forEach items="${hashMap.productClassList}" var="item">
-<<<<<<< HEAD
-                        <option value="${item.id}" <c:if test="${hashMap.productBaseInfo.product_class_id==item.id}"> selected="selected"</c:if>>${item.name}</option>
-=======
-                        <option class= "productClass" value="${item.id}" <c:if test="${hashMap.productBaseInfo.product_class_id==item.id}">selected="selected"</c:if>>${item.name}</option>
->>>>>>> 4b16d31aee3f2d0ff8345c09fe911b0d9c31fb39
+                        <option value="${item.id}" <c:if test="${hashMap.productBaseInfo.product_class_id==item.id}">selected="selected"</c:if>>${item.name}</option>
                     </c:forEach>
                 </select>
             </div>
@@ -111,6 +107,6 @@
     </div>
     <div class="ml40 pad30">
         <input type="button" class="btn btn-blue" value="下一步"
-               onclick="apiFunction();">
+               onclick="goto('api');">
     </div>
 </div>
