@@ -21,7 +21,7 @@
                 <td>单次计费</td>
                 <td>
                     <ul class="inline">
-                        <li class="cell"><input type="text" name="priceOne"
+                        <li class="cell"><input class="input-ctrl" type="text" name="priceOne"
                         <c:forEach items="${hashMap.billingsList}" var="item">
                         <c:if test="${item.num == 1}"> value="${item.price}"</c:if></c:forEach>id="priceOne"></li>
                         <li class="cell">元/</li>
