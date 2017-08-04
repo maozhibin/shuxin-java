@@ -107,6 +107,6 @@
     </div>
     <div class="ml40 pad30">
         <input type="button" class="btn btn-blue" value="下一步"
-               onclick="apiFunction();">
+               onclick="goto('api');">
     </div>
 </div>

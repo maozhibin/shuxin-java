@@ -220,6 +220,37 @@ public class ProductController {
         return "redirect:list";
     }
     
+    
+ //   @RequestMapping("add")
+//    @ResponseBody
+//    public JsonResponseMsg ProductUpdateOrAdd(String id,String data){
+//    	JsonResponseMsg result = new JsonResponseMsg();
+//        Integer idValue=null;
+//        if(NumberUtils.isNumber(id)){
+//            idValue=NumberUtils.toInt(id);
+//        }
+//       Boolean updateOrAdd = productService.UpdateOrAdd(idValue,data);
+//       if(!updateOrAdd){
+//    	   return result.fill(JsonResponseMsg.CODE_FAIL,"失败");
+//        }
+//       return result.fill(JsonResponseMsg.CODE_SUCCESS,"成功");
+//    }
+//    
+//    @RequestMapping("update")
+//    @ResponseBody
+//    public JsonResponseMsg ProductAdd(String id,String data){
+//    	JsonResponseMsg result = new JsonResponseMsg();
+//        Integer idValue=null;
+//        if(NumberUtils.isNumber(id)){
+//            idValue=NumberUtils.toInt(id);
+//        }
+//       Boolean updateOrAdd = productService.UpdateOrAdd(idValue,data);
+//       if(!updateOrAdd){
+//    	   return result.fill(JsonResponseMsg.CODE_FAIL,"失败");
+//        }
+//       return result.fill(JsonResponseMsg.CODE_SUCCESS,"成功");
+//    }
+    
 }
 
 

@@ -19,8 +19,6 @@ import com.baoquan.shuxin.model.stats.StatsOrgDaily;
 import com.baoquan.shuxin.service.spi.stats.PlatformOverviewService;
 import com.baoquan.shuxin.service.spi.stats.StatsOrgDailyService;
 
-import com.baoquan.shuxin.service.spi.stats.StatsOrgProductDailyService;
-
 import com.baoquan.shuxin.service.spi.stats.StatsProductDailyService;
 import com.baoquan.shuxin.util.common.DateUtil;
 
@@ -44,8 +42,12 @@ public class StatsOrgDailyTask {
      *  凌晨1点25执行添加
      */
 
+
     //@Scheduled(cron = "0 0 1 * * *")
-    @Scheduled(fixedRate = 1000*60*1)
+   // @Scheduled(fixedRate = 1000*60*1)
+     @Scheduled(cron = "0 30 1 * * *")
+
+
     public void insert(){
         Date now = new Date();
         Date today = DateUtils.truncate(now, Calendar.DATE);
