@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	alert(1)
     var classValue=$('#product_class').val();
     $.ajax({
         type: "GET",

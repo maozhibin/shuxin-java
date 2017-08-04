@@ -33,8 +33,8 @@ public class StatsOrgTask {
 	 * 每天凌晨2点执行
 	 * @throws ParseException
 	 */
-	//@Scheduled(cron = "0 0 2 * * *")
-	@Scheduled(fixedRate = 1000*60*1)
+	@Scheduled(cron = "0 0 2 * * *")
+	//@Scheduled(fixedRate = 1000*60*1)
 	public void updateStatsOrg() throws ParseException {
 		Date now = new Date();
 		Date today = DateUtils.truncate(now, Calendar.DATE);
