@@ -83,7 +83,7 @@
             <p class="mb10"><label class="gray6"><input type="checkbox" class="agreement" id="chexkboxId" checked>
                 我已同意并阅读 <a href="" class="blue">《2226888协议》</a></label>
             </p>
-            <button class="btn btn-red" id="submit_btn" onclick="chargingFunction()">提交发布</button>
+            <button class="btn btn-red" id="submit_btn">提交发布</button>
         </div>
     </div>
 </div>

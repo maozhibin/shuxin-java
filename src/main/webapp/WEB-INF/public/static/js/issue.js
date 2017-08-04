@@ -71,18 +71,46 @@ $(document).ready(function(){
             $(this).attr('placeholder','请填写！').addClass('animation');
         }
     }).focus(function () {
-        $(this).removeClass('animation').attr('placeholder','');
+        $(this).removeClass('animation').attr('placeholder','').css('border-color','');
     });
-
-    /*基础设置*/
+    /*下一步 button*/
+    $('input[value="下一步"]').click(function () {
+        var dataUrl =$(this).attr('data-url');
+        examineData(dataUrl);
+    });
+    /*下一步按钮 ：如果从必选项里移除且输入为空，则跳转失败*/
     function examineData(tab){
-        if($(".input-ctrl").is('animation')){
-            $('.animation').addClass('animation');
-            return ;
+        if(tab == 'api'){
+            for(var l=0;l<$('.base').find('.input-ctrl').length;l++){
+                if($('.base').find(".input-ctrl").eq(l).is('.animation')){
+                    $('.base').find('.animation').attr('placeholder','').css('border-color','red').focus();
+                    return ;
+                }
+            }
+            goto(tab);
+        }else if(tab == 'desc'){
+            for(var m=0;m<$('.api').find('.input-ctrl').length;m++){
+                if($('.api').find('.input-ctrl').eq(m).is('.animation')){
+                    $('.api').find('.animation').attr('placeholder','').css('border-color','red').focus();
+                    return ;
+                }
+            }
+            goto(tab);
         }else{
+            for(var n=0;n<$('.desc').find('.input-ctrl').length;n++){
+                if($('.desc').find('.input-ctrl').eq(n).is('.animation')){
+                    $('.desc').find('.animation').attr('placeholder','').css('border-color','red').focus();
+                    return ;
+                }
+            }
             goto(tab);
         }
+
     }
+    /*提交发布*/
+    $('#submit_btn').click(function () {
+        chargingFunction();
+    });
     //请求参数（Headers）
     $('#request_headers').on("click","button.add_header",function(){
         var tr = $(this).parents('tr');
