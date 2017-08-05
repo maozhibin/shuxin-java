@@ -19,14 +19,11 @@ public class ConfigServiceImpl implements ConfigService{
 	private ConfigDao configDao;
 
 	@Override
-	public Page<Config> configList(Page<Config> page) {
+	public List<Config> configList(Page<Config> page) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("page", page);
-		Integer total = configDao.configTotal();
-		page.setTotalRecordCount(total);
 		List<Config> list = configDao.configList(map);
-		page.setResult(list);
-		return page;
+		return list;
 	}
 
 	@Override
@@ -54,13 +51,6 @@ public class ConfigServiceImpl implements ConfigService{
 		return configDao.countConfigInfo();
 	}
 
-	@Override
-	public List<Config> queryConfigList(Integer start, Integer length) {
-		Map<String, Object> parms = new HashMap<>();
-		parms.put("start",start);
-		parms.put("length",length);
-		return configDao.configList(parms);
-	}
 
 	@Override
 	public boolean queryByVarname(String varname) {
