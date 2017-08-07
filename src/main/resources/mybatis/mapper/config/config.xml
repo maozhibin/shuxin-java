@@ -33,7 +33,7 @@
 			config
 		where is_valid = 1
 		<if test="page != null">
-	        limit ${page.startIndex},${page.pageSize};
+	              	limit ${page.startIndex},${page.pageSize};
 	    </if>
   </select>
 
@@ -41,13 +41,13 @@
         update config 
         	<set>
         		<if test="varname!=null">
-        		varname=#{varname},
+        			varname=#{varname},
         		</if>
         		<if test="value">
-        		value=#{value},
+        			value=#{value},
         		</if>
         		<if test="varname!=null">
-        		memo=#{memo}
+        			memo=#{memo}
         		</if>
         	</set>
         where id=#{id}
@@ -55,8 +55,8 @@
   
 	<insert id="insertConfig" parameterType="Config" 
         useGeneratedKeys="true" keyProperty="id"> 
-        insert into config(varname,value,memo)  
-             values(#{varname},#{value},#{memo})  
+        insert into config(varname,value,memo,is_valid)  
+             values(#{varname},#{value},#{memo},#{isValid})  
     </insert>
     
     <select id="findByIdConfig"  resultMap="BaseResultMap">

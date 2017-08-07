@@ -8,9 +8,7 @@ import com.baoquan.shuxin.model.config.Config;
 
 public interface ConfigService {
 
-
-	Page<Config> configList(Page<Config> page);
-
+	List<Config> configList(Page<Config> page);
 
 	void updateConfig(Config config);
 
@@ -21,9 +19,6 @@ public interface ConfigService {
 	void deleteConfig(Config config);
 
 	Integer countConfigInfo();
-
-
-	List<Config> queryConfigList(Integer start, Integer length);
 
 
 	boolean queryByVarname(String varname);

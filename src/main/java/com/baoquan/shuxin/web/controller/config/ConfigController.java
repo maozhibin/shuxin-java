@@ -28,17 +28,18 @@ public class ConfigController {
 	@RequestMapping("list")
 	public ModelAndView configList(Integer pageNo, Integer pageSize) {
 		ModelAndView mv = new ModelAndView("admin/config/list");
+
 		if (pageNo == null || pageNo < 1)
 			pageNo = 1;
 		if (pageSize == null || pageSize > Page.DEFAULT_PAGE_SIZE)
 			pageSize = Page.DEFAULT_PAGE_SIZE;
-		Page page = new Page();
-		page.setPageNo(pageNo);
+		Page<Config> page = new Page<>();
 		page.setPageSize(pageSize);
+		page.setPageNo(pageNo);
 		Integer configCount = configService.countConfigInfo();
 		page.setTotalRecordCount(configCount);
 		if (configCount > (pageNo - 1) * pageSize) {
-			List<Config> configList = configService.queryConfigList((pageNo - 1) * pageSize, pageSize);
+			List<Config> configList = configService.configList(page);
 			page.setResult(configList);
 		}
 
@@ -60,9 +61,8 @@ public class ConfigController {
 			return result.fill(JsonResponseMsg.CODE_FAIL, "请填写变量值");
 		}
 		
-		Config configOld = configService.findByIdConfig(NumberUtils.toInt(id));
-		Config config = new Config();
-		if(!configOld.getVarname().equals(varname)){
+		Config config = configService.findByIdConfig(NumberUtils.toInt(id));
+		if (!config.getVarname().equals(varname)) {
 			config.setMemo(memo);
 			boolean queryByVarname = configService.queryByVarname(varname);
 			if(!queryByVarname){
@@ -96,6 +96,7 @@ public class ConfigController {
 		config.setMemo(memo);
 		config.setVarname(varname);
 		config.setValue(valueName);
+		config.setIsValid(true);
 		configService.insertConfig(config);
 		return result.fill(JsonResponseMsg.CODE_SUCCESS, "修改成功");
 	}
