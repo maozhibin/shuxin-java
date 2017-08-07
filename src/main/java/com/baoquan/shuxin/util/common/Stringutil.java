@@ -29,7 +29,7 @@ public class Stringutil {
 	 * @param str
 	 * @return
 	 */
-	public static  String notNull(String str){
+	public static  Object notNull(Object str){
 		if(str.equals("") && str== null ){
 			return "";
 		}else {

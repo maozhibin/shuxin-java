@@ -27,7 +27,6 @@
                                 <c:if test="${newsClassType == option.value}"><option selected value="${option.value}">${option.name}</option></c:if>
                                 <c:if test="${newsClassType != option.value}"><option value="${option.value}">${option.name}</option></c:if>
                             </c:forEach>
-
                         </select>
                     </td>
                     <td>

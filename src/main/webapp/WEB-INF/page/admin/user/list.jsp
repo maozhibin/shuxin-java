@@ -19,34 +19,33 @@
 <body>
 <section class="filter-box" style="border:none">
     <div class="row">
-        <form class="form-inline" method="post">
-            <table style="margin-left: 30px">
-                <tr>
-                    <td> 客户名称：</td>
+    <form class="form-inline" method="post">
+        <table style="margin-left: 30px">
+            <tr>
+                <td> 客户名称：</td>
+                <td>
+                    <input class="form-control" type="text" name="name"
+                           value="${name}"/>
+                </td>
+                <td> 电话号码：</td>
+                <td>
+                    <input class="form-control" type="text" name="mobile"
+                           value="${mobile}"/>
+                </td>
+                <td>
+                    <button type="submit" class="btn"><i class="fa fa-search"></i> 搜索</button>
+                </td>
+                <c:if test="${typeId eq 'ORG'}">
                     <td>
-                        <input class="form-control" type="text" name="name"
-                               value="${name}"/>
+                        <a href="/admin/user/skip" type="button" class="btn btn-info" style="margin-left:10px">新增</a>
                     </td>
-                    <td> 电话号码：</td>
-                    <td>
-                        <input class="form-control" type="text" name="mobile"
-                               value="${mobile}"/>
-                    </td>
-                    <td>
-                        <button type="submit" class="btn"><i class="fa fa-search"></i> 搜索</button>
-                    </td>
-                    
-                     <c:if test="${typeId eq 'ORG'}">
-						<td>
-							<a href="/admin/user/skip" type="button" class="btn btn-info" style="margin-left:10px">新增</a>
-						</td>
-					</c:if>
-                </tr>
-            </table>
-        </form>
-       
-         
-    </div>
+                </c:if>
+            </tr>
+        </table>
+    </form>
+
+
+</div>
 </section>
 <div class="row" style="border-top: none;">
     <div class="col-md-12">
