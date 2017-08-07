@@ -73,6 +73,21 @@ $(document).ready(function(){
     }).focus(function () {
         $(this).removeClass('animation').attr('placeholder','').css('border-color','');
     });
+    //请求时常 填写
+    $("#time_out").blur(function () {
+        if($(this).val().length>10||$(this).val().split('.').length>2||!$(this).val()){
+            $(this).addClass('animation').val('').attr('placeholder','请输入10位长度的数字');
+        }else{
+            var timeVal=$(this).val().split('.');
+            if(!(timeVal.length>2)&&!(timeVal.length==1)){
+                if(timeVal[1].length>2){
+                    console.log(timeVal[1]);
+                    $(this).addClass('animation').val('').attr('placeholder','数字要求小数点后最多2位');
+                }
+            }
+        }
+    });
+
     /*下一步 button*/
     $('input[value="下一步"]').click(function () {
         var dataUrl =$(this).attr('data-url');
@@ -114,83 +129,163 @@ $(document).ready(function(){
     $('#submit_btn').click(function () {
         chargingFunction();
     });
-
-    //请求参数（Headers）
-    $('#request_headers').on("click","button.add_header",function(){
+    /*增加按钮*/
+    $('tbody').on("click",".add-line",function(){
+        console.log('2323');
         var tr = $(this).parents('tr');
-        var td1 =tr.children().eq(0).find(".input").val();
-        var td4 =tr.children().eq(3).find(".input").val();
-        if(td1.length<=0){
-            alert("参数名称不能为空");
-            return;
-        }
-        if(td4.length<=0){
-            alert("参数描述不能为空");
-            return;
-        }
         var row=$(tr).html();
-        $('#request_headers').append("<tr>"+row+"</tr>");
-        $(this).removeClass("add_header").addClass("deleteTr").text("删除").attr("onclick","delHeaders(this)");
+        $(this).parents('tbody').append("<tr>"+row+"</tr>");
+        $(this).removeClass("add_query").addClass("deleteTr").removeClass('add-line add_header').text("删除");
     });
+    /*删除按钮*/
+    $('tbody').on("click",".deleteTr",function(){
+        //点击事件那边需要加this
+        var tr=$(this).parents('tr');
+        console.log(tr);
+        console.log($(this).parents('tbody').children('tr'));
+        tr.empty();
+        $(this).parents('tbody').remove(tr);
+    });
+
+    //请求参数如果必选，则input必须都不能为空
+    $('tbody').on("blur","input[name='headerDesc'],input[name='queryDesc'],input[name='bodyDesc']",function(){
+        console.log('567rtghdfg');
+        var tr = $(this).parents('tr');
+        var tdName =tr.children().eq(0).find(".input");
+        var headerSelect =tr.children().eq(2).find("select").val();
+        if(headerSelect == 1){
+            // 必选时
+            console.log($(this).val());
+            if (!$(this).val()){ //描述为空
+                $(this).attr('placeholder','请填写！').addClass('animation');
+            }else{
+                if(!$(tdName).val()){
+                    console.log($(tdName).val());
+                    // 名称为空
+                    $(tdName).attr('placeholder','请填写！').addClass('animation');
+                }
+            }
+        }
+    }).on('focus','input.animation',function () {
+        $(this).removeClass('animation').attr('placeholder','');
+    });
+    //错误码定义 必填
+    $('#request_codes').on('blur','input',function () {
+        if (!$(this).val()){ //描述为空
+            $(this).attr('placeholder','请填写！').addClass('animation');
+        }
+    }).on('focus','input.animation',function () {
+        $(this).removeClass('animation').attr('placeholder','');
+    });
+
+    //请求参数 三选一必填
+    function queryParam(){
+        /*请求头*/
+        var headersBln;
+        var headersSelect=$('#request_headers').find('select');
+        for (var i=0;i<headersSelect.length;i++){
+            if(!headersSelect[i].val()){
+                headersBln=false;
+            }else{
+                headersBln=mustSelect(headersSelect);
+            }
+        }
+        /*请求参数*/
+        var paramBln;
+        var paramSelect=$('#request_querys').find('select');
+        for (var i=0;i<paramSelect.length;i++){
+            if(!paramSelect[i].val()){
+                paramBln=false;
+            }else{
+                paramBln=mustSelect(paramSelect);
+            }
+        }
+        /*请求体*/
+        var bodyBln;
+        var bodySelect=$('#request_bodys').find('select');
+        for (var i=0;i<bodySelect.length;i++){
+            if(!bodySelect[i].val()){
+                bodyBln=false;
+            }else{
+                bodyBln=mustSelect(bodySelect);
+            }
+        }
+
+        if(!headersBln&&!paramBln&&!bodyBln){
+            alert('请求参数必须填一个');
+        }
+    }
+    //select为必选，则两端的值不能为空
+    function mustSelect($select){
+        if($select == 1){
+            var inputName=$select.parents('tr').find('input').eq(0).val();
+            var inputDesc=$select.parents('tr').find('input').eq(1).val();
+            if(!inputDesc || !inputName){
+                $select.parents('tr').find('input').eq(0).addClass('animation');
+                $select.parents('tr').find('input').eq(1).addClass('animation');
+                return false;
+            }else if(inputName&&inputDesc){
+                return inputName+','+$select.val()+','+inputDesc;
+            }
+        }
+    }
 
     //请求参数（Query）
-    $('#request_querys').on("click","button.add_query",function(){
-        var tr = $(this).parents('tr');
-        var td1 =tr.children().eq(0).find(".input").val();
-        var td4 =tr.children().eq(3).find(".input").val();
-        if(td1.length<=0){
-            alert("参数名称不能为空");
-            return;
-        }
-        if(td4.length<=0){
-            alert("参数描述不能为空");
-            return;
-        }
-        var row=$(tr).html();
-        $('#request_querys').append("<tr>"+row+"</tr>");
-        $(this).removeClass("add_query").addClass("deleteTr").text("删除").attr("onclick","delHeaders(this)");
-    });
-
+    // $('#request_querys').on("click","button.add_query",function(){
+    //     var tr = $(this).parents('tr');
+    //     var td1 =tr.children().eq(0).find(".input").val();
+    //     var td4 =tr.children().eq(3).find(".input").val();
+    //     if(td1.length<=0){
+    //         alert("参数名称不能为空");
+    //         return;
+    //     }
+    //     if(td4.length<=0){
+    //         alert("参数描述不能为空");
+    //         return;
+    //     }
+    //     var row=$(tr).html();
+    //     $('#request_querys').append("<tr>"+row+"</tr>");
+    //     $(this).removeClass("add_query").addClass("deleteTr").text("删除").attr("onclick","delHeaders(this)");
+    // });
     //请求参数（Body）
-    $('#request_bodys').on("click","button.add_body",function(){
-        var tr = $(this).parents('tr');
-        var td1 =tr.children().eq(0).find(".input").val();
-        var td4 =tr.children().eq(3).find(".input").val();
-        if(td1.length<=0){
-            alert("参数名称不能为空");
-            return;
-        }
-        if(td4.length<=0){
-            alert("参数描述不能为空");
-            return;
-        }
-        var row=$(tr).html();
-        $('#request_bodys').append("<tr>"+row+"</tr>");
-        $(this).removeClass("add_body").addClass("deleteTr").text("删除").attr("onclick","delHeaders(this)");
-    });
-
+    // $('#request_bodys').on("click","button.add_body",function(){
+    //     var tr = $(this).parents('tr');
+    //     var td1 =tr.children().eq(0).find(".input").val();
+    //     var td4 =tr.children().eq(3).find(".input").val();
+    //     if(td1.length<=0){
+    //         alert("参数名称不能为空");
+    //         return;
+    //     }
+    //     if(td4.length<=0){
+    //         alert("参数描述不能为空");
+    //         return;
+    //     }
+    //     var row=$(tr).html();
+    //     $('#request_bodys').append("<tr>"+row+"</tr>");
+    //     $(this).removeClass("add_body").addClass("deleteTr").text("删除").attr("onclick","delHeaders(this)");
+    // });
     //错误码定义
-    $('#request_codes').on("click","button.add_code",function(){
-        var tr = $(this).parents('tr');
-        var td1 =tr.children().eq(0).find(".input").val();
-        var td2 =tr.children().eq(1).find(".input").val();
-        var td3 =tr.children().eq(2).find(".input").val();
-        if(td1.length<=0){
-            alert("错误码不能为空");
-            return;
-        }
-        if(td2.length<=0){
-            alert("状态码名称不能为空");
-            return;
-        }
-        if(td3.length<=0){
-            alert("描述不能为空");
-            return;
-        }
-        var row=$(tr).html();
-        $('#request_codes').append("<tr>"+row+"</tr>");
-        $(this).removeClass("add_code").addClass("deleteTr").text("删除").attr("onclick","delHeaders(this)");
-    });
+    // $('#request_codes').on("click","button.add_code",function(){
+    //     var tr = $(this).parents('tr');
+    //     var td1 =tr.children().eq(0).find(".input").val();
+    //     var td2 =tr.children().eq(1).find(".input").val();
+    //     var td3 =tr.children().eq(2).find(".input").val();
+    //     if(td1.length<=0){
+    //         alert("错误码不能为空");
+    //         return;
+    //     }
+    //     if(td2.length<=0){
+    //         alert("状态码名称不能为空");
+    //         return;
+    //     }
+    //     if(td3.length<=0){
+    //         alert("描述不能为空");
+    //         return;
+    //     }
+    //     var row=$(tr).html();
+    //     $('#request_codes').append("<tr>"+row+"</tr>");
+    //     $(this).removeClass("add_code").addClass("deleteTr").text("删除").attr("onclick","delHeaders(this)");
+    // });
 
 
 
@@ -239,9 +334,12 @@ $(document).ready(function(){
             }
         }
     }
+
     function myfunction(){
         var str = {};
-        update();
+        if(!update()){
+            return ;
+        }
 
         var productName=$('#product_name').val();//产品名
         var frequent=$('#frequent').val();//更新频率
@@ -296,10 +394,10 @@ $(document).ready(function(){
             var headerType = tdArr.eq(1).find("select").val();
             var headerMust = tdArr.eq(2).find("select").val();
             var headerDesc = tdArr.eq(3).find("input").val();
-            headers.push(headerName)
-            headers.push(headerType)
-            headers.push(headerMust)
-            headers.push(headerDesc)
+            headers.push(headerName);
+            headers.push(headerType);
+            headers.push(headerMust);
+            headers.push(headerDesc);
             headersArray.push(headers);
             str.headersArray=headersArray;
         }
@@ -313,10 +411,10 @@ $(document).ready(function(){
             var queryType = tdArr.eq(1).find("select").val();
             var queryMust = tdArr.eq(2).find("select").val();
             var queryDesc = tdArr.eq(3).find("input").val();
-            query.push(queryName)
-            query.push(queryType)
-            query.push(queryMust)
-            query.push(queryDesc)
+            query.push(queryName);
+            query.push(queryType);
+            query.push(queryMust);
+            query.push(queryDesc);
             querysArray.push(query);
             str.querysArray=querysArray;
         }
@@ -330,10 +428,10 @@ $(document).ready(function(){
             var bodyType = tdArr.eq(1).find("select").val();
             var bodyMust = tdArr.eq(2).find("select").val();
             var bodyDesc = tdArr.eq(3).find("input").val();
-            body.push(bodyName)
-            body.push(bodyType)
-            body.push(bodyMust)
-            body.push(bodyDesc)
+            body.push(bodyName);
+            body.push(bodyType);
+            body.push(bodyMust);
+            body.push(bodyDesc);
             bodysArrays.push(body);
             str.bodysArrays=bodysArrays;
         }
@@ -469,7 +567,7 @@ $(document).ready(function(){
         apiFunction();
         descFunction();
         priceFunction();
-
+        // queryParam();
         var priceOne=$('#priceOne').val();
         var priceHundred=$('#priceHundred').val();
         var priceYear=$('#priceYear').val();
@@ -478,21 +576,23 @@ $(document).ready(function(){
         priceOne_value=priceOne.replace(/\n/g,'');
         priceHundred_value=priceHundred.replace(/\n/g,'');
         priceYear_value=priceYear.replace(/\n/g,'');
+        //请求时常 最大为10
+        if($("#time_out").val().length>11){
+            $('#time_out').addClass('animation').val('').attr('placeholder','请输入10位长度的数字');
+            return false;
+        }
         if(priceOne_value==""){
-            // alert("单次费用必须填写");
             $('#priceOne').addClass('animation');
             return;
         }
         if(priceOne_value!=""){
             if(!reg.test(priceOne) || priceOne.length >7){
-                // alert("请输入正确的单次计费价格");
                 $('#priceOne').addClass('animation');
                 return;
             }
         }
         if(priceHundred_value!=""){
             if(!reg.test(priceHundred) || priceHundred.length >7){
-                // alert("请输入正确的多次计费价格");
                 $('#priceHundred').addClass('animation');
                 return;
             }
@@ -500,7 +600,6 @@ $(document).ready(function(){
 
         if(priceYear_value!=""){
             if(!reg.test(priceYear) || priceYear.length >7){
-                // alert("请输入正确的包年计费价格");
                 $('#priceYear').addClass('animation');
                 return;
             }
@@ -511,12 +610,6 @@ $(document).ready(function(){
             return;
         }
         myfunction();
-    }
-
-    function delHeaders(obj){//点击事件那边需要加this
-        var tr=obj.parentNode.parentNode;
-        var tbody=tr.parentNode;
-        tbody.removeChild(tr);
     }
 
     });
