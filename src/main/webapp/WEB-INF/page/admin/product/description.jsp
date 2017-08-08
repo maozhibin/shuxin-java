@@ -35,3 +35,4 @@
     </div>
 </div>
 
+<script src='/static/admin/js/img-holder.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
