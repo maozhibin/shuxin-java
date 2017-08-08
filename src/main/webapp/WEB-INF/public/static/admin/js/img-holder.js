@@ -63,8 +63,8 @@ $(document).ready(function () {
             url:'/admin/upload/img',
             success : function(data) {
                 console.log('3434');
-                if(data.imgUrl){
-                    var inImgs='<div class="f-imgshow"><div class="shade hide"><i class="close"></i></div><img src="'+data.imgUrl+'" alt="" id="img" height="150" class="showImg"/></div>';//显示图片
+                if(data.code){/*请求 200*/
+                    var inImgs='<div class="f-imgshow"><div class="shade hide"><i class="close"></i></div><img src="'+data.object.imgUrl+'" alt="" id="img" height="150" class="showImg"/></div>';//显示图片
                     // var arr = input.value.split('\\'); //分割图片路径
                     // inImgs+="<span class='imgInfo'>"+arr[arr.length-1]+"</span>";//显示图片名字
                     $("#inResult").append(inImgs);
@@ -73,7 +73,7 @@ $(document).ready(function () {
                     $('#num').text('').text(9-i);
                 }else{
 
-                    $('#imgBtn').append('<span class="red">最多上传9张图片</span>')
+                    $('#imgBtn').append('<span class="red">'+data.msg+'</span>')
                 }
             },
             error : function(data) {
