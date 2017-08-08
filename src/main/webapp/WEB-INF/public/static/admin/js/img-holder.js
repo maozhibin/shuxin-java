@@ -6,6 +6,8 @@ $(document).ready(function () {
     var a=0;
     $('#update').click(function () {
         a++;
+        debugger;
+        onsole.log(a);
         input.addEventListener('change',formSubmit);
         // for(var i=0;i<a;i++){
         //     if(typeof FileReader === 'undefined'){
@@ -69,4 +71,6 @@ $(document).ready(function () {
             }
         });
     }
+
+
 });
