@@ -75,7 +75,7 @@ public class ProductServiceImpl implements ProductService{
 		String icon =data.getString("icon");//上传的图片
 		Integer cityid = data.getInteger("city");//区域id
 		Integer userNameId = data.getInteger("userName");
-
+		
 		product.setUserId(userNameId);
 		product.setName(productName);
 		product.setFrequent(frequent);

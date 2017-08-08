@@ -25,6 +25,8 @@
 
     <link href='/static/admin/css/data-release.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
 
+    <link href='/static/admin/css/img-holder.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
+
     <script src='/static/js/jquery.tagsinput.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
     <script src='/static/js/jquery.ajaxfileupload.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
     <script>
@@ -147,38 +149,7 @@
     });
 </script>
 <script>
-    //查找box元素,检测当粘贴时候,
-    document.querySelector('#snapshot').addEventListener('paste', function (e) {
-
-        //判断是否是粘贴图片
-        if (e.clipboardData && e.clipboardData.items[0].type.indexOf('image') > -1) {
-            var that = this,
-                reader = new FileReader();
-            file = e.clipboardData.items[0].getAsFile();
-
-            //ajax上传图片
-            reader.onload = function (e) {
-                var xhr = new XMLHttpRequest(),
-                    fd = new FormData();
-
-                xhr.open('POST', '/admin/upload/imageBase64', true);
-                xhr.onload = function () {
-                    var img = new Image();
-                    img.src = base_url + xhr.responseText;
-
-                    //todo 记录返回的图片地址
-                    // that.innerHTML = '<img src="'+img.src+'" alt=""/>';
-                    document.getElementById("img_puth").value = img.src;
-                }
-
-                // this.result得到图片的base64 (可以用作即时显示)
-                fd.append('file', this.result);
-                that.innerHTML = '<img src="' + this.result + '" alt=""/>';
-                xhr.send(fd);
-            }
-            reader.readAsDataURL(file);
-        }
-    }, false);
+  
 </script>
 <script src='/static/js/issue.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
 </body>

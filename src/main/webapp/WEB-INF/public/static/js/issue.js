@@ -349,6 +349,7 @@ $(document).ready(function(){
         var city=$('#city').val();//区域
         var userName=$('#user_name').val();//发布人
         var productDescription=$('#product_description').val();//数据简介
+        var icon = $('#upload').val();//图片
         var interfaceName=$('#interface_name').val();//接口名称
         var appCode=$('#app_code').val();//appCode
         var urlAddress=$('#url_address').val();//服务地址
@@ -370,6 +371,7 @@ $(document).ready(function(){
         str.city=city;
         str.userName=userName;
         str.productDescription=productDescription;
+        str.icon = icon;
         str.interfaceName=interfaceName;
         str.appCode=appCode;
         str.urlAddress=urlAddress;

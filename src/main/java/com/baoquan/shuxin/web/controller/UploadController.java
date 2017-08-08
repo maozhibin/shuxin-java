@@ -20,6 +20,7 @@ package com.baoquan.shuxin.web.controller;
         import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
         import com.alibaba.fastjson.JSON;
+import com.baoquan.shuxin.util.JsonResponseMsg;
 
 /**
  * Desc:
@@ -43,7 +44,26 @@ public class UploadController {
             response.getWriter().print(JSON.toJSONString(map));
         }
     }
+    
+    @RequestMapping("/img")
+    @ResponseBody
+    public JsonResponseMsg img(@RequestParam("file") CommonsMultipartFile file, HttpServletRequest request,
+            HttpServletResponse response) throws IOException {
+    	JsonResponseMsg result = new JsonResponseMsg();
+        // 判断文件是否为空
+    	 Map<String, Object> map = new HashMap<>();
+        if (!file.isEmpty()) {
+            String imgUrl = saveFile(StringUtils.substringAfterLast(file.getOriginalFilename(), "."), file.getBytes(),
+                    request);
+            map.put("filename", file.getOriginalFilename());
+            map.put("imgUrl", imgUrl);
+        }else{
+        	return result.fill(JsonResponseMsg.CODE_FAIL, "文件为空");
+        }
+		 return result.fill(JsonResponseMsg.CODE_SUCCESS, "成功",map);
+    }
 
+    
     private String saveFile(String suffix, byte[] content, HttpServletRequest request) throws IOException {
         String fileMd5 = Hex.encodeHexString(DigestUtils.getMd5Digest().digest(content));
 
