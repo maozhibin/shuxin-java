@@ -26,7 +26,6 @@
     <link href='/static/admin/css/data-release.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
 
     <link href='/static/admin/css/img-holder.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
-    <script src='/static/admin/js/img-holder.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
 
     <script src='/static/js/jquery.tagsinput.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
     <script src='/static/js/jquery.ajaxfileupload.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>

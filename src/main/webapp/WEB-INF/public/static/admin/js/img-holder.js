@@ -7,7 +7,7 @@ $(document).ready(function () {
     $('#update').click(function () {
         a++;
         debugger;
-        onsole.log(a);
+        console.log(a);
         input.addEventListener('change',formSubmit);
         // for(var i=0;i<a;i++){
         //     if(typeof FileReader === 'undefined'){
