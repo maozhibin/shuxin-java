@@ -210,7 +210,6 @@ $(document).ready(function(){
                 bodyBln=mustSelect(bodySelect);
             }
         }
-
         if(!headersBln&&!paramBln&&!bodyBln){
             alert('请求参数必须填一个');
         }
@@ -319,7 +318,6 @@ $(document).ready(function(){
         }
         for (var a in api){
             console.log(api[k]);
-            console.log('XXXXXXXXXXXXXXXXXXXXXXX');
             if(!api[a]){
                 goto('api');
                 apiError(a);
@@ -349,7 +347,7 @@ $(document).ready(function(){
         var city=$('#city').val();//区域
         var userName=$('#user_name').val();//发布人
         var productDescription=$('#product_description').val();//数据简介
-        var icon = $('#upload').val();//图片
+        var icon = $('#logo').attr('src');//图片logo
         var interfaceName=$('#interface_name').val();//接口名称
         var appCode=$('#app_code').val();//appCode
         var urlAddress=$('#url_address').val();//服务地址
@@ -363,6 +361,12 @@ $(document).ready(function(){
         var intro=$('#intro').val();//产品介绍
         var highlight=$('#highlight').val();//产品亮点
         var service=$('#service').val();//售后服务
+        /*产品截图*/
+        var imgs=[];
+        for(var o=0;o<$('.f-imgshow').find('img').length;o++){
+            imgs.push($('.f-imgshow').find('img').eq(o).attr('src'));
+        }
+        console.log(imgs);
         str.productName=productName;
         str.frequent=frequent;
         str.productClass=productClass;
@@ -404,8 +408,8 @@ $(document).ready(function(){
             str.headersArray=headersArray;
         }
 
-        var querysArray=new Array();;
-        var queryList = $("#request_querys").children("tr")
+        var querysArray=new Array();
+        var queryList = $("#request_querys").children("tr");
         for (var i=0;i<queryList.length-1;i++) {
             var query = [];
             var tdArr = queryList.eq(i).find("td");
@@ -422,7 +426,7 @@ $(document).ready(function(){
         }
 
         var bodysArrays=new Array();
-        var bodyList = $("#request_bodys").children("tr")
+        var bodyList = $("#request_bodys").children("tr");
         for (var i=0;i<bodyList.length-1;i++) {
             var body = [];
             var tdArr = bodyList.eq(i).find("td");
@@ -569,7 +573,6 @@ $(document).ready(function(){
         apiFunction();
         descFunction();
         priceFunction();
-        // queryParam();
         var priceOne=$('#priceOne').val();
         var priceHundred=$('#priceHundred').val();
         var priceYear=$('#priceYear').val();
@@ -599,7 +602,6 @@ $(document).ready(function(){
                 return;
             }
         }
-
         if(priceYear_value!=""){
             if(!reg.test(priceYear) || priceYear.length >7){
                 $('#priceYear').addClass('animation');
@@ -611,6 +613,7 @@ $(document).ready(function(){
             $('#chexkboxId').addClass('animation');
             return;
         }
+        debugger;
         myfunction();
     }
 

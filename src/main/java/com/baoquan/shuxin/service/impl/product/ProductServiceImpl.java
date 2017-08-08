@@ -33,8 +33,6 @@ public class ProductServiceImpl implements ProductService{
 	@Inject
 	private ProductInterfaceParamService productInterfaceParamService;
 	@Inject
-	private ProductBillingsDao productBillingsDao;
-	@Inject
 	private ProductTagService productTagService;
 	@Inject
 	private ProductInterfaceService productInterfaceService;

@@ -20,7 +20,7 @@
         </div>
         <div class="imgBtn">
         <form id="image-upload" class="btn-upload" enctype="multipart/form-data">
-            <input type="file" name="file" id="update">
+            <input type="file" name="file" id="update" accept="image/png,image/gif,image/jpg,image/jpeg">
         </form>
         <span class="upload-num">共<em id="all">0</em>张,还能上传<em id="num">6</em>张</span>
         </div>
@@ -35,5 +35,6 @@
     </div>
 </div>
 
-<script src='/static/admin/js/img-holder.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
 <script src="http://malsup.github.io/jquery.form.js"></script>
+<script src='/static/admin/js/img-holder.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
+<script src='/static/admin/js/logo-holder.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>

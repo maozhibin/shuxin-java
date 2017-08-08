@@ -95,18 +95,15 @@
 
     <div class="inline-form mb30">
         <div class="addon">数据logo</div>
-        <div class="cell">
-            <label for="upload" class="upload">上传图片</label>
-            <input type="file" id="upload" class="hide" name="file"
-                   accept="image/png,image/gif,image/jpg,image/jpeg">
-        </div>
-        <img id="img"/>
-        <i id="close" class="hide"></i>
-        <input type="text" class="hide" id="logo" name="logo">
+        <div class="imgBtn">
+	        <form id="show" class="btn-upload" enctype="multipart/form-data">
+	            <input type="file" name="file" id="upLogo" accept="image/png,image/gif,image/jpg,image/jpeg">
+	        </form>
         <div class="cell gray9">请上传资料的照片或扫描件。图片格式仅限jpg、png、gif格式，大小不超过1M。</div>
+        </div>
     </div>
     <div class="ml40 pad30">
         <input type="button" class="btn btn-blue" value="下一步"
-               data-url="api);">
+               data-url="api">
     </div>
 </div>
