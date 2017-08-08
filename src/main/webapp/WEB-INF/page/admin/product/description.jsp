@@ -18,12 +18,12 @@
     <div class="m-imgshow">
         <div class="thumbnail-list" id="inResult">
         </div>
-        <p class="imgBtn">
+        <div class="imgBtn">
         <form id="image-upload" class="btn-upload" enctype="multipart/form-data">
             <input type="file" name="file" id="update">
         </form>
         <span class="upload-num">共<em id="all">0</em>张,还能上传<em id="num">9</em>张</span>
-        </p>
+        </div>
     </div>
 
     <p class="f16 gray6 mb10 mt10">售后服务</p>
