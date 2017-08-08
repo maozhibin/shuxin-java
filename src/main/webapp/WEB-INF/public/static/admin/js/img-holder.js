@@ -58,10 +58,10 @@ $(document).ready(function () {
     });
     //form 表单提交
     function formSubmit(){
-        $.ajax({
-            url : "/admin/upload/logo",
-            type : "POST",
-            data : $( '#image-upload').serialize(),
+        var opt = {
+            type:'post',
+            datatype:'json',
+            url:'/admin/upload/logo',
             success : function(data) {
                 console.log('3434');
             },
@@ -69,7 +69,8 @@ $(document).ready(function () {
                 console.log($( '#update').val());
                 console.log(data);
             }
-        });
+        };
+        $("#image-upload").ajaxSubmit(opt);//相当于from.submit()
     }
 
 
