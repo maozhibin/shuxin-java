@@ -1,0 +1,87 @@
+.m-imgshow{
+    width: 100%;
+    line-height: 1.5;
+    margin-bottom: 30px;
+}
+.f-imgshow {
+    float: left;
+    position: relative;
+    cursor: pointer;
+}
+.f-imgshow .shade{
+    background: rgba(0,0,0,0.3);
+    position: absolute;
+    width:100%;
+    height: 100%;
+}
+.shade .close{
+    position: absolute;
+    background:  url("../images/icon-warn.png") no-repeat;
+    top:0;
+    right:0;
+    width:20px;
+    height: 20px;
+}
+.m-imgshow .thumbnail-list {
+    width: 100%;
+    min-height: 190px;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    padding: 0 5px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    position: relative;
+}
+.m-imgshow .imgBtn{
+    margin-bottom: 30px;
+    overflow: hidden;
+}
+.m-imgshow .btn-upload {
+    float: left;
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    background: url(../images/bg-upload.png) no-repeat 0 top;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    overflow: hidden;
+}
+.btn-upload input{
+    position: absolute;
+    font-size: 100px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    cursor: pointer;
+}
+.m-imgshow .upload-num {
+    float: left;
+    height: 50px;
+    margin-bottom: 10px;
+    font-family: SimSun;
+    line-height: 50px;
+    color: #999;
+}
+.m-imgshow .upload-num em {
+    color: #e4393c;
+    margin: 0 2px;
+}
+#img-holder{
+    position: absolute;
+    background: transparent;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    z-index: -1;
+    opacity: 0;
+    top: 0px;
+    left: 0px;
+}
+.red{
+    color: red;
+    font-size: 16px;
+}

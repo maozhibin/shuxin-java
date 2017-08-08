@@ -14,7 +14,17 @@
     <textarea rows="10" class="input-ctrl mb30" name="highlight" id="highlight">${hashMap.productDetail.highlight}</textarea>
 
     <p class="f16 gray6 mb10 mt10">产品截图</p>
-    <textarea rows="10" class="input-ctrl mb30" name="snapshot" id="snapshot">${hashMap.productDetail.snapshot}</textarea>
+    <%--<textarea rows="10" class="input-ctrl mb30" name="snapshot" id="snapshot">${hashMap.productDetail.snapshot}</textarea>--%>
+    <div class="m-imgshow">
+        <div class="thumbnail-list" id="inResult">
+        </div>
+        <p class="imgBtn">
+        <form id="image-upload" class="btn-upload" enctype="multipart/form-data">
+            <input type="file" id="update">
+        </form>
+        <span class="upload-num">共<em id="all">0</em>张,还能上传<em id="num">9</em>张</span>
+        </p>
+    </div>
 
     <p class="f16 gray6 mb10 mt10">售后服务</p>
     <textarea rows="10" class="input-ctrl mb30" name="service" id="service">${hashMap.productDetail.service}</textarea>
