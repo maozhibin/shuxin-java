@@ -6,7 +6,6 @@ $(document).ready(function () {
     var a=0;
     $('#update').click(function () {
         a++;
-        debugger;
         console.log(a);
         input.addEventListener('change',formSubmit);
         // for(var i=0;i<a;i++){
@@ -59,9 +58,9 @@ $(document).ready(function () {
     //form 表单提交
     function formSubmit(){
         $.ajax({
-            url : "/admin/upload/logo",
+            url : "http://192.168.3.42:8080/admin/upload/logo",
             type : "POST",
-            data : $( '#image-upload').serialize(),
+            data : {file:$( '#update').val()},
             success : function(data) {
                 console.log('3434');
             },
