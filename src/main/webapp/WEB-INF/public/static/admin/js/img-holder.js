@@ -8,14 +8,6 @@ $(document).ready(function () {
         a++;
         console.log(a);
         formSubmit();
-        // for(var i=0;i<a;i++){
-        //     if(typeof FileReader === 'undefined'){
-        //
-        //         input.addEventListener('change',formSubmit);
-        //     }else{
-        //         input.addEventListener('change',readFile,false);
-        //     }
-        // }
     });
     function readFile(){
         var file = this.files[0];
@@ -63,17 +55,20 @@ $(document).ready(function () {
             url:'/admin/upload/img',
             success : function(data) {
                 console.log('3434');
-                if(data.code){/*请求 200*/
-                    var inImgs='<div class="f-imgshow"><div class="shade hide"><i class="close"></i></div><img src="'+data.object.imgUrl+'" alt="" id="img" height="150" class="showImg"/></div>';//显示图片
-                    // var arr = input.value.split('\\'); //分割图片路径
-                    // inImgs+="<span class='imgInfo'>"+arr[arr.length-1]+"</span>";//显示图片名字
-                    $("#inResult").append(inImgs);
-                    var i=$('.f-imgshow').length;
-                    $('#all').text(i);
-                    $('#num').text('').text(6-i);
+                if(parseInt($('#num').text(''))<1){
+                    return false;
                 }else{
-
-                    $('#imgBtn').append('<span class="red">'+data.msg+'</span>')
+                    if(data.code){/*请求 200*/
+                        var inImgs='<div class="f-imgshow"><div class="shade hide"><i class="close"></i></div><img src="'+data.object.imgUrl+'" alt="" id="img" height="150" class="showImg"/></div>';//显示图片
+                        // var arr = input.value.split('\\'); //分割图片路径
+                        // inImgs+="<span class='imgInfo'>"+arr[arr.length-1]+"</span>";//显示图片名字
+                        $("#inResult").append(inImgs);
+                        var i=$('.f-imgshow').length;
+                        $('#all').text(i);
+                        $('#num').text('').text(6-i);
+                    }else{
+                        $('#imgBtn').append('<span class="red">'+data.msg+'</span>')
+                    }
                 }
             },
             error : function(data) {
