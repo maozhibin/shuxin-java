@@ -70,7 +70,7 @@ $(document).ready(function () {
                     $("#inResult").append(inImgs);
                     var i=$('.f-imgshow').length;
                     $('#all').text(i);
-                    $('#num').text('').text(9-i);
+                    $('#num').text('').text(6-i);
                 }else{
 
                     $('#imgBtn').append('<span class="red">'+data.msg+'</span>')
