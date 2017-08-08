@@ -20,5 +20,4 @@ public interface UserOrderDao {
 
     Integer countFlowInfo(@Param("userId") Long userId,@Param("status") Integer status,@Param("statTime") Long statTime,@Param("endTime") Long endTime);
 
-    UserOrderDao querByIdUserOrderInfo(Long id);
 }
