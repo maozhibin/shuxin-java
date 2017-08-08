@@ -15,7 +15,7 @@
 
     <p class="f16 gray6 mb10 mt10">产品截图</p>
     <%--<textarea rows="10" class="input-ctrl mb30" name="snapshot" id="snapshot">${hashMap.productDetail.snapshot}</textarea>--%>
-    <div class="m-imgshow">
+    <div class="m-imgshow" id="imgShow">
         <div class="thumbnail-list" id="inResult">
         </div>
         <div class="imgBtn">

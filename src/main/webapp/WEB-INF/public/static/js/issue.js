@@ -306,33 +306,6 @@ $(document).ready(function(){
         });
     });
 
-    /*数据更新*/
-    function update() {
-        for (var k in base){
-            if(!trim(base[k])){
-                goto('base');
-                console.log(k);
-                apiError(k);
-                return ;
-            }
-        }
-        for (var a in api){
-            console.log(api[k]);
-            if(!api[a]){
-                goto('api');
-                apiError(a);
-                return ;
-            }
-        }
-        for (var b in desc){
-            if(!desc[b]){
-                goto('price');
-                descError(b);
-                return ;
-            }
-        }
-    }
-
     function myfunction(){
         var str = {};
         if(!update()){
@@ -392,7 +365,7 @@ $(document).ready(function(){
 
         //对请求参数的操作
         var headersArray=new Array();
-        var headerList = $("#request_headers").children("tr")
+        var headerList = $("#request_headers").children("tr");
         for (var i=0;i<headerList.length-1;i++) {
             var headers=[];
             var tdArr = headerList.eq(i).find("td");
@@ -496,66 +469,102 @@ $(document).ready(function(){
         base.product_name=$('#product_name').val();
         base.product_description=$('#product_description').val();
         base.productTags=$('#productTags').val();
-        console.log(base);
+        base.imgBtn==$('#imgBtn').find('img');
     }
     function descFunction(){//接口设置判断
-        var request_sample_value=trim($('#request_sample').val()),
-        normal_sample_value=trim($('#normal_sample').val()),
-        error_sample_value=trim($('#error_sample').val());
+        var request_sample_value=trim($('#request_sample').val()),//请求示例
+        normal_sample_value=trim($('#normal_sample').val()),//正常返回示例
+        error_sample_value=trim($('#error_sample').val());//错误返回示例
 
-        api.interface_name=trim($('#interface_name').val());
-        api.app_code=trim($('#app_code').val());
-        api.time_out=trim($('#time_out').val());
-        api.url_address=trim($('#url_address').val());
+        api.interface_name=trim($('#interface_name').val());//接口名称
+        api.app_code=trim($('#app_code').val());//appCode
+        api.time_out=trim($('#time_out').val());//请求超时时长
+        api.url_address=trim($('#url_address').val());//URL 地址
 
         var  headerRow =$("#request_headers").find('tr').length;
         if(headerRow < 2){
             // alert("至少输入一个请求参数(Headers)");
             api.request_headers=false;
+        }else{
+            api.request_headers=true;
+            $('#request_headers').removeClass('animation');
         }
 
         var  queryRow =$("#request_querys").find('tr').length;
         if(queryRow < 2){
-            // alert("至少输入一个请求参数(Querys)");
             api.request_querys=false;
+        }else{
+            api.request_querys=true;
+            $('#request_querys').removeClass('animation');
         }
 
         var  bodyRow =$("#request_bodys").find('tr').length;
         if(bodyRow < 2){
-            // alert("至少输入一个请求参数(Bodys)");
             api.request_bodys=false;
+        }else{
+            api.request_bodys=true;
+            $('#request_bodys').removeClass('animation');
         }
 
 
         if(request_sample_value==""){
             api.request_sample=false;
+        }else {
+            api.request_sample=true;
+            $('#request_sample').removeClass('animation');
         }
         if(normal_sample_value==""){
             api.normal_sample=false;
+        }else {
+            api.normal_sample=true;
+            $('#normal_sample').removeClass('animation');
         }
         if(error_sample_value==""){
             api.error_sample=false;
+        }else {
+            api.error_sample=true;
+            $('#error_sample').removeClass('animation');
         }
 
         var  codeRow =$("#request_codes").find('tr').length;
-        if(codeRow < 3){
-            // alert("至少输入一个错误码定义");
+        if(codeRow < 2){
             api.request_codes=false;
+        }else {
+            api.request_codes=true;
+            $('#request_codes').removeClass('animation');
         }
 
     }
     function priceFunction(){//产品描述判断
         var intro_value=trim($('#intro').val()),
         highlight_value=trim($('#highlight').val()),
-        service_value=trim($('#service').val());
+        service_value=trim($('#service').val()),
+            imgs=$("#inResult").find('img');
         if(intro_value==""){
             desc.intro=false;
+        }else {
+            desc.intro=true;
+            $('#intro').removeClass('animation');
         }
+
         if(highlight_value==""){
             desc.highlight=false;
+        }else {
+            desc.highlight=true;
+            $('#highlight').removeClass('animation');
+        }
+
+        if(imgs.length<0){
+            desc.imgShow=false;
+        }else {
+            desc.imgShow=true;
+            $('#imgShow').removeClass('animation');
         }
         if(service_value==""){
             desc.service=false;
+        }else {
+            desc.service=true;
+            $('#service').removeClass('animation');
         }
     }
 
@@ -566,9 +575,36 @@ $(document).ready(function(){
         $('#'+api).addClass('animation');
     }
     function descError(desc){
+        console.log("为空的： "+desc);
         $('#'+desc).addClass('animation');
+        console.log($('#'+desc).attr('id'));
     }
-
+    /*数据更新*/
+    function update() {
+        for (var k in base){
+            if(!trim(base[k])){
+                goto('base');
+                console.log(k);
+                baseError(k);
+                return ;
+            }
+        }
+        for (var a in api){
+            if(!api[a]){
+                goto('api');
+                apiError(a);
+                return ;
+            }
+        }
+        for (var b in desc){
+            if(!desc[b]){
+                console.log(desc[b]+" Value: "+b);
+                goto('desc');
+                descError(b);
+                return ;
+            }
+        }
+    }
     function chargingFunction(){//计费设置判断
         apiFunction();
         descFunction();
@@ -613,7 +649,6 @@ $(document).ready(function(){
             $('#chexkboxId').addClass('animation');
             return;
         }
-        debugger;
         myfunction();
     }
 
