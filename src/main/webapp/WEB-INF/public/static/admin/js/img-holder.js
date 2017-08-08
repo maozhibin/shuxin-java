@@ -4,8 +4,9 @@ $(document).ready(function () {
     var inResult = $('#inResult');
 
     var a=0;
-    $('#update').click(function () {
+    $('#update').change(function () {
         a++;
+        debugger;
         console.log(a);
         input.addEventListener('change',formSubmit);
         // for(var i=0;i<a;i++){
@@ -58,9 +59,9 @@ $(document).ready(function () {
     //form 表单提交
     function formSubmit(){
         $.ajax({
-            url : "http://192.168.3.42:8080/admin/upload/logo",
+            url : "/admin/upload/logo",
             type : "POST",
-            data : {file:$( '#update').val()},
+            data : $( '#image-upload').serialize(),
             success : function(data) {
                 console.log('3434');
             },
