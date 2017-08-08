@@ -8,7 +8,7 @@ $(document).ready(function () {
         a++;
         debugger;
         console.log(a);
-        input.addEventListener('change',formSubmit);
+        input.addEventListener('submit',formSubmit);
         // for(var i=0;i<a;i++){
         //     if(typeof FileReader === 'undefined'){
         //
