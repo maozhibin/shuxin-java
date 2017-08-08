@@ -155,7 +155,6 @@ public class ProductController {
 
     /**
      * 修改或者添加产品
-     * @return
      */
     @RequestMapping("updateOrAdd")
     @ResponseBody

@@ -9,10 +9,10 @@ import java.util.Map;
 public class JsonResponseMsg implements Serializable {
 
 	private static final long serialVersionUID = -6067549589990462156L;
-	public static final int CODE_SUCCESS = 0;
+	public static final int CODE_SUCCESS = 1;
 	public static final String MSG_SUCCESS = "success";
 
-	public static final int CODE_LOGIN_INVALID = -1;
+	public static final int CODE_LOGIN_INVALID = 0;
 	public static final String MSG_LOGIN_INVALID = "未登陆或登陆状态失效,请重新登陆";
 
 	public static final int CODE_FAIL = 1;

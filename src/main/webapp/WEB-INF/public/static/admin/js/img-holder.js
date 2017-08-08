@@ -60,7 +60,7 @@ $(document).ready(function () {
         var opt = {
             type:'post',
             datatype:'json',
-            url:'/upload/img',
+            url:'/admin/upload/img',
             success : function(data) {
                 console.log('3434');
                 if(data.imgUrl){
