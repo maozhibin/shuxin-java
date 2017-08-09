@@ -1,7 +1,12 @@
 $(document).ready(function () {
-    $('#upLogo').change(function () {
-        console.log('2323');
-        formSubmit();
+    $('#upLogo').change(function (e) {
+	var logoLength=$(".logoBtn").find('.f-logoshow').length;
+    	console.log(logoLength);
+        if(logoLength<1){
+        	  formSubmit();
+        }else{
+        	e.preventDefault();
+        }
     });
     //form 表单提交
     function formSubmit(){
@@ -14,7 +19,7 @@ $(document).ready(function () {
                     return false;
                 }else{
                     if(data.code){/*请求 200*/
-                        var inImgs='<div class="f-imgshow"><div class="shade hide"><i class="close"></i></div><img src="'+data.object.imgUrl+'" alt="" id="logo" height="150" class="showImg"/></div>';//显示图片
+                        var inImgs='<div class="f-logoshow"><div class="logoShade hide"><i class="closeLogo"></i></div><img src="'+data.object.imgUrl+'" alt="" id="logo" height="150" class="showLogo"/></div>';//显示图片
                         $(".logoBtn").prepend(inImgs);
                     }else{
                         $('.logoBtn').append('<span class="red">'+data.msg+'</span>')
@@ -30,14 +35,14 @@ $(document).ready(function () {
     }
 
     /*图片鼠标移入*/
-    $(document).on('mouseover','.f-imgshow',function(){
-        $(this).children('.shade').removeClass('hide');
-    }).on('mouseout','.f-imgshow',function(){
-        $(this).children('.shade').addClass('hide');
+    $(document).on('mouseover','.f-logoshow',function(){
+        $(this).children('.logoShade').removeClass('hide');
+    }).on('mouseout','.f-logoshow',function(){
+        $(this).children('.logoShade').addClass('hide');
     });
     /*图片鼠标移入 可点击删除*/
-    $(document).on('click','.close',function(e){
-        $(this).parents('.f-imgshow').remove();
+    $(document).on('click','.closeLogo',function(e){
+        $(this).parents('.f-logoshow').remove();
     });
 
 });

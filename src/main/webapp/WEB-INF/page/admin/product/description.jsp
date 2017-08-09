@@ -18,8 +18,8 @@
     <%--<textarea rows="10" class="input-ctrl mb30" name="snapshot" id="snapshot">${hashMap.productDetail.snapshot}</textarea>--%>
     <div class="m-imgshow" id="imgShow">
         <div class="thumbnail-list" id="inResult">
-        	 <c:if test="${ not empty hashMap.productDetail.snapshot}">
-		        <c:forEach items="${hashMap.productDetail.snapshot}" var="item">
+        	 <c:if test="${ not empty hashMap.asList}">
+		        <c:forEach items="${hashMap.asList}" var="item" varStatus="status">
 		        	<div class="f-imgshow">
 		        		<div class="shade hide">
 		        			<i class="close"></i>

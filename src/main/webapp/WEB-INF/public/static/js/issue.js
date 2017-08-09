@@ -1,4 +1,7 @@
 $(document).ready(function(){
+	var imgLength=$('.f-imgshow').length;
+	$("#all").text(imgLength);
+	$("#num").text(6-imgLength);
     /*tab 跳转函数*/
     function goto(tab) {
         $('.container').attr('hidden', 'hidden');
@@ -339,6 +342,7 @@ $(document).ready(function(){
         for(var o=0;o<$('.f-imgshow').find('img').length;o++){
             imgs.push($('.f-imgshow').find('img').eq(o).attr('src'));
         }
+        console.log(imgs);
         if(!icon){
             goto('base');
             $('#icon').addClass('animation');
