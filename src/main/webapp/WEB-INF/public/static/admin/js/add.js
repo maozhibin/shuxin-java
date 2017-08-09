@@ -72,7 +72,6 @@ $(document).ready(function () {
             };
             $("#show").ajaxSubmit(opt);//相当于from.submit()
         }
-
         /*图片鼠标移入*/
         $(document).on('mouseover','.f-logoshow',function(){
             $(this).children('.logoShade').removeClass('hide');
@@ -86,8 +85,11 @@ $(document).ready(function () {
 
         $('#mySubmit').click(function () {
             examVal();
-            $.ajax({
-                url:'/admin/news/updateAndAdd'
-            });
+            console.log($('imput[name="top"]:checked').val());
+            console.log($('imput[name="isDisplay"]:checked').val());
+            // $.ajax({
+            //     url:'/admin/news/updateAndAdd',
+            //     data:{id:trim($('#typeValue').val()),newsClassType:trim(newsClassType.val()),title:trim(title.val()),source:trim(source.val()),author:trim(author.val()),keywords:trim(keywords.val()),content:trim(content.val())}
+            // });
         });
 });
