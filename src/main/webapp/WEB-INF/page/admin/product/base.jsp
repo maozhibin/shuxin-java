@@ -96,6 +96,14 @@
     <div class="inline-form mb30">
         <div class="addon">数据logo</div>
         <div class="logoBtn" id="imgBtn">
+	        	<c:if test="${not empty hashMap.productBaseInfo.icon}">
+	        		<div class="f-imgshow">
+		        		<div class="shade hide">
+		        			<i class="close"></i>
+		        		</div>
+		        		<img src=${hashMap.productBaseInfo.icon} alt="" id="logo" height="150" class="showImg"/>
+	        		</div>
+	        	</c:if>
 	        <form id="show" class="btn-upload" enctype="multipart/form-data">
 	            <input type="file" name="file" id="upLogo" accept="image/png,image/gif,image/jpg,image/jpeg">
 	        </form>

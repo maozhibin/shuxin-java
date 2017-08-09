@@ -15,7 +15,7 @@ public class JsonResponseMsg implements Serializable {
 	public static final int CODE_LOGIN_INVALID = 0;
 	public static final String MSG_LOGIN_INVALID = "未登陆或登陆状态失效,请重新登陆";
 
-	public static final int CODE_FAIL = 1;
+	public static final int CODE_FAIL = 0;
 	public static final String MSG_FAIL = "fail";
 
 	private int code;// 响应代码
