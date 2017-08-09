@@ -23,8 +23,6 @@
         }
     </style>
 
-
-    <link href='/static/admin/css/simditor.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
      <link href='/static/admin/plugins/simditor/styles/simditor.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
      <link href='/static/admin/css/img-holder.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
 
@@ -47,8 +45,6 @@
         <h3 class="header"><a onclick="javascript:;history.back()">新闻列表</a> — 新闻发布</h3>
     </c:if>
 <hr>
-    <form action="updateAndAdd" id="formid">
-
         <input type="hidden" id="typeValue" value="${news.id}" name="id"/>
 
         <div class="row form-group">
@@ -163,16 +159,20 @@
             <label class="col-sm-1 control-label no-padding-right">新闻头图:</label>
 
             <div class="col-sm-11">
-                <form id="show" class="btn-upload" enctype="multipart/form-data">
-                    <input type="file" name="file" id="upLogo" accept="image/png,image/gif,image/jpg,image/jpeg" style='display:inline-block'>
-                    (上传图片大小应小于2500px*1500px)
-                </form>
                 <div class='logoBtn' id='imgbtn'>
+                    <c:if test="${not empty news.image}">
+                        <div class="f-logoshow">
+                            <div class="logoShade hide">
+                            <i class="closeLogo"></i>
+                            </div>
+                            <img src=${news.image} alt="" id="logo" height="150" class="showLogo"/>
+                        </div>
+                    </c:if>
+                    <form id="show" class="btn-upload" enctype="multipart/form-data">
+                        <input type="file" name="file" id="upLogo" accept="image/png,image/gif,image/jpg,image/jpeg" style='display:inline-block'>
+                        (上传图片大小应小于2500px*1500px)
+                    </form>
                 </div>
-                <br/>
-                <input type="hidden" name="image" id="logo" value=""/>
-                <img src="${hashedMap.news.image}" id="img"  name="image" width=188 height=96 margin-bottom=20px overflow=hidden;/>
-
             </div>
         </div>
         <div class="row form-group">
@@ -195,7 +195,6 @@
             <hr>
             <button type="button" class="btn"  onclick="mysumit()">提交</button>
         </div>
-        </form>
 
 </body>
 </html>
