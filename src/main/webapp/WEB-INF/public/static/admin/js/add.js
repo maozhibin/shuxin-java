@@ -4,9 +4,9 @@ $(document).ready(function () {
         var title=$("#title").val();
         var source=$("#source").val();
         var author=$("#author").val();
+        var keywords=$("#keywords").val();
         var top=$("#top").val();
         var isDisplay=$("#isDisplay").val();
-        var keywords=$("#keywords").val();
 
 
         if(!newsClassType.val()){//当上面获取的值为空时
@@ -29,6 +29,5 @@ $(document).ready(function () {
             newsClassType.addClass('animation');
             return false;
         }
-        document.getElementById("formid").submit();
     }
 });

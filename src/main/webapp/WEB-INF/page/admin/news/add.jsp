@@ -33,6 +33,7 @@
     <script src='/static/admin/plugins/simditor/scripts/simditor.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
 
     <script src='/static/js/jquery.ajaxfileupload.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
+    <script src="http://malsup.github.io/jquery.form.js"></script>
 	<script src='/static/admin/js/add.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
 
 </head>
@@ -171,7 +172,7 @@
                     <form id="show" class="btn-upload" enctype="multipart/form-data">
                         <input type="file" name="file" id="upLogo" accept="image/png,image/gif,image/jpg,image/jpeg" style='display:inline-block'>
                     </form>
-                        (上传图片大小应小于2500px*1500px)
+                     上传图片大小应小于2500px*1500px
                 </div>
             </div>
         </div>
@@ -193,7 +194,7 @@
         </div>
         <div class="row">
             <hr>
-            <button type="button" class="btn"  onclick="mysumit()">提交</button>
+            <button type="button" class="btn"  id="mySubmit">提交</button>
         </div>
 
 </body>
