@@ -32,7 +32,7 @@
                         <c:if test="${page != null && page.result != null}">
                         <c:forEach items="${page.result}" var="Config" varStatus="status">
                             <tr>
-                            	<td>${status.index+1}</td>
+                            	<td>${status.index+1+(page.pageSize*(page.pageNo-1))}</td>
                                 <td>${Config.varname}</td>
                                 <td>${Config.value}</td>
                                 <td>
