@@ -312,6 +312,7 @@ $(document).ready(function(){
             return ;
         }
 
+        debugger;
         var productName=$('#product_name').val();//产品名
         var frequent=$('#frequent').val();//更新频率
         var productClass=$('#product_class').val();//产品类型
@@ -334,13 +335,21 @@ $(document).ready(function(){
         var intro=$('#intro').val();//产品介绍
         var highlight=$('#highlight').val();//产品亮点
         var service=$('#service').val();//售后服务
+        debugger;
         /*产品截图*/
         var imgs=[];
         for(var o=0;o<$('.f-imgshow').find('img').length;o++){
             imgs.push($('.f-imgshow').find('img').eq(o).attr('src'));
         }
+        if(!icon){
+            goto('base');
+            $('#icon').addClass('animation');
+        }else if(imgs.length<1){
+            goto('desc');
+            $('#inResult').addClass('animation');
+        }
+
         str.imgs=imgs;
-        
         str.productName=productName;
         str.frequent=frequent;
         str.productClass=productClass;
@@ -582,19 +591,24 @@ $(document).ready(function(){
     }
     /*数据更新*/
     function update() {
+        var bln=false;
         for (var k in base){
             if(!trim(base[k])){
                 goto('base');
                 console.log(k);
                 baseError(k);
-                return ;
+                return false;
+            }else{
+                bln=true;
             }
         }
         for (var a in api){
             if(!api[a]){
                 goto('api');
                 apiError(a);
-                return ;
+                return false;
+            }else{
+                bln=true;
             }
         }
         for (var b in desc){
@@ -602,9 +616,12 @@ $(document).ready(function(){
                 console.log(desc[b]+" Value: "+b);
                 goto('desc');
                 descError(b);
-                return ;
+                return false;
+            }else{
+                bln=true;
             }
         }
+        return bln;
     }
     function chargingFunction(){//计费设置判断
         apiFunction();
@@ -615,9 +632,10 @@ $(document).ready(function(){
         var priceYear=$('#priceYear').val();
         var reg=/^[-\+]?\d+(\.\d+)?$/;
 
-        priceOne_value=priceOne.replace(/\n/g,'');
-        priceHundred_value=priceHundred.replace(/\n/g,'');
-        priceYear_value=priceYear.replace(/\n/g,'');
+        priceOne_value=trim(priceOne);
+        priceHundred_value=trim(priceHundred);
+        priceYear_value=trim(priceYear);
+
         //请求时常 最大为10
         if($("#time_out").val().length>11){
             $('#time_out').addClass('animation').val('').attr('placeholder','请输入10位长度的数字');
@@ -625,30 +643,30 @@ $(document).ready(function(){
         }
         if(priceOne_value==""){
             $('#priceOne').addClass('animation');
-            return;
+            return ;
         }
         if(priceOne_value!=""){
             if(!reg.test(priceOne) || priceOne.length >7){
-                $('#priceOne').addClass('animation');
-                return;
+                $('#priceOne').addClass('animation').val('').attr('placeholder','请输入7位长度的数字');
+                return ;
             }
         }
         if(priceHundred_value!=""){
             if(!reg.test(priceHundred) || priceHundred.length >7){
-                $('#priceHundred').addClass('animation');
-                return;
+                $('#priceHundred').addClass('animation').val('').attr('placeholder','请输入7位长度的数字');
+                return ;
             }
         }
         if(priceYear_value!=""){
             if(!reg.test(priceYear) || priceYear.length >7){
-                $('#priceYear').addClass('animation');
-                return;
+                $('#priceYear').addClass('animation').val('').attr('placeholder','请输入7位长度的数字');
+                return ;
             }
         }
         if($("#chexkboxId").checked == false){
             alert("请认真阅读协议并同意");
             $('#chexkboxId').addClass('animation');
-            return;
+            return ;
         }
         myfunction();
     }
