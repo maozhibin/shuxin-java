@@ -52,7 +52,7 @@
             <label class="col-sm-1 control-label no-padding-right">选择类型:</label>
             <div class="col-sm-11">
 
-                <select name="newsClassType" class="form-control" id="newsClassType">
+                <select name="newsClassType" class="form-control input-ctrl" id="newsClassType">
                     <option selected value="">请选择类型</option>
                     <c:forEach items="${hashedMap.options}" var="options">
                             <option value="${options.value}"<c:if test="${hashedMap.news.newsClassType==options.value}">selected="selected"</c:if>>${options.name}
@@ -66,11 +66,11 @@
             <div class="col-sm-11">
                 <c:if test="${not empty hashedMap.news.title}">
                     <input name="title" value="${hashedMap.news.title}"
-                           class="col-xs-10 col-sm-5" placeholder="" id="title"/>
+                           class="col-xs-10 col-sm-5 input-ctrl" placeholder="" id="title"/>
                 </c:if>
                 <c:if test="${empty hashedMap.news.title}">
                     <input name="title" value=""
-                           class="col-xs-10 col-sm-5" placeholder="" id="title"/>
+                           class="col-xs-10 col-sm-5 input-ctrl" placeholder="" id="title"/>
                 </c:if>
             </div>
         </div>
@@ -79,11 +79,11 @@
             <div class="col-sm-11">
                 <c:if test="${not empty hashedMap.news.source}">
                     <input name="source" value="${hashedMap.news.source}"
-                           class="col-xs-10 col-sm-5" placeholder="" id="source"/>
+                           class="col-xs-10 col-sm-5 input-ctrl" placeholder="" id="source"/>
                 </c:if>
                 <c:if test="${empty hashedMap.news.source}">
                     <input name="source" value=""
-                           class="col-xs-10 col-sm-5" placeholder="" id="source"/>
+                           class="col-xs-10 col-sm-5 input-ctrl" placeholder="" id="source"/>
                 </c:if>
             </div>
         </div>
@@ -92,11 +92,11 @@
             <div class="col-sm-11">
                 <c:if test="${not empty hashedMap.news.author}">
                     <input name="author" value="${hashedMap.news.author}"
-                           class="col-xs-10 col-sm-5" placeholder="" id="author"/>
+                           class="col-xs-10 col-sm-5 input-ctrl" placeholder="" id="author"/>
                 </c:if>
                 <c:if test="${empty hashedMap.news.author}">
                     <input name="author" value=""
-                           class="col-xs-10 col-sm-5" placeholder="" id="author"/>
+                           class="col-xs-10 col-sm-5 input-ctrl" placeholder="" id="author"/>
                 </c:if>
             </div>
         </div>
@@ -147,11 +147,11 @@
             <div class="col-sm-11">
                 <c:if test="${not empty hashedMap.news.keywords}">
                     <input name="keywords" value="${hashedMap.news.author}"
-                           class="col-xs-10 col-sm-5" placeholder="" id="keywords"/>
+                           class="col-xs-10 col-sm-5 input-ctrl" placeholder="" id="keywords"/>
                 </c:if>
                 <c:if test="${empty hashedMap.news.keywords}">
                     <input name="keywords" value=""
-                           class="col-xs-10 col-sm-5" placeholder="" id="keywords"/>
+                           class="col-xs-10 col-sm-5 input-ctrl" placeholder="" id="keywords"/>
                 </c:if>
             </div>
         </div>
@@ -181,12 +181,12 @@
             <div class="col-sm-11">
                 <c:if test="${not empty hashedMap.news.id}">
 			              	 	 <textarea name="content"  style="height: 200px"
-                                           class="col-xs-10 col-sm-5"
+                                           class="col-xs-10 col-sm-5 input-ctrl"
                                            placeholder=""  id="content">${hashedMap.news.content}</textarea>
                 </c:if>
                 <c:if test="${empty hashedMap.news.id}">
 			              	 	 <textarea name="content" style="height: 200px"
-                                           class="col-xs-10 col-sm-5"
+                                           class="col-xs-10 col-sm-5 input-ctrl"
                                            placeholder="" id="content"></textarea>
                 </c:if>
 
