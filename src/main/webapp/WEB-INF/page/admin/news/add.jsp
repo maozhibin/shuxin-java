@@ -251,32 +251,6 @@
         document.getElementById("formid").submit();
     }
 
-
-    $(document).ready(function () {
-        <!--文件上传-->
-        $("#upload").AjaxFileUpload({
-            action: '/admin/upload/logo',
-            onComplete: function (filename, response) {
-                if (response.error != null) {
-                    alert(response.error + "请重新选择");
-                } else {
-                    var url = base_url + response.imgUrl;
-                    $("#logo").val(url);
-                    $(this).parents(".cell").addClass('hide');
-                    $("#close").removeClass('hide');
-                    $("#img").removeClass('hide').attr("src", url).attr('alt', filename);
-
-                }
-            }
-        });
-        $("#img").click(function () {
-            $("#upload").trigger("click");
-        });
-        $("#close").click(function () {
-            $(this).addClass('hide').prevAll('img').removeAttr('src alt').addClass('hide').prevAll('.cell').removeClass('hide');
-        });
-
-    });
 </script>
 </body>
 </html>
