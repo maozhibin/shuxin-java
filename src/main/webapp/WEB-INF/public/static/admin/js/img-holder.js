@@ -16,6 +16,7 @@ $(document).ready(function () {
     /*图片鼠标移入 可点击删除*/
     $(document).on('click','.close',function(e){
         $(this).parents('.f-imgshow').remove();
+        debugger;
         var i=$('.f-imgshow').length;
         $('#all').text(i);
         $('#num').text('').text(9-i);

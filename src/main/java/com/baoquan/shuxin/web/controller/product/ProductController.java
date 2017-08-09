@@ -1,5 +1,6 @@
 package com.baoquan.shuxin.web.controller.product;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSONArray;
 import com.baoquan.shuxin.bean.Page;
 import com.baoquan.shuxin.model.area.Area;
 import com.baoquan.shuxin.model.product.Product;
@@ -123,6 +125,9 @@ public class ProductController {
         	map.put("interfaceSample", interfaceSample);
         	ProductDetail productDetail = productDetailService.findByProductId(idValue);
         	map.put("productDetail", productDetail);
+        	String snapshot = productDetail.getSnapshot();
+        	Object parse = JSONArray.parse(snapshot);
+        	map.put("asList",parse);
         	String tagLists=productTagService.findByProductId(idValue);
         	map.put("tagLists",tagLists);
         	List<ProductInterfaceParam> headersParamslist = productInterfaceParamService.headersParamslist(idValue);

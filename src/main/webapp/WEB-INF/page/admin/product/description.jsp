@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div hidden="hidden" class="container desc">
     <p class="f16 gray6 mb10">产品介绍</p>
     <textarea rows="10" class="input-ctrl mb30" name="intro" id="intro">${hashMap.productDetail.intro}</textarea>
@@ -16,6 +17,15 @@
     <p class="f16 gray6 mb10 mt10">产品截图</p>
     <div class="m-imgshow" id="imgShow">
         <div class="thumbnail-list" id="inResult">
+        	 <c:if test="${ not empty hashMap.asList}">
+		        <c:forEach items="${hashMap.asList}" var="item" varStatus="status">
+		        	<div class="f-imgshow">
+		        		<div class="shade hide">
+		        			<i class="close"></i>
+		        		</div><img src=${item}  alt="" id="img" height="150" class="showImg"/>
+		        	</div>
+		        </c:forEach>	
+		    </c:if>
         </div>
         <div class="imgBtn">
         <form id="image-upload" class="btn-upload" enctype="multipart/form-data">

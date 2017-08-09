@@ -32,7 +32,7 @@
 		                <div class="col-md-1">
 		                    <label class="control-label" >变量名 <b class=" red">*</b> :</label>
 		                </div>
-			                <div class="co	l-md-11">
+			                <div class="col-md-11">
 			              	  <c:if test="${not empty config.id}">
 			              	 	 <input name="varname" value="${config.varname }"
 				                           class="col-xs-10 col-sm-5" placeholder="变量名必须填写！" id="varname"/>

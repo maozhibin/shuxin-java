@@ -1,4 +1,7 @@
 $(document).ready(function(){
+	var imgLength=$('.f-imgshow').length;
+	$("#all").text(imgLength);
+	$("#num").text(6-imgLength);
     /*tab 跳转函数*/
     function goto(tab) {
         $('.container').attr('hidden', 'hidden');
@@ -312,7 +315,6 @@ $(document).ready(function(){
             return ;
         }
 
-        
         var productName=$('#product_name').val();//产品名
         var frequent=$('#frequent').val();//更新频率
         var productClass=$('#product_class').val();//产品类型
@@ -335,12 +337,12 @@ $(document).ready(function(){
         var intro=$('#intro').val();//产品介绍
         var highlight=$('#highlight').val();//产品亮点
         var service=$('#service').val();//售后服务
-        debugger;
         /*产品截图*/
         var imgs=[];
         for(var o=0;o<$('.f-imgshow').find('img').length;o++){
             imgs.push($('.f-imgshow').find('img').eq(o).attr('src'));
         }
+        console.log(imgs);
         if(!icon){
             goto('base');
             $('#icon').addClass('animation');
@@ -451,7 +453,6 @@ $(document).ready(function(){
         var productTags=$('#productTags').val();//标签
         var tags = new Array();
         tag=productTags.trim().split(","); //字符分割
-        console.log(tag);
         tags.push(tag);
         str.tags = tags;
 
