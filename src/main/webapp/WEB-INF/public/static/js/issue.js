@@ -311,6 +311,7 @@ $(document).ready(function(){
         if(!update()){
             return ;
         }
+
         var productName=$('#product_name').val();//产品名
         var frequent=$('#frequent').val();//更新频率
         var productClass=$('#product_class').val();//产品类型
