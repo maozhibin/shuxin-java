@@ -1,30 +1,38 @@
 $(document).ready(function () {
-        var newsClassType=$("#newsClassType").val();
-        var title=$("#title").val();
-        var source=$("#source").val();
-        var author=$("#author").val();
-        var keywords=$("#keywords").val();
-        var content=$("#content").val();
-        var top=$("#top").val();
+        var newsClassType=$("#newsClassType");
+        var title=$("#title");
+        var source=$("#source");
+        var author=$("#author");
+        var keywords=$("#keywords");
+        var content=$("#content");
+        var top=$("#top");
         function examVal(){
         if(!trim(newsClassType.val())){//当上面获取的值为空时
             newsClassType.addClass('animation');
             return false;//返回false（不提交表单）
         }
         if(!trim(title.val())){
-            newsClassType.addClass('animation');
+        	title.addClass('animation');
             return false;
         }
         if(!trim(source.val())){
-            newsClassType.addClass('animation');
+        	source.addClass('animation');
             return false;
         }
         if(!trim(author.val())){
-            newsClassType.addClass('animation');
+        	author.addClass('animation');
             return false;
         }
         if(!trim(keywords.val())){
-            newsClassType.addClass('animation');
+        	keywords.addClass('animation');
+            return false;
+        }
+        if($(".logoBtn").find('.f-logoshow').length<1){
+        	$('#imgbtn').addClass('animation');
+            return false;
+        }
+        if(!trim(content.val())){
+        	content.addClass('animation');
             return false;
         }
     }
@@ -85,11 +93,25 @@ $(document).ready(function () {
 
         $('#mySubmit').click(function () {
             examVal();
-            console.log($('imput[name="top"]:checked').val());
-            console.log($('imput[name="isDisplay"]:checked').val());
+            var img=$('.f-logoshow').find('img').attr('src');
+            console.log($('input:checked').val());
+            console.log($('input[name="isDisplay"]:checked').val());
             // $.ajax({
             //     url:'/admin/news/updateAndAdd',
             //     data:{id:trim($('#typeValue').val()),newsClassType:trim(newsClassType.val()),title:trim(title.val()),source:trim(source.val()),author:trim(author.val()),keywords:trim(keywords.val()),content:trim(content.val())}
             // });
+            $.ajax({
+                type: "POST",
+                url: "/admin/news/updateAndAdd",
+                data: {id:trim($('#typeValue').val()),newsClassType:trim(newsClassType.val()),title:trim(title.val()),source:trim(source.val()),author:trim(author.val()),keywords:trim(keywords.val()),content:trim(content.val())},
+                dataType: "json",
+                success: function(result){
+	                console.log(result.code);
+	                console.log(result.data);
+				},
+				error:function(result){
+					conole.log(result.code);
+				}
+            });
         });
 });
