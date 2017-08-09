@@ -26,6 +26,7 @@
 
     <link href='/static/admin/css/simditor.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
      <link href='/static/admin/plugins/simditor/styles/simditor.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
+     <link href='/static/admin/css/img-holder.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
 
     <script src='/static/admin/plugins/simditor/scripts/jquery.min.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
     <script src='/static/admin/plugins/simditor/scripts/module.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
@@ -163,7 +164,7 @@
 
             <div class="col-sm-11">
                 <form id="show" class="btn-upload" enctype="multipart/form-data">
-                    <input type="file" name="file" id="upLogo" accept="image/png,image/gif,image/jpg,image/jpeg">
+                    <input type="file" name="file" id="upLogo" accept="image/png,image/gif,image/jpg,image/jpeg" style='display:inline-block'>
                     (上传图片大小应小于2500px*1500px)
                 </form>
                 <div class='logoBtn' id='imgbtn'>
