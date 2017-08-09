@@ -33,7 +33,7 @@
     <script src='/static/admin/plugins/simditor/scripts/simditor.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
 
     <script src='/static/js/jquery.ajaxfileupload.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
-
+	<script src='/static/js/add.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
 
 </head>
 <body>
