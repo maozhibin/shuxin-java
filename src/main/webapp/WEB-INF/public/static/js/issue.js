@@ -366,7 +366,8 @@ $(document).ready(function(){
         for(var o=0;o<$('.f-imgshow').find('img').length;o++){
             imgs.push($('.f-imgshow').find('img').eq(o).attr('src'));
         }
-        console.log(imgs);
+        str.imgs=imgs;
+        
         str.productName=productName;
         str.frequent=frequent;
         str.productClass=productClass;

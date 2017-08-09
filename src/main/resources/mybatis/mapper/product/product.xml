@@ -88,6 +88,7 @@
 		SELECT
 			p.id,
 			p.`name`,
+			p.icon,
 			p.frequent,
 			p.product_class_id,
 			p.product_base_id,

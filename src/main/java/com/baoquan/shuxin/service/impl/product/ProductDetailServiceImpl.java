@@ -21,13 +21,14 @@ public class ProductDetailServiceImpl implements ProductDetailService{
 	public Boolean setDetail(JSONObject data, Integer productId) {
 		String intro = data.getString("intro");//产品介绍
 		String highlight = data.getString("highlight");//产品亮点
-		//String snapshot = data .getString("snapshot");//产品截图
+		String snapshot = data .getString("imgs");//产品截图
 		String service = data.getString("service");//售后服务
 		ProductDetail productDetail = new ProductDetail();
 		productDetail.setIntro(intro);
 		productDetail.setHighlight(highlight);
 		productDetail.setService(service);
 		productDetail.setProductId(productId);
+		productDetail.setSnapshot(snapshot);
 
 		productDetailDao.delete(productId);
 		productDetailDao.insert(productDetail);

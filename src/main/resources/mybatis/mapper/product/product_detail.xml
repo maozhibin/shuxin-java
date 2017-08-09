@@ -16,8 +16,8 @@
     
     <insert id="insert" parameterType="ProductDetail" 
         useGeneratedKeys="true" keyProperty="id"> 
-        insert into product_detail(product_id,intro,highlight,service)  
-             values(#{productId},#{intro},#{highlight},#{service})  
+        insert into product_detail(product_id,intro,snapshot,highlight,service)  
+             values(#{productId},#{intro},#{snapshot},#{highlight},#{service})  
     </insert>
 	
 	 <select id="findByProductId" resultMap="BaseResultMap">
