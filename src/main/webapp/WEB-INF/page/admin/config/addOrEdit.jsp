@@ -100,7 +100,7 @@
 		                    url:'/admin/config/add',
 		                    data:$("#from_module_edit").serialize(),
 		                    success:function (data) {
-		                        if(data.code==1){
+		                        if(data.code==0){
 		                            alert(data.msg);
 		                        }else{
 		                            window.location.href="/admin/config/list";
@@ -112,7 +112,7 @@
 			                  url:'/admin/config/update',
 			                  data:$("#from_module_edit").serialize(),
 			                  success:function (data) {
-			                      if(data.code==1){
+			                      if(data.code==0){
 			                           alert(data.msg);
 			                      }else{
 			                            window.location.href="/admin/config/list";

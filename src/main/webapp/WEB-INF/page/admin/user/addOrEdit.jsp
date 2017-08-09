@@ -124,7 +124,7 @@
 		                    url:'/admin/user/add',
 		                    data:$("#from_module_edit").serialize(),
 		                    success:function (data) {
-		                        if(data.code==1){
+		                        if(data.code==0){
 		                            alert(data.msg);
 		                        }else{
 		                            window.location.href="/admin/user/list?typeId=ORG";
@@ -136,7 +136,7 @@
 			                  url:'/admin/user/update',
 			                  data:$("#from_module_edit").serialize(),
 			                  success:function (data) {
-			                      if(data.code==1){
+			                      if(data.code==0){
 			                           alert(data.msg);
 			                      }else{
 			                            window.location.href="/admin/user/list?typeId=ORG";

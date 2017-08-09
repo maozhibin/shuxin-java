@@ -39,7 +39,7 @@ $(document).ready(function () {
                         $('#all').text(i);
                         $('#num').text('').text(6-i);
                     }else{
-                        $('#imgBtn').append('<span class="red">'+data.msg+'</span>')
+                        $('.imgBtn').append('<span class="red">'+data.msg+'</span>')
                     }
                 }
             },

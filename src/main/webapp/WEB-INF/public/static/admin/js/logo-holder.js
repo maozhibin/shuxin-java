@@ -15,14 +15,14 @@ $(document).ready(function () {
                 }else{
                     if(data.code){/*请求 200*/
                         var inImgs='<div class="f-imgshow"><div class="shade hide"><i class="close"></i></div><img src="'+data.object.imgUrl+'" alt="" id="logo" height="150" class="showImg"/></div>';//显示图片
-                        $(".imgBtn").prepend(inImgs);
+                        $(".logoBtn").prepend(inImgs);
                     }else{
-                        $('.imgBtn').append('<span class="red">'+data.msg+'</span>')
+                        $('.logoBtn').append('<span class="red">'+data.msg+'</span>')
                     }
                 }
             },
             error : function(data) {
-                console.log($( '#update').val());
+                console.log($( '#upLogo').val());
                 console.log(data);
             }
         };
