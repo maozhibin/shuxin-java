@@ -170,8 +170,8 @@
                     </c:if>
                     <form id="show" class="btn-upload" enctype="multipart/form-data">
                         <input type="file" name="file" id="upLogo" accept="image/png,image/gif,image/jpg,image/jpeg" style='display:inline-block'>
-                        (上传图片大小应小于2500px*1500px)
                     </form>
+                        (上传图片大小应小于2500px*1500px)
                 </div>
             </div>
         </div>
