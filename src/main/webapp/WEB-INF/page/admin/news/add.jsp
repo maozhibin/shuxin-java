@@ -24,7 +24,7 @@
     </style>
 
 
-    <link href='/static/admin/css/img-holder.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
+    <link href='/static/admin/css/simditor.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
      <link href='/static/admin/plugins/simditor/styles/simditor.css?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>' rel="stylesheet" type="text/css"/>
 
     <script src='/static/admin/plugins/simditor/scripts/jquery.min.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
@@ -162,13 +162,12 @@
             <label class="col-sm-1 control-label no-padding-right">新闻头图:</label>
 
             <div class="col-sm-11">
-                <form for="upload" class="btn">
-                    上传图片
-                    <input type="file" id="upload" name="file"
-                                       style="height:0;width:0;z-index: -1; position: absolute;left: 10px;top: 5px;">
+                <form id="show" class="btn-upload" enctype="multipart/form-data">
+                    <input type="file" name="file" id="upLogo" accept="image/png,image/gif,image/jpg,image/jpeg">
+                    (上传图片大小应小于2500px*1500px)
                 </form>
-                (上传图片大小应小于2500px*1500px)
-                <div></div>
+                <div class='logoBtn' id='imgbtn'>
+                </div>
                 <br/>
                 <input type="hidden" name="image" id="logo" value=""/>
                 <img src="${hashedMap.news.image}" id="img"  name="image" width=188 height=96 margin-bottom=20px overflow=hidden;/>
