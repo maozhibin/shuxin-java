@@ -56,7 +56,7 @@
                     <c:if test="${page != null && page.result != null}">
                         <c:forEach items="${page.result}" var="news" varStatus="status">
                             <tr>
-                                <td>${status.index+1}</td>
+                                <td>${status.index+1+(page.pageSize*(page.pageNo-1))}</td>
                                 <td>${news.newsClassType}</td>
                                 <td>${news.title}</td>
                                 <td>
