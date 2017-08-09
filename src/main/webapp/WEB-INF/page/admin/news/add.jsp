@@ -33,7 +33,7 @@
     <script src='/static/admin/plugins/simditor/scripts/simditor.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
 
     <script src='/static/js/jquery.ajaxfileupload.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
-	<script src='/static/js/add.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
+	<script src='/static/admin/js/add.js?_=<%@include file="/WEB-INF/public/static/ver/.ver"%>'></script>
 
 </head>
 <body>
@@ -60,7 +60,6 @@
                         </option>
                     </c:forEach>
                 </select>
-                &nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-warning" id= "newsClassTypeSpan"></span>
             </div>
         </div>
         <div class="row form-group">
@@ -74,7 +73,6 @@
                     <input name="title" value=""
                            class="col-xs-10 col-sm-5" placeholder="" id="title"/>
                 </c:if>
-                &nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-warning" id= "titleSpan"></span>
             </div>
         </div>
         <div class="row form-group">
@@ -88,8 +86,6 @@
                     <input name="source" value=""
                            class="col-xs-10 col-sm-5" placeholder="" id="source"/>
                 </c:if>
-                &nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-warning" id= "sourceSpan"></span>
-
             </div>
         </div>
         <div class="row form-group">
@@ -103,8 +99,6 @@
                     <input name="author" value=""
                            class="col-xs-10 col-sm-5" placeholder="" id="author"/>
                 </c:if>
-                &nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-warning" id= "authorSpan"></span>
-
             </div>
         </div>
         <div class="row form-group">
@@ -126,8 +120,6 @@
                                   value="0" id=""  checked="true" />否
                     </label>&nbsp;&nbsp;
                 </c:if>
-                &nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-warning" id= "topSpan"></span>
-
             </div>
         </div>
         <div class="row form-group">
@@ -149,8 +141,6 @@
                                   value="0" />否
                     </label>&nbsp;&nbsp;
                 </c:if>
-
-                &nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-warning" id= "isDisplaySpan"></span>
             </div>
         </div>
         <div class="row form-group">
@@ -164,8 +154,6 @@
                     <input name="keywords" value=""
                            class="col-xs-10 col-sm-5" placeholder="" id="keywords"/>
                 </c:if>
-                &nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-warning" id= "keywordsSpan"></span>
-
             </div>
         </div>
 
@@ -173,11 +161,14 @@
             <label class="col-sm-1 control-label no-padding-right">新闻头图:</label>
 
             <div class="col-sm-11">
-                <label for="upload" class="btn">上传图片</label>
+                <form for="upload" class="btn">
+                    上传图片
+                    <input type="file" id="upload" name="file"
+                                       style="height:0;width:0;z-index: -1; position: absolute;left: 10px;top: 5px;">
+                </form>
                 (上传图片大小应小于2500px*1500px)
                 <div></div>
-                <input type="file" id="upload" name="file"
-                       style="height:0;width:0;z-index: -1; position: absolute;left: 10px;top: 5px;"><br/>
+                <br/>
                 <input type="hidden" name="image" id="logo" value=""/>
                 <img src="${hashedMap.news.image}" id="img"  name="image" width=188 height=96 margin-bottom=20px overflow=hidden;/>
 
@@ -205,52 +196,5 @@
         </div>
         </form>
 
-
-<script type="text/javascript">
-
-
-    function mysumit() {
-        document.getElementById("newsClassTypeSpan").innerText = "";
-        document.getElementById("titleSpan").innerText = "";
-        document.getElementById("sourceSpan").innerText = "";
-        document.getElementById("authorSpan").innerText = "";
-        document.getElementById("topSpan").innerText = "";
-        document.getElementById("isDisplaySpan").innerText = "";
-        document.getElementById("keywordsSpan").innerText = "";
-
-
-        var newsClassType=$("#newsClassType").val()
-        var title=$("#title").val()
-        var source=$("#source").val()
-        var author=$("#author").val()
-        var top=$("#top").val()
-        var isDisplay=$("#isDisplay").val()
-        var keywords=$("#keywords").val()
-
-
-        if(newsClassType.length<=0){//当上面获取的值为空时
-            document.getElementById("newsClassTypeSpan").innerText = "亲，请选择类型！";
-            return false;//返回false（不提交表单）
-        }
-        if(title.length<=0){
-            document.getElementById("titleSpan").innerText = "亲，请填写标题哦！";
-            return false;
-        }
-        if(source.length<=0){
-            document.getElementById("sourceSpan").innerText = "亲，请填写来源！";
-            return false;
-        }
-        if(author.length<=0){
-            document.getElementById("authorSpan").innerText = "亲，请填写作者名称哦！";
-            return false;
-        }
-        if(keywords.length<=0){
-            document.getElementById("keywordsSpan").innerText = "亲，请填写网页关键词哦！";
-            return false;
-        }
-        document.getElementById("formid").submit();
-    }
-
-</script>
 </body>
 </html>
