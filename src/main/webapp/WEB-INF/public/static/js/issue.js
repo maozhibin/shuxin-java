@@ -311,8 +311,6 @@ $(document).ready(function(){
         if(!update()){
             return ;
         }
-
-        debugger;
         var productName=$('#product_name').val();//产品名
         var frequent=$('#frequent').val();//更新频率
         var productClass=$('#product_class').val();//产品类型
@@ -335,7 +333,6 @@ $(document).ready(function(){
         var intro=$('#intro').val();//产品介绍
         var highlight=$('#highlight').val();//产品亮点
         var service=$('#service').val();//售后服务
-        debugger;
         /*产品截图*/
         var imgs=[];
         for(var o=0;o<$('.f-imgshow').find('img').length;o++){
@@ -451,7 +448,6 @@ $(document).ready(function(){
         var productTags=$('#productTags').val();//标签
         var tags = new Array();
         tag=productTags.trim().split(","); //字符分割
-        console.log(tag);
         tags.push(tag);
         str.tags = tags;
 
