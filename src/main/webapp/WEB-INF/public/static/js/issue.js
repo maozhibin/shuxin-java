@@ -464,7 +464,7 @@ $(document).ready(function(){
             url: "/admin/product/updateOrAdd?id="+productId,
             data:{data:data},
             success: function(d){
-                if(d.code==1){
+                if(d.code==0){
                     alert(d.result);
                 }else{
                     window.location.href="/admin/product/list";

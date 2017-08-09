@@ -95,7 +95,7 @@
 
     <div class="inline-form mb30">
         <div class="addon">数据logo</div>
-        <div class="imgBtn" id="imgBtn">
+        <div class="logoBtn" id="imgBtn">
 	        <form id="show" class="btn-upload" enctype="multipart/form-data">
 	            <input type="file" name="file" id="upLogo" accept="image/png,image/gif,image/jpg,image/jpeg">
 	        </form>
