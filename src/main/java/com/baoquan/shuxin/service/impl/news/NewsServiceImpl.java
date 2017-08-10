@@ -95,11 +95,11 @@ public class NewsServiceImpl implements NewsService {
      * @return
      */
     @Override
-    public News updateNews(Integer id) {
+    public News updateNews(Long id) {
         if (id == null){
             return null;
         }
-        return newsDao.updateNews(id);
+        return newsDao.querNewInfoById(id);
     }
 
 

@@ -103,7 +103,15 @@ $(document).ready(function () {
             $.ajax({
                 type: "POST",
                 url: "/admin/news/updateAndAdd",
-                data: {id:trim($('#typeValue').val()),newsClassType:trim(newsClassType.val()),title:trim(title.val()),source:trim(source.val()),author:trim(author.val()),keywords:trim(keywords.val()),content:trim(content.val())},
+                data: {
+	                	id:trim($('#typeValue').val()),
+	                	newsClassType:trim(newsClassType.val()),
+	                	title:trim(title.val()),
+	                	source:trim(source.val()),
+	                	author:trim(author.val()),
+	                	keywords:trim(keywords.val()),
+	                	content:trim(content.val())
+                	},
                 dataType: "json",
                 success: function(result){
 	                console.log(result.code);

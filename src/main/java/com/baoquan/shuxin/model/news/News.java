@@ -11,7 +11,7 @@ public class News {
 
     private Integer id;
 
-    private String newsClassType;
+    private Integer newsClassType;
 
     private String title;
 
@@ -47,11 +47,11 @@ public class News {
         this.id = id;
     }
 
-    public String getNewsClassType() {
+    public Integer getNewsClassType() {
         return newsClassType;
     }
 
-    public void setNewsClassType(String newsClassType) {
+    public void setNewsClassType(Integer newsClassType) {
         this.newsClassType = newsClassType;
     }
 
