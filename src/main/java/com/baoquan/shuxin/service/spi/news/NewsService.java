@@ -21,7 +21,7 @@ public interface NewsService {
     //查询
     Integer countNewsInfo(String newsClassType );
 
-    List<News> queryNewsInfoList(String newsClassType,Integer start, Integer length);
+    List<News> queryNewsInfoList(String type, Page<News> page);
     //删除
     Boolean delNews(Long id);
     //新闻详情

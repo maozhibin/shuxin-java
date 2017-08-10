@@ -111,11 +111,9 @@ $(document).ready(function () {
                     keywords:trim(keywords.val()),
                     content:trim(content.val())
                 },
-
                 dataType: "json",
                 success: function(result){
-	                console.log(result.code);
-	                console.log(result.data);
+                	 window.location.href="/admin/news/list";
 				},
 				error:function(result){
 					conole.log(result.code);

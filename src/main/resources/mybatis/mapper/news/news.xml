@@ -3,7 +3,7 @@
 <mapper namespace="com.baoquan.shuxin.dao.news.NewsDao" >
   <resultMap id="BaseResultMap" type="com.baoquan.shuxin.model.news.News" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="news_class_type" property="newsClassType" jdbcType="INTEGER" />
+    <result column="news_class_type" property="newsClassType" jdbcType="BIT" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="dateline" property="dateline" jdbcType="INTEGER" />
     <result column="source" property="source" jdbcType="VARCHAR" />
@@ -24,11 +24,15 @@
   <select id="queryNewsInfo" resultType="com.baoquan.shuxin.model.news.News">
     SELECT 	* FROM `news`   n
     <where>
-      <if test="newsClassType != null">
-        AND n.news_class_type = #{newsClassType}
+      <if test="type != null">
+        AND n.news_class_type = #{type}
       </if>
     </where>
-    limit #{start},#{length}
+     ORDER BY dateline DESC
+     <if test="page != null">
+	       limit ${page.startIndex},${page.pageSize};
+	 </if>
+	
   </select>
 
 

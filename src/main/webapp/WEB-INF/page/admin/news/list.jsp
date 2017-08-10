@@ -15,18 +15,18 @@
 <body>
 
 <section class="filter-box" style="border:none">
+	
     <div class="row">
         <form class="form-inline" method="post">
             <table style="margin-left: 30px">
                 <tr>
-                    <td> 类型：</td>
+                    <td> 类型:</td>
                     <td>
-                        <select name="newsClassType" class="form-control">
-                            <option selected value="">请选择类型</option>
-                            <c:forEach items="${options}" var="option">
-                                <c:if test="${newsClassType == option.value}"><option selected value="${option.value}">${option.name}</option></c:if>
-                                <c:if test="${newsClassType != option.value}"><option value="${option.value}">${option.name}</option></c:if>
-                            </c:forEach>
+                        <select name="type" class="form-control">
+                        	<option value="" <c:if test="${type eq ''}">selected="selected"</c:if>>请选择类型</option>
+                        	<option value="1" <c:if test="${type eq '1'}">selected="selected"</c:if>>平台公告</option>
+                        	<option value="2" <c:if test="${type eq '2'}">selected="selected"</c:if>>媒体公告</option>
+                        	<option value="3" <c:if test="${type eq '3'}">selected="selected"</c:if>>产品动态</option>
                         </select>
                     </td>
                     <td>
@@ -57,7 +57,17 @@
                         <c:forEach items="${page.result}" var="news" varStatus="status">
                             <tr>
                                 <td>${status.index+1+(page.pageSize*(page.pageNo-1))}</td>
-                                <td>${news.newsClassType}</td>
+                                <td>
+                                    <c:if test="${news.newsClassType==1}">
+                                		    平台公告
+                                    </c:if>
+                                    <c:if test="${news.newsClassType==2}">
+                    			                            媒体公告
+                                    </c:if>
+                                    <c:if test="${news.newsClassType==3}">
+                     				                   产品动态
+                                    </c:if>
+                                </td>
                                 <td>${news.title}</td>
                                 <td>
                                     <jsp:useBean id="dateValue" class="java.util.Date"/>
@@ -78,7 +88,6 @@
                     </c:if>
                     </tbody>
                 </table>
-
                 <%@include file="/WEB-INF/page/admin/pager.jsp"%>
             </div>
         </div>

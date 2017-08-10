@@ -25,12 +25,22 @@
     <h4 class="header"><span class="text-left">新闻详情</span></h4>
 
     <div class="row">
-        <label class="col-md-2 text-overflow">序号：</label>
+        <label class="col-md-2 text-overflow">ID：</label>
         <div class="col-md-10">${news.id}</div>
     </div>
     <div class="row">
         <label class="col-md-2 text-overflow">类别：</label>
-        <div class="col-md-10">${news.newsClassType}</div>
+        <div class="col-md-10">
+        	<c:if test="${news.newsClassType==1}">
+                     	 平台公告
+            </c:if>
+            <c:if test="${news.newsClassType==2}">
+                    	媒体公告
+            </c:if>
+            <c:if test="${news.newsClassType==3}">
+                     	产品动态
+            </c:if>
+      </div>
     </div>
     <div class="row">
         <label class="col-md-2 text-overflow">标题：</label>
@@ -75,7 +85,10 @@
     </div>
     <div class="row">
         <label class="col-md-2 text-overflow">新闻头图：</label>
-        <div class="col-md-10"><img src="${news.image}" width=188 height=96></div>
+        <div class="f-logoshow">
+        	<div class="logoShade hide">
+        		<i class="closeLogo"></i>
+        	</div><img src=${news.image} alt="" id="logo" height="150" class="showLogo"/></div>
     </div>
     <div class="row">
         <label class="col-md-2 text-overflow">内容：</label>

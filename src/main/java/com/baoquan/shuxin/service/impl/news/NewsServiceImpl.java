@@ -37,11 +37,12 @@ public class NewsServiceImpl implements NewsService {
      * @return
      */
     @Override
-    public List<News> queryNewsInfoList(String newsClassType, Integer start, Integer length) {
+    public List<News> queryNewsInfoList(String type, Page<News> page) {
         Map<String, Object> parms = new HashMap<>();
-        parms.put("newsClassType",newsClassType);
-        parms.put("start",start);
-        parms.put("length",length);
+        Integer countNewsInfo = newsDao.countNewsInfo(type);
+        page.setTotalRecordCount(countNewsInfo);
+        parms.put("type",type);
+        parms.put("page",page);
         return newsDao.queryNewsInfo(parms);
     }
 
@@ -101,6 +102,5 @@ public class NewsServiceImpl implements NewsService {
         }
         return newsDao.querNewInfoById(id);
     }
-
 
 }

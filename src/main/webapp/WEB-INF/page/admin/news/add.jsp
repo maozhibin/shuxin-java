@@ -51,13 +51,11 @@
         <div class="row form-group">
             <label class="col-sm-1 control-label no-padding-right">选择类型:</label>
             <div class="col-sm-11">
-
                 <select name="newsClassType" class="form-control input-ctrl" id="newsClassType">
-                    <option selected value="">请选择类型</option>
-                    <c:forEach items="${hashedMap.options}" var="options">
-                            <option value="${options.value}"<c:if test="${hashedMap.news.newsClassType==options.value}">selected="selected"</c:if>>${options.name}
-                        </option>
-                    </c:forEach>
+                   <option selected value="">请选择类型</option>
+                   <option selected value="1">平台公告</option>
+                   <option selected value="2">媒体公告</option>
+                   <option selected value="3">产品动态</option>
                 </select>
             </div>
         </div>

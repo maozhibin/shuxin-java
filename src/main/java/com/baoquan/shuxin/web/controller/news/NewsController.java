@@ -52,61 +52,21 @@ public class NewsController {
 	 * @return
 	 */
 	@RequestMapping("list")
-	public Object newsList(String newsClassType, Integer pageNo, Integer pageSize) {
+	public Object newsList(String type, Integer pageNo, Integer pageSize) {
 		ModelAndView mv = new ModelAndView("admin/news/list");
 
 		if (pageNo == null || pageNo < 1)
 			pageNo = 1;
 		if (pageSize == null || pageSize > Page.DEFAULT_PAGE_SIZE)
 			pageSize = Page.DEFAULT_PAGE_SIZE;
-		newsClassType = StringUtils.trimToNull(newsClassType);
-		Page page = new Page();
-		page.setPageNo(pageNo);
+		Page<News> page = new Page<>();
 		page.setPageSize(pageSize);
-
-//		Integer newsCount = newsService.countNewsInfo(newsClassType);
-//		page.setTotalRecordCount(newsCount);
-//		if (newsCount > (pageNo - 1) * pageSize) {
-//			List<News> newsList = newsService.queryNewsInfoList(newsClassType, (pageNo - 1) * pageSize, pageSize);
-//			List<Option> optionList = optionService.queryOptionInfo();
-//			List<NewsVO> newsVOList = new ArrayList<>(newsList.size());
-//			for (News news : newsList) {
-//				String typeName = news.getNewsClassType();
-//				Option op = null;
-//				for (Option option : optionList) {
-//					if (typeName.equals(option.getValue())) {
-//						op = option;
-//						break;
-//					}
-//				}
-//				NewsVO nv = buildNewsInfo(news, op);
-//				newsVOList.add(nv);
-//			}
-//			page.setResult(newsVOList);
-//		}
-//		mv.addObject(page);
-//		mv.addObject("options", optionService.queryOptionInfo());
-//		mv.addObject("newsClassType", newsClassType);
+		page.setPageNo(pageNo);
+		List<News> queryNewsInfoList = newsService.queryNewsInfoList(type,page);
+		page.setResult(queryNewsInfoList);
+		mv.addObject("type",type);
+		mv.addObject(page);
 		return mv;
-	}
-
-	private NewsVO buildNewsInfo(News news, Option option) {
-		NewsVO newsVO = new NewsVO();
-		newsVO.setId(news.getId());
-		newsVO.setNewsClassType(option.getName());
-		newsVO.setTitle(news.getTitle());
-		if (news.getDateline() != null) {
-			newsVO.setDateline(news.getDateline());
-		}
-		newsVO.setContent(news.getContent());
-		newsVO.setAuthor(news.getAuthor());
-		newsVO.setSource(news.getSource());
-		newsVO.setDescription(news.getDescription());
-		newsVO.setIsDisplay(news.getIsDisplay());
-		newsVO.setImage(news.getImage());
-		newsVO.setKeywords(news.getKeywords());
-		newsVO.setViewCount(news.getViewCount());
-		return newsVO;
 	}
 
 	/**
@@ -135,17 +95,7 @@ public class NewsController {
 			return null;
 		}
 		News news = newsService.queryNewsDetails(NumberUtils.toLong(id));
-		List<Option> optionList = optionService.queryOptionInfo();
-		Option op = null;
-		for (Option option : optionList) {
-			if (news.getNewsClassType().equals(option.getValue())) {
-				op = option;
-				break;
-			}
-		}
-		NewsVO newsVO = buildNewsInfo(news, op);
-
-		mv.addObject("news", newsVO);
+		mv.addObject("news", news);
 		return mv;
 
 	}
@@ -224,7 +174,7 @@ public class NewsController {
 		} else {
 			newsService.insertNews(news);
 		}
-		return result.fill(JsonResponseMsg.CODE_SUCCESS, "修改成功");
+		return result.fill(JsonResponseMsg.CODE_SUCCESS, "success");
 	}
 
 	/**

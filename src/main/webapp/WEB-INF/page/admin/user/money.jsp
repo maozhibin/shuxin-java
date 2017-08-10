@@ -56,7 +56,6 @@
                         	<option value="consume" <c:if test="${typeValue eq 'consume'}">selected="selected"</c:if>>消费</option>
                         	<option value="recharge" <c:if test="${typeValue eq 'recharge'}">selected="selected"</c:if>>充值</option>
                         	<option value="buy_product" <c:if test="${typeValue eq 'buy_product'}">selected="selected"</c:if>>购买</option>
-                        	
                         </select>
                     </td>
                     <td> 起始时间：</td>
