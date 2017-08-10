@@ -5,7 +5,7 @@ import java.util.Map;
 
 public interface UserProductService {
 
-	List<Map<String, Object>> queryByBuyTime(String stampTimeToday);
+	List<Map<String, Object>> queryByBuyTime(String stampTimeYesterday);
 
 	List<Map<String, Object>> findByTimeYesterday(String stampTimeYesterday);
 

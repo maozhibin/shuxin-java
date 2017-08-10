@@ -1,5 +1,6 @@
 package com.baoquan.shuxin.model.stats;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class StatsOrgProductDaily {
@@ -14,8 +15,18 @@ public class StatsOrgProductDaily {
     private Date statsDate;
 
     private Long dateline;
+    
+    private BigDecimal totalAmount;
+    
+    public BigDecimal getTotalAmount() {
+		return totalAmount;
+	}
 
-    public Long getId() {
+	public void setTotalAmount(BigDecimal totalAmount) {
+		this.totalAmount = totalAmount;
+	}
+
+	public Long getId() {
         return id;
     }
 

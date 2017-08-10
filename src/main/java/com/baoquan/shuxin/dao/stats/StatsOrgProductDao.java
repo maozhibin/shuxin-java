@@ -3,6 +3,7 @@ package com.baoquan.shuxin.dao.stats;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.baoquan.shuxin.model.stats.StatsOrgProduct;
@@ -16,7 +17,7 @@ public interface StatsOrgProductDao {
 
 	List<StatsOrgProduct> queryAllOrgProduct();
 
-	StatsOrgProduct queryProductId(Long statsOrgProductProductId);
+	StatsOrgProduct queryProductId(@Param("statsOrgProductProductId")Long statsOrgProductProductId, @Param("orgId")Long orgId);
 
 	void insertStatsOrgProductList(List<StatsOrgProduct> insertStatsOrgProductList);
 

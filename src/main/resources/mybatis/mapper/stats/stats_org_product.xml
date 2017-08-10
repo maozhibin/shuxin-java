@@ -68,6 +68,7 @@
 		FROM
 			stats_org_product
 		where product_id=#{statsOrgProductProductId}
+		and  org_id=#{orgId}
     </select>
     
     <insert id="insertStatsOrgProductList" useGeneratedKeys="true" parameterType="java.util.List">  
@@ -90,6 +91,7 @@
        		dateline = #{item.dateline,jdbcType=BIGINT},
         </set>
         where product_id = #{item.productId,jdbcType=BIGINT}
+        	AND org_id = #{item.orgId,jdbcType=BIGINT}
     </foreach>       
    </update>
 </mapper>

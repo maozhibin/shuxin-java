@@ -1,5 +1,6 @@
 package com.baoquan.shuxin.task;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class StatsOrgProductDailyTask {
 	 * @throws ParseException
 	 */
 	@Scheduled(cron = "0 15 1 * * *")
-	//@Scheduled(fixedDelay=2000)
+	//@Scheduled(fixedDelay=8000)
 	public void updateStatsOrgProductDaily() {
 		Date now = new Date();
 		Date today = DateUtils.truncate(now, Calendar.DATE);
@@ -53,10 +54,13 @@ public class StatsOrgProductDailyTask {
 			Long productId = MapUtils.getLong(map, "productId");
 			Long orgId = MapUtils.getLong(map, "userId");
 			Integer purchaseNum = MapUtils.getInteger(map, "count");
+			String payAmount = MapUtils.getString(map, "payAmount");
+			BigDecimal totalAmount = new BigDecimal(payAmount);
 			StatsOrgProductDaily orgProductDaily = new StatsOrgProductDaily();
 			orgProductDaily.setOrgId(orgId);
 			orgProductDaily.setProductId(productId);
 			orgProductDaily.setPurchaseNum(purchaseNum);
+			orgProductDaily.setTotalAmount(totalAmount);
 			try {
 				Date date = sdf.parse(stampTimeYesterday);
 				orgProductDaily.setStatsDate(date);

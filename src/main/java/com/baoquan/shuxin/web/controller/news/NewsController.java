@@ -108,7 +108,7 @@ public class NewsController {
 		ModelAndView mv = new ModelAndView("admin/news/add");
 		if (NumberUtils.isNumber(id)) {
 			News news = newsService.updateNews(NumberUtils.toLong(id));
-			Map<String, Object> map = new HashedMap();
+			Map<String, Object> map = new HashMap<>();
 			map.put("options", optionService.queryOptionInfo());
 			map.put("news", news);
 			mv.addObject(map);
@@ -167,11 +167,11 @@ public class NewsController {
 			return result.fill(JsonResponseMsg.CODE_FAIL, "内容为空");
 		}
 		news.setContent(content);
-		news.setDateline(dateline);
 		if (NumberUtils.isNumber(id)) {
 			news.setId(NumberUtils.toInt(id));
 			newsService.updateAndAddNews(news);
 		} else {
+			news.setDateline(dateline);
 			newsService.insertNews(news);
 		}
 		return result.fill(JsonResponseMsg.CODE_SUCCESS, "success");
@@ -184,7 +184,7 @@ public class NewsController {
 	public ModelAndView issue() {
 		ModelAndView mv = new ModelAndView("admin/news/add");
 		List<Option> options = optionService.queryOptionInfo();
-		Map<String, Object> map = new HashedMap();
+		Map<String, Object> map = new HashMap<>();
 		map.put("options", options);
 		mv.addObject(map);
 		return mv;

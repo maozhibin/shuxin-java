@@ -6,6 +6,7 @@
     <result column="org_id" property="orgId" jdbcType="BIGINT" />
     <result column="product_id" property="productId" jdbcType="BIGINT" />
     <result column="purchase_num" property="purchaseNum" jdbcType="INTEGER" />
+    <result column="total_amount" property="totalAmount" jdbcType="DECIMAL" />
     <result column="stats_date" property="statsDate" jdbcType="DATE" />
     <result column="dateline" property="dateline" jdbcType="BIGINT" />
   </resultMap>
@@ -15,10 +16,10 @@
 	        SELECT  
 	        LAST_INSERT_ID()  
 	    </selectKey>  
-	    insert into stats_org_product_daily (org_id,product_id,purchase_num,stats_date,`dateline`)   
+	    insert into stats_org_product_daily (org_id,product_id,purchase_num,stats_date,`dateline`,total_amount)   
 	    values  
 	    <foreach collection="list" item="item" index="index" separator="," >  
-	        (#{item.orgId},#{item.productId},#{item.purchaseNum},#{item.statsDate},#{item.dateline})  
+	        (#{item.orgId},#{item.productId},#{item.purchaseNum},#{item.statsDate},#{item.dateline},#{item.totalAmount})  
 	    </foreach>  
    </insert>
    

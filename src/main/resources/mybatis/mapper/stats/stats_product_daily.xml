@@ -32,13 +32,13 @@
    </select>
 
     <select id="countOrgTask" resultType="java.util.Map">
-        SELECT
-         p.user_id orgId,
-         SUM(s.total_amount) totalAmount,
-         SUM(s.order_num) orderNum
-         FROM  stats_product_daily s
-         LEFT JOIN product p on s.product_id = p.id
-         WHERE stats_date =  #{stampTimeToday} AND   p.user_id is not NULL
-         GROUP BY p.user_id
+    		SELECT
+				org_id orgId,
+				SUM(purchase_num) orderNum,
+				SUM(total_amount) totalAmount
+			FROM
+				stats_org_product_daily
+			WHERE stats_date=#{stampTimeToday}
+			GROUP BY org_id
     </select>
 </mapper>

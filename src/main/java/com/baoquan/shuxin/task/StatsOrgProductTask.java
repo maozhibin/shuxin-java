@@ -13,6 +13,7 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.alibaba.fastjson.JSON;
 import com.baoquan.shuxin.model.stats.StatsOrgProduct;
 import com.baoquan.shuxin.model.stats.StatsOrgProductDaily;
 import com.baoquan.shuxin.service.spi.stats.StatsOrgProductDailyService;
@@ -32,7 +33,7 @@ public class StatsOrgProductTask {
 	 * @throws ParseException
 	 */
 	@Scheduled(cron = "0 20 1 * * *")
-	//@Scheduled(fixedDelay = 3000)
+	//@Scheduled(fixedDelay = 8000)
 	public void updateStatsOrgProduct() {
 		Date now = new Date();
 		Date today = DateUtils.truncate(now, Calendar.DATE);
@@ -50,11 +51,12 @@ public class StatsOrgProductTask {
 
 		for (StatsOrgProductDaily statsOrgProductDaily : OrgProductDailyList) {
 			Long statsOrgProductProductId = statsOrgProductDaily.getProductId();
-			StatsOrgProduct statsOrgProduct = statsOrgProductService.queryProductId(statsOrgProductProductId);
+			Long orgId = statsOrgProductDaily.getOrgId();
+			StatsOrgProduct statsOrgProduct = statsOrgProductService.queryProductId(statsOrgProductProductId,orgId);
 			if(statsOrgProduct==null){
 				statsOrgProduct = new StatsOrgProduct();
 				statsOrgProduct.setDateline(now.getTime());
-				statsOrgProduct.setOrgId(statsOrgProductDaily.getOrgId());
+				statsOrgProduct.setOrgId(orgId);
 				statsOrgProduct.setProductId(statsOrgProductDaily.getProductId());
 				statsOrgProduct.setPurchaseNum(statsOrgProductDaily.getPurchaseNum());
 				insertStatsOrgProductList.add(statsOrgProduct);

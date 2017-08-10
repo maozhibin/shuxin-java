@@ -33,14 +33,14 @@ public class StatsProductDailyTask {
 	 * @throws ParseException
 	 */
 	@Scheduled(cron = "0 0 1 * * *")
-	//@Scheduled(fixedDelay=2000)
+	//@Scheduled(fixedDelay=8000)
 	public void updateStatsOrgDaily(){
 		Date now = new Date();
 		Date today = DateUtils.truncate(now, Calendar.DATE);
 		Date Yesterday = DateUtils.addDays(today, -1);
 		Long timeYesterday = DateUtils.addDays(today, -1).getTime();//昨天
-		String stampTimeToday= DateUtil.stampToDateY(timeYesterday.toString());
-		List<Map<String, Object>> listuserProduct = userProductService.queryByBuyTime(stampTimeToday);
+		String stampTimeYesterday= DateUtil.stampToDateY(timeYesterday.toString());
+		List<Map<String, Object>> listuserProduct = userProductService.queryByBuyTime(stampTimeYesterday);
 		if(CollectionUtils.isEmpty(listuserProduct)){
 			return;
 		}

@@ -14,7 +14,7 @@
 		FROM
 			user_product
 		WHERE
-			FROM_UNIXTIME(buy_time, '%Y-%m-%d ') = #{stampTimeToday}
+			FROM_UNIXTIME(buy_time, '%Y-%m-%d ') = #{stampTimeYesterday}
 		GROUP BY
 			product_id
     </select>
@@ -23,6 +23,7 @@
     	SELECT
 			user_id userId,
 			product_id productId,
+			SUM(pay_amount) payAmount,
 			COUNT(1) count
 		FROM
 			user_product

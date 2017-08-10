@@ -34,7 +34,7 @@ public class StatsOrgTask {
 	 * @throws ParseException
 	 */
 	@Scheduled(cron = "0 0 2 * * *")
-	//@Scheduled(fixedRate = 1000*60*5)
+	//@Scheduled(fixedDelay = 8000)
 	public void updateStatsOrg() throws ParseException {
 		Date now = new Date();
 		Date today = DateUtils.truncate(now, Calendar.DATE);

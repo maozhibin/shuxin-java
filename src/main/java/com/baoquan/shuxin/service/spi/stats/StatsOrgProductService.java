@@ -9,7 +9,7 @@ public interface StatsOrgProductService {
 
 	List<StatsOrgProduct> queryAllOrgProduct();
 
-	StatsOrgProduct queryProductId(Long statsOrgProductProductId);
+	StatsOrgProduct queryProductId(Long statsOrgProductProductId, Long orgId);
 
 	void insertStatsOrgProductList(List<StatsOrgProduct> insertStatsOrgProductList);
 

@@ -21,8 +21,8 @@ public class StatsOrgProductServiceImpl implements StatsOrgProductService{
 	}
 
 	@Override
-	public StatsOrgProduct queryProductId(Long statsOrgProductProductId) {
-		return statsOrgProductDao.queryProductId(statsOrgProductProductId);
+	public StatsOrgProduct queryProductId(Long statsOrgProductProductId,Long orgId) {
+		return statsOrgProductDao.queryProductId(statsOrgProductProductId,orgId);
 	}
 
 	@Override
@@ -34,4 +34,5 @@ public class StatsOrgProductServiceImpl implements StatsOrgProductService{
 	public void updateStatsOrgProductList(List<StatsOrgProduct> updateStatsOrgProductList) {
 		statsOrgProductDao.updateStatsOrgProductList(updateStatsOrgProductList);
 	}
+
 }

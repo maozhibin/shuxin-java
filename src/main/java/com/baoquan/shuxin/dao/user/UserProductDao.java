@@ -17,7 +17,7 @@ public interface UserProductDao {
     List<UserProduct> queryByUserProductStatus(@Param("userId") long userId, @Param("productId") long productId,
             @Param("status") int status);
 
-	List<Map<String, Object>> queryByBuyTime(String stampTimeToday);
+	List<Map<String, Object>> queryByBuyTime(String stampTimeYesterday);
 
 	List<Map<String, Object>> findByTimeYesterday(String stampTimeYesterday);
 }
