@@ -14,7 +14,7 @@ public interface UserService {
 
 	Boolean deleteUser(Long id);
 
-	User findByIdUserInfo(Long id);
+	User findByIdUserInfo(Integer id);
 
 	List<User> userList();
 

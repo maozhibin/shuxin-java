@@ -12,13 +12,8 @@ public interface ProductInterfaceParamService {
 
 	void deleteParamLit(Integer productId);
 
-
-	List<ProductInterfaceParam> headersParamslist(Integer id);
-	
-	List<ProductInterfaceParam> bodyParamslist(Integer id);
-	
-	List<ProductInterfaceParam> queryParamslist(Integer id);
-
 	Boolean setInterfaceParam(Integer productInterfaceId, Integer productId, JSONObject data);
+
+	List<ProductInterfaceParam> paramslist(Integer idValue, String paramType);
 
 }

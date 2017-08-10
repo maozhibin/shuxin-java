@@ -60,7 +60,7 @@ public class UserServiceImpl<T> implements UserService {
 
 	// 根据id获取用户的信息
 	@Override
-	public User findByIdUserInfo(Long id) {
+	public User findByIdUserInfo(Integer id) {
 		if (id == null) {
 			return null;
 		}

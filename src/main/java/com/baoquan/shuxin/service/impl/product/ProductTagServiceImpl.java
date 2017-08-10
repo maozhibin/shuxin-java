@@ -93,5 +93,9 @@ public class ProductTagServiceImpl implements ProductTagService{
 		return true;
 	}
 
+	@Override
+	public List<ProductTag> findByproductId(Integer productId) {
+		return productTagDao.findByproductId(productId);
+	}
 
 }

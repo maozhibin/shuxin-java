@@ -19,4 +19,13 @@
 		product_class_id = #{id}
   
   </select>
+  
+  <select id="queryById" resultMap="BaseResultMap">
+  	SELECT
+		*
+	FROM
+		product_base
+	WHERE
+		id = #{productBaseId}
+  </select>
 </mapper>

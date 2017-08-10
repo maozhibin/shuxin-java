@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baoquan.shuxin.dao.security.SecurityBaoquanLogDao" >
+  <resultMap id="BaseResultMap" type="com.baoquan.shuxin.model.security.SecurityBaoquanLog" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="TINYINT" />
+    <result column="type_id" property="typeId" jdbcType="VARCHAR" />
+    <result column="contract" property="contract" jdbcType="VARCHAR" />
+    <result column="record_no" property="recordNo" jdbcType="VARCHAR" />
+    <result column="security_time" property="securityTime" jdbcType="INTEGER" />
+    <result column="success_time" property="successTime" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_type" property="userType" jdbcType="INTEGER" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="idcard" property="idcard" jdbcType="VARCHAR" />
+    <result column="uscc" property="uscc" jdbcType="VARCHAR" />
+    <result column="model_no" property="modelNo" jdbcType="VARCHAR" />
+    <result column="file_path" property="filePath" jdbcType="VARCHAR" />
+    <result column="download_type" property="downloadType" jdbcType="INTEGER" />
+  </resultMap>
+  <insert id="insertBaoquanLog" parameterType="SecurityBaoquanLog" 
+        useGeneratedKeys="true" keyProperty="id"> 
+        insert into security_baoquan_log(type,type_id,security_data,security_time,status,user_id,user_type,mobile,uscc)  
+             values(#{type},#{typeId},#{securityData},#{securityTime},#{status},#{userId},#{userType},#{mobile},#{uscc})  
+   </insert>
+</mapper>

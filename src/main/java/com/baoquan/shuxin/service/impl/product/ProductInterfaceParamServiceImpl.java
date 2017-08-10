@@ -30,25 +30,11 @@ public class ProductInterfaceParamServiceImpl implements ProductInterfaceParamSe
 		productInterfaceParamDao.deleteParamLit(productId);
 
 	}
-
-	// 请求参数（Headers）
+	//请求参数
 	@Override
-	public List<ProductInterfaceParam> headersParamslist(Integer id) {
-		return productInterfaceParamDao.headersParamslist(id);
+	public List<ProductInterfaceParam> paramslist(Integer idValue, String paramType) {
+		return productInterfaceParamDao.paramslist(idValue,paramType);
 	}
-
-	// 请求参数（Body）
-	@Override
-	public List<ProductInterfaceParam> bodyParamslist(Integer id) {
-		return productInterfaceParamDao.bodyParamslist(id);
-	}
-
-	// 请求参数（Query）
-	@Override
-	public List<ProductInterfaceParam> queryParamslist(Integer id) {
-		return productInterfaceParamDao.queryParamslist(id);
-	}
-
 	/**
 	 * 接口参数设置
 	 */

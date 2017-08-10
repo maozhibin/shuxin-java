@@ -2,6 +2,7 @@ package com.baoquan.shuxin.dao.product;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.baoquan.shuxin.model.product.ProductInterfaceParam;
@@ -13,10 +14,6 @@ public interface ProductInterfaceParamDao {
 
 	void deleteParamLit(Integer productId);
 
-	List<ProductInterfaceParam> headersParamslist(Integer id);
-	
-	List<ProductInterfaceParam> bodyParamslist(Integer id);
-	
-	List<ProductInterfaceParam> queryParamslist(Integer id);
+	List<ProductInterfaceParam> paramslist(@Param("idValue")Integer idValue, @Param("paramType")String paramType);
    
 }

@@ -8,4 +8,6 @@ public interface ProductClassService {
 
 	List<ProductClass> findAllClassList();
 
+	ProductClass queryById(Integer productClassId);
+
 }
