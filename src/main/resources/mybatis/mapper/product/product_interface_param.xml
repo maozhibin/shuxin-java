@@ -29,33 +29,15 @@
         delete from product_interface_param where product_id=#{productId}
     </delete>
  
- 	<select id="headersParamslist" resultMap="BaseResultMap">
+ 	<select id="paramslist" resultMap="BaseResultMap">
  		SELECT
 			*
 		FROM
 			product_interface_param
 		WHERE
-			product_id = #{ID}
-		AND param_type = 'HEADERS'
- 	</select>
- 	
- 	<select id="bodyParamslist" resultMap="BaseResultMap">
- 		SELECT
-			*
-		FROM
-			product_interface_param
-		WHERE
-			product_id = #{ID}
-		AND param_type = 'BODY'
- 	</select>
- 	
- 	<select id="queryParamslist" resultMap="BaseResultMap">
- 		SELECT
-			*
-		FROM
-			product_interface_param
-		WHERE
-			product_id = #{ID}
-		AND param_type = 'QUERY'
+			product_id = #{idValue}
+		<if test="paramType != null and paramType !=''">
+			AND param_type =#{paramType}
+		</if>
  	</select>
 </mapper>

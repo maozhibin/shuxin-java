@@ -18,4 +18,9 @@ public class ProductClassImpl implements ProductClassService{
 	public List<ProductClass> findAllClassList() {
 		return productClassDao.findAllClassList();
 	}
+
+	@Override
+	public ProductClass queryById(Integer productClassId) {
+		return productClassDao.queryById(productClassId);
+	}
 }

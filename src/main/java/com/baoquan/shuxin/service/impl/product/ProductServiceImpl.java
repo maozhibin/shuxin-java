@@ -13,10 +13,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baoquan.shuxin.bean.Page;
+import com.baoquan.shuxin.constatn.UserConstant;
 import com.baoquan.shuxin.dao.product.ProductBillingsDao;
 import com.baoquan.shuxin.dao.product.ProductDao;
 import com.baoquan.shuxin.model.product.Product;
 import com.baoquan.shuxin.model.product.ProductInterface;
+import com.baoquan.shuxin.model.security.SecurityBaoquanLog;
+import com.baoquan.shuxin.model.user.User;
 import com.baoquan.shuxin.service.spi.product.ProductBillingsService;
 import com.baoquan.shuxin.service.spi.product.ProductDetailService;
 import com.baoquan.shuxin.service.spi.product.ProductInterfaceCodeService;
@@ -25,6 +28,8 @@ import com.baoquan.shuxin.service.spi.product.ProductInterfaceSampleService;
 import com.baoquan.shuxin.service.spi.product.ProductInterfaceService;
 import com.baoquan.shuxin.service.spi.product.ProductService;
 import com.baoquan.shuxin.service.spi.product.ProductTagService;
+import com.baoquan.shuxin.service.spi.security.SecurityBaoquanLogService;
+import com.baoquan.shuxin.service.spi.user.UserService;
 
 @Named
 public class ProductServiceImpl implements ProductService{
@@ -44,7 +49,10 @@ public class ProductServiceImpl implements ProductService{
 	private ProductDetailService productDetailService;
 	@Inject
 	private ProductBillingsService productBillingsService;
-	
+	@Inject
+	private SecurityBaoquanLogService securityBaoquanLogService;
+	@Inject
+	private UserService userService;
 	@Override
 	public Page<Map<String,Object>> findListProduct(Page<Map<String, Object>> page, String name) {
 		Map<String,Object>  map= new HashMap<>();
@@ -162,6 +170,34 @@ public class ProductServiceImpl implements ProductService{
 			return false;
 		}
 		
+		//保全上链记录
+		if(id==null){
+			Integer userId = product.getUserId();
+			User user = userService.findByIdUserInfo(userId);
+			if(user == null){
+				return false;
+			}
+			String userType = user.getTypeId();
+			Integer userTypeValue =null;
+			if(userType.equals(UserConstant.ORG)){
+				userTypeValue = 2;
+			}else if(userType.equals(UserConstant.USER)){
+				userTypeValue = 1;
+			}
+			String mobile = user.getMobile();
+			String orgCode = user.getOrgCode();
+			SecurityBaoquanLog baoquanLog = new SecurityBaoquanLog();
+			baoquanLog.setType((byte) 1);
+			baoquanLog.setTypeId(productId.toString());
+			baoquanLog.setSecurityTime(time);
+			baoquanLog.setStatus(0);
+			baoquanLog.setUserId(userId);
+			baoquanLog.setUserType(userTypeValue);
+			baoquanLog.setMobile(mobile);
+			baoquanLog.setUscc(orgCode);
+			
+			securityBaoquanLogService.insertSecurityBaoquanLogInfo(baoquanLog,product,productInterface);
+		}
 		return true;
 	}
 

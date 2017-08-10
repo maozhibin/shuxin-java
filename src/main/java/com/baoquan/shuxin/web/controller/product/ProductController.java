@@ -1,6 +1,5 @@
 package com.baoquan.shuxin.web.controller.product;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONArray;
 import com.baoquan.shuxin.bean.Page;
+import com.baoquan.shuxin.constatn.InterfaceParamConstant;
 import com.baoquan.shuxin.model.area.Area;
 import com.baoquan.shuxin.model.product.Product;
 import com.baoquan.shuxin.model.product.ProductBase;
@@ -130,11 +130,11 @@ public class ProductController {
         	map.put("asList",parse);
         	String tagLists=productTagService.findByProductId(idValue);
         	map.put("tagLists",tagLists);
-        	List<ProductInterfaceParam> headersParamslist = productInterfaceParamService.headersParamslist(idValue);
+        	List<ProductInterfaceParam> headersParamslist = productInterfaceParamService.paramslist(idValue,InterfaceParamConstant.PARAM_TYPE_HEADERS);
         	map.put("headersParamslist",headersParamslist);
-        	List<ProductInterfaceParam> queryParamslist = productInterfaceParamService.queryParamslist(idValue);
+        	List<ProductInterfaceParam> queryParamslist = productInterfaceParamService.paramslist(idValue,InterfaceParamConstant.PARAM_TYPE_QUERY);
         	map.put("queryParamslist",queryParamslist);
-        	List<ProductInterfaceParam> bodyParamslist = productInterfaceParamService.bodyParamslist(idValue);
+        	List<ProductInterfaceParam> bodyParamslist = productInterfaceParamService.paramslist(idValue,InterfaceParamConstant.PARAM_TYPE_BODY);
         	map.put("bodyParamslist",bodyParamslist);
         	List<ProductInterfaceCode> interfaceCodeList = productInterfaceCodeService.interfaceCodeList(idValue);
         	map.put("interfaceCodeList",interfaceCodeList);

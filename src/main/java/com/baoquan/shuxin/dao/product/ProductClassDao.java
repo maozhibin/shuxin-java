@@ -10,5 +10,7 @@ import com.baoquan.shuxin.model.product.ProductClass;
 public interface ProductClassDao {
 
 	List<ProductClass> findAllClassList();
+
+	ProductClass queryById(Integer productClassId);
    
 }

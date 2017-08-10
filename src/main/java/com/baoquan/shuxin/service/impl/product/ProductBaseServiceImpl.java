@@ -18,4 +18,9 @@ public class ProductBaseServiceImpl implements ProductBaseService{
 	public List<ProductBase> findByProductClassId(Integer id) {
 		return productBaseDao.findByProductClassId(id);
 	}
+
+	@Override
+	public ProductBase queryById(Integer productBaseId) {
+		return productBaseDao.queryById(productBaseId);
+	}
 }

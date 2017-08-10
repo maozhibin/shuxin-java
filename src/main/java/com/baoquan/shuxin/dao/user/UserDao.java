@@ -21,7 +21,7 @@ public interface UserDao {
 
     void deleteUser(Long id);
 
-    User findByIdUserInfo(Long id);
+    User findByIdUserInfo(Integer id);
 
     User queryUserBalance(Long id);
 

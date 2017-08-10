@@ -15,4 +15,11 @@
 			product_class
   </select>
   
+  <select id="queryById" resultMap="BaseResultMap">
+	  	SELECT
+				*
+		FROM
+			product_class
+		where id = #{productClassId}
+  </select>
 </mapper>

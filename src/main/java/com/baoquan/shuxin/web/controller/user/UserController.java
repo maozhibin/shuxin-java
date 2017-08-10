@@ -80,7 +80,7 @@ public class UserController {
 		if (!NumberUtils.isNumber(id)) {
 			return null;
 		}
-		User user = userService.findByIdUserInfo(NumberUtils.toLong(id));
+		User user = userService.findByIdUserInfo(NumberUtils.toInt(id));
 		if (user == null) {
 			return null;
 		}
@@ -156,7 +156,7 @@ public class UserController {
 	public ModelAndView skip(String id) {
 		ModelAndView mv = new ModelAndView("admin/user/addOrEdit");
 		if (NumberUtils.isNumber(id)) {
-			User user = userService.findByIdUserInfo(NumberUtils.toLong(id));
+			User user = userService.findByIdUserInfo(NumberUtils.toInt(id));
 			mv.addObject("user", user);
 		}
 		return mv;
@@ -229,7 +229,7 @@ public class UserController {
 		if (!NumberUtils.isNumber(id)) {
 			return result.fill(JsonResponseMsg.CODE_FAIL, "参数错误");
 		}
-		User user = userService.findByIdUserInfo(NumberUtils.toLong(id));
+		User user = userService.findByIdUserInfo(NumberUtils.toInt(id));
 		if (user == null) {
 			return result.fill(JsonResponseMsg.CODE_FAIL, "你查询的账号信息不存在");
 		}

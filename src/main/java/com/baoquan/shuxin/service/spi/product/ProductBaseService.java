@@ -8,4 +8,6 @@ public interface ProductBaseService {
 
 	List<ProductBase> findByProductClassId(Integer id);
 
+	ProductBase queryById(Integer productBaseId);
+
 }
