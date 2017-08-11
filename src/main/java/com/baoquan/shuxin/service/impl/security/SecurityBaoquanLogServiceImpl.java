@@ -73,7 +73,7 @@ public class SecurityBaoquanLogServiceImpl implements SecurityBaoquanLogService{
 	    //产品api接口示例
 	    List<ProductInterfaceSample> productInterfaceSampleList = productInterfaceSampleService.findByProductId(productId);
 	    //
-	    List<ProductTag> tagList = productTagService.findByproductId(productId);
+	    List<String> tagList = productTagService.findByproductId(productId);
 		map.put("product", product);
 		map.put("product_base", productBase);
 		map.put("product_class", productClass);

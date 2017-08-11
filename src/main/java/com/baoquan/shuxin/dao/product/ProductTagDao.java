@@ -15,5 +15,5 @@ public interface ProductTagDao {
 
 	void insertListByTagTds(List<ProductTag> productTagList);
 
-	List<Map<String, Object>> findProductInfo(Integer id);
+	List<String> findProductInfo(Integer id);
 }

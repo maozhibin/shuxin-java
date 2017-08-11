@@ -1,10 +1,8 @@
 package com.baoquan.shuxin.service.spi.product;
 
 import java.util.List;
-import java.util.Map;
 
 import com.alibaba.fastjson.JSONArray;
-import com.baoquan.shuxin.model.product.ProductTag;
 
 public interface ProductTagService {
 
@@ -14,5 +12,5 @@ public interface ProductTagService {
 	Boolean setTages(JSONArray productTags,Integer productId);
 
 
-	List<ProductTag> findByproductId(Integer productId);
+	List<String> findByproductId(Integer productId);
 }

@@ -73,6 +73,12 @@
 	       <span class="tip"> &#8595;</span><!--下--></div>
       	   <div class="rate-tip">交易额日下降比率</div>
 	    </c:if>
+	    <c:if test="${hashMap.moneyCount.todaytAmount  eq hashMap.moneyCount.yesterdaytAmount}">
+	       <div class="rate"><span class="item-icon"></span>
+	       <fmt:formatNumber value="0" pattern="0.00" maxFractionDigits="2" />%
+	       </div>
+      	   <div class="rate-tip">交易额与昨日相等</div>
+	    </c:if>
 
     </div>
     <div id="pie-chart"></div>

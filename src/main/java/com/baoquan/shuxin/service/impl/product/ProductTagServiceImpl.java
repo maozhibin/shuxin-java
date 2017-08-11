@@ -27,14 +27,11 @@ public class ProductTagServiceImpl implements ProductTagService{
 	 */
 	@Override
 	public String findByProductId(Integer id) {
-		List<Map<String, Object>> findProductInfo = productTagDao.findProductInfo(id);
-		Map<String, Object> map =null;
+		List<String> findProductInfo = productTagDao.findProductInfo(id);
 		String names="";
 		int index = findProductInfo.size()-1;
 		for(int i=0; i < findProductInfo.size();i++){
-			String name=null;
-			map = findProductInfo.get(i);
-			name = MapUtils.getString(map, "name");
+			String name=findProductInfo.get(i);
 			if(index == i){
 				names += name;
 			}else{
@@ -94,8 +91,8 @@ public class ProductTagServiceImpl implements ProductTagService{
 	}
 
 	@Override
-	public List<ProductTag> findByproductId(Integer productId) {
-		return productTagDao.findByproductId(productId);
+	public List<String> findByproductId(Integer productId) {
+		return productTagDao.findProductInfo(productId);
 	}
 
 }

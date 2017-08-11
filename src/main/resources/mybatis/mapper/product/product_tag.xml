@@ -21,7 +21,7 @@
 	    </foreach>  
    </insert>
    
-   <select id="findProductInfo" resultType="java.util.Map">
+   <select id="findProductInfo" resultType="String">
   		SELECT
 			`name`
 		FROM
