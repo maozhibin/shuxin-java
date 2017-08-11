@@ -32,13 +32,22 @@
 <body>
  <h4 class="header"><a onclick="javascript:;history.back()">管理用户</a> — 新增</h4>
 
-<form id="from_module_edit" method="post">
-    <input type="hidden" class="input-ctrl" name="id"  value="${adminUser.id}">
+<form id="from_module_edit" method="post" class="form-inline">
+    <input type="hidden" class="form-control" name="id"  value="${adminUser.id}">
     <div class="container base">
+    	<div class="inline-form mb30">
+    	<label class="col-md-2 control-label">管理员角色:</label>
+            <select name="angleType" class="cell form-control" > 
+                <option value="1">超级管理员</option>
+                <option value="2">平台内审计人员</option>
+                <option value="3">监管方审计人员</option>
+            </select>
+        </div><br/>
+        
         <div class="inline-form mb30">
             <label class="col-md-2 control-label">管理员名称:</label>
             <div class="cell">
-                <input type="text" class="input-ctrl" name="userName" id="userName"
+                <input type="text" class="form-control" name="userName" id="userName"
                        value="${adminUser.username}">
             </div>
         </div><br/>
@@ -46,14 +55,14 @@
         <div class="inline-form mb30">
                 <label class="col-md-2 control-label">管理员密码:</label>
                 <div class="cell">
-                    <input type="password" class="input-ctrl" name="password" id="password"
+                    <input type="password" class="form-control" name="password" id="password"
                            value="">
                 </div>
          </div><br/>
         <div class="inline-form mb30">
             <label class="col-md-2 control-label">确认密码:</label>
             <div class="cell">
-                <input type="password" class="input-ctrl" name="copyPassword" id="copyPassword"
+                <input type="password" class="form-control" name="copyPassword" id="copyPassword"
                        value="">
             </div>
         </div><br/>
