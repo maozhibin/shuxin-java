@@ -3,7 +3,6 @@ package com.baoquan.shuxin.model.product;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import lombok.Data;
 
 /**
  * Created by Administrator on 2017/6/6.

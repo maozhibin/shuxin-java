@@ -14,5 +14,7 @@ public interface TagsDao {
 	List<Integer> getItermByName(List<Object> tagsNameList);
 
 	void insertTagsList(List<Tags> tagsList);
+
+	Tags queryByName(String tagsName);
 	
 }

@@ -7,9 +7,6 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.baoquan.shuxin.model.news.News;
-import com.baoquan.shuxin.model.news.NewsVO;
-import com.baoquan.shuxin.model.news.Option;
-import com.baoquan.shuxin.model.user.User;
 
 /**
  * Author:Zhoumc

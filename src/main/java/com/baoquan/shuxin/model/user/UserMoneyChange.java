@@ -2,7 +2,6 @@ package com.baoquan.shuxin.model.user;
 
 import java.math.BigDecimal;
 
-import lombok.Data;
 
 public class UserMoneyChange {
     private Long id;

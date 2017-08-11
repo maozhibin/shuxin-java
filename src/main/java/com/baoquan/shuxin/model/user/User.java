@@ -2,7 +2,6 @@ package com.baoquan.shuxin.model.user;
 
 import java.math.BigDecimal;
 
-import lombok.Data;
 
 /**
  * Created by Administrator on 2017/6/8.

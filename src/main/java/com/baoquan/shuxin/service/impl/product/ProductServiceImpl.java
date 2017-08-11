@@ -14,7 +14,6 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baoquan.shuxin.bean.Page;
 import com.baoquan.shuxin.constatn.UserConstant;
-import com.baoquan.shuxin.dao.product.ProductBillingsDao;
 import com.baoquan.shuxin.dao.product.ProductDao;
 import com.baoquan.shuxin.model.product.Product;
 import com.baoquan.shuxin.model.product.ProductInterface;

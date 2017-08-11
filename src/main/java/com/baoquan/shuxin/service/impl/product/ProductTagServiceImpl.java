@@ -2,13 +2,11 @@ package com.baoquan.shuxin.service.impl.product;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.MapUtils;
 
 import com.alibaba.fastjson.JSONArray;
 import com.baoquan.shuxin.dao.product.ProductTagDao;
@@ -65,10 +63,14 @@ public class ProductTagServiceImpl implements ProductTagService{
 			productTagDao.delete(productId);
 		}
 		String tagsName=null;
+		Tags tags =null;
 		List<Tags> tagsList = new ArrayList<>();
 		for(int i=0;i<tagsNameList.size();i++){
-			Tags tags = new Tags();
+			tags = new Tags();
 			tagsName=(String) tagsNameList.get(i);
+			if(tagsDao.queryByName(tagsName)!=null){
+				continue;
+			}
 			tags.setName(tagsName);
 			tagsList.add(tags);
 		}

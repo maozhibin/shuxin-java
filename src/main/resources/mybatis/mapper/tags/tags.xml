@@ -32,4 +32,8 @@
             #{item}  
         </foreach>  
     </select>  
+    
+    <select id="queryByName" resultMap="BaseResultMap">
+    	SELECT id from tags where name = #{tagsName}
+    </select>
 </mapper>

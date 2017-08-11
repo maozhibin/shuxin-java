@@ -1,6 +1,5 @@
 package com.baoquan.shuxin.model.news;
 
-import java.util.Date;
 
 /**
  * Author:Zhoumc

@@ -9,7 +9,6 @@ import javax.inject.Named;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baoquan.shuxin.dao.product.ProductInterfaceCodeDao;
-import com.baoquan.shuxin.model.product.ProductDetail;
 import com.baoquan.shuxin.model.product.ProductInterfaceCode;
 import com.baoquan.shuxin.service.spi.product.ProductInterfaceCodeService;
 

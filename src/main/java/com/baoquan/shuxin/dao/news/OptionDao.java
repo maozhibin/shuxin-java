@@ -3,7 +3,6 @@ package com.baoquan.shuxin.dao.news;
 import java.util.List;
 
 import com.baoquan.shuxin.model.news.Option;
-import com.baoquan.shuxin.model.product.Product;
 
 /**
  * Author:Zhoumc

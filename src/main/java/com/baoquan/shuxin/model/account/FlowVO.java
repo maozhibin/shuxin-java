@@ -1,7 +1,6 @@
 package com.baoquan.shuxin.model.account;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 /**
  * Author:Zhoumc

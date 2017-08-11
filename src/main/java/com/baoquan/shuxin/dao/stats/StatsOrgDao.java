@@ -6,7 +6,6 @@ import java.util.Map;
 import org.springframework.stereotype.Repository;
 
 import com.baoquan.shuxin.model.stats.StatsOrg;
-import com.baoquan.shuxin.model.stats.StatsProduct;
 
 @Repository
 public interface StatsOrgDao{
