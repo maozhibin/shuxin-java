@@ -1,6 +1,5 @@
 package com.baoquan.shuxin.web.controller;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -13,7 +12,6 @@ import javax.inject.Inject;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,8 +25,6 @@ import com.baoquan.shuxin.service.spi.product.StatsProductService;
 import com.baoquan.shuxin.service.spi.stats.PlatformOverviewService;
 import com.baoquan.shuxin.service.spi.stats.StatsOrgService;
 import com.baoquan.shuxin.service.spi.user.UserMoneyLogService;
-import com.baoquan.shuxin.util.common.DateUtil;
-import com.baoquan.shuxin.web.vo.PlatformOverviewVO;
 import com.google.common.collect.Maps;
 
 /**
@@ -60,75 +56,7 @@ public class OverviewController {
 		params.put("orgTop", orgTop);
 		params.put("moneyCount", moneyCount);
 		mv.addObject(params);
-		addOverview(mv);
 		return mv;
-	}
-
-	private void addOverview(ModelAndView mv) {
-		Date now = new Date();
-		Date today = DateUtils.truncate(now, Calendar.DATE);
-		Date lastday = DateUtils.addDays(today, -1);
-
-		PlatformOverviewVO today2now = platformOverviewService.queryByTime(today.getTime() / 1000,
-				now.getTime() / 1000);
-		PlatformOverviewVO lastdaySameTime = platformOverviewService.queryByTime(lastday.getTime() / 1000,
-				DateUtils.addDays(now, -1).getTime() / 1000);
-		setIncrementRate(today2now, lastdaySameTime);
-
-		PlatformOverviewVO lastday2today = platformOverviewService.queryByTime(lastday.getTime() / 1000,
-				today.getTime() / 1000);
-		PlatformOverviewVO twodayBefore = platformOverviewService
-				.queryByTime(DateUtils.addDays(lastday, -1).getTime() / 1000, lastday.getTime() / 1000);
-		setIncrementRate(lastday2today, twodayBefore);
-
-		double rate = 1.0 * (today.getTime() - lastday.getTime()) / (now.getTime() - today.getTime());
-		PlatformOverviewVO todayWhole = new PlatformOverviewVO();
-		todayWhole.setTradeIncreaseRate(today2now.getTradeIncreaseRate());
-		if (lastdaySameTime.getTradeAmount() != null && lastdaySameTime.getTradeAmount().doubleValue() > 0) {
-			todayWhole.setTradeAmount(
-					BigDecimal
-							.valueOf(today2now.getTradeAmount().doubleValue()
-									/ lastdaySameTime.getTradeAmount().doubleValue()
-									* lastday2today.getTradeAmount().doubleValue())
-							.setScale(2, BigDecimal.ROUND_HALF_EVEN));
-		} else {
-			todayWhole.setTradeAmount(BigDecimal.valueOf(today2now.getTradeAmount().doubleValue() * rate).setScale(2,
-					BigDecimal.ROUND_HALF_EVEN));
-		}
-		if (lastdaySameTime.getOrderCount() > 0) {
-			todayWhole.setOrderCount((long) (1.0 * today2now.getOrderCount() / lastdaySameTime.getOrderCount()
-					* lastday2today.getOrderCount()));
-		} else {
-			todayWhole.setOrderCount((long) (today2now.getOrderCount() * rate));
-		}
-		if (lastdaySameTime.getOrderCount() > 0) {
-			todayWhole.setAttestCount((long) (1.0 * today2now.getAttestCount() / lastdaySameTime.getAttestCount()
-					* lastday2today.getAttestCount()));
-		} else {
-			todayWhole.setAttestCount((long) (today2now.getAttestCount() * rate));
-		}
-		if (lastdaySameTime.getOrderCount() > 0) {
-			todayWhole.setAuthorizationCount((long) (1.0 * today2now.getAuthorizationCount()
-					/ lastdaySameTime.getAuthorizationCount() * lastday2today.getAuthorizationCount()));
-		} else {
-			todayWhole.setAuthorizationCount((long) (today2now.getAuthorizationCount() * rate));
-		}
-
-		mv.addObject("today2now", today2now);
-		mv.addObject("lastday", lastday2today);
-		mv.addObject("todayWhole", todayWhole);
-	}
-
-	private void setIncrementRate(PlatformOverviewVO today, PlatformOverviewVO lastday) {
-		if (lastday.getTradeAmount() != null && lastday.getTradeAmount().doubleValue() > 0) {
-			today.setTradeIncreaseRate(
-					BigDecimal
-							.valueOf((today.getTradeAmount().doubleValue() - lastday.getTradeAmount().doubleValue())
-									/ lastday.getTradeAmount().doubleValue() * 100)
-							.setScale(2, BigDecimal.ROUND_HALF_EVEN));
-		} else {
-			today.setTradeIncreaseRate(BigDecimal.valueOf(100));
-		}
 	}
 
 	/**
