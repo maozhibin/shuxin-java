@@ -12,9 +12,9 @@
 
 
     <!-- 启用注解，并定义组件查找规则 ，mvc层只负责扫描@Controller  -->
-    <context:component-scan base-package="com.baoquan.shuxin.facade">
-        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-    </context:component-scan>
+    <!--<context:component-scan base-package="com.baoquan.shuxin.facade">-->
+        <!--<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>-->
+    <!--</context:component-scan>-->
 
     <mvc:annotation-driven/>
 
@@ -42,10 +42,6 @@
     <!-- swagger -->
     <mvc:resources mapping="/swagger/**" location="/swagger/"/>
     <mvc:resources mapping="/html/**" location="/WEB-INF/html/"/>
-    <mvc:resources mapping="/attached/**" location="/attached/"/>
-    <mvc:resources mapping="/kindeditor/**" location="/kindeditor/"/>
-    <mvc:resources mapping="/css/**" location="/css/"/>
-    <mvc:resources mapping="/js/**" location="/js/"/>
     <!--靜態資源映射-->
     <mvc:resources mapping="/*" location="/WEB-INF/public/"/>
 
@@ -90,11 +86,6 @@
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
             <bean class="com.baoquan.shuxin.interceptor.TraceInterceptor"/>
-        </mvc:interceptor>
-        <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <mvc:exclude-mapping path="/user/**"/>
-            <bean class="com.baoquan.shuxin.facade.interceptor.AuthInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 

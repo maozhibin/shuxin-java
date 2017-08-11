@@ -27,5 +27,4 @@
 
     <import resource="jdbc.xml"/>
     <import resource="redis.xml"/>
-    <import resource="aop.xml"/>
 </beans>
