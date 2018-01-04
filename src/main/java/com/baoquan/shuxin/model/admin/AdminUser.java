@@ -6,14 +6,23 @@ package com.baoquan.shuxin.model.admin;
  */
 public class AdminUser {
     private Long id;
-    private String username;//账户
-    private String password;//密码
-    private String lastIp;//最近一次的IP地址
-    private Long lastTime;//最后一次登录时间
-    private Integer status;//0为账户不可用，1为可用
-    private Long dateline;//创建时间
+	private String username;// 账户
+	private String password;// 密码
+	private String lastIp;// 最近一次的IP地址
+	private Long lastTime;// 最后一次登录时间
+	private Integer status;// 0为账户不可用，1为可用
+	private Long dateline;// 创建时间
+	private Long angleId;
 
-    public Long getId() {
+	public Long getAngleId() {
+		return angleId;
+	}
+
+	public void setAngleId(Long angleId) {
+		this.angleId = angleId;
+	}
+
+	public Long getId() {
         return id;
     }
 

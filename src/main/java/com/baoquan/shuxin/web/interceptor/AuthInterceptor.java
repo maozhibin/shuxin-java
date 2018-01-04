@@ -20,9 +20,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.baoquan.shuxin.enums.DualEnum;
 import com.baoquan.shuxin.enums.DualStatusEnum;
 import com.baoquan.shuxin.model.admin.AdminMenu;
+import com.baoquan.shuxin.model.admin.AdminUser;
 import com.baoquan.shuxin.model.admin.AdminUserMenuPerm;
 import com.baoquan.shuxin.service.spi.admin.AdminMenuService;
 import com.baoquan.shuxin.service.spi.admin.AdminUserMenuPermService;
+import com.baoquan.shuxin.service.spi.admin.AdminUserService;
 import com.baoquan.shuxin.web.vo.auth.MenuVO;
 import com.google.common.collect.Lists;
 
@@ -37,6 +39,8 @@ public class AuthInterceptor implements HandlerInterceptor {
     private AdminUserMenuPermService adminUserMenuPermService;
     @Inject
     private AdminMenuService adminMenuService;
+	@Inject
+	private AdminUserService adminUserService;
 
     private Pattern uriPattern = Pattern.compile("(/\\w+)+");
 
@@ -49,13 +53,17 @@ public class AuthInterceptor implements HandlerInterceptor {
                 response.sendRedirect("/admin/loginPage");
                 return false;
             }
-            //对直接访问的路径鉴权
+			// 查询该用户是什么类型的权限
+			AdminUser adminUser = adminUserService.queryById(userId);
+			Long angleId = adminUser.getAngleId();
+
+			// 对直接访问的路径鉴权n
             String uri = request.getRequestURI();
-            if (!hasPerm(userId, uri)) {
+			if (!hasPerm(angleId, uri)) {
                 return false;
             }
 
-            //对请求来源页面间接鉴权
+			// 对请求来源页面间接鉴权
             //Referer: http://localhost:8080//admin/super/auth/list
             String referer = request.getHeader("Referer");
             if (StringUtils.isNotBlank(referer)) {
@@ -71,16 +79,14 @@ public class AuthInterceptor implements HandlerInterceptor {
         return true;
     }
 
-    private boolean hasPerm(Long userId, String uri) {
+	private boolean hasPerm(Long angleId, String uri) {
         Matcher matcher = uriPattern.matcher(uri);
         if (matcher.find()) {
             uri = matcher.group();
         }
         /*
-        不在配置中的uri
-        1.找最匹配上级，找到则以之为准
-        2.默认放过
-         */
+		 * 不在配置中的uri 1.找最匹配上级，找到则以之为准 2.默认放过
+		 */
         AdminMenu menu = adminMenuService.queryByUri(uri);
         if (menu == null) {
             int length = 0;
@@ -96,7 +102,7 @@ public class AuthInterceptor implements HandlerInterceptor {
         }
         if (menu != null) {
             do {
-                AdminUserMenuPerm userMenuPerm = adminUserMenuPermService.queryByUserMenuStatus(userId, menu.getId(),
+				AdminUserMenuPerm userMenuPerm = adminUserMenuPermService.queryByUserMenuStatus(angleId, menu.getId(),
                         DualStatusEnum.EFFECTIVE.getCode());
                 if (menu.getDisplay() == DualEnum.YES.getCode()) {
                     if (userMenuPerm == null || userMenuPerm.getPerm() == DualStatusEnum.INEFFECTIVE.getCode()) {
@@ -123,8 +129,11 @@ public class AuthInterceptor implements HandlerInterceptor {
             if (userId == null) {
                 return;
             }
+			// 查询该用户是什么类型的权限
+			AdminUser adminUser = adminUserService.queryById(userId);
+			Long angleId = adminUser.getAngleId();
             List<AdminUserMenuPerm> menuPermList = adminUserMenuPermService.listEffectiveByUser(
-                    Lists.newArrayList(userId));
+					Lists.newArrayList(angleId));
             List<AdminMenu> menuList = new ArrayList<>();
             for (AdminUserMenuPerm menuPerm : menuPermList) {
                 if (menuPerm.getPerm() > 0) {

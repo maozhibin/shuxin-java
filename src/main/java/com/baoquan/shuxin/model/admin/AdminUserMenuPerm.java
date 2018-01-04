@@ -3,7 +3,7 @@ package com.baoquan.shuxin.model.admin;
 public class AdminUserMenuPerm {
     private Long id;
 
-    private Long userId;
+	private Long angleId;
 
     private Long menuId;
 
@@ -21,15 +21,15 @@ public class AdminUserMenuPerm {
         this.id = id;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
+	public Long getAngleId() {
+		return angleId;
+	}
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
+	public void setAngleId(Long angleId) {
+		this.angleId = angleId;
+	}
 
-    public Long getMenuId() {
+	public Long getMenuId() {
         return menuId;
     }
 

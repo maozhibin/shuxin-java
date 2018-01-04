@@ -25,5 +25,6 @@ public interface AdminUserService {
 
     void addAdminUser(AdminUser adminUser);
 
-	void addAdminUserInfo(String userName, String password, String copyPassword);
+	// void addAdminUserInfo(String userName, String password, String
+	// copyPassword);
 }

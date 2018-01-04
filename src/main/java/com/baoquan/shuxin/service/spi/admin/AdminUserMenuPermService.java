@@ -10,13 +10,14 @@ import com.baoquan.shuxin.model.admin.AdminUserMenuPerm;
  * Created by yongj on 7/18/2017,
  */
 public interface AdminUserMenuPermService {
-    List<AdminUserMenuPerm> listEffectiveByUser(Collection<Long> userIds);
 
-    void resetUserMenuPerm(Long userId, Long[] menuIds);
-
-    Long removeAllPermByUser(Long userId);
-
-    int insertOrUpdate(AdminUserMenuPerm record);
-
-    AdminUserMenuPerm queryByUserMenuStatus(Long userId, Long menuId, Integer status);
+	List<AdminUserMenuPerm> listEffectiveByUser(Collection<Long> angleIds);
+	//
+	// void resetUserMenuPerm(Long userId, Long[] menuIds);
+	//
+	// Long removeAllPermByUser(Long userId);
+	//
+	// int insertOrUpdate(AdminUserMenuPerm record);
+	//
+	AdminUserMenuPerm queryByUserMenuStatus(Long angleId, Long menuId, Integer status);
 }

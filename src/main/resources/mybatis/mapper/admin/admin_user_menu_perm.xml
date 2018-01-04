@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.baoquan.shuxin.dao.admin.AdminUserMenuPermDao">
-    <select id="listEffectiveByUser" resultType="com.baoquan.shuxin.model.admin.AdminUserMenuPerm">
-        SELECT *
-        FROM admin_user_menu_perm
-        <where>
-            status = 1 and user_id in
-            <foreach collection="userIds" item="userId" open="(" separator="," close=")">
-                #{userId}
-            </foreach>
-        </where>
-    </select>
+   <!--  
     <update id="removeAllPermByUser">
         UPDATE admin_user_menu_perm
         SET perm = 0
@@ -21,11 +12,7 @@
         VALUES (#{userId},#{menuId},#{perm},#{status},#{dateline})
         on duplicate key update perm = #{perm}, status = #{status}
     </insert>
-    <select id="queryByUserMenuStatus" resultType="com.baoquan.shuxin.model.admin.AdminUserMenuPerm">
-        SELECT *
-        FROM admin_user_menu_perm
-        WHERE user_id = #{userId} and menu_id = #{menuId} and status = #{status}
-    </select>
+    
     
      <insert id="insertList" useGeneratedKeys="true" parameterType="java.util.List">  
 	    <selectKey resultType="long" keyProperty="id" order="AFTER">  
@@ -37,5 +24,22 @@
 	    <foreach collection="list" item="item" index="index" separator="," >  
 	        (#{item.userId},#{item.menuId},#{item.perm},#{item.status},#{item.dateline})  
 	    </foreach>  
-   </insert>
+   </insert> -->
+   
+   <select id="listEffectiveByUser" resultType="com.baoquan.shuxin.model.admin.AdminUserMenuPerm">
+        SELECT *
+        FROM admin_user_menu_perm
+        <where>
+            status = 1 and angle_id in
+            <foreach collection="angleIds" item="angleId" open="(" separator="," close=")">
+                #{angleId}
+            </foreach>
+        </where>
+    </select>
+    
+    <select id="queryByUserMenuStatus" resultType="com.baoquan.shuxin.model.admin.AdminUserMenuPerm">
+        SELECT *
+        FROM admin_user_menu_perm
+        WHERE angle_id = #{angleId} and menu_id = #{menuId} and status = #{status}
+    </select>
 </mapper>
